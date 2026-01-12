@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation With Piyush</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Video-style Accent Colors */
+        .text-accent {
+            color: #facc15;
+        }
+
+        .bg-card {
+            background-color: #252631;
+        }
+
+        .border-accent {
+            border-color: #facc15;
+        }
+
+        /* Smooth Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1b23;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+        }
+
+        /* Typewriter Cursor */
+        .typewriter-cursor::after {
+            content: "|";
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Project Card Hover Effects */
+        .project-card:hover .project-preview {
+            transform: scale(1.03);
+            border-color: #facc15;
+            box-shadow: 0 10px 30px -10px rgba(250, 204, 21, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="flex justify-between items-center px-8 py-8 max-w-7xl mx-auto" data-aos="fade-down">
+        <div class="flex items-center gap-3">
+            <img src="awp.png" alt="AutomationWithPiyush Logo" class="h-20 w-auto rounded-lg ">
+        </div>
+        <div class="hidden md:flex gap-10 text-gray-400 font-medium">
+            <a href="#services" class="hover:text-amber-400 transition">Services</a>
+            <a href="#works" class="hover:text-amber-400 transition">Works</a>
+            <a href="#contact" class="hover:text-amber-400 transition">Contact</a>
+        </div>
+    </nav>
+
+    <section class="max-w-7xl mx-auto px-8 pt-20 pb-32 grid lg:grid-cols-2 gap-16 items-center">
+        <div data-aos="fade-right">
+            <h1 class="text-7xl md:text-8xl font-bold leading-none mb-8">
+                Piyush<br><span class="text-gray-600">Baldaniya...</span>
+            </h1>
+            <div class="flex gap-6 mb-12">
+                <a href="https://www.linkedin.com/in/piyushbaldaniya/" target="_blank"
+                    class="text-gray-500 hover:text-amber-400 transition-all transform hover:scale-110"><i
+                        class="fab fa-linkedin-in text-2xl"></i></a>
+                <a href="https://github.com/AutomationWithPiyushhh" target="_blank"
+                    class="text-gray-500 hover:text-amber-400 transition-all transform hover:scale-110"><i
+                        class="fab fa-github text-2xl"></i></a>
+                <a href="https://www.youtube.com/@AutomationWithPiyush" target="_blank"
+                    class="text-gray-500 hover:text-amber-400 transition-all transform hover:scale-110"><i
+                        class="fab fa-youtube text-2xl"></i></a>
+            </div>
+        </div>
+
+        <div data-aos="fade-left" data-aos-delay="200">
+            <p class="text-amber-400 uppercase tracking-[0.3em] text-xs font-bold mb-4">— Introduction</p>
+            <h2 class="text-4xl font-semibold mb-6 leading-tight">
+                Teaching <span id="typewriter" class="typewriter-cursor text-white"></span>
+            </h2>
+            <p class="text-gray-400 text-lg mb-8 leading-relaxed max-w-md">
+                I help QA professionals transition to automation by mastering Java Selenium and architecting scalable
+                Hybrid Frameworks.
+            </p>
+            <a href="#works" class="inline-flex items-center gap-3 text-white font-bold group">
+                View My Frameworks
+                <span
+                    class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center group-hover:border-amber-400 transition-colors">
+                    <i class="fas fa-arrow-right text-amber-400 group-hover:translate-x-1 transition-transform"></i>
+                </span>
+            </a>
+        </div>
+    </section>
+
+    <section class="bg-[#1e1f29] py-20 border-y border-gray-800">
+        <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-3 gap-12 text-center">
+            <div data-aos="zoom-in" data-aos-delay="100">
+                <p class="text-6xl font-bold text-white mb-2">4.5+</p>
+                <p class="text-gray-500 uppercase text-sm tracking-widest">Years Experience</p>
+            </div>
+            <div data-aos="zoom-in" data-aos-delay="200">
+                <p class="text-6xl font-bold text-white mb-2">800+</p>
+                <p class="text-gray-500 uppercase text-sm tracking-widest">Students Taught</p>
+            </div>
+            <div data-aos="zoom-in" data-aos-delay="300">
+                <p class="text-6xl font-bold text-white mb-2">100%</p>
+                <p class="text-gray-500 uppercase text-sm tracking-widest">Framework Stability</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="max-w-7xl mx-auto px-8 py-32">
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-amber-400 p-12 rounded-sm text-black transition-all hover:-translate-y-3 duration-300"
+                data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-code text-4xl mb-12"></i>
+                <h3 class="text-2xl font-bold mb-4">Java Selenium</h3>
+                <p class="font-medium opacity-80">Master the core engine of web automation from basic locators to
+                    advanced sync.</p>
+            </div>
+            <div class="bg-card p-12 rounded-sm transition-all hover:-translate-y-3 duration-300 group"
+                data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-layer-group text-4xl mb-12 text-amber-400"></i>
+                <h3 class="text-2xl font-bold mb-4">Hybrid Framework</h3>
+                <p class="text-gray-400">Learn to build the "Gold Standard" architecture using POM, TestNG, and Apache
+                    POI.</p>
+            </div>
+            <div class="bg-card p-12 rounded-sm transition-all hover:-translate-y-3 duration-300 group"
+                data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-terminal text-4xl mb-12 text-amber-400"></i>
+                <h3 class="text-2xl font-bold mb-4">CI/CD & DevOps</h3>
+                <p class="text-gray-400">Integrate your test suites with Jenkins, Docker, and Maven for real-world
+                    pipelines.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="works" class="max-w-7xl mx-auto px-8 py-20 border-t border-gray-800">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div data-aos="fade-right">
+                <p class="text-gray-500 uppercase text-xs mb-4 tracking-widest">— Selected Portfolio</p>
+                <h3 class="text-5xl font-bold leading-tight">Automation Frameworks<br>& Case Studies.</h3>
+            </div>
+            <div data-aos="fade-left">
+                <a href="https://github.com/AutomationWithPiyushhh?tab=repositories" target="_blank"
+                    class="px-8 py-4 bg-white text-black font-bold hover:bg-amber-400 transition-colors duration-300">View
+                    All GitHub <i class="fab fa-github ml-2"></i></a>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12">
+            <div class="project-card group cursor-pointer" data-aos="fade-up"
+                onclick="window.location.href='project-vtiger.html'">
+                <div
+                    class="project-preview bg-card rounded-xl p-8 mb-6 border border-gray-800 group-hover:border-amber-400 transition-all duration-500">
+                    <div
+                        class="h-64 bg-[#1a1b23] rounded-lg p-6 font-mono text-sm text-green-400/80 overflow-hidden relative">
+                        <div class="absolute top-4 right-4 text-gray-700 text-xs">BaseClass.java</div>
+                        <p class="mb-2">public class vTigerFramework {</p>
+                        <p class="ml-4 text-amber-400">@Test</p>
+                        <p class="ml-4">public void createOrganization() {</p>
+                        <p class="ml-8 text-white">Pages.Org().execute(data);</p>
+                        <p class="ml-8 text-gray-500">// Modular POM Utility Engine</p>
+                        <p class="ml-4">}</p>
+                        <p>}</p>
+                        <div class="absolute bottom-4 right-6 opacity-20 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-rocket text-4xl text-amber-400"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h4 class="text-2xl font-bold group-hover:text-amber-400 transition-colors">vtiger CRM -
+                            Enterprise Framework</h4>
+                        <p class="text-gray-500 mt-2">Java • Selenium • POM • Listeners • Apache POI</p>
+                    </div>
+                    <i
+                        class="fas fa-arrow-right text-gray-600 group-hover:text-amber-400 group-hover:translate-x-2 transition-all"></i>
+                </div>
+            </div>
+
+            <div class="project-card group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                <div
+                    class="project-preview bg-card rounded-xl p-8 mb-6 border border-gray-800 group-hover:border-amber-400 transition-all duration-500">
+                    <div class="h-64 bg-[#1a1b23] rounded-lg p-6 flex flex-col justify-center items-center text-center">
+                        <i
+                            class="fas fa-network-wired text-6xl text-gray-800 mb-6 group-hover:text-amber-400/50 transition-colors"></i>
+                        <div class="flex gap-3 mb-4">
+                            <span class="bg-green-500/10 text-green-400 text-[10px] px-2 py-1 rounded">GET</span>
+                            <span class="bg-blue-500/10 text-blue-400 text-[10px] px-2 py-1 rounded">POST</span>
+                            <span class="bg-red-500/10 text-red-400 text-[10px] px-2 py-1 rounded">DELETE</span>
+                        </div>
+                        <p class="text-gray-500 text-sm italic">Scalable RestAssured Engine with Jackson Serialization
+                        </p>
+                    </div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h4 class="text-2xl font-bold group-hover:text-amber-400 transition-colors">REST API Testing
+                            Suite</h4>
+                        <p class="text-gray-500 mt-2">RestAssured • Maven • Jackson • Hamcrest</p>
+                    </div>
+                    <i class="fas fa-external-link-alt text-gray-600 group-hover:text-amber-400 transition-colors"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="py-24 border-t border-gray-800 text-center">
+        <p class="text-gray-600 mb-4 tracking-widest uppercase text-xs" data-aos="fade-in">Connect With Me</p>
+        <h2 class="text-4xl md:text-6xl font-bold mb-12" data-aos="fade-up">Let's build something robust.</h2>
+        <a href="mailto:autoamation.with.piyush@gmail.com"
+            class="text-amber-400 text-2xl font-bold border-b-4 border-amber-400 pb-2 hover:text-white hover:border-white transition-colors">autoamation.with.piyush@gmail.com</a>
+
+        <div class="flex justify-center gap-8 mt-16">
+            <a href="https://www.linkedin.com/in/piyushbaldaniya/" target="_blank"
+                class="text-gray-500 hover:text-white transition"><i class="fab fa-linkedin text-xl"></i></a>
+            <a href="https://github.com/AutomationWithPiyushhh" target="_blank"
+                class="text-gray-500 hover:text-white transition"><i class="fab fa-github text-xl"></i></a>
+            <a href="https://x.com/Just_Automaton" target="_blank" class="text-gray-500 hover:text-white transition"><i
+                    class="fab fa-twitter text-xl"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        const words = ["Automation Testing.", "Hybrid Frameworks.", "Java Selenium.", "SDET Skills."];
+        let i = 0;
+        let j = 0;
+        let currentWord = "";
+        let isDeleting = false;
+
+        function type() {
+            currentWord = words[i];
+            if (isDeleting) {
+                document.getElementById("typewriter").textContent = currentWord.substring(0, j - 1);
+                j--;
+                if (j == 0) {
+                    isDeleting = false;
+                    i = (i + 1) % words.length;
+                }
+            } else {
+                document.getElementById("typewriter").textContent = currentWord.substring(0, j + 1);
+                j++;
+                if (j == currentWord.length) {
+                    isDeleting = true;
+                    setTimeout(type, 2000);
+                    return;
+                }
+            }
+            setTimeout(type, isDeleting ? 50 : 150);
+        }
+        type();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vTiger CRM Automation | Project Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body { background-color: #1a1b23; color: #ffffff; font-family: 'Inter', sans-serif; }
+        .bg-card { background-color: #252631; }
+        .accent-amber { color: #facc15; }
+    </style>
+</head>
+<body>
+
+    <nav class="p-8 max-w-7xl mx-auto flex justify-between items-center">
+        <a href="index.html" class="text-gray-400 hover:text-white transition flex items-center gap-2">
+            <i class="fas fa-arrow-left"></i> Back to Portfolio
+        </a>
+        <div class="flex gap-4">
+            <a href="https://github.com/AutomationWithPiyushhh/crm-automation-framework" class="bg-white text-black px-6 py-2 rounded font-bold hover:bg-amber-400 transition">GitHub</a>
+        </div>
+    </nav>
+
+    <header class="max-w-5xl mx-auto px-8 py-20 text-center" data-aos="fade-up">
+        <p class="text-amber-400 uppercase tracking-widest text-sm mb-4 font-bold">Case Study: Enterprise Automation</p>
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">vTiger CRM Automation Framework</h1>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">A high-performance Industrial-Grade framework built for rapid, reliable, and scalable testing.</p>
+    </section>
+
+    <div class="max-w-5xl mx-auto px-8 flex flex-wrap justify-center gap-3 mb-20" data-aos="fade-up" data-aos-delay="100">
+        <span class="bg-gray-800 px-4 py-2 rounded-full text-sm border border-gray-700">Java</span>
+        <span class="bg-gray-800 px-4 py-2 rounded-full text-sm border border-gray-700">Selenium WebDriver</span>
+        <span class="bg-gray-800 px-4 py-2 rounded-full text-sm border border-gray-700">TestNG</span>
+        <span class="bg-gray-800 px-4 py-2 rounded-full text-sm border border-gray-700">Maven</span>
+        <span class="bg-gray-800 px-4 py-2 rounded-full text-sm border border-gray-700">Apache POI</span>
+    </div>
+
+    <main class="max-w-5xl mx-auto px-8 grid md:grid-cols-3 gap-12 pb-32">
+        
+        <div class="md:col-span-1" data-aos="fade-right">
+            <h3 class="text-xl font-bold mb-6 border-l-4 border-amber-400 pl-4">Architecture</h3>
+            <div class="bg-card p-6 rounded-lg font-mono text-xs text-gray-400 leading-relaxed">
+                <p class="text-amber-400">vtiger-crm-framework</p>
+                <p>├── src/main/java</p>
+                <p>│&nbsp;&nbsp;&nbsp;├── base_utility</p>
+                <p>│&nbsp;&nbsp;&nbsp;├── generic_utility</p>
+                <p>│&nbsp;&nbsp;&nbsp;└── object_repo</p>
+                <p>├── src/test/java</p>
+                <p>└── pom.xml</p>
+            </div>
+            <p class="mt-6 text-sm text-gray-500 italic">Modular Page Object Model (POM) structure for maximum maintainability.</p>
+        </div>
+
+        <div class="md:col-span-2 space-y-12" data-aos="fade-left">
+            
+            <section>
+                <h3 class="text-2xl font-bold mb-4">Framework Features</h3>
+                <ul class="grid grid-cols-1 gap-4">
+                    <li class="flex gap-3 items-start"><i class="fas fa-check-circle text-amber-400 mt-1"></i> <div><strong>Hybrid Framework:</strong> Combines Data-Driven and Keyword-Driven methodologies.</div></li>
+                    <li class="flex gap-3 items-start"><i class="fas fa-check-circle text-amber-400 mt-1"></i> <div><strong>Screenshot Capture:</strong> Automatic failure captures via TestNG Listeners.</div></li>
+                    <li class="flex gap-3 items-start"><i class="fas fa-check-circle text-amber-400 mt-1"></i> <div><strong>Parallel Execution:</strong> Reduces execution time with multi-browser support.</div></li>
+                    <li class="flex gap-3 items-start"><i class="fas fa-check-circle text-amber-400 mt-1"></i> <div><strong>Zero Hardcoding:</strong> 100% externalized data (.properties & .xlsx).</div></li>
+                </ul>
+            </section>
+
+            
+
+            <section>
+                <h3 class="text-2xl font-bold mb-4 text-white">Advanced Reporting</h3>
+                <p class="text-gray-400 mb-6">Execution provides detailed <strong>Extent Reports</strong> with step-by-step logs and embedded screenshots, located at:</p>
+                <code class="bg-black p-4 block rounded text-green-400">test-output/ExtentReport/index.html</code>
+            </section>
+
+            <section class="bg-amber-400 p-8 rounded text-black">
+                <h3 class="text-xl font-bold mb-2">Ready to test?</h3>
+                <p class="mb-4 font-medium">Clone this project to see the framework in action.</p>
+                <code class="bg-black/10 p-2 block rounded font-mono text-sm mb-4">git clone https://github.com/AutomationWithPiyushhh/crm-automation-framework.git</code>
+                <a href="https://github.com/AutomationWithPiyushhh/crm-automation-framework" class="font-bold border-b-2 border-black">View on GitHub →</a>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000, once: true });</script>
+</body>
+</html>
