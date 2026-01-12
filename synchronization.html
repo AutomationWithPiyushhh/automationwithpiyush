@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Lab | Synchronization Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .bg-card {
+            background-color: #252631;
+        }
+
+        .text-accent {
+            color: #facc15;
+        }
+
+        .lab-bg {
+            background-image: radial-gradient(#2d2e3d 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .lab-input {
+            background-color: #1a1b23;
+            border: 1px solid #3f3f46;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        /* Style for disabled inputs */
+        .lab-input:disabled {
+            background-color: #121217;
+            border-color: #27272a;
+            color: #52525b;
+            cursor: not-allowed;
+        }
+
+        .loader {
+            border: 2px solid #3f3f46;
+            border-top: 2px solid #facc15;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body class="lab-bg min-h-screen">
+
+    <nav class="p-6 md:p-8 max-w-7xl mx-auto w-full flex justify-between items-center" data-aos="fade-down">
+        <a href="index.html" class="hover:opacity-80 transition-opacity">
+
+        </a>
+        <a href="index.html" class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium">
+            <i class="fas fa-flask text-accent"></i> Exit Lab
+        </a>
+    </nav>
+
+    <header class="text-center py-10" data-aos="fade-up">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">Synchronization <span class="text-accent">Hub.</span></h1>
+        <p class="text-gray-400 max-w-2xl mx-auto">Master complex timing. Practice Implicit Wait and Explicit
+            Wait conditions for element state changes.</p>
+    </header>
+
+    <main class="max-w-[1400px] mx-auto px-6 pb-20 grid lg:grid-cols-2 gap-8">
+
+        <section class="flex flex-col h-full" data-aos="fade-right">
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-bold mb-2 text-white">Implicit <span class="text-accent">Wait.</span></h2>
+                <p class="text-sm text-gray-400">Poll the DOM. Button is removed and recreated.</p>
+            </div>
+            <div
+                class="bg-card flex-grow rounded-2xl border border-gray-800 p-10 flex flex-col items-center justify-center min-h-[400px]">
+                <div id="implicit-container">
+                    <button id="add" onclick="toggleImplicit('add')"
+                        class="px-10 py-4 bg-white text-black font-bold rounded-lg hover:bg-accent transition-all duration-300 shadow-xl">
+                        ADD
+                    </button>
+                </div>
+                <div id="implicit-status" class="mt-6 text-gray-500 text-xs italic hidden">
+                    <span class="loader mr-2"></span> Recreating element in DOM...
+                </div>
+            </div>
+        </section>
+
+        <section class="flex flex-col h-full" data-aos="fade-left">
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-bold mb-2 text-white">Waits <span class="text-accent">Demo.</span></h2>
+                <p class="text-sm text-gray-400">Elements are present but disabled. Enable after delay.
+                </p>
+            </div>
+            <div class="bg-card flex-grow rounded-2xl border border-gray-800 p-10 min-h-[400px]">
+                <div class="flex flex-wrap gap-4 justify-center mb-10">
+                    <button id="trigger1" onclick="enableInput(1, 5000)"
+                        class="bg-white text-black px-5 py-2 rounded-lg font-bold hover:bg-accent transition-all text-sm">
+                        Enable Box 1 (5s)
+                    </button>
+                    <button id="trigger2" onclick="enableInput(2, 10000)"
+                        class="bg-white text-black px-5 py-2 rounded-lg font-bold hover:bg-accent transition-all text-sm">
+                        Enable Box 2 (10s)
+                    </button>
+                </div>
+                <div class="space-y-6 flex flex-col items-center">
+                    <div class="w-full max-w-sm">
+                        <label class="text-xs text-gray-500 block mb-2 uppercase">Textbox 1 (id: target-1)</label>
+                        <input type="text" id="target-1" disabled
+                            class="lab-input w-full p-3 rounded-lg text-base outline-none">
+                    </div>
+                    <div class="w-full max-w-sm">
+                        <label class="text-xs text-gray-500 block mb-2 uppercase">Textbox 2 (id: target-2)</label>
+                        <input type="text" id="target-2" disabled
+                            class="lab-input w-full p-3 rounded-lg text-base outline-none">
+                    </div>
+                    <div id="explicit-status" class="hidden text-gray-500 text-xs italic">
+                        <span class="loader mr-2"></span> Changing element state...
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Implicit Logic: Completely removes/adds elements to the DOM
+        function toggleImplicit(type) {
+            const container = document.getElementById('implicit-container');
+            const status = document.getElementById('implicit-status');
+            container.innerHTML = '';
+            status.classList.remove('hidden');
+
+            setTimeout(() => {
+                status.classList.add('hidden');
+                if (type === 'add') {
+                    container.innerHTML = `<button id="remove" onclick="toggleImplicit('remove')" class="px-10 py-4 bg-red-500 text-white font-bold rounded-lg shadow-xl">REMOVE</button>`;
+                } else {
+                    container.innerHTML = `<button id="add" onclick="toggleImplicit('add')" class="px-10 py-4 bg-white text-black font-bold rounded-lg shadow-xl">ADD</button>`;
+                }
+            }, 4000);
+        }
+
+        // Explicit Logic: Element is in DOM but its 'disabled' property changes
+        function enableInput(num, delay) {
+            const status = document.getElementById('explicit-status');
+            const btn = document.getElementById('trigger' + num);
+            const input = document.getElementById('target-' + num);
+
+            status.classList.remove('hidden');
+            btn.disabled = true;
+            btn.style.opacity = "0.5";
+
+            setTimeout(() => {
+                input.disabled = false;
+                input.placeholder = "Now Enabled - You can type!";
+                input.classList.add('border-accent');
+                status.classList.add('hidden');
+            }, delay);
+        }
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000, once: true });</script>
+</body>
+
+</html>
