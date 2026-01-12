@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Lab | Login Practice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .bg-card {
+            background-color: #252631;
+        }
+
+        .text-accent {
+            color: #facc15;
+        }
+
+        .border-accent {
+            border-color: #facc15;
+        }
+
+        /* Laboratory Pattern Background */
+        .lab-bg {
+            background-image: radial-gradient(#2d2e3d 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* Custom Input Styling to match dark theme */
+        .lab-input {
+            background-color: #1a1b23;
+            border: 1px solid #3f3f46;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .lab-input:focus {
+            border-color: #facc15;
+            box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
+        }
+    </style>
+</head>
+
+<body class="lab-bg min-h-screen flex flex-col">
+
+    <nav class="p-6 md:p-8 max-w-7xl mx-auto w-full flex justify-between items-center" data-aos="fade-down">
+        <div class="flex items-center gap-3">
+            <a href="index.html" class="hover:opacity-80 transition-opacity">
+
+            </a>
+        </div>
+
+        <a href="index.html" class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium">
+            <i class="fas fa-flask text-accent"></i> Exit Lab
+        </a>
+    </nav>
+    <main class="flex-grow flex items-center justify-center px-6 py-12">
+        <div class="max-w-6xl w-full grid lg:grid-cols-2 gap-16 items-center">
+
+            <div data-aos="fade-right">
+                <img src="awp.png" alt="Logo" class="w-64 mb-8">
+                <h1 class="text-5xl font-bold mb-6">Automation <span class="text-accent">Lab.</span></h1>
+                <p class="text-gray-400 text-xl leading-relaxed">
+                    Test your scripts against real-world scenarios. Use the locators provided in the source to practice
+                    your <span class="text-white font-mono italic">By.id</span> and <span
+                        class="text-white font-mono italic">By.name</span> strategies.
+                </p>
+            </div>
+
+            <div class="bg-card rounded-2xl shadow-2xl p-8 md:p-10 border border-gray-800" data-aos="zoom-in"
+                data-aos-delay="200">
+                <form action="#" method="POST" class="space-y-6">
+                    <div>
+                        <input type="text" id="email" placeholder="Email address or phone number"
+                            class="lab-input w-full p-4 rounded-lg text-lg focus:outline-none outline-none">
+                    </div>
+                    <div>
+                        <input type="password" name="pass" placeholder="Password"
+                            class="lab-input w-full p-4 rounded-lg text-lg focus:outline-none outline-none">
+                    </div>
+                    <button type="submit" id="u_0_5_dynamic"
+                        class="w-full bg-white text-black text-xl font-bold py-3 rounded-lg hover:bg-accent transition-colors duration-300">
+                        Log in
+                    </button>
+
+                    <div class="text-center">
+                        <a href="#" class="text-accent hover:text-white transition-colors text-sm font-medium">Forgotten
+                            password?</a>
+                    </div>
+
+                    <hr class="border-gray-800">
+
+                    <div class="text-center pt-2">
+                        <button type="button"
+                            class="border border-accent text-accent font-bold px-6 py-3 rounded-lg hover:bg-white hover:text-black transition-all">
+                            Create new account
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-[#1e1f29] text-gray-500 py-10 px-6 border-t border-gray-800 mt-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-wrap gap-4 text-xs mb-6 border-b border-gray-800 pb-4">
+                <a href="#" class="hover:text-accent transition">English (UK)</a>
+                <a href="#" class="hover:text-accent transition">हिन्दी</a>
+                <a href="#" class="hover:text-accent transition">ਪੰਜਾਬੀ</a>
+                <a href="#" class="hover:text-accent transition">বাংলা</a>
+                <a href="#" class="hover:text-accent transition">ગુજરાતી</a>
+                <span class="bg-gray-800 px-2 rounded border border-gray-700 cursor-pointer">+</span>
+            </div>
+
+            <div class="flex flex-wrap gap-x-6 gap-y-2 text-xs">
+                <a href="#" class="hover:text-white transition">Sign Up</a>
+                <a href="#" class="hover:text-white transition">Log in</a>
+                <a href="#" class="hover:text-white transition">Messenger</a>
+                <a href="#" class="hover:text-white transition">Facebook Lite</a>
+                <a href="#" class="hover:text-white transition">Video</a>
+                <a href="#" class="text-accent font-bold">Automation Practice Area</a>
+                <a href="#" class="hover:text-white transition">Developers</a>
+                <a href="#" class="hover:text-white transition">Careers</a>
+                <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                <a href="#" class="text-white font-bold border-b border-accent">All Links For Locators Practice</a>
+            </div>
+            <p class="text-[10px] mt-8 text-gray-600 uppercase tracking-widest">© 2026 AutomationWithPiyush</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000, once: true });</script>
+</body>
+
+</html>
