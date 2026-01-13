@@ -65,6 +65,63 @@
                 transform: rotate(360deg);
             }
         }
+
+        /* Ball Fall Animation for REMOVE button */
+        @keyframes ballFall {
+            0% {
+                transform: translateY(-500px);
+                opacity: 0;
+            }
+
+            60% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            75% {
+                transform: translateY(-30px);
+            }
+
+            90% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fall {
+            animation: ballFall 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        }
+
+        /* Custom Checkbox Styling */
+        .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            background-color: #ffffff;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .custom-checkbox:checked {
+            background-color: #facc15;
+        }
+
+        .custom-checkbox:checked::after {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: #000;
+            font-size: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
 </head>
 
@@ -72,7 +129,6 @@
 
     <nav class="p-6 md:p-8 max-w-7xl mx-auto w-full flex justify-between items-center" data-aos="fade-down">
         <a href="index.html" class="hover:opacity-80 transition-opacity">
-
         </a>
         <a href="index.html" class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium">
             <i class="fas fa-flask text-accent"></i> Exit Lab
@@ -80,7 +136,7 @@
     </nav>
 
     <header class="text-center py-10" data-aos="fade-up">
-        <h1 class="text-4xl md:text-6xl font-bold mb-4">Synchronization <span class="text-accent">Hub.</span></h1>
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">Synchronization <span class="text-accent">Lab.</span></h1>
         <p class="text-gray-400 max-w-2xl mx-auto">Master complex timing. Practice Implicit Wait and Explicit
             Wait conditions for element state changes.</p>
     </header>
@@ -89,7 +145,7 @@
 
         <section class="flex flex-col h-full" data-aos="fade-right">
             <div class="text-center mb-6">
-                <h2 class="text-3xl font-bold mb-2 text-white">Implicit <span class="text-accent">Wait.</span></h2>
+                <h2 class="text-3xl font-bold mb-2 text-white">Global <span class="text-accent">Wait</span></h2>
                 <p class="text-sm text-gray-400">Poll the DOM. Button is removed and recreated.</p>
             </div>
             <div
@@ -108,29 +164,28 @@
 
         <section class="flex flex-col h-full" data-aos="fade-left">
             <div class="text-center mb-6">
-                <h2 class="text-3xl font-bold mb-2 text-white">Waits <span class="text-accent">Demo.</span></h2>
-                <p class="text-sm text-gray-400">Elements are present but disabled. Enable after delay.
-                </p>
+                <h2 class="text-3xl font-bold mb-2 text-white">Smart <span class="text-accent">wait</span></h2>
+                <p class="text-sm text-gray-400">Elements are present but disabled. Enable after delay.</p>
             </div>
             <div class="bg-card flex-grow rounded-2xl border border-gray-800 p-10 min-h-[400px]">
                 <div class="flex flex-wrap gap-4 justify-center mb-10">
                     <button id="trigger1" onclick="enableInput(1, 5000)"
                         class="bg-white text-black px-5 py-2 rounded-lg font-bold hover:bg-accent transition-all text-sm">
-                        Enable Box 1 (5s)
+                        Enable Box 1
                     </button>
                     <button id="trigger2" onclick="enableInput(2, 10000)"
                         class="bg-white text-black px-5 py-2 rounded-lg font-bold hover:bg-accent transition-all text-sm">
-                        Enable Box 2 (10s)
+                        Enable Box 2
                     </button>
                 </div>
                 <div class="space-y-6 flex flex-col items-center">
                     <div class="w-full max-w-sm">
-                        <label class="text-xs text-gray-500 block mb-2 uppercase">Textbox 1 (id: target-1)</label>
+                        <label class="text-xs text-gray-500 block mb-2 uppercase">Textbox 1</label>
                         <input type="text" id="target-1" disabled
                             class="lab-input w-full p-3 rounded-lg text-base outline-none">
                     </div>
                     <div class="w-full max-w-sm">
-                        <label class="text-xs text-gray-500 block mb-2 uppercase">Textbox 2 (id: target-2)</label>
+                        <label class="text-xs text-gray-500 block mb-2 uppercase">Textbox 2</label>
                         <input type="text" id="target-2" disabled
                             class="lab-input w-full p-3 rounded-lg text-base outline-none">
                     </div>
@@ -142,7 +197,37 @@
         </section>
     </main>
 
+    <footer class="bg-[#1e1f29] text-gray-500 py-10 px-6 border-t border-gray-800 mt-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-wrap gap-4 text-xs mb-6 border-b border-gray-800 pb-4">
+                <a href="#" class="hover:text-accent transition">English (UK)</a>
+                <a href="#" class="hover:text-accent transition">हिन्दी</a>
+                <a href="#" class="hover:text-accent transition">ਪੰਜਾਬੀ</a>
+                <a href="#" class="hover:text-accent transition">বাংলা</a>
+                <a href="#" class="hover:text-accent transition">ગુજરાતી</a>
+                <span class="bg-gray-800 px-2 rounded border border-gray-700 cursor-pointer">+</span>
+            </div>
+
+            <div class="flex flex-wrap gap-x-6 gap-y-2 text-xs">
+                <a href="#" class="hover:text-white transition">Sign Up</a>
+                <a href="#" class="hover:text-white transition">Log in</a>
+                <a href="#" class="hover:text-white transition">Messenger</a>
+                <a href="#" class="hover:text-white transition">Facebook Lite</a>
+                <a href="#" class="hover:text-white transition">Video</a>
+                <a href="#" class="text-accent font-bold">Automation Practice Area</a>
+                <a href="#" class="hover:text-white transition">Developers</a>
+                <a href="#" class="hover:text-white transition">Careers</a>
+                <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                <a href="#" class="text-white font-bold border-b border-accent">All Links For Locators Practice</a>
+            </div>
+            <p class="text-[10px] mt-8 text-gray-600 uppercase tracking-widest">© 2026 AutomationWithPiyush</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        AOS.init({ duration: 1000, once: true });
+
         // Implicit Logic: Completely removes/adds elements to the DOM
         function toggleImplicit(type) {
             const container = document.getElementById('implicit-container');
@@ -153,14 +238,15 @@
             setTimeout(() => {
                 status.classList.add('hidden');
                 if (type === 'add') {
-                    container.innerHTML = `<button id="remove" onclick="toggleImplicit('remove')" class="px-10 py-4 bg-red-500 text-white font-bold rounded-lg shadow-xl">REMOVE</button>`;
+                    // Added 'animate-fall' class for the falling effect
+                    container.innerHTML = `<button id="remove" onclick="toggleImplicit('remove')" class="px-10 py-4 bg-red-500 text-white font-bold rounded-lg shadow-xl animate-fall">REMOVE</button>`;
                 } else {
                     container.innerHTML = `<button id="add" onclick="toggleImplicit('add')" class="px-10 py-4 bg-white text-black font-bold rounded-lg shadow-xl">ADD</button>`;
                 }
             }, 4000);
         }
 
-        // Explicit Logic: Element is in DOM but its 'disabled' property changes
+        // Explicit Logic: Element is in DOM but state changes
         function enableInput(num, delay) {
             const status = document.getElementById('explicit-status');
             const btn = document.getElementById('trigger' + num);
@@ -173,13 +259,11 @@
             setTimeout(() => {
                 input.disabled = false;
                 input.placeholder = "Now Enabled - You can type!";
-                input.classList.add('border-accent');
+                input.classList.add('border-[#facc15]');
                 status.classList.add('hidden');
             }, delay);
         }
     </script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 1000, once: true });</script>
 </body>
 
 </html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automation Lab | Login Practice</title>
+    <title>Locators Lab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -26,8 +26,8 @@
             color: #facc15;
         }
 
-        .border-accent {
-            border-color: #facc15;
+        .bg-accent {
+            background-color: #facc15;
         }
 
         /* Laboratory Pattern Background */
@@ -36,17 +36,47 @@
             background-size: 30px 30px;
         }
 
-        /* Custom Input Styling to match dark theme */
+        /* Input Styling matching the image */
         .lab-input {
             background-color: #1a1b23;
-            border: 1px solid #3f3f46;
+            border: 1px solid #334155;
             color: white;
             transition: all 0.3s ease;
         }
 
         .lab-input:focus {
-            border-color: #facc15;
-            box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
+            border-color: #4f46e5;
+            /* Subtle blue focus */
+            outline: none;
+        }
+
+        /* Image-accurate Checkbox */
+        .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            background-color: #ffffff;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .custom-checkbox:checked {
+            background-color: #facc15;
+        }
+
+        .custom-checkbox:checked::after {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: #000;
+            font-size: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
@@ -55,56 +85,61 @@
 
     <nav class="p-6 md:p-8 max-w-7xl mx-auto w-full flex justify-between items-center" data-aos="fade-down">
         <div class="flex items-center gap-3">
-            <a href="index.html" class="hover:opacity-80 transition-opacity">
-
-            </a>
         </div>
 
         <a href="index.html" class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium">
             <i class="fas fa-flask text-accent"></i> Exit Lab
         </a>
     </nav>
+
     <main class="flex-grow flex items-center justify-center px-6 py-12">
         <div class="max-w-6xl w-full grid lg:grid-cols-2 gap-16 items-center">
 
             <div data-aos="fade-right">
                 <img src="awp.png" alt="Logo" class="w-64 mb-8">
-                <h1 class="text-5xl font-bold mb-6">Automation <span class="text-accent">Lab.</span></h1>
+                <h1 class="text-5xl font-bold mb-6">Locators <span class="text-accent">Lab.</span></h1>
                 <p class="text-gray-400 text-xl leading-relaxed">
                     Test your scripts against real-world scenarios. Use the locators provided in the source to practice
-                    your <span class="text-white font-mono italic">By.id</span> and <span
-                        class="text-white font-mono italic">By.name</span> strategies.
+                    your <span class="text-white font-mono italic">locator</span> strategies.
                 </p>
             </div>
 
-            <div class="bg-card rounded-2xl shadow-2xl p-8 md:p-10 border border-gray-800" data-aos="zoom-in"
+            <div class="bg-card rounded-xl shadow-2xl p-8 md:p-10 border border-gray-800" data-aos="zoom-in"
                 data-aos-delay="200">
                 <form action="#" method="POST" class="space-y-6">
-                    <div>
-                        <input type="text" id="email" placeholder="Email address or phone number"
-                            class="lab-input w-full p-4 rounded-lg text-lg focus:outline-none outline-none">
+
+                    <div class="space-y-2">
+                        <label class="text-gray-400 text-sm font-medium">Username or Email</label>
+                        <input type="text" id="email" name="email" placeholder="automation_with_piyush"
+                            class="lab-input w-full p-4 rounded-lg text-lg placeholder-gray-600">
                     </div>
-                    <div>
-                        <input type="password" name="pass" placeholder="Password"
-                            class="lab-input w-full p-4 rounded-lg text-lg focus:outline-none outline-none">
+
+                    <div class="space-y-2">
+                        <label class="text-gray-400 text-sm font-medium">Password</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="pass" placeholder="••••••••"
+                                class="lab-input w-full p-4 rounded-lg text-lg placeholder-gray-600 pr-12">
+                            <i class="fas fa-eye absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer hover:text-white"
+                                id="togglePass"></i>
+                        </div>
                     </div>
+
+                    <div class="flex items-center gap-3 py-2">
+                        <input type="checkbox" id="terms_checkbox" name="terms" class="custom-checkbox">
+                        <label for="terms_checkbox" class="text-gray-400 text-sm cursor-pointer select-none">
+                            I agree to the <span class="text-accent font-bold">Terms of Service</span> and <span
+                                class="text-accent font-bold">Privacy Policy</span>.
+                        </label>
+                    </div>
+
                     <button type="submit" id="u_0_5_dynamic"
-                        class="w-full bg-white text-black text-xl font-bold py-3 rounded-lg hover:bg-accent transition-colors duration-300">
-                        Log in
+                        class="w-full bg-accent text-black text-xl font-bold py-3 rounded-lg hover:bg-white transition-all duration-300 flex items-center justify-center gap-2">
+                        Log In <i class="fas fa-sign-in-alt"></i>
                     </button>
 
-                    <div class="text-center">
-                        <a href="#" class="text-accent hover:text-white transition-colors text-sm font-medium">Forgotten
-                            password?</a>
-                    </div>
-
-                    <hr class="border-gray-800">
-
-                    <div class="text-center pt-2">
-                        <button type="button"
-                            class="border border-accent text-accent font-bold px-6 py-3 rounded-lg hover:bg-white hover:text-black transition-all">
-                            Create new account
-                        </button>
+                    <div class="mt-8 pt-6 border-t border-gray-800 text-center">
+                        <p class="text-gray-500">Don't have an account? <a href="#"
+                                class="text-accent font-bold hover:underline">Create account</a></p>
                     </div>
                 </form>
             </div>
@@ -125,9 +160,9 @@
             <div class="flex flex-wrap gap-x-6 gap-y-2 text-xs">
                 <a href="#" class="hover:text-white transition">Sign Up</a>
                 <a href="#" class="hover:text-white transition">Log in</a>
-                <a href="#" class="hover:text-white transition">Messenger</a>
-                <a href="#" class="hover:text-white transition">Facebook Lite</a>
-                <a href="#" class="hover:text-white transition">Video</a>
+                <a href="#" class="hover:text-white transition">About</a>
+                <a href="#" class="hover:text-white transition">Blog</a>
+                <a href="#" class="hover:text-white transition">Jobs</a>
                 <a href="#" class="text-accent font-bold">Automation Practice Area</a>
                 <a href="#" class="hover:text-white transition">Developers</a>
                 <a href="#" class="hover:text-white transition">Careers</a>
@@ -139,7 +174,30 @@
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 1000, once: true });</script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Password Visibility Toggle
+        const togglePass = document.getElementById('togglePass');
+        const passInput = document.getElementById('password');
+        togglePass.addEventListener('click', () => {
+            const type = passInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passInput.setAttribute('type', type);
+            togglePass.classList.toggle('fa-eye');
+            togglePass.classList.toggle('fa-eye-slash');
+        });
+
+        // Form Submission Logic
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const isChecked = document.getElementById('terms_checkbox').checked;
+            if (!isChecked) {
+                alert("Validation Failed: You must accept the terms!");
+            } else {
+                alert("Success: Logged in to the Laboratory!");
+            }
+        });
+    </script>
 </body>
 
 </html>
