@@ -38,14 +38,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Style for disabled inputs */
-        .lab-input:disabled {
-            background-color: #121217;
-            border-color: #27272a;
-            color: #52525b;
-            cursor: not-allowed;
-        }
-
         .loader {
             border: 2px solid #3f3f46;
             border-top: 2px solid #facc15;
@@ -57,10 +49,6 @@
         }
 
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
             100% {
                 transform: rotate(360deg);
             }
@@ -94,34 +82,6 @@
         .animate-fall {
             animation: ballFall 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
         }
-
-        /* Custom Checkbox Styling */
-        .custom-checkbox {
-            appearance: none;
-            -webkit-appearance: none;
-            height: 18px;
-            width: 18px;
-            background-color: #ffffff;
-            border-radius: 2px;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .custom-checkbox:checked {
-            background-color: #facc15;
-        }
-
-        .custom-checkbox:checked::after {
-            content: "\f00c";
-            font-family: "Font Awesome 5 Free";
-            font-weight: 900;
-            color: #000;
-            font-size: 10px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
     </style>
 </head>
 
@@ -129,16 +89,16 @@
 
     <nav class="p-6 md:p-8 max-w-7xl mx-auto w-full flex justify-between items-center" data-aos="fade-down">
         <a href="index.html" class="hover:opacity-80 transition-opacity">
+
         </a>
-        <a href="index.html" class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium">
+        <a href="#" class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium">
             <i class="fas fa-flask text-accent"></i> Exit Lab
         </a>
     </nav>
 
     <header class="text-center py-10" data-aos="fade-up">
         <h1 class="text-4xl md:text-6xl font-bold mb-4">Synchronization <span class="text-accent">Lab.</span></h1>
-        <p class="text-gray-400 max-w-2xl mx-auto">Master complex timing. Practice Implicit Wait and Explicit
-            Wait conditions for element state changes.</p>
+        <p class="text-gray-400 max-w-2xl mx-auto">Practice handling dynamic DOM changes and state transitions.</p>
     </header>
 
     <main class="max-w-[1400px] mx-auto px-6 pb-20 grid lg:grid-cols-2 gap-8">
@@ -146,16 +106,23 @@
         <section class="flex flex-col h-full" data-aos="fade-right">
             <div class="text-center mb-6">
                 <h2 class="text-3xl font-bold mb-2 text-white">Global <span class="text-accent">Wait</span></h2>
-                <p class="text-sm text-gray-400">Poll the DOM. Button is removed and recreated.</p>
+                <p class="text-sm text-gray-400">Button is destroyed and recreated after 4 seconds.</p>
             </div>
+
             <div
                 class="bg-card flex-grow rounded-2xl border border-gray-800 p-10 flex flex-col items-center justify-center min-h-[400px]">
+
+                <div id="action-message"
+                    class="h-8 text-accent font-bold mb-4 opacity-0 transition-all duration-500 transform translate-y-4">
+                </div>
+
                 <div id="implicit-container">
                     <button id="add" onclick="toggleImplicit('add')"
                         class="px-10 py-4 bg-white text-black font-bold rounded-lg hover:bg-accent transition-all duration-300 shadow-xl">
                         ADD
                     </button>
                 </div>
+
                 <div id="implicit-status" class="mt-6 text-gray-500 text-xs italic hidden">
                     <span class="loader mr-2"></span> Recreating element in DOM...
                 </div>
@@ -164,8 +131,8 @@
 
         <section class="flex flex-col h-full" data-aos="fade-left">
             <div class="text-center mb-6">
-                <h2 class="text-3xl font-bold mb-2 text-white">Smart <span class="text-accent">wait</span></h2>
-                <p class="text-sm text-gray-400">Elements are present but disabled. Enable after delay.</p>
+                <h2 class="text-3xl font-bold mb-2 text-white">Smart <span class="text-accent">Wait</span></h2>
+                <p class="text-sm text-gray-400">Elements are present but disabled. Practice Explicit Waits.</p>
             </div>
             <div class="bg-card flex-grow rounded-2xl border border-gray-800 p-10 min-h-[400px]">
                 <div class="flex flex-wrap gap-4 justify-center mb-10">
@@ -180,12 +147,12 @@
                 </div>
                 <div class="space-y-6 flex flex-col items-center">
                     <div class="w-full max-w-sm">
-                        <label class="text-xs text-gray-500 block mb-2 uppercase">Textbox 1</label>
+                        <label class="text-xs text-gray-500 block mb-2 uppercase">Textbox 1 (5s delay)</label>
                         <input type="text" id="target-1" disabled
                             class="lab-input w-full p-3 rounded-lg text-base outline-none">
                     </div>
                     <div class="w-full max-w-sm">
-                        <label class="text-xs text-gray-500 block mb-2 uppercase">Textbox 2</label>
+                        <label class="text-xs text-gray-500 block mb-2 uppercase">Textbox 2 (10s delay)</label>
                         <input type="text" id="target-2" disabled
                             class="lab-input w-full p-3 rounded-lg text-base outline-none">
                     </div>
@@ -197,48 +164,34 @@
         </section>
     </main>
 
-    <footer class="bg-[#1e1f29] text-gray-500 py-10 px-6 border-t border-gray-800 mt-12">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-wrap gap-4 text-xs mb-6 border-b border-gray-800 pb-4">
-                <a href="#" class="hover:text-accent transition">English (UK)</a>
-                <a href="#" class="hover:text-accent transition">हिन्दी</a>
-                <a href="#" class="hover:text-accent transition">ਪੰਜਾਬੀ</a>
-                <a href="#" class="hover:text-accent transition">বাংলা</a>
-                <a href="#" class="hover:text-accent transition">ગુજરાતી</a>
-                <span class="bg-gray-800 px-2 rounded border border-gray-700 cursor-pointer">+</span>
-            </div>
-
-            <div class="flex flex-wrap gap-x-6 gap-y-2 text-xs">
-                <a href="#" class="hover:text-white transition">Sign Up</a>
-                <a href="#" class="hover:text-white transition">Log in</a>
-                <a href="#" class="hover:text-white transition">Messenger</a>
-                <a href="#" class="hover:text-white transition">Facebook Lite</a>
-                <a href="#" class="hover:text-white transition">Video</a>
-                <a href="#" class="text-accent font-bold">Automation Practice Area</a>
-                <a href="#" class="hover:text-white transition">Developers</a>
-                <a href="#" class="hover:text-white transition">Careers</a>
-                <a href="#" class="hover:text-white transition">Privacy Policy</a>
-                <a href="#" class="text-white font-bold border-b border-accent">All Links For Locators Practice</a>
-            </div>
-            <p class="text-[10px] mt-8 text-gray-600 uppercase tracking-widest">© 2026 AutomationWithPiyush</p>
-        </div>
-    </footer>
-
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // Implicit Logic: Completely removes/adds elements to the DOM
         function toggleImplicit(type) {
             const container = document.getElementById('implicit-container');
             const status = document.getElementById('implicit-status');
+            const message = document.getElementById('action-message');
+
+            // 1. Trigger the Animated Notification Message
+            message.innerText = (type === 'add') ? "Clicked on ADD" : "Clicked on REMOVE";
+            message.classList.remove('opacity-0', 'translate-y-4');
+            message.classList.add('opacity-100', 'translate-y-0');
+
+            // Hide message after 2 seconds
+            setTimeout(() => {
+                message.classList.add('opacity-0', 'translate-y-4');
+                message.classList.remove('opacity-100', 'translate-y-0');
+            }, 2000);
+
+            // 2. Clear DOM and show loader
             container.innerHTML = '';
             status.classList.remove('hidden');
 
+            // 3. Re-create element after 4 seconds (Simulating slow network/server)
             setTimeout(() => {
                 status.classList.add('hidden');
                 if (type === 'add') {
-                    // Added 'animate-fall' class for the falling effect
                     container.innerHTML = `<button id="remove" onclick="toggleImplicit('remove')" class="px-10 py-4 bg-red-500 text-white font-bold rounded-lg shadow-xl animate-fall">REMOVE</button>`;
                 } else {
                     container.innerHTML = `<button id="add" onclick="toggleImplicit('add')" class="px-10 py-4 bg-white text-black font-bold rounded-lg shadow-xl">ADD</button>`;
@@ -246,7 +199,6 @@
             }, 4000);
         }
 
-        // Explicit Logic: Element is in DOM but state changes
         function enableInput(num, delay) {
             const status = document.getElementById('explicit-status');
             const btn = document.getElementById('trigger' + num);
@@ -258,7 +210,7 @@
 
             setTimeout(() => {
                 input.disabled = false;
-                input.placeholder = "Now Enabled - You can type!";
+                input.placeholder = "Now Enabled!";
                 input.classList.add('border-[#facc15]');
                 status.classList.add('hidden');
             }, delay);
