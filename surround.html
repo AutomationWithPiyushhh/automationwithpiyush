@@ -35,17 +35,17 @@
             background-color: #facc15;
         }
 
-        /* The "Poll" container to force traversal */
         .poll-option-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 12px;
             border-bottom: 1px solid #334155;
+            transition: background 0.3s;
         }
 
-        .poll-option-row:last-child {
-            border-bottom: none;
+        .poll-option-row:hover {
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .independent-label {
@@ -59,14 +59,29 @@
             height: 20px;
             cursor: pointer;
         }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-text {
+            animation: slideUp 0.5s ease-out forwards;
+        }
     </style>
 </head>
 
 <body class="lab-bg min-h-screen flex flex-col">
 
     <nav class="p-6 max-w-7xl mx-auto w-full flex justify-between items-center" data-aos="fade-down">
-        <div class="flex items-center gap-3">
-        </div>
+        <div></div>
         <a href="index.html" class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium">
             <i class="fas fa-flask text-accent"></i> Exit Lab
         </a>
@@ -78,14 +93,49 @@
             <div data-aos="fade-right">
                 <h1 class="text-4xl font-bold mb-6">XPath <span class="text-accent">Axes Lab.</span></h1>
                 <p class="text-gray-400 mb-4 italic">"Traverse the DOM like a pro."</p>
-                <div class="bg-black/30 p-4 rounded-lg border border-yellow-500/30 text-sm font-mono leading-relaxed">
-                    <!-- <p class="text-blue-400">// Independent Element (The Label)</p>
-                    <p class="text-white">//label[text()='Excellent']</p>
-                    <p class="text-red-400">/parent::div (Red Arrow Up)</p>
-                    <p class="text-blue-400">/descendant::input (Blue Arrow Down)</p> -->
+
+                <div
+                    class="bg-black/40 p-6 rounded-xl border border-yellow-500/30 font-mono text-sm h-52 flex flex-col justify-center overflow-hidden relative">
+                    <div id="xpath-display" class="space-y-2"></div>
+                    <div class="absolute bottom-0 left-0 h-1 bg-accent/20 w-full">
+                        <div id="progress-bar" class="h-full bg-accent transition-all duration-[3000ms] linear"
+                            style="width: 0%"></div>
+                    </div>
                 </div>
+
                 <p class="mt-6 text-gray-500 text-sm">Use the poll to the right to practice finding the radio button
                     based on its text label.</p>
+
+                <div class="mt-8">
+                    <button onclick="toggleHint()"
+                        class="bg-transparent border border-accent text-accent px-6 py-2 rounded-lg font-bold hover:bg-accent hover:text-black transition-all flex items-center gap-2">
+                        <i class="fas fa-lightbulb"></i> SHOW HINT
+                    </button>
+                    <div id="hint-content"
+                        class="hidden mt-4 p-4 bg-gray-800/80 border-l-4 border-accent rounded-r-lg animate-text">
+                        <ul class="text-xs text-gray-300 space-y-4">
+                            <li>
+                                <span class="text-accent font-bold">1. Find the dependent and independent
+                                    elements</span><br>
+                                <span class="italic text-gray-400 text-[10px]">dependent = duplicate = desired</span>
+                            </li>
+                            <li>
+                                <span class="text-accent font-bold">2. Write the xpath for independent
+                                    element</span><br>
+                                <code class="text-blue-400 bg-black/30 px-1">//label[text()='Expert']</code>
+                            </li>
+                            <li>
+                                <span class="text-accent font-bold">3. Go to common parent of ind & dep
+                                    elements</span><br>
+                                <code class="text-red-400 bg-black/30 px-1">//label[text()='Expert']/..</code>
+                            </li>
+                            <li>
+                                <span class="text-accent font-bold">4. Come back to desired element</span><br>
+                                <code class="text-green-400 bg-black/30 px-1">//label[text()='Expert']/..//input</code>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <div class="bg-card rounded-lg shadow-2xl overflow-hidden border border-gray-700" data-aos="zoom-in">
@@ -98,17 +148,17 @@
 
                     <div id="poll-container" class="space-y-2">
                         <div class="poll-option-row">
-                            <span class="independent-label">Expert</span>
+                            <label class="independent-label">Expert</label>
                             <input type="radio" name="skill-poll" class="dependent-input">
                         </div>
 
                         <div class="poll-option-row">
-                            <span class="independent-label">Proficient</span>
+                            <label class="independent-label">Proficient</label>
                             <input type="radio" name="skill-poll" class="dependent-input">
                         </div>
 
                         <div class="poll-option-row">
-                            <span class="independent-label">Beginner</span>
+                            <label class="independent-label">Beginner</label>
                             <input type="radio" name="skill-poll" class="dependent-input">
                         </div>
                     </div>
@@ -129,7 +179,54 @@
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 1000, once: true });</script>
+    <script>
+        AOS.init({ duration: 1500, once: true });
+
+        // Updated Examples focusing on Axis Syntax
+        const examples = [
+            { axis: "following-sibling", code: "//tag/following-sibling::tag", desc: "Selects siblings after the current node" },
+            { axis: "preceding-sibling", code: "//tag/preceding-sibling::tag", desc: "Selects siblings before the current node" },
+            { axis: "ancestor", code: "//tag/ancestor::tag", desc: "Selects all ancestors (parent, grandparent, etc.)" },
+            { axis: "descendant", code: "//tag/descendant::tag", desc: "Selects all descendants (children, grandchildren, etc.)" },
+            { axis: "parent", code: "//tag/parent::tag", desc: "Selects the immediate parent" },
+            { axis: "child", code: "//tag/child::tag", desc: "Selects the immediate children" },
+            { axis: "Syntax", code: "//tag-name/axis-name::tag-name", desc: "The standard XPath Axis formula" }
+        ];
+
+        let index = 0;
+        function updateTerminal() {
+            const display = document.getElementById('xpath-display');
+            const progress = document.getElementById('progress-bar');
+            const item = examples[index];
+
+            progress.style.transition = 'none';
+            progress.style.width = '0%';
+
+            setTimeout(() => {
+                progress.style.transition = 'width 3000ms linear';
+                progress.style.width = '100%';
+            }, 50);
+
+            display.innerHTML = `
+                <div class="animate-text">
+                    <p class="text-accent text-[10px] uppercase font-bold tracking-widest mb-1">AXIS: ${item.axis}</p>
+                    <div class="bg-black/20 p-2 rounded border-l-2 border-accent mb-2">
+                        <p class="text-white text-base font-bold font-mono">${item.code}</p>
+                    </div>
+                    <p class="text-gray-500 text-xs italic">// ${item.desc}</p>
+                </div>
+            `;
+            index = (index + 1) % examples.length;
+        }
+
+        function toggleHint() {
+            const hint = document.getElementById('hint-content');
+            hint.classList.toggle('hidden');
+        }
+
+        setInterval(updateTerminal, 3000);
+        updateTerminal();
+    </script>
 </body>
 
 </html>
