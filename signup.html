@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Locators Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .lab-bg {
+            background-image: radial-gradient(#2d2e3d 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .bg-card {
+            background-color: #252631;
+            border: 1px solid #334155;
+        }
+
+        .lab-input {
+            background-color: #1a1b23;
+            border: 1px solid #334155;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .lab-input:focus {
+            border-color: #facc15;
+            outline: none;
+        }
+
+        .text-accent {
+            color: #facc15;
+        }
+
+        .bg-accent {
+            background-color: #facc15;
+        }
+
+        select {
+            color-scheme: dark;
+        }
+    </style>
+</head>
+
+<body class="lab-bg min-h-screen flex flex-col">
+
+    <nav class="p-6 md:p-8 max-w-7xl mx-auto w-full flex justify-between items-center" data-aos="fade-down">
+        <div class="flex items-center gap-3">
+
+        </div>
+        <a href="index.html" class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium">
+            <i class="fas fa-flask text-accent"></i> Exit Lab
+        </a>
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center px-6 py-12">
+        <div class="max-w-md w-full bg-card rounded-xl shadow-2xl p-8 border border-gray-800" data-aos="zoom-in">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold">Create a <span class="text-accent">new account</span></h1>
+                <p class="text-gray-400">It's quick and easy.</p>
+            </div>
+
+            <form id="signUpForm" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" name="firstname" placeholder="First name"
+                        class="lab-input w-full p-3 rounded-lg text-sm">
+                    <input type="text" name="lastname" placeholder="Surname"
+                        class="lab-input w-full p-3 rounded-lg text-sm">
+                </div>
+
+                <div class="space-y-1">
+                    <label class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Date of birth</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <select id="day" name="birthday_day" class="lab-input p-2 rounded-lg text-sm"></select>
+                        <select id="month" name="birthday_month" class="lab-input p-2 rounded-lg text-sm"></select>
+                        <select id="year" name="birthday_year" class="lab-input p-2 rounded-lg text-sm"></select>
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Gender</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <label
+                            class="lab-input p-2 rounded-lg flex justify-between items-center cursor-pointer text-sm">
+                            Female <input type="radio" name="sex" value="1" class="accent-yellow-400">
+                        </label>
+                        <label
+                            class="lab-input p-2 rounded-lg flex justify-between items-center cursor-pointer text-sm">
+                            Male <input type="radio" name="sex" value="2" class="accent-yellow-400">
+                        </label>
+                        <label
+                            class="lab-input p-2 rounded-lg flex justify-between items-center cursor-pointer text-sm">
+                            Custom <input type="radio" name="sex" value="-1" class="accent-yellow-400">
+                        </label>
+                    </div>
+                </div>
+
+                <input type="text" name="reg_email__" placeholder="Mobile number or email address"
+                    class="lab-input w-full p-3 rounded-lg text-sm">
+                <input type="password" name="reg_passwd__" placeholder="New password"
+                    class="lab-input w-full p-3 rounded-lg text-sm">
+
+                <p class="text-[10px] text-gray-500 leading-tight">
+                    By clicking Sign Up, you agree to our <span class="text-accent">Terms</span>, <span
+                        class="text-accent">Privacy Policy</span> and <span class="text-accent">Cookies Policy</span>.
+                </p>
+
+                <button type="submit"
+                    class="w-full bg-accent text-black font-bold py-3 rounded-lg hover:bg-white transition-all text-lg shadow-lg">
+                    Sign Up
+                </button>
+
+                <div class="text-center pt-4 border-t border-gray-800 mt-4">
+                    <a href="index.html" class="text-accent text-sm font-bold hover:underline">Already have an
+                        account?</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-[#1e1f29] text-gray-500 py-10 px-6 border-t border-gray-800 mt-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-wrap gap-x-6 gap-y-2 text-xs">
+                <a href="#" class="hover:text-white transition">Sign Up</a>
+                <a href="#" class="hover:text-white transition">Log in</a>
+                <a href="#" class="hover:text-white transition">Messenger</a>
+                <a href="#" class="hover:text-white transition">Facebook Lite</a>
+                <a href="#" class="hover:text-white transition">Video</a>
+                <a href="#" class="text-accent font-bold">Automation Practice Area</a>
+                <a href="#" class="hover:text-white transition">Developers</a>
+                <a href="#" class="hover:text-white transition">Careers</a>
+                <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                <a href="#" class="text-white font-bold border-b border-accent">All Links For Locators Practice</a>
+            </div>
+            <p class="text-[10px] mt-8 text-gray-600 uppercase tracking-widest">© 2026 AutomationWithPiyush</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Populate Dropdowns
+        const days = document.getElementById('day');
+        const months = document.getElementById('month');
+        const years = document.getElementById('year');
+
+        for (let i = 1; i <= 31; i++) days.innerHTML += `<option value="${i}">${i}</option>`;
+        ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].forEach(m => {
+            months.innerHTML += `<option value="${m}">${m}</option>`;
+        });
+        for (let i = 2026; i >= 1905; i--) years.innerHTML += `<option value="${i}">${i}</option>`;
+    </script>
+</body>
+
+</html>

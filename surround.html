@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XPath Lab | Independent & Dependent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .lab-bg {
+            background-image: radial-gradient(#2d2e3d 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .bg-card {
+            background-color: #252631;
+            border: 1px solid #334155;
+        }
+
+        .text-accent {
+            color: #facc15;
+        }
+
+        .bg-accent {
+            background-color: #facc15;
+        }
+
+        /* The "Poll" container to force traversal */
+        .poll-option-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid #334155;
+        }
+
+        .poll-option-row:last-child {
+            border-bottom: none;
+        }
+
+        .independent-label {
+            font-weight: 600;
+            color: #facc15;
+        }
+
+        .dependent-input {
+            accent-color: #facc15;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class="lab-bg min-h-screen flex flex-col">
+
+    <nav class="p-6 max-w-7xl mx-auto w-full flex justify-between items-center" data-aos="fade-down">
+        <div class="flex items-center gap-3">
+        </div>
+        <a href="index.html" class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium">
+            <i class="fas fa-flask text-accent"></i> Exit Lab
+        </a>
+    </nav>
+
+    <main class="flex-grow flex flex-col items-center justify-center px-6 py-12">
+        <div class="max-w-4xl w-full grid lg:grid-cols-2 gap-12 items-start">
+
+            <div data-aos="fade-right">
+                <h1 class="text-4xl font-bold mb-6">XPath <span class="text-accent">Axes Lab.</span></h1>
+                <p class="text-gray-400 mb-4 italic">"Traverse the DOM like a pro."</p>
+                <div class="bg-black/30 p-4 rounded-lg border border-yellow-500/30 text-sm font-mono leading-relaxed">
+                    <!-- <p class="text-blue-400">// Independent Element (The Label)</p>
+                    <p class="text-white">//label[text()='Excellent']</p>
+                    <p class="text-red-400">/parent::div (Red Arrow Up)</p>
+                    <p class="text-blue-400">/descendant::input (Blue Arrow Down)</p> -->
+                </div>
+                <p class="mt-6 text-gray-500 text-sm">Use the poll to the right to practice finding the radio button
+                    based on its text label.</p>
+            </div>
+
+            <div class="bg-card rounded-lg shadow-2xl overflow-hidden border border-gray-700" data-aos="zoom-in">
+                <div class="bg-gray-800/50 p-4 border-b border-gray-700">
+                    <h2 class="text-xs uppercase tracking-widest font-bold text-gray-400">Community Poll</h2>
+                </div>
+
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-6">How would you rate your Java - Selenium skills?</h3>
+
+                    <div id="poll-container" class="space-y-2">
+                        <div class="poll-option-row">
+                            <span class="independent-label">Expert</span>
+                            <input type="radio" name="skill-poll" class="dependent-input">
+                        </div>
+
+                        <div class="poll-option-row">
+                            <span class="independent-label">Proficient</span>
+                            <input type="radio" name="skill-poll" class="dependent-input">
+                        </div>
+
+                        <div class="poll-option-row">
+                            <span class="independent-label">Beginner</span>
+                            <input type="radio" name="skill-poll" class="dependent-input">
+                        </div>
+                    </div>
+
+                    <button
+                        class="mt-8 w-full bg-accent text-black font-bold py-3 rounded hover:bg-white transition-all uppercase tracking-widest text-sm">
+                        Vote
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="py-10 text-center border-t border-gray-800 mt-12">
+        <p class="text-[10px] text-gray-600 uppercase tracking-widest">© 2026 AutomationWithPiyush | XPath Traversal Lab
+        </p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000, once: true });</script>
+</body>
+
+</html>
