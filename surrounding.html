@@ -51,6 +51,7 @@
         .independent-label {
             font-weight: 600;
             color: #facc15;
+            cursor: pointer;
         }
 
         .dependent-input {
@@ -81,7 +82,9 @@
 <body class="lab-bg min-h-screen flex flex-col">
 
     <nav class="p-6 max-w-7xl mx-auto w-full flex justify-between items-center" data-aos="fade-down">
-        <div></div>
+        <div class="flex items-center gap-3">
+
+        </div>
         <a href="index.html" class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium">
             <i class="fas fa-flask text-accent"></i> Exit Lab
         </a>
@@ -109,7 +112,7 @@
                 <div class="mt-8">
                     <button onclick="toggleHint()"
                         class="bg-transparent border border-accent text-accent px-6 py-2 rounded-lg font-bold hover:bg-accent hover:text-black transition-all flex items-center gap-2">
-                        <i class="fas fa-lightbulb"></i> SHOW HINT
+                        <i class="fas fa-lightbulb"></i> SHOW HINTS
                     </button>
                     <div id="hint-content"
                         class="hidden mt-4 p-4 bg-gray-800/80 border-l-4 border-accent rounded-r-lg animate-text">
@@ -148,25 +151,30 @@
 
                     <div id="poll-container" class="space-y-2">
                         <div class="poll-option-row">
-                            <label class="independent-label">Expert</label>
-                            <input type="radio" name="skill-poll" class="dependent-input">
+                            <label class="independent-label" for="expert_radio">Expert</label>
+                            <input type="radio" id="expert_radio" name="skill-poll" class="dependent-input">
                         </div>
-
                         <div class="poll-option-row">
-                            <label class="independent-label">Proficient</label>
-                            <input type="radio" name="skill-poll" class="dependent-input">
+                            <label class="independent-label" for="prof_radio">Proficient</label>
+                            <input type="radio" id="prof_radio" name="skill-poll" class="dependent-input">
                         </div>
-
                         <div class="poll-option-row">
-                            <label class="independent-label">Beginner</label>
-                            <input type="radio" name="skill-poll" class="dependent-input">
+                            <label class="independent-label" for="beg_radio">Beginner</label>
+                            <input type="radio" id="beg_radio" name="skill-poll" class="dependent-input">
                         </div>
                     </div>
 
-                    <button
-                        class="mt-8 w-full bg-accent text-black font-bold py-3 rounded hover:bg-white transition-all uppercase tracking-widest text-sm">
-                        Vote
+
+
+                    <button onclick="castVote()"
+                        class="mt-8 w-full bg-accent text-black font-bold py-3 rounded hover:bg-white active:scale-95 transition-all uppercase tracking-widest text-sm shadow-lg">
+                        Cast Vote
                     </button>
+
+                    <div id="vote-success"
+                        class="hidden mt-4 p-4 rounded-lg bg-green-500/10 border border-green-500/50 text-center transform transition-all duration-500 scale-95 opacity-0">
+                        <p id="success-msg" class="text-green-400 font-bold text-sm"></p>
+                    </div>
                 </div>
             </div>
 
@@ -180,24 +188,24 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1500, once: true });
+        AOS.init({ duration: 1000, once: true });
 
-        // Updated Examples focusing on Axis Syntax
-        const examples = [
-            { axis: "following-sibling", code: "//tag/following-sibling::tag", desc: "Selects siblings after the current node" },
-            { axis: "preceding-sibling", code: "//tag/preceding-sibling::tag", desc: "Selects siblings before the current node" },
-            { axis: "ancestor", code: "//tag/ancestor::tag", desc: "Selects all ancestors (parent, grandparent, etc.)" },
-            { axis: "descendant", code: "//tag/descendant::tag", desc: "Selects all descendants (children, grandchildren, etc.)" },
-            { axis: "parent", code: "//tag/parent::tag", desc: "Selects the immediate parent" },
-            { axis: "child", code: "//tag/child::tag", desc: "Selects the immediate children" },
-            { axis: "Syntax", code: "//tag-name/axis-name::tag-name", desc: "The standard XPath Axis formula" }
+        // Terminal Data
+        const axesData = [
+            { axis: "following-sibling", code: "//tag/following-sibling::tag", desc: "Selects siblings after current node" },
+            { axis: "preceding-sibling", code: "//tag/preceding-sibling::tag", desc: "Selects siblings before current node" },
+            { axis: "ancestor", code: "//tag/ancestor::tag", desc: "Selects all ancestors" },
+            { axis: "descendant", code: "//tag/descendant::tag", desc: "Selects all descendants" },
+            { axis: "parent", code: "//tag/parent::tag", desc: "Selects immediate parent" },
+            { axis: "child", code: "//tag/child::tag", desc: "Selects immediate children" },
+            { axis: "Syntax", code: "//tag-name/axis-name::tag-name", desc: "Standard XPath Axis formula" }
         ];
 
-        let index = 0;
+        let terminalIndex = 0;
         function updateTerminal() {
             const display = document.getElementById('xpath-display');
             const progress = document.getElementById('progress-bar');
-            const item = examples[index];
+            const item = axesData[terminalIndex];
 
             progress.style.transition = 'none';
             progress.style.width = '0%';
@@ -216,12 +224,46 @@
                     <p class="text-gray-500 text-xs italic">// ${item.desc}</p>
                 </div>
             `;
-            index = (index + 1) % examples.length;
+            terminalIndex = (terminalIndex + 1) % axesData.length;
         }
 
         function toggleHint() {
-            const hint = document.getElementById('hint-content');
-            hint.classList.toggle('hidden');
+            document.getElementById('hint-content').classList.toggle('hidden');
+        }
+
+        // Voting Confirmation Logic
+        const motivatingMessages = [
+            "Excellent! You traversed the DOM successfully!",
+            "Bravo! Your locator strategy is top-tier.",
+            "Target Acquired! You're thinking like an SDET.",
+            "Flawless! That traversal logic was sharp.",
+            "Victory! DOM state verified successfully!",
+            "Impressive! You've mastered XPath Axes!"
+        ];
+
+        function castVote() {
+            const selected = document.querySelector('input[name="skill-poll"]:checked');
+            const successDiv = document.getElementById('vote-success');
+            const msgText = document.getElementById('success-msg');
+
+            if (!selected) {
+                alert("Please select an option using your XPath strategy first!");
+                return;
+            }
+
+            msgText.innerText = motivatingMessages[Math.floor(Math.random() * motivatingMessages.length)];
+            successDiv.classList.remove('hidden');
+
+            setTimeout(() => {
+                successDiv.classList.add('scale-100', 'opacity-100');
+                successDiv.classList.remove('scale-95', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                successDiv.classList.remove('scale-100', 'opacity-100');
+                successDiv.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => successDiv.classList.add('hidden'), 500);
+            }, 4000);
         }
 
         setInterval(updateTerminal, 3000);
