@@ -65,22 +65,6 @@
 
 ---
 
-## 📁 Project Structure
-
-AutomationWithPiyush/
-│
-├── index.html # Main landing page
-├── signup.html # Signup / practice page
-├── direct.html # Navigation practice
-├── surrounding.html # Relative locators & DOM traversal
-├── synchronization.html # Wait strategies
-├── project-vtiger.html # CRM automation case study
-├── awp.png # Branding asset
-└── README.md # Project documentation
-
-
----
-
 ## 🧠 Case Studies
 
 ### 📌 CRM Enterprise Framework
