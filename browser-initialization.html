@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Surgical Setup | AutomationWithPiyush</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .bg-card {
+            background-color: #252631;
+        }
+
+        .code-snippet {
+            background-color: #0d0d12;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .surgical-border {
+            border-left: 4px solid #facc15;
+        }
+    </style>
+</head>
+
+<body class="p-6 md:p-12">
+
+    <div class="max-w-5xl mx-auto">
+        <header class="flex flex-col md:flex-row justify-between items-center mb-12" data-aos="fade-down">
+            <div>
+                <h1 class="text-4xl font-bold">Pre-Surgical <span class="text-amber-400">Setup</span></h1>
+                <p class="text-gray-400 mt-2 text-sm uppercase tracking-widest font-bold">
+                    <i class="fas fa-stethoscope text-red-500 mr-1"></i> Module I: Equipment Calibration
+                </p>
+            </div>
+            <a href="surgical-suite.html"
+                class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium">
+                <i class="fas fa-arrow-left"></i> Back to Suite
+            </a>
+        </header>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+
+            <div class="lg:col-span-2 space-y-8">
+
+                <div class="bg-card p-8 rounded-xl border border-gray-800 surgical-border" data-aos="fade-right">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-window-maximize text-amber-400"></i> 1. Launching the Patient Interface
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-6">Before any diagnosis, you must initialize a "Clean Room"
+                        (Browser instance).</p>
+
+                    <div class="space-y-4">
+                        <button onclick="simulateLaunch('Chrome')"
+                            class="w-full py-3 bg-[#1a1b23] border border-gray-700 rounded-lg hover:border-amber-400 transition flex justify-between px-6 items-center group">
+                            <span>Initialize Chrome Surgeon</span>
+                            <i class="fab fa-chrome group-hover:text-amber-400"></i>
+                        </button>
+                        <button onclick="simulateLaunch('Firefox')"
+                            class="w-full py-3 bg-[#1a1b23] border border-gray-700 rounded-lg hover:border-orange-500 transition flex justify-between px-6 items-center group">
+                            <span>Initialize Firefox Specialist</span>
+                            <i class="fab fa-firefox-browser group-hover:text-orange-500"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-card p-8 rounded-xl border border-gray-800 surgical-border" data-aos="fade-right"
+                    data-aos-delay="100">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-sitemap text-blue-400"></i> 2. Hierarchy Diagnostics
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-4">Analyze the relationship between the surgical interfaces.</p>
+
+
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-[#1a1b23] rounded-lg border border-gray-700">
+                            <h4 class="text-amber-400 font-bold text-xs uppercase mb-2">SearchContext</h4>
+                            <p class="text-[10px] text-gray-500 italic">The parent interface. Contains findElement() -
+                                the surgeon's eye.</p>
+                        </div>
+                        <div class="p-4 bg-[#1a1b23] rounded-lg border border-gray-700">
+                            <h4 class="text-blue-400 font-bold text-xs uppercase mb-2">WebDriver</h4>
+                            <p class="text-[10px] text-gray-500 italic">The controlling interface. Manages the browser's
+                                vital signs (get, close, quit).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-snippet p-6 rounded-lg border border-gray-800 border-l-4 border-l-green-500">
+                    <h4 class="text-green-500 text-xs font-bold mb-4 uppercase tracking-tighter">System Pulse Monitor
+                    </h4>
+                    <div id="setup-console" class="text-green-400 text-sm space-y-1">
+                        > Awaiting Surgeon's command...
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-card p-6 rounded-xl border border-gray-800" data-aos="fade-left">
+                    <h4 class="text-lg font-bold mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
+                        <i class="fas fa-clipboard-check text-red-500"></i> Setup Checklist
+                    </h4>
+                    <ul class="space-y-3 text-xs text-gray-400">
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-check text-green-500"></i> Launch Browser instance
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-check text-green-500"></i> Maximize window (Vitals)
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-check text-green-500"></i> Load patient URL (`driver.get`)
+                        </li>
+                        <li class="flex items-center gap-2 text-red-400 font-bold">
+                            <i class="fas fa-times"></i> Close Ward (`driver.quit`)
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-amber-400 p-6 rounded-xl text-black">
+                    <h4 class="font-bold mb-2"><i class="fas fa-lightbulb mr-2"></i> Doctor's Note</h4>
+                    <p class="text-sm font-medium">Always up-cast your driver:
+                        <code>WebDriver driver = new ChromeDriver();</code>. This allows the surgeon to switch
+                        specialized assistants (browsers) easily.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        const consoleOutput = document.getElementById('setup-console');
+
+        function simulateLaunch(browser) {
+            const time = new Date().toLocaleTimeString().split(' ')[0];
+            const log = (msg) => {
+                const entry = document.createElement('div');
+                entry.innerHTML = `<span class="text-gray-600">[${time}]</span> > ${msg}`;
+                consoleOutput.prepend(entry);
+            };
+
+            log(`Initializing <span class="text-white font-bold">${browser}</span> instance...`);
+            setTimeout(() => log(`<span class="text-amber-400">SearchContext</span> active: Eyes ready.`), 500);
+            setTimeout(() => log(`<span class="text-blue-400">WebDriver</span> active: Vital signs normal.`), 1000);
+            setTimeout(() => log(`Surgical room ready: <span class="text-green-500">SESSION_ID_STABLE</span>`), 1500);
+        }
+    </script>
+</body>
+
+</html>

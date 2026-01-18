@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dropdown Lab | AutomationWithPiyush</title>
+    <title>Surgical Dropdown Unit | AutomationWithPiyush</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -21,7 +21,7 @@
             background-color: #252631;
         }
 
-        .console-box {
+        .pulse-monitor {
             background-color: #0d0d12;
             font-family: 'Courier New', Courier, monospace;
         }
@@ -44,19 +44,19 @@
             padding: 10px;
         }
 
-        /* Styles for Advanced Section */
-        .hidden-lab {
+        /* Styles for Critical Emergency Ward */
+        .hidden-ward {
             display: none;
         }
 
-        .custom-option {
+        .surgical-option {
             padding: 12px;
             cursor: pointer;
             border-bottom: 1px solid #333;
             transition: 0.2s;
         }
 
-        .custom-option:hover {
+        .surgical-option:hover {
             background: #facc15;
             color: black;
         }
@@ -68,18 +68,20 @@
     <div class="max-w-6xl mx-auto">
         <div class="flex flex-col md:flex-row justify-between items-center mb-12" data-aos="fade-down">
             <div>
-                <h1 class="text-4xl font-bold text-white">Dropdown <span class="text-amber-400">Mastery</span></h1>
-                <p id="lab-subtitle" class="text-gray-400 mt-2 text-sm uppercase tracking-widest">Select Class
-                    Laboratory</p>
+                <h1 class="text-4xl font-bold text-white">Dropdown <span class="text-amber-400">Surgery</span></h1>
+                <p id="ward-subtitle" class="text-gray-400 mt-2 text-sm uppercase tracking-widest font-bold">
+                    <i class="fas fa-stethoscope text-red-500 mr-1"></i> Select Class Procedure Ward
+                </p>
             </div>
             <div class="flex gap-4 mt-4 md:mt-0">
-                <button onclick="toggleLab()" id="mode-btn"
-                    class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold transition flex items-center gap-2">
-                    <i class="fas fa-skull"></i> Switch to Advanced Lab
+                <button onclick="toggleWard()" id="mode-btn"
+                    class="px-6 py-2 bg-red-600 hover:bg-yellow-500 text-white rounded-lg font-bold transition flex items-center gap-2 shadow-lg shadow-red-900/20">
+                    <i class="fas fa-heartbeat"></i> Start Critical Surgery
                 </button>
                 <a href="index.html"
-                    class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium">
-                    <i class="fas fa-flask text-yellow-accent"></i> Exit Lab
+                    class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium group">
+                    <i class="fas fa-door-open text-yellow-500 group-hover:text-amber-400 transition-colors"></i>
+                    Discharge Ward
                 </a>
             </div>
         </div>
@@ -88,17 +90,15 @@
 
             <div class="lg:col-span-2 space-y-8">
 
-                <div id="standard-lab" class="space-y-8">
+                <div id="standard-ward" class="space-y-8">
                     <div class="bg-card p-8 rounded-xl border border-gray-800" data-aos="fade-right">
                         <div class="flex items-center gap-4 mb-6">
                             <div class="w-12 h-12 bg-amber-400/10 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-plane-departure text-amber-400"></i>
                             </div>
-                            <h3 class="text-xl font-bold">Single Select: Travel Destination</h3>
+                            <h3 class="text-xl font-bold">Primary Checkup: Travel Destination</h3>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4">Task: Select your dream destination using
-                            <code>selectByVisibleText()</code>.
-                        </p>
+                        <p class="text-gray-400 text-sm mb-4">Procedure: Select destination to verify route vitals.</p>
                         <select id="single-select" class="cursor-pointer">
                             <option value="default" disabled selected>-- Choose a Destination --</option>
                             <option value="PAR">Paris, France</option>
@@ -113,13 +113,12 @@
                         data-aos-delay="100">
                         <div class="flex items-center gap-4 mb-6">
                             <div class="w-12 h-12 bg-blue-400/10 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-laptop-code text-blue-400"></i>
+                                <i class="fas fa-pills text-blue-400"></i>
                             </div>
-                            <h3 class="text-xl font-bold">Multi-Select: Framework Tech Stack</h3>
+                            <h3 class="text-xl font-bold">Multi-Dose: Framework Tech Stack</h3>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4">Task: Select multiple tools and practice
-                            <code>deselectAll()</code> or <code>getAllSelectedOptions()</code>.
-                        </p>
+                        <p class="text-gray-400 text-sm mb-4">Procedure: Select multiple antibiotics (tools) and
+                            practice <code>deselectAll()</code>.</p>
                         <select id="multi-select" multiple class="h-48 cursor-pointer">
                             <option value="sel">Selenium WebDriver</option>
                             <option value="pw">Playwright</option>
@@ -128,93 +127,97 @@
                             <option value="jen">Jenkins</option>
                             <option value="doc">Docker</option>
                         </select>
-                        <p class="text-[10px] text-gray-500 mt-3 uppercase font-bold italic">Tip: Hold Ctrl/Cmd to
-                            select
-                            multiple manually</p>
+                        <p class="text-[10px] text-gray-500 mt-3 uppercase font-bold italic">Consultant Tip: Hold
+                            Ctrl/Cmd for multi-selection</p>
                     </div>
                 </div>
-                <div id="advanced-lab" class="hidden-lab space-y-8">
+
+                <div id="advanced-ward" class="hidden-ward space-y-8">
                     <div class="bg-card p-8 rounded-xl border-2 border-red-900 shadow-lg" data-aos="zoom-in">
                         <h3 class="text-xl font-bold mb-2 flex items-center gap-2 text-red-400"><i
-                                class="fas fa-bolt"></i> Dynamic Search Dropdown</h3>
-                        <p class="text-gray-400 text-sm mb-4">Task: Type "Ind" and select "India" using
-                            <code>findElements()</code>. This cannot be handled by Select Class.
+                                class="fas fa-bolt"></i> High-Speed Diagnosis</h3>
+                        <p class="text-gray-400 text-sm mb-4">Procedure: Type "Ind" and perform
+                            <code>findElements()</code>. Bypass Select Class restrictions.
                         </p>
-                        <input type="text" id="dynamic-input" placeholder="Start typing country..."
+                        <input type="text" id="dynamic-input" placeholder="Scanning for country..."
                             class="w-full bg-[#1a1b23] border border-gray-700 p-3 rounded-lg outline-none focus:border-red-500">
                         <div id="results-container"
                             class="hidden mt-2 bg-[#1a1b23] border border-gray-700 rounded-lg max-h-40 overflow-y-auto">
-                            <div class="custom-option">India</div>
-                            <div class="custom-option">Indonesia</div>
-                            <div class="custom-option">Independent Island</div>
+                            <div class="surgical-option">India</div>
+                            <div class="surgical-option">Indonesia</div>
+                            <div class="surgical-option">Independent Island</div>
                         </div>
                     </div>
 
                     <div class="bg-card p-8 rounded-xl border-2 border-red-900 shadow-lg" data-aos="zoom-in">
-                        <h3 class="text-xl font-bold mb-2 flex items-center gap-2 text-red-400"><i
-                                class="fas fa-robot"></i> Robot Class Practice Area</h3>
-                        <p class="text-gray-400 text-sm mb-4">Challenge: Use <b>Robot Class</b> to press ArrowDown and
-                            Enter. Standard click() may not work here.</p>
+                        <h3 class="text-xl font-bold mb-2 flex items-center gap-2 text-red-400">
+                            <i class="fas fa-robot"></i> Robotic Surgery Unit
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">Challenge: Use <b>Robot Class</b> to stabilize keyboard
+                            navigation. Direct clicks will fail.</p>
                         <div id="robot-dropdown" tabindex="0"
                             class="w-full bg-[#1a1b23] border border-gray-700 p-3 rounded-lg flex justify-between items-center cursor-pointer focus:border-red-500">
-                            <span id="robot-val">Click here, then use Keyboard Arrows</span>
+                            <span id="robot-val">Gain focus, then use Surgical Keyboard Arrows</span>
                             <i class="fas fa-keyboard text-red-500"></i>
                         </div>
                         <ul id="robot-list" class="hidden mt-2 bg-[#1a1b23] border border-gray-700 rounded-lg">
-                            <li class="custom-option">Automation Advanced Level</li>
-                            <li class="custom-option">Mastering Robot Class</li>
-                            <li class="custom-option">Zero Touch Automation</li>
+                            <li class="surgical-option">Automation Advanced Level</li>
+                            <li class="surgical-option">Mastering Robot Class</li>
+                            <li class="surgical-option">Zero Touch Automation</li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="console-box p-6 rounded-lg border border-gray-800 border-l-4 border-l-amber-400">
-                    <h4 class="text-amber-400 text-xs font-bold mb-4 uppercase tracking-tighter">Selection Debugger
-                        (Student View)</h4>
+                <div class="pulse-monitor p-6 rounded-lg border border-gray-800 border-l-4 border-l-red-600">
+                    <h4 class="text-red-500 text-xs font-bold mb-4 uppercase tracking-tighter">
+                        <i class="fas fa-wave-square mr-1"></i> Surgeon's Pulse Monitor
+                    </h4>
                     <div id="console-output" class="text-green-400 text-sm space-y-1">
-                        > Ready for automation testing...
+                        > Preparing surgical instruments...
                     </div>
                 </div>
             </div>
 
             <div class="space-y-6">
                 <div class="bg-card p-6 rounded-xl border border-gray-800" data-aos="fade-left">
-                    <h4 class="text-lg font-bold mb-4 border-b border-gray-700 pb-2">Methods to Master</h4>
+                    <h4 class="text-lg font-bold mb-4 border-b border-gray-700 pb-2">Surgical Instruments</h4>
 
                     <ul id="std-methods" class="space-y-3 text-sm text-gray-400">
                         <li class="flex items-center gap-2"><i
-                                class="fas fa-check-circle text-green-500"></i><code>selectByIndex()</code></li>
+                                class="fas fa-syringe text-green-500"></i><code>selectByIndex()</code></li>
                         <li class="flex items-center gap-2"><i
-                                class="fas fa-check-circle text-green-500"></i><code>selectByValue()</code></li>
+                                class="fas fa-syringe text-green-500"></i><code>selectByValue()</code></li>
                         <li class="flex items-center gap-2"><i
-                                class="fas fa-check-circle text-green-500"></i><code>selectByVisibleText()</code></li>
+                                class="fas fa-syringe text-green-500"></i><code>selectByVisibleText()</code></li>
                         <li class="flex items-center gap-2"><i
-                                class="fas fa-check-circle text-amber-500"></i><code>getOptions()</code></li>
+                                class="fas fa-notes-medical text-amber-500"></i><code>getOptions()</code></li>
                         <li class="flex items-center gap-2"><i
-                                class="fas fa-check-circle text-amber-500"></i><code>isMultiple()</code></li>
-                        <li class="flex items-center gap-2 text-blue-400"><code>deselectByIndex()</code></li>
-                        <li class="flex items-center gap-2 text-blue-400"><code>deselectByValue()</code></li>
-                        <li class="flex items-center gap-2 text-blue-400"><code>deselectByVisibleText()</code></li>
+                                class="fas fa-clipboard-check text-amber-500"></i><code>isMultiple()</code></li>
+                        <li class="flex items-center gap-2 text-blue-400"><i
+                                class="fas fa-band-aid mr-1"></i><code>deselectByIndex()</code></li>
+                        <li class="flex items-center gap-2 text-blue-400"><i
+                                class="fas fa-band-aid mr-1"></i><code>deselectByValue()</code></li>
+                        <li class="flex items-center gap-2 text-blue-400"><i
+                                class="fas fa-band-aid mr-1"></i><code>deselectByVisibleText()</code></li>
                         <li class="flex items-center gap-2"><i
-                                class="fas fa-check-circle text-blue-500"></i><code>deselectAll()</code></li>
+                                class="fas fa-hand-sparkles text-blue-500"></i><code>deselectAll()</code></li>
                         <li class="flex items-center gap-2 text-amber-400"><code>getAllSelectedOptions()</code></li>
-                        <li class="flex items-center gap-2"><i
-                                class="fas fa-check-circle text-blue-500"></i><code>getFirstSelectedOption()</code></li>
+                        <li class="flex items-center gap-2"><code>getFirstSelectedOption()</code></li>
                     </ul>
 
                     <ul id="adv-methods" class="hidden space-y-3 text-sm text-red-400 font-mono">
-                        <li>• findElements() & Loop</li>
-                        <li>• ExpectedConditions.visibilityOf()</li>
+                        <li>• findElements() Analysis</li>
+                        <li>• ExpectedConditions Diagnosis</li>
                         <li>• robot.keyPress(KeyEvent.VK_DOWN)</li>
                         <li>• robot.keyPress(KeyEvent.VK_ENTER)</li>
-                        <li>• JavascriptExecutor (click)</li>
+                        <li>• JavascriptExecutor Procedure</li>
                     </ul>
                 </div>
 
-                <div class="bg-amber-400 p-6 rounded-xl text-black">
-                    <h4 class="font-bold mb-2"><i class="fas fa-lightbulb mr-2"></i> Challenge!</h4>
-                    <p class="text-sm font-medium">Write a script to select 'Tokyo', then in the Tech Stack, select all
-                        tools except 'Appium', and print the count of selected options.</p>
+                <div class="bg-red-600 p-6 rounded-xl text-white">
+                    <h4 class="font-bold mb-2"><i class="fas fa-ambulance mr-2"></i> Emergency Challenge!</h4>
+                    <p class="text-sm font-medium">Stabilize the Patient: Select 'Tokyo', then vaccinate the Tech Stack
+                        by selecting all tools except 'Appium'.</p>
                 </div>
             </div>
 
@@ -227,62 +230,69 @@
 
         const consoleOutput = document.getElementById('console-output');
 
-        function logToConsole(message) {
+        function logToMonitor(message) {
             const time = new Date().toLocaleTimeString().split(' ')[0];
             const entry = document.createElement('div');
             entry.innerHTML = `<span class="text-gray-600">[${time}]</span> > ${message}`;
             consoleOutput.prepend(entry);
         }
 
-        // Original Select Listeners
+        // Diagnostic Listeners
         document.getElementById('single-select').addEventListener('change', (e) => {
-            logToConsole(`Single Select: Chosen <span class="text-white font-bold">${e.target.options[e.target.selectedIndex].text}</span>`);
+            logToMonitor(`Diagnosis: Patient Destination set to <span class="text-white font-bold">${e.target.options[e.target.selectedIndex].text}</span>`);
         });
 
         document.getElementById('multi-select').addEventListener('change', (e) => {
             const selected = Array.from(e.target.selectedOptions).map(opt => opt.text);
-            logToConsole(`Multi Select: <span class="text-white font-bold">${selected.length}</span> items selected: ${selected.join(', ')}`);
+            logToMonitor(`Treatment: <span class="text-white font-bold">${selected.length}</span> tools applied to framework.`);
         });
 
-        // Toggle Function
-        function toggleLab() {
-            const std = document.getElementById('standard-lab');
-            const adv = document.getElementById('advanced-lab');
+        // Toggle Ward Function
+        function toggleWard() {
+            const std = document.getElementById('standard-ward');
+            const adv = document.getElementById('advanced-ward');
             const btn = document.getElementById('mode-btn');
-            const sub = document.getElementById('lab-subtitle');
+            const sub = document.getElementById('ward-subtitle');
             const stdM = document.getElementById('std-methods');
             const advM = document.getElementById('adv-methods');
 
-            if (adv.classList.contains('hidden-lab')) {
-                adv.classList.remove('hidden-lab');
-                std.classList.add('hidden-lab');
+            if (adv.classList.contains('hidden-ward')) {
+                // Moving to Emergency Ward
+                adv.classList.remove('hidden-ward');
+                std.classList.add('hidden-ward');
                 stdM.classList.add('hidden');
                 advM.classList.remove('hidden');
-                btn.innerHTML = '<i class="fas fa-graduation-cap"></i> Back to Standard Lab';
+
+                btn.innerHTML = '<i class="fas fa-user-md"></i> Back to OPD Clinic';
                 btn.className = "px-6 py-2 bg-amber-500 hover:bg-amber-600 text-black rounded-lg font-bold transition flex items-center gap-2";
-                sub.innerText = "Advanced Dropdown Scenarios";
-                logToConsole("<span class='text-red-500'>Advanced Mode Active: Use Robot Class and findElements for these tasks!</span>");
+                sub.innerHTML = "<i class='fas fa-procedures text-red-500 mr-1'></i> Critical Emergency Ward";
+
+                logToMonitor("<span class='text-red-500 font-bold'>CRITICAL MODE: Switch to Robotic Surgery tools (Robot Class)!</span>");
             } else {
-                adv.classList.add('hidden-lab');
-                std.classList.remove('hidden-lab');
+                // Moving back to OPD
+                adv.classList.add('hidden-ward');
+                std.classList.remove('hidden-ward');
                 stdM.classList.remove('hidden');
                 advM.classList.add('hidden');
-                btn.innerHTML = '<i class="fas fa-skull"></i> Switch to Advanced Lab';
-                btn.className = "px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold transition flex items-center gap-2";
-                sub.innerText = "Select Class Laboratory";
+
+                btn.innerHTML = '<i class="fas fa-heartbeat"></i> Start Critical Surgery';
+                btn.className = "px-6 py-2 bg-red-600 hover:bg-yellow-500 text-white rounded-lg font-bold transition flex items-center gap-2";
+                sub.innerHTML = "<i class='fas fa-stethoscope text-red-500 mr-1'></i> Select Class Procedure Ward";
+
+                logToMonitor("Patient stabilized. Returning to standard OPD.");
             }
         }
 
-        // Advanced Mode Logic
+        // Procedure Logic (Advanced)
         document.getElementById('dynamic-input').addEventListener('input', function (e) {
             const box = document.getElementById('results-container');
             if (e.target.value.length >= 2) box.classList.remove('hidden');
             else box.classList.add('hidden');
         });
 
-        document.querySelectorAll('.custom-option').forEach(opt => {
+        document.querySelectorAll('.surgical-option').forEach(opt => {
             opt.addEventListener('click', function () {
-                logToConsole(`Advanced Selected: <span class='text-white'>${this.innerText}</span>`);
+                logToMonitor(`Procedure Success: Selected <span class='text-white'>${this.innerText}</span>`);
                 if (this.parentElement.id === "results-container") this.parentElement.classList.add('hidden');
             });
         });
@@ -290,12 +300,12 @@
         document.getElementById('robot-dropdown').addEventListener('keydown', function (e) {
             if (e.key === "ArrowDown") {
                 document.getElementById('robot-list').classList.remove('hidden');
-                logToConsole("Robot Action: ArrowDown detected");
+                logToMonitor("Pulse Detected: ArrowDown (Robotic Navigation)");
             }
             if (e.key === "Enter") {
-                logToConsole("Robot Action: Enter detected. Selection Confirmed.");
+                logToMonitor("Procedure Confirmed: Enter Key successful.");
                 document.getElementById('robot-list').classList.add('hidden');
-                document.getElementById('robot-val').innerText = "Selected via Keys";
+                document.getElementById('robot-val').innerText = "Procedure Completed via Keys";
             }
         });
     </script>

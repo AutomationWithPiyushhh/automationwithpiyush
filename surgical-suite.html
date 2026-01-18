@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surgical Suite | AutomationWithPiyush</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .bg-card {
+            background-color: #252631;
+            border: 1px solid #374151;
+            transition: all 0.3s ease;
+        }
+
+        .bg-card:hover {
+            border-color: #facc15;
+            transform: translateY(-5px);
+        }
+
+        .module-header {
+            border-left: 4px solid #ef4444;
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body class="p-6 md:p-12">
+
+    <div class="max-w-7xl mx-auto">
+        <header class="flex justify-between items-center mb-16" data-aos="fade-down">
+            <div>
+                <h1 class="text-4xl font-bold">The <span class="text-amber-400">Surgical Suite</span></h1>
+                <p class="text-gray-400 mt-2 uppercase tracking-widest text-sm">Professional Automation Fellowship</p>
+            </div>
+            <a href="index.html"
+                class="px-6 py-2 border border-gray-700 rounded-lg hover:bg-gray-800 transition flex items-center gap-2">
+                <i class="fas fa-door-open text-red-500"></i> Discharge to OPD
+            </a>
+        </header>
+
+        <div class="mb-16">
+            <div class="module-header" data-aos="fade-right">
+                <h2 class="text-2xl font-bold">Module I: Pre-Clinical Foundations</h2>
+                <p class="text-gray-500 text-sm">Basic anatomy and equipment setup</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-card p-6 rounded-xl" data-aos="zoom-in">
+                    <i class="fas fa-window-maximize text-amber-400 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">Browser Initialization</h3>
+                    <p class="text-gray-400 text-xs">Launching empty browsers and basic WebDriver setup.</p>
+                </div>
+                <div class="bg-card p-6 rounded-xl" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fas fa-network-wired text-amber-400 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">Interface Hierarchy</h3>
+                    <p class="text-gray-400 text-xs">SearchContext vs WebDriver Interface diagnostics.</p>
+                </div>
+                <div class="bg-card p-6 rounded-xl" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fas fa-code text-amber-400 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">HTML Structure</h3>
+                    <p class="text-gray-400 text-xs">The skeletal system of the web application.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-16">
+            <div class="module-header" data-aos="fade-right">
+                <h2 class="text-2xl font-bold">Module II: Surgical Anatomy</h2>
+                <p class="text-gray-500 text-sm">Identifying elements with X-Ray precision</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-card p-8 rounded-xl cursor-pointer" onclick="window.location.href='locators.html'">
+                    <i class="fas fa-search text-red-500 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">Locators & XPath</h3>
+                    <p class="text-gray-400 text-xs">Basic to advanced coordinate detection.</p>
+                </div>
+                <div class="bg-card p-6 rounded-xl">
+                    <i class="fas fa-arrows-alt text-red-500 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">Relative Locators</h3>
+                    <p class="text-gray-400 text-xs">Identifying elements near existing vitals.</p>
+                </div>
+                <div class="bg-card p-6 rounded-xl">
+                    <i class="fas fa-cube text-red-500 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">WebElement Interface</h3>
+                    <p class="text-gray-400 text-xs">Interacting with the patient's UI organs.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-16">
+            <div class="module-header" data-aos="fade-right">
+                <h2 class="text-2xl font-bold">Module III: Operation Theater</h2>
+                <p class="text-gray-500 text-sm">Performing critical UI procedures</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-card p-6 rounded-xl cursor-pointer" onclick="window.location.href='dropdown.html'">
+                    <i class="fas fa-syringe text-blue-400 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">Dropdown Surgery</h3>
+                    <p class="text-gray-400 text-xs">Select class and Auto-suggestion procedures.</p>
+                </div>
+                <div class="bg-card p-6 rounded-xl">
+                    <i class="fas fa-heartbeat text-blue-400 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">Synchronization</h3>
+                    <p class="text-gray-400 text-xs">Wait strategies to stabilize script pulse.</p>
+                </div>
+                <div class="bg-card p-6 rounded-xl">
+                    <i class="fas fa-hand-sparkles text-blue-400 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">Surgical Dexterity</h3>
+                    <p class="text-gray-400 text-xs">Actions Class: Mouse gestures & Keyboard precision.</p>
+                </div>
+                <div class="bg-card p-6 rounded-xl">
+                    <i class="fas fa-camera text-blue-400 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">X-Ray (Screenshot)</h3>
+                    <p class="text-gray-400 text-xs">Capturing evidence via TakesScreenshot.</p>
+                </div>
+                <div class="bg-card p-6 rounded-xl">
+                    <i class="fas fa-bolt text-blue-400 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">Internal Stimulation</h3>
+                    <p class="text-gray-400 text-xs">JavascriptExecutor for bypass procedures.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-16">
+            <div class="module-header" data-aos="fade-right">
+                <h2 class="text-2xl font-bold">Module IV: ICU & Trauma Unit</h2>
+                <p class="text-gray-500 text-sm">Handling sudden interruptions and multi-organ failure</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-card p-6 rounded-xl">
+                    <i class="fas fa-th-large text-red-400 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">Handling Frames</h3>
+                    <p class="text-gray-400 text-xs">Navigating nested iFrames.</p>
+                </div>
+                <div class="bg-card p-6 rounded-xl">
+                    <i class="fas fa-exclamation-triangle text-red-400 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">Handling Pop-Ups</h3>
+                    <p class="text-gray-400 text-xs">Managing JS Alerts and unexpected modals.</p>
+                </div>
+                <div class="bg-card p-6 rounded-xl">
+                    <i class="fas fa-columns text-red-400 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">Handling Windows</h3>
+                    <p class="text-gray-400 text-xs">Parent to Child window transitions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-16">
+            <div class="module-header" data-aos="fade-right">
+                <h2 class="text-2xl font-bold">Module V: Systemic Immunity</h2>
+                <p class="text-gray-500 text-sm">Building long-term framework health</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-card p-6 rounded-xl">
+                    <i class="fas fa-stethoscope text-green-400 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">TestNG Diagnostics</h3>
+                    <p class="text-gray-400 text-xs">Annotations, DataProviders, and Parameters.</p>
+                </div>
+                <div class="bg-card p-6 rounded-xl">
+                    <i class="fas fa-dna text-green-400 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">Base Class Anatomy</h3>
+                    <p class="text-gray-400 text-xs">The backbone of Page Object Model.</p>
+                </div>
+                <div class="bg-card p-6 rounded-xl">
+                    <i class="fas fa-file-medical-alt text-green-400 mb-4 text-2xl"></i>
+                    <h3 class="font-bold mb-2">Advanced Reporting</h3>
+                    <p class="text-gray-400 text-xs">Diagnostic reports and Listeners.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
+</body>
+
+</html>

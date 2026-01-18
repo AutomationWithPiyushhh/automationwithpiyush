@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selenium Hierarchy Anatomy | AutomationWithPiyush</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Surgical Box Styling */
+        .box {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+            padding: 10px 20px;
+            font-weight: bold;
+            text-align: center;
+            min-width: 220px;
+            z-index: 10;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+            background: #facc15;
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.4);
+        }
+
+        .box-label {
+            font-size: 10px;
+            font-weight: normal;
+            margin-top: 2px;
+        }
+
+        /* Diagram Layout */
+        .diagram-container {
+            position: relative;
+            width: 1000px;
+            height: 750px;
+            margin: 0 auto;
+        }
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        line,
+        path {
+            stroke: #ffffff;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .implements-line {
+            stroke-dasharray: 5, 5;
+        }
+
+        .line-text {
+            fill: #6b7280;
+            font-size: 13px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        /* Medical Layout Alignment */
+        #search-context {
+            top: 20px;
+            left: 390px;
+        }
+
+        #web-driver {
+            top: 130px;
+            left: 390px;
+        }
+
+        #takes-screenshot {
+            top: 180px;
+            left: 50px;
+        }
+
+        #js-executor {
+            top: 180px;
+            left: 730px;
+        }
+
+        #remote-webdriver {
+            top: 320px;
+            left: 375px;
+            min-width: 250px;
+            border-bottom: 5px solid #ef4444;
+        }
+
+        #firefox {
+            top: 480px;
+            left: 50px;
+        }
+
+        #chromium {
+            top: 480px;
+            left: 390px;
+        }
+
+        #opera {
+            top: 480px;
+            left: 730px;
+        }
+
+        #chrome {
+            top: 630px;
+            left: 230px;
+        }
+
+        #edge {
+            top: 630px;
+            left: 550px;
+        }
+
+        .infinity-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 850px;
+            opacity: 0.08;
+            z-index: 1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="p-10">
+
+    <div class="max-w-6xl mx-auto mb-10 flex justify-between items-center animate__animated animate__fadeInDown">
+        <div>
+            <h1 class="text-3xl font-bold uppercase tracking-tighter">Selenium <span
+                    class="text-amber-400">Hierarchy</span></h1>
+            <p class="text-gray-400 text-sm">Click on any organ to view its official Selenium Documentation.</p>
+        </div>
+
+        <div class="flex items-center gap-8">
+            <div class="flex items-center gap-6 border-r border-gray-700 pr-6">
+                <div class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-tighter text-gray-300">
+                    <div class="w-8 h-0 border-t-2 border-white"></div>
+                    <span>Extends</span>
+                </div>
+                <div class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-tighter text-gray-300">
+                    <div class="w-8 h-0 border-t-2 border-dashed border-white"></div>
+                    <span>Implements</span>
+                </div>
+            </div>
+
+            <a href="surgical-suite.html"
+                class="bg-red-600 text-white px-4 py-2 rounded font-bold hover:bg-red-700 transition flex items-center gap-2">
+                <i class="fas fa-hospital"></i> Discharge Ward
+            </a>
+        </div>
+    </div>
+
+    <div class="diagram-container animate__animated animate__zoomIn">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Infinity_sign.svg" class="infinity-bg" alt="">
+
+        <svg>
+            <line x1="500" y1="70" x2="500" y2="130" />
+            <text x="510" y="105" class="line-text">(extends)</text>
+
+            <line x1="500" y1="180" x2="500" y2="320" class="implements-line" />
+            <text x="510" y="260" class="line-text">(implements)</text>
+
+            <path d="M 500 320 L 160 230" class="implements-line" />
+            <path d="M 500 320 L 840 230" class="implements-line" />
+
+            <line x1="500" y1="375" x2="160" y2="480" />
+            <line x1="500" y1="375" x2="500" y2="480" />
+            <text x="510" y="435" class="line-text">(extends)</text>
+            <line x1="500" y1="375" x2="840" y2="480" />
+
+            <line x1="500" y1="530" x2="340" y2="630" />
+            <text x="350" y="590" class="line-text" style="font-size: 11px;">(extends)</text>
+            <line x1="500" y1="530" x2="660" y2="630" />
+        </svg>
+
+        <a href="https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/SearchContext.html" target="_blank"
+            id="search-context" class="box absolute">
+            SearchContext <span class="box-label">&lt;&lt;I&gt;&gt;</span>
+        </a>
+
+        <a href="https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/WebDriver.html" target="_blank"
+            id="web-driver" class="box absolute">
+            WebDriver <span class="box-label">&lt;&lt;I&gt;&gt;</span>
+        </a>
+
+        <a href="https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/TakesScreenshot.html"
+            target="_blank" id="takes-screenshot" class="box absolute">
+            TakesScreenshot <span class="box-label">&lt;&lt;I&gt;&gt;</span>
+        </a>
+
+        <a href="https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html"
+            target="_blank" id="js-executor" class="box absolute">
+            JavascriptExecutor <span class="box-label">&lt;&lt;I&gt;&gt;</span>
+        </a>
+
+        <a href="https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/remote/RemoteWebDriver.html"
+            target="_blank" id="remote-webdriver" class="box absolute">
+            RemoteWebDriver <span class="box-label">&lt;&lt;C&gt;&gt;</span>
+        </a>
+
+        <a href="https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/firefox/FirefoxDriver.html"
+            target="_blank" id="firefox" class="box absolute">
+            FirefoxDriver <span class="box-label">&lt;&lt;C&gt;&gt;</span>
+        </a>
+
+        <a href="https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/chromium/ChromiumDriver.html"
+            target="_blank" id="chromium" class="box absolute">
+            ChromiumDriver <span class="box-label">&lt;&lt;C&gt;&gt;</span>
+        </a>
+
+        <a href="https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/opera/OperaDriver.html"
+            target="_blank" id="opera" class="box absolute">
+            OperaDriver <span class="box-label">&lt;&lt;C&gt;&gt;</span>
+        </a>
+
+        <a href="https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/chrome/ChromeDriver.html"
+            target="_blank" id="chrome" class="box absolute">
+            ChromeDriver <span class="box-label">&lt;&lt;C&gt;&gt;</span>
+        </a>
+
+        <a href="https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/edge/EdgeDriver.html"
+            target="_blank" id="edge" class="box absolute">
+            EdgeDriver <span class="box-label">&lt;&lt;C&gt;&gt;</span>
+        </a>
+    </div>
+
+
+
+</body>
+
+</html>
