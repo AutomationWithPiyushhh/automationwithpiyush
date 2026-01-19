@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surgical Suite | Relative Locators</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Lab Grid Background */
+        .lab-bg {
+            background-image: radial-gradient(#2d2e3d 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .monitor-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .monitor-cell {
+            background: #252631;
+            border: 2px solid #374151;
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hover Effect: Border glow and slight lift */
+        .monitor-cell:hover {
+            border-color: #facc15;
+            transform: translateY(-5px);
+            background: #2d2e3d;
+            box-shadow: 0 10px 30px -10px rgba(250, 204, 21, 0.2);
+        }
+
+        /* Active Pulse for the Core Reference Point */
+        .active-scan {
+            border-color: #facc15;
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.15);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(250, 204, 21, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(250, 204, 21, 0);
+            }
+        }
+
+        /* Interactive Success State */
+        .scanned {
+            background: #facc15 !important;
+            border-color: #facc15 !important;
+        }
+
+        .scanned span,
+        .scanned h2,
+        .scanned p {
+            color: #000 !important;
+        }
+
+        .scanned button {
+            background: #000 !important;
+            color: #facc15 !important;
+        }
+
+        .scan-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #facc15, transparent);
+            animation: scanline 3s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes scanline {
+            0% {
+                top: 0%;
+            }
+
+            100% {
+                top: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body class="lab-bg min-h-screen p-10">
+
+    <header class="text-center mb-16" data-aos="fade-down">
+        <h1 class="text-5xl font-extrabold text-amber-400 mb-4">Relative Anatomy Ward</h1>
+        <p class="text-gray-400 text-lg flex justify-center items-center gap-2">
+            <i class="fas fa-crosshairs text-red-500"></i>
+            Identify organs using their proximity to known vitals.
+        </p>
+        <div class="mt-4 inline-block px-3 py-1 bg-amber-900/30 border border-amber-500/50 rounded-full">
+            <span class="text-amber-500 text-xs font-bold uppercase tracking-widest">
+                <i class="fas fa-microscope mr-1"></i> Diagnostic Mode: Active
+            </span>
+        </div>
+    </header>
+
+    <div class="monitor-grid">
+        <div class="monitor-cell" id="cell_top_left" data-aos="zoom-in" data-aos-delay="100">
+            <div class="scan-overlay"></div>
+            <span class="text-xs block mb-3 text-gray-500 font-mono">ZONE_01</span>
+            <button id="cardiac_btn" onclick="markScanned('cell_top_left')"
+                class="bg-red-600 hover:bg-red-500 transition-colors px-6 py-2 rounded text-xs font-bold uppercase tracking-tighter">CARDIAC</button>
+        </div>
+
+        <div class="monitor-cell" id="cell_top_center" data-aos="zoom-in" data-aos-delay="200">
+            <div class="scan-overlay"></div>
+            <span class="text-xs block mb-3 text-gray-500 font-mono">ZONE_02</span>
+            <button id="respiratory_btn" onclick="markScanned('cell_top_center')"
+                class="bg-blue-600 hover:bg-blue-500 transition-colors px-6 py-2 rounded text-xs font-bold uppercase tracking-tighter">RESPIRATORY</button>
+        </div>
+
+        <div class="monitor-cell" id="cell_top_right" data-aos="zoom-in" data-aos-delay="300">
+            <div class="scan-overlay"></div>
+            <span class="text-xs block mb-3 text-gray-500 font-mono">ZONE_03</span>
+            <button id="neural_btn" onclick="markScanned('cell_top_right')"
+                class="bg-purple-600 hover:bg-purple-500 transition-colors px-6 py-2 rounded text-xs font-bold uppercase tracking-tighter">NEURAL</button>
+        </div>
+
+        <div class="monitor-cell" id="cell_mid_left" data-aos="zoom-in" data-aos-delay="400">
+            <div class="scan-overlay"></div>
+            <span class="text-xs block mb-3 text-gray-500 font-mono">ZONE_04</span>
+            <button id="liver_btn" onclick="markScanned('cell_mid_left')"
+                class="bg-green-600 hover:bg-green-500 transition-colors px-6 py-2 rounded text-xs font-bold uppercase tracking-tighter">LIVER</button>
+        </div>
+
+        <div class="monitor-cell active-scan" id="center_monitor" data-aos="fade-up">
+            <div class="scan-overlay"></div>
+            <h2 class="text-amber-400 font-black text-2xl tracking-widest mb-1">CORE</h2>
+            <p class="text-[10px] text-gray-400 font-mono">REF_POINT_00</p>
+            <div class="mt-4 text-amber-500/50 text-[8px] animate-pulse">SENSORS ONLINE</div>
+        </div>
+
+        <div class="monitor-cell" id="cell_mid_right" data-aos="zoom-in" data-aos-delay="500">
+            <div class="scan-overlay"></div>
+            <span class="text-xs block mb-3 text-gray-500 font-mono">ZONE_05</span>
+            <button id="kidney_btn" onclick="markScanned('cell_mid_right')"
+                class="bg-yellow-600 hover:bg-yellow-500 transition-colors px-6 py-2 rounded text-xs font-bold uppercase tracking-tighter">KIDNEY</button>
+        </div>
+
+        <div class="monitor-cell" id="cell_bot_left" data-aos="zoom-in" data-aos-delay="600">
+            <div class="scan-overlay"></div>
+            <span class="text-xs block mb-3 text-gray-500 font-mono">ZONE_06</span>
+            <button id="digestive_btn" onclick="markScanned('cell_bot_left')"
+                class="bg-orange-600 hover:bg-orange-500 transition-colors px-6 py-2 rounded text-xs font-bold uppercase tracking-tighter">DIGESTIVE</button>
+        </div>
+
+        <div class="monitor-cell" id="cell_bot_center" data-aos="zoom-in" data-aos-delay="700">
+            <div class="scan-overlay"></div>
+            <span class="text-xs block mb-3 text-gray-500 font-mono">ZONE_07</span>
+            <button id="muscular_btn" onclick="markScanned('cell_bot_center')"
+                class="bg-pink-600 hover:bg-pink-500 transition-colors px-6 py-2 rounded text-xs font-bold uppercase tracking-tighter">MUSCULAR</button>
+        </div>
+
+        <div class="monitor-cell" id="cell_bot_right" data-aos="zoom-in" data-aos-delay="800">
+            <div class="scan-overlay"></div>
+            <span class="text-xs block mb-3 text-gray-500 font-mono">ZONE_08</span>
+            <button id="skeletal_btn" onclick="markScanned('cell_bot_right')"
+                class="bg-gray-600 hover:bg-gray-500 transition-colors px-6 py-2 rounded text-xs font-bold uppercase tracking-tighter">SKELETAL</button>
+        </div>
+    </div>
+
+    <footer class="py-10 text-center border-t border-gray-800 mt-20">
+        <p class="text-[10px] text-gray-600 uppercase tracking-widest">© 2026 AutomationWithPiyush | Relative Anatomy
+            Ward</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        function markScanned(cellId) {
+            const cell = document.getElementById(cellId);
+            cell.classList.add('scanned');
+            const btn = cell.querySelector('button');
+            btn.innerText = "SCANNED";
+        }
+    </script>
+</body>
+
+</html>

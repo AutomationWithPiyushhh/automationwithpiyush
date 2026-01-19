@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Emergency Popups | Surgical Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1b23;
+            color: white;
+        }
+
+        .card {
+            background: #252631;
+            border: 1px solid #374151;
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+    </style>
+</head>
+
+<body class="p-10">
+    <h1 class="text-4xl font-bold text-red-500 mb-10">Trauma Unit: Interrupt Management</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <div class="card">
+            <h3 class="text-amber-400 font-bold mb-4">JS Alerts</h3>
+            <div class="space-y-2">
+                <button onclick="alert('Vital signs stable.')" class="w-full bg-blue-600 p-2 rounded">Simple
+                    Alert</button>
+                <button onclick="confirm('Proceed with incision?')"
+                    class="w-full bg-blue-600 p-2 rounded">Confirmation</button>
+                <button onclick="prompt('Enter Surgeon ID:')" class="w-full bg-blue-600 p-2 rounded">Prompt</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="text-amber-400 font-bold mb-4">System Modals</h3>
+            <button onclick="Notification.requestPermission()" class="w-full bg-purple-600 p-2 rounded mb-2">Push
+                Notification</button>
+            <button onclick="location.href='https://httpbin.org/basic-auth/user/pass'"
+                class="w-full bg-purple-600 p-2 rounded">Auth Popup (Basic)</button>
+        </div>
+
+        <div class="card">
+            <h3 class="text-amber-400 font-bold mb-4">Hidden Division (Calendar)</h3>
+            <input type="text" id="sched" onclick="document.getElementById('cal').classList.toggle('hidden')"
+                placeholder="Schedule Surgery" class="w-full p-2 rounded bg-gray-800 border border-gray-600">
+            <div id="cal"
+                class="hidden mt-2 bg-white text-black p-2 rounded grid grid-cols-7 gap-1 text-center text-xs">
+                <script>for (let i = 1; i <= 28; i++) document.write(`<div class='hover:bg-blue-200 cursor-pointer p-1'>${i}</div>`)</script>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="text-amber-400 font-bold mb-4">Upload X-Ray</h3>
+            <input type="file"
+                class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100" />
+        </div>
+
+        <div class="card">
+            <h3 class="text-amber-400 font-bold mb-4">Download Report</h3>
+            <a href="data:text/plain;charset=utf-8,Patient%20is%20healthy" download="MedicalReport.txt"
+                class="inline-block bg-green-600 px-6 py-2 rounded">Download TXT</a>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Multi-Window | Surgical Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #1a1b23;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="text-center">
+        <i class="fas fa-layer-group text-6xl text-amber-400 mb-6"></i>
+        <h1 class="text-4xl font-bold mb-4">Multi-Window Diagnostic</h1>
+        <p class="text-gray-400 mb-8">Test your ability to manage multiple child browser handles.</p>
+
+        <button onclick="openWindows()"
+            class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full shadow-lg transform transition active:scale-95">
+            OPEN SURGICAL MONITORS (3)
+        </button>
+    </div>
+
+    <script>
+        function openWindows() {
+            window.open('about:blank', 'Monitor1', 'width=400,height=400');
+            window.open('about:blank', 'Monitor2', 'width=400,height=400');
+            window.open('about:blank', 'Monitor3', 'width=400,height=400');
+        }
+    </script>
+</body>
+
+</html>

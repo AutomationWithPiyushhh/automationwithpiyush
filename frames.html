@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Surgical Suite | Text-Based Frames</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #1a1b23;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .lab-card {
+            background: #252631;
+            border: 2px solid #374151;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        iframe {
+            width: 100%;
+            height: 220px;
+            border: 2px solid #4b5563;
+            border-radius: 8px;
+            background: white;
+        }
+    </style>
+</head>
+
+<body class="p-10">
+    <header class="mb-10">
+        <h1 class="text-3xl font-bold text-amber-400">Neural Data Extraction</h1>
+        <p class="text-gray-400">Switch into frames to retrieve patient vitals and sensitive medical text.</p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <div class="lab-card">
+            <h3 class="text-xs font-mono text-gray-500 mb-2 uppercase">ID: frame_alpha (Vital Signs)</h3>
+            <iframe id="frame_alpha"></iframe>
+        </div>
+
+        <div class="lab-card">
+            <h3 class="text-xs font-mono text-gray-500 mb-2 uppercase">ID: frame_beta (Surgeon Notes)</h3>
+            <iframe id="frame_beta"></iframe>
+        </div>
+
+        <div class="lab-card md:col-span-2">
+            <h3 class="text-xs font-mono text-red-500 mb-2 uppercase">ID: parent_frame (Deep Tissue Scan)</h3>
+            <iframe id="parent_frame"></iframe>
+        </div>
+
+    </div>
+
+    <script>
+        function createFrameContent(html) {
+            const blob = new Blob([html], { type: 'text/html' });
+            return URL.createObjectURL(blob);
+        }
+
+        // 1. Alpha Content (Simple Text + Header)
+        const alphaHTML = `<html><body style="font-family:sans-serif; padding:20px; color:#1e293b;">
+            <h2 id="vital_header">Patient Vitals</h2>
+            <p id="vital_data">Heart Rate: 72 BPM<br>Blood Pressure: 120/80 mmHg</p>
+            <button id="update_btn" style="background:#3b82f6; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer;">RE-SCAN VITALS</button>
+        </body></html>`;
+        document.getElementById('frame_alpha').src = createFrameContent(alphaHTML);
+
+        // 2. Beta Content (Paragraph Text)
+        const betaHTML = `<html><body style="font-family:sans-serif; padding:20px; color:#1e293b; line-height:1.6;">
+            <h2 style="color:#ef4444;">Surgeon's Notes</h2>
+            <p id="notes_text">The patient exhibits high dexterity in the automation ward. Pre-clinical foundations are stable. Suggest moving to advanced UI procedures immediately.</p>
+        </body></html>`;
+        document.getElementById('frame_beta').src = createFrameContent(betaHTML);
+
+        // 3. Nested Content (Header and Deep Text)
+        const childHTML = `<html><body style="background:#64748b; font-family:sans-serif; padding:15px; color:white; border-radius:5px;">
+            <h3>Sub-Dermal Analysis</h3>
+            <p id="deep_text">CONFIDENTIAL: No anomalies detected in the UI layer.</p>
+            <button id="deep_btn" style="cursor:pointer; padding:8px;">GENERATE REPORT</button>
+        </body></html>`;
+        const childURL = createFrameContent(childHTML);
+
+        const parentHTML = `<html><body style="background:#cbd5e1; padding:20px; font-family:sans-serif;">
+            <h1 style="color:#1e293b;">Main Diagnostic Layer</h1>
+            <p style="color:#334155;">Accessing the inner nucleus for text extraction...</p>
+            <iframe id="child_frame" src="${childURL}" style="width:100%; height:120px; border:1px solid #1e293b;"></iframe>
+        </body></html>`;
+        document.getElementById('parent_frame').src = createFrameContent(parentHTML);
+    </script>
+</body>
+
+</html>
