@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internal Stimulation Unit | AutomationWithPiyush</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .bg-card {
+            background-color: #252631;
+        }
+
+        .pulse-monitor {
+            background-color: #0d0d12;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Hidden input for the stimulation task */
+        #hidden-treatment-input {
+            display: none;
+        }
+
+        /* Disabled button styling */
+        .disabled-btn {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transition: all 0.3s;
+        }
+
+        .enabled-btn {
+            opacity: 1;
+            cursor: pointer;
+            background-color: #ef4444;
+        }
+    </style>
+</head>
+
+<body class="p-6 md:p-12">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="flex flex-col md:flex-row justify-between items-center mb-12" data-aos="fade-down">
+            <div>
+                <h1 class="text-4xl font-bold">Internal <span class="text-amber-400">Stimulation</span></h1>
+                <p class="text-gray-400 mt-2 text-sm uppercase tracking-widest font-bold">
+                    <i class="fas fa-bolt text-yellow-500 mr-1"></i> JavascriptExecutor Bypass Ward
+                </p>
+            </div>
+            <a href="surgical-suite.html"
+                class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium group">
+                <i class="fas fa-hospital text-amber-400"></i> Back to Suite
+            </a>
+        </header>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+
+            <div class="lg:col-span-2 space-y-8">
+
+                <div class="bg-card p-8 rounded-xl border border-gray-800" data-aos="fade-right">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-amber-400/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-ghost text-amber-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Hidden Tissue Stimulation</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">
+                        <b>Diagnosis:</b> The input field below is <code>display: none</code>. Standard
+                        <code>sendKeys()</code> will throw an <i>ElementNotInteractableException</i>.
+                    </p>
+
+                    <input type="text" id="hidden-treatment-input" value="">
+
+                    <div class="p-4 bg-[#1a1b23] border border-dashed border-gray-700 rounded-lg text-center">
+                        <span id="display-text" class="text-gray-500 italic text-sm">Waiting for internal
+                            stimulation...</span>
+                    </div>
+                </div>
+
+                <div class="bg-card p-8 rounded-xl border border-gray-800" data-aos="fade-right" data-aos-delay="100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-red-400/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-file-medical-alt text-red-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Bypass Procedure: Download Report</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6">
+                        <b>Procedure:</b> The "Download Surgery Report" button is disabled until the terms are checked.
+                        Use JS Executor to <code>click()</code> it directly and bypass the restriction.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" id="terms-checkbox" class="w-5 h-5 accent-amber-400">
+                            <label for="terms-checkbox" class="text-sm text-gray-300">I accept the surgical terms and
+                                conditions.</label>
+                        </div>
+
+                        <button id="download-report-btn" disabled
+                            class="disabled-btn w-full py-4 text-white font-bold rounded-lg border border-red-500/50 flex justify-center items-center gap-2">
+                            <i class="fas fa-download"></i> Download Surgery Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pulse-monitor p-6 rounded-lg border border-gray-800 border-l-4 border-l-yellow-500">
+                    <h4 class="text-yellow-500 text-xs font-bold mb-4 uppercase tracking-tighter">Stimulation Feedback
+                    </h4>
+                    <div id="console-output" class="text-green-400 text-sm space-y-1">
+                        > Surgeon ready. Awaiting JS injection...
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-card p-6 rounded-xl border border-gray-800" data-aos="fade-left">
+                    <h4 class="text-lg font-bold mb-4 border-b border-gray-700 pb-2">Stimulation Script</h4>
+                    <div class="text-xs text-gray-400 space-y-4 font-mono">
+                        <p class="text-amber-400">// For Hidden Input</p>
+                        <p>js.executeScript("arguments[0].value='STIMULATED';", element);</p>
+
+                        <p class="text-amber-400">// For Disabled Click</p>
+                        <p>js.executeScript("arguments[0].click();", button);</p>
+                    </div>
+                </div>
+
+                <div class="bg-amber-400 p-6 rounded-xl text-black">
+                    <h4 class="font-bold mb-2"><i class="fas fa-user-md mr-2"></i> Surgeon's Note</h4>
+                    <p class="text-sm font-medium">Standard Selenium follows the <b>Visibility Rules</b>. JS Executor
+                        interacts directly with the DOM, allowing us to operate on elements that are hidden or disabled.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        const log = (msg) => {
+            const entry = document.createElement('div');
+            entry.innerHTML = `> ${msg}`;
+            document.getElementById('console-output').prepend(entry);
+        };
+
+        // Logic for Task 1: Detect value change in hidden input
+        const hiddenInput = document.getElementById('hidden-treatment-input');
+        const displayText = document.getElementById('display-text');
+
+        // We use a setter override because standard 'change' events don't fire for programmatic value changes
+        const descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+        Object.defineProperty(hiddenInput, 'value', {
+            set: function (t) {
+                descriptor.set.call(this, t);
+                displayText.innerText = "Internal Tissue Value: " + t;
+                displayText.classList.remove('text-gray-500');
+                displayText.classList.add('text-amber-400', 'font-bold');
+                log(`<span class="text-amber-400">Stimulation Detected:</span> Internal value injected successfully.`);
+            }
+        });
+
+        // Logic for Task 2: Standard UI behavior
+        const checkbox = document.getElementById('terms-checkbox');
+        const btn = document.getElementById('download-report-btn');
+
+        checkbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                btn.disabled = false;
+                btn.classList.remove('disabled-btn');
+                btn.classList.add('enabled-btn');
+            } else {
+                btn.disabled = true;
+                btn.classList.add('disabled-btn');
+                btn.classList.remove('enabled-btn');
+            }
+        });
+
+        btn.addEventListener('click', () => {
+            log(`<span class="text-red-500">Procedure Successful:</span> Surgery report downloaded.`);
+            alert("Surgical Report Downloaded Successfully!");
+        });
+    </script>
+</body>
+
+</html>
