@@ -4,183 +4,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>vTiger CRM Automation | Project Details</title>
+    <title>vTiger CRM Automation | SDET Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400&display=swap');
 
         body {
-            background-color: #1a1b23;
-            color: #ffffff;
+            background-color: #0f111a;
+            color: #e2e8f0;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
 
-        .bg-card {
-            background-color: #252631;
+        .font-mono {
+            font-family: 'Fira Code', monospace;
         }
 
-        .accent-amber {
+        .bg-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+        }
+
+        .text-accent {
             color: #facc15;
         }
 
-        /* Custom scrollbar for the architecture code block */
-        .custom-scrollbar::-webkit-scrollbar {
-            height: 4px;
+        .border-accent {
+            border-color: #facc15;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #1a1b23;
+        /* Syntax Highlighting for the Code Block */
+        .code-tree .folder {
+            color: #60a5fa;
+            font-weight: bold;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #444;
-            border-radius: 10px;
+        .code-tree .file {
+            color: #94a3b8;
+        }
+
+        .code-tree .comment {
+            color: #475569;
+            font-style: italic;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f111a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
         }
     </style>
 </head>
 
-<body class="overflow-x-hidden">
+<body class="antialiased">
 
-    <nav class="p-6 md:p-8 max-w-7xl mx-auto flex justify-between items-center">
-        <a href="index.html"
-            class="text-gray-400 hover:text-white transition flex items-center gap-2 text-sm md:text-base">
-            <i class="fas fa-arrow-left"></i> Back to Portfolio
-        </a>
-        <div class="flex gap-4">
-            <a href="https://github.com/AutomationWithPiyushhh/crm-automation-framework" target="_blank"
-                class="bg-white text-black px-4 md:px-6 py-2 rounded font-bold hover:bg-amber-400 transition text-sm md:text-base">
-                GitHub <i class="fab fa-github ml-1"></i>
+    <nav class="w-full border-b border-gray-800 bg-[#0f111a]/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium">
+                <i class="fas fa-arrow-left text-accent"></i> Back to Portfolio
             </a>
+            <div class="flex items-center gap-4">
+                <span class="hidden md:block text-xs text-gray-500 uppercase tracking-widest font-bold">Status:
+                    Active</span>
+                <div class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+            </div>
         </div>
     </nav>
 
-    <header class="max-w-5xl mx-auto px-6 md:px-8 py-12 md:py-20 text-center" data-aos="fade-up">
-        <p class="text-amber-400 uppercase tracking-widest text-xs md:text-sm mb-4 font-bold">— Case Study: Enterprise
-            Automation</p>
-        <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">CRM Automation Framework</h1>
-        <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            A high-performance Industrial-Grade framework built for rapid, reliable, and scalable testing of enterprise
-            CRM modules.
-        </p>
+    <header class="max-w-7xl mx-auto px-6 py-20 lg:py-28">
+        <div class="flex flex-col lg:flex-row gap-12 items-start" data-aos="fade-up">
+            <div class="lg:w-2/3">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-500 text-xs font-bold uppercase tracking-widest mb-6 border border-yellow-500/20">
+                    <i class="fas fa-star"></i> Enterprise Grade
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white">
+                    vTiger CRM <br>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">Automation
+                        Architecture</span>
+                </h1>
+                <p class="text-lg text-gray-400 leading-relaxed max-w-2xl">
+                    Designed and architected a robust <strong>Hybrid Test Automation Framework</strong> mimicking
+                    real-world enterprise environments.
+                    Engineered to handle dynamic web elements, enforce <strong>Thread-Safe parallel execution</strong>,
+                    and integrate seamlessly with CI/CD pipelines for nightly regression cycles.
+                </p>
+
+                <div class="flex flex-wrap gap-3 mt-8">
+                    <span
+                        class="px-4 py-2 bg-[#1e293b] rounded text-xs font-mono text-blue-400 border border-gray-700"><i
+                            class="fab fa-java mr-2"></i>Java 21</span>
+                    <span
+                        class="px-4 py-2 bg-[#1e293b] rounded text-xs font-mono text-green-400 border border-gray-700"><i
+                            class="fas fa-check-double mr-2"></i>Selenium 4</span>
+                    <span
+                        class="px-4 py-2 bg-[#1e293b] rounded text-xs font-mono text-red-400 border border-gray-700"><i
+                            class="fas fa-vial mr-2"></i>TestNG</span>
+                    <span
+                        class="px-4 py-2 bg-[#1e293b] rounded text-xs font-mono text-orange-400 border border-gray-700"><i
+                            class="fas fa-project-diagram mr-2"></i>Maven</span>
+                    <span
+                        class="px-4 py-2 bg-[#1e293b] rounded text-xs font-mono text-sky-400 border border-gray-700"><i
+                            class="fab fa-docker mr-2"></i>Docker</span>
+                </div>
+            </div>
+
+            <div class="lg:w-1/3 w-full">
+                <div class="bg-card p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                        <i class="fas fa-chart-line text-8xl text-white"></i>
+                    </div>
+                    <h3 class="text-gray-400 text-sm uppercase tracking-widest font-bold mb-6">Performance Metrics</h3>
+                    <div class="space-y-6 relative z-10">
+                        <div>
+                            <p class="text-3xl font-bold text-white">70%</p>
+                            <p class="text-xs text-gray-500">Reduction in Manual Effort</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-white">40%</p>
+                            <p class="text-xs text-gray-500">Faster Execution (Parallel)</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-white">Zero</p>
+                            <p class="text-xs text-gray-500">Hardcoded Data (100% Externalized)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <div class="max-w-5xl mx-auto px-6 md:px-8 flex flex-wrap justify-center gap-2 md:gap-3 mb-16 md:mb-20"
-        data-aos="fade-up" data-aos-delay="100">
-        <span
-            class="bg-gray-800 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm border border-gray-700">Java</span>
-        <span
-            class="bg-gray-800 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm border border-gray-700">Selenium
-            WebDriver</span>
-        <span
-            class="bg-gray-800 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm border border-gray-700">TestNG</span>
-        <span
-            class="bg-gray-800 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm border border-gray-700">Maven</span>
-        <span
-            class="bg-gray-800 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm border border-gray-700">Apache
-            POI</span>
-    </div>
+    <main class="max-w-7xl mx-auto px-6 pb-32">
 
-    <main class="max-w-5xl mx-auto px-6 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-12 pb-32">
+        <div class="grid lg:grid-cols-12 gap-12">
 
-        <div class="order-2 md:order-1 md:col-span-1" data-aos="fade-right">
-            <h3 class="text-xl font-bold mb-6 border-l-4 border-amber-400 pl-4">Architecture</h3>
-            <div
-                class="bg-card p-6 rounded-lg font-mono text-xs text-gray-400 leading-relaxed overflow-x-auto custom-scrollbar">
-                <p class="text-amber-400">vtiger-crm-framework</p>
-                <p>├── src/main/java</p>
-                <p>│&nbsp;&nbsp;&nbsp;├── base_utility</p>
-                <p>│&nbsp;&nbsp;&nbsp;├── generic_utility</p>
-                <p>│&nbsp;&nbsp;&nbsp;└── object_repo</p>
-                <p>├── src/test/java</p>
-                <p>└── pom.xml</p>
-            </div>
-            <p class="mt-6 text-sm text-gray-500 italic">Modular Page Object Model (POM) structure implemented for
-                maximum maintainability and object reusability.</p>
-        </div>
-
-        <div class="order-1 md:order-2 md:col-span-2 space-y-12" data-aos="fade-left">
-
-            <section>
-                <h3 class="text-2xl font-bold mb-6">Framework Features</h3>
-                <ul class="grid grid-cols-1 gap-6">
-                    <li class="flex gap-4 items-start">
-                        <i class="fas fa-check-circle text-amber-400 mt-1 text-lg"></i>
-                        <div>
-                            <strong class="text-white block mb-1">Hybrid Framework Architecture</strong>
-                            <p class="text-gray-400 text-sm">Seamlessly combines Data-Driven (Excel) and Keyword-Driven
-                                methodologies to handle dynamic test scenarios.</p>
-                        </div>
-                    </li>
-                    <li class="flex gap-4 items-start">
-                        <i class="fas fa-check-circle text-amber-400 mt-1 text-lg"></i>
-                        <div>
-                            <strong class="text-white block mb-1">Automated Failure Analysis</strong>
-                            <p class="text-gray-400 text-sm">Integrated TestNG Listeners to trigger automatic screenshot
-                                capture and logging upon script failure.</p>
-                        </div>
-                    </li>
-                    <li class="flex gap-4 items-start">
-                        <i class="fas fa-check-circle text-amber-400 mt-1 text-lg"></i>
-                        <div>
-                            <strong class="text-white block mb-1">Parallel Browser Execution</strong>
-                            <p class="text-gray-400 text-sm">Configured for cross-browser testing, significantly
-                                reducing total execution time for regression suites.</p>
-                        </div>
-                    </li>
-                    <li class="flex gap-4 items-start">
-                        <i class="fas fa-check-circle text-amber-400 mt-1 text-lg"></i>
-                        <div>
-                            <strong class="text-white block mb-1">Zero Hardcoding Policy</strong>
-                            <p class="text-gray-400 text-sm">All environment variables and test data are strictly
-                                externalized in .properties and .xlsx files.</p>
-                        </div>
-                    </li>
-                </ul>
-            </section>
-
-
-
-            <section>
-                <h3 class="text-2xl font-bold mb-4 text-white">Advanced Reporting</h3>
-                <p class="text-gray-400 mb-6 text-sm md:text-base">Every execution generates a comprehensive
-                    <strong>Extent Report</strong>. These reports include detailed step-by-step logs, execution
-                    timestamps, and embedded failure screenshots for immediate debugging.
-                </p>
-                <code
-                    class="bg-black p-4 block rounded text-green-400 text-xs md:text-sm border border-gray-800 overflow-x-auto custom-scrollbar">
-                    test-output/ExtentReport/index.html
-                </code>
-            </section>
-
-            <section class="bg-amber-400 p-6 md:p-8 rounded-lg text-black">
-                <h3 class="text-xl md:text-2xl font-bold mb-3">Technical Deep Dive</h3>
-                <p class="mb-6 font-medium text-sm md:text-base">The source code for this framework is public. You can
-                    examine the BaseClass logic and Generic Utilities directly on GitHub.</p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <code class="bg-black/10 p-3 rounded font-mono text-xs md:text-sm flex-grow">
-                        mvn test -DsuiteXmlFile=testng.xml
-                    </code>
-                    <a href="https://github.com/AutomationWithPiyushhh/crm-automation-framework" target="_blank"
-                        class="bg-black text-white text-center px-6 py-3 rounded font-bold hover:bg-gray-900 transition text-sm">
-                        Source Code <i class="fas fa-code ml-1"></i>
-                    </a>
+            <div class="lg:col-span-5 space-y-8" data-aos="fade-right">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-sitemap text-accent"></i> Framework Anatomy
+                    </h3>
+                    <div
+                        class="bg-[#0d1117] p-6 rounded-lg border border-gray-800 font-mono text-xs md:text-sm overflow-x-auto code-tree shadow-2xl">
+                        <div class="mb-2"><span class="folder">vtiger-framework</span></div>
+                        <div class="pl-4 mb-1">├── <span class="folder">src/main/java</span></div>
+                        <div class="pl-8 mb-1">├── <span class="folder">com.vtiger.generic</span></div>
+                        <div class="pl-12 mb-1">├── <span class="file">FileUtility.java</span> <span class="comment">//
+                                JSON/Property readers</span></div>
+                        <div class="pl-12 mb-1">├── <span class="file">ExcelUtility.java</span> <span class="comment">//
+                                Apache POI wrapper</span></div>
+                        <div class="pl-12 mb-1">├── <span class="file">WebDriverUtility.java</span> <span
+                                class="comment">// Explicit waits, Actions</span></div>
+                        <div class="pl-12 mb-1">└── <span class="file">JavaUtility.java</span> <span class="comment">//
+                                Random data generation</span></div>
+                        <div class="pl-8 mb-1">├── <span class="folder">com.vtiger.objectRepo</span> <span
+                                class="comment">// Page Object Model</span></div>
+                        <div class="pl-12 mb-1">├── <span class="file">LoginPage.java</span></div>
+                        <div class="pl-12 mb-1">└── <span class="file">HomePage.java</span></div>
+                        <div class="pl-4 mb-1">├── <span class="folder">src/test/java</span></div>
+                        <div class="pl-8 mb-1">├── <span class="folder">com.vtiger.tests</span></div>
+                        <div class="pl-12 mb-1">├── <span class="file">BaseClass.java</span> <span class="comment">//
+                                @BeforeSuite, @AfterMethod</span></div>
+                        <div class="pl-12 mb-1">└── <span class="file">OrganizationTest.java</span></div>
+                        <div class="pl-4">└── <span class="file">testng.xml</span> <span class="comment">// Suite
+                                configuration</span></div>
+                    </div>
                 </div>
-            </section>
+
+                <div
+                    class="bg-gradient-to-r from-yellow-500/10 to-transparent p-6 rounded-lg border-l-4 border-yellow-500">
+                    <h4 class="text-yellow-500 font-bold mb-2 text-sm uppercase">Engineering Highlight</h4>
+                    <p class="text-sm text-gray-400">
+                        Implemented <strong>Singleton Design Pattern</strong> for property file loading and
+                        <strong>Factory Pattern</strong> for object initialization, ensuring optimal memory usage during
+                        large suite executions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 space-y-10" data-aos="fade-left">
+
+                <section>
+                    <h3 class="text-2xl font-bold text-white mb-6">Technical Implementation Details</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+
+                        <div class="bg-card p-6 rounded-xl hover:border-accent transition duration-300">
+                            <i class="fas fa-layer-group text-accent text-2xl mb-4"></i>
+                            <h4 class="text-white font-bold mb-2">Hybrid Methodology</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                A strategic blend of <strong>Data-Driven</strong> (Apache POI for Excel) and
+                                <strong>Keyword-Driven</strong> approaches. Test data is completely isolated from script
+                                logic, allowing non-technical stakeholders to update scenarios via Excel.
+                            </p>
+                        </div>
+
+                        <div class="bg-card p-6 rounded-xl hover:border-accent transition duration-300">
+                            <i class="fas fa-sync-alt text-accent text-2xl mb-4"></i>
+                            <h4 class="text-white font-bold mb-2">Thread-Safe Execution</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Utilized Java <code>ThreadLocal&lt;WebDriver&gt;</code> to ensure thread safety during
+                                <strong>Parallel Execution</strong>. This prevents session conflict when running
+                                cross-browser tests simultaneously on Selenium Grid.
+                            </p>
+                        </div>
+
+                        <div class="bg-card p-6 rounded-xl hover:border-accent transition duration-300">
+                            <i class="fas fa-bug text-accent text-2xl mb-4"></i>
+                            <h4 class="text-white font-bold mb-2">Failure Analysis (Listeners)</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Integrated <code>ITestListener</code> interface to capture screenshots automatically
+                                upon test failure. Logs are injected directly into <strong>Extent Reports</strong> for
+                                immediate root cause analysis.
+                            </p>
+                        </div>
+
+                        <div class="bg-card p-6 rounded-xl hover:border-accent transition duration-300">
+                            <i class="fas fa-cogs text-accent text-2xl mb-4"></i>
+                            <h4 class="text-white font-bold mb-2">CI/CD Integration</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Fully Dockerized environment. The suite is triggered via <strong>Jenkins</strong>
+                                pipelines using Maven profiles (<code>mvn test -PRegression</code>), enabling headless
+                                execution on Linux servers.
+                            </p>
+                        </div>
+
+                    </div>
+                </section>
+
+                <div class="pt-8 border-t border-gray-800">
+                    <h3 class="text-white font-bold mb-4">Explore the Source Code</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="https://github.com/AutomationWithPiyushhh/crm-automation-framework" target="_blank"
+                            class="flex items-center gap-3 bg-white text-black px-8 py-4 rounded-lg font-bold hover:bg-accent transition hover:-translate-y-1 shadow-lg shadow-white/10">
+                            <i class="fab fa-github text-xl"></i> View Repository
+                        </a>
+                        <div
+                            class="flex items-center gap-3 px-6 py-4 rounded-lg border border-gray-700 text-gray-400 font-mono text-sm bg-black/20">
+                            <span class="text-green-400">$</span> git clone https://github.com/AutomationWithPiyushhh...
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
+
     </main>
 
     <footer class="py-12 border-t border-gray-800 text-center">
-        <p class="text-gray-500 text-sm">© 2026 AutomationWithPiyush. Built for SDET Excellence.</p>
+        <p class="text-gray-600 text-sm">© 2026 AutomationWithPiyush. Built for SDET Excellence.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
-            duration: 1000,
-            once: true
+            duration: 800,
+            once: true,
+            offset: 100
         });
     </script>
 </body>

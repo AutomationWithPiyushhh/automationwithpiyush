@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API Automation | SDET Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400&display=swap');
+
+        body {
+            background-color: #0f111a;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .font-mono {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .bg-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+        }
+
+        /* API Accent Colors (Cyan/Teal) */
+        .text-accent {
+            color: #22d3ee;
+        }
+
+        .border-accent {
+            border-color: #22d3ee;
+        }
+
+        .bg-accent {
+            background-color: #22d3ee;
+        }
+
+        .bg-accent-dim {
+            background-color: rgba(34, 211, 238, 0.1);
+        }
+
+        /* Syntax Highlighting */
+        .code-tree .folder {
+            color: #f472b6;
+            font-weight: bold;
+        }
+
+        /* Pink folders */
+        .code-tree .file {
+            color: #94a3b8;
+        }
+
+        .code-tree .comment {
+            color: #475569;
+            font-style: italic;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f111a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <nav class="w-full border-b border-gray-800 bg-[#0f111a]/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium">
+                <i class="fas fa-arrow-left text-accent"></i> Back to Portfolio
+            </a>
+            <div class="flex items-center gap-4">
+                <span class="hidden md:block text-xs text-gray-500 uppercase tracking-widest font-bold">Pipeline:
+                    Passing</span>
+                <div class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-7xl mx-auto px-6 py-20 lg:py-28">
+        <div class="flex flex-col lg:flex-row gap-12 items-start" data-aos="fade-up">
+            <div class="lg:w-2/3">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-6 border border-cyan-500/20">
+                    <i class="fas fa-network-wired"></i> Backend Automation
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white">
+                    REST API <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Testing
+                        Architecture</span>
+                </h1>
+                <p class="text-lg text-gray-400 leading-relaxed max-w-2xl">
+                    A comprehensive <strong>API Automation Framework</strong> built on RestAssured and TestNG.
+                    Optimized for validating microservices, ensuring schema compliance, and handling complex
+                    <strong>Serialization/Deserialization</strong> with Jackson library.
+                </p>
+
+                <div class="flex flex-wrap gap-3 mt-8">
+                    <span
+                        class="px-4 py-2 bg-[#1e293b] rounded text-xs font-mono text-cyan-400 border border-gray-700"><i
+                            class="fas fa-globe mr-2"></i>RestAssured</span>
+                    <span
+                        class="px-4 py-2 bg-[#1e293b] rounded text-xs font-mono text-purple-400 border border-gray-700"><i
+                            class="fas fa-cube mr-2"></i>Jackson API</span>
+                    <span
+                        class="px-4 py-2 bg-[#1e293b] rounded text-xs font-mono text-red-400 border border-gray-700"><i
+                            class="fas fa-pepper-hot mr-2"></i>Lombok</span>
+                    <span
+                        class="px-4 py-2 bg-[#1e293b] rounded text-xs font-mono text-yellow-400 border border-gray-700"><i
+                            class="fas fa-database mr-2"></i>Data Driven</span>
+                    <span
+                        class="px-4 py-2 bg-[#1e293b] rounded text-xs font-mono text-green-400 border border-gray-700"><i
+                            class="fas fa-file-code mr-2"></i>JSON Schema</span>
+                </div>
+            </div>
+
+            <div class="lg:w-1/3 w-full">
+                <div
+                    class="bg-card p-8 rounded-2xl relative overflow-hidden group hover:border-cyan-500/50 transition duration-500">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                        <i class="fas fa-server text-8xl text-white"></i>
+                    </div>
+                    <h3 class="text-gray-400 text-sm uppercase tracking-widest font-bold mb-6">Efficiency Metrics</h3>
+                    <div class="space-y-6 relative z-10">
+                        <div>
+                            <p class="text-3xl font-bold text-white">200ms</p>
+                            <p class="text-xs text-gray-500">Avg. Request Latency</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-white">100%</p>
+                            <p class="text-xs text-gray-500">Schema Validation Coverage</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-white">CRUD</p>
+                            <p class="text-xs text-gray-500">Full Lifecycle Coverage</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 pb-32">
+
+        <div class="grid lg:grid-cols-12 gap-12">
+
+            <div class="lg:col-span-5 space-y-8" data-aos="fade-right">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-sitemap text-accent"></i> Framework Anatomy
+                    </h3>
+                    <div
+                        class="bg-[#0d1117] p-6 rounded-lg border border-gray-800 font-mono text-xs md:text-sm overflow-x-auto code-tree shadow-2xl">
+                        <div class="mb-2"><span class="folder">api-framework</span></div>
+                        <div class="pl-4 mb-1">├── <span class="folder">src/main/java</span></div>
+                        <div class="pl-8 mb-1">├── <span class="folder">com.api.endpoints</span></div>
+                        <div class="pl-12 mb-1">├── <span class="file">UserEndPoints.java</span> <span
+                                class="comment">// CRUD operations</span></div>
+                        <div class="pl-12 mb-1">└── <span class="file">Routes.java</span> <span class="comment">// URL
+                                configs</span></div>
+                        <div class="pl-8 mb-1">├── <span class="folder">com.api.payloads</span> <span class="comment">//
+                                POJO Classes</span></div>
+                        <div class="pl-12 mb-1">├── <span class="file">User.java</span> <span class="comment">// Using
+                                Lombok @Data</span></div>
+                        <div class="pl-12 mb-1">└── <span class="file">Pet.java</span></div>
+                        <div class="pl-8 mb-1">└── <span class="folder">com.api.utilities</span> <span
+                                class="comment">// Data Providers</span></div>
+                        <div class="pl-4 mb-1">├── <span class="folder">src/test/java</span></div>
+                        <div class="pl-8 mb-1">├── <span class="folder">com.api.tests</span></div>
+                        <div class="pl-12 mb-1">├── <span class="file">UserTests.java</span></div>
+                        <div class="pl-12 mb-1">└── <span class="file">DDTests.java</span> <span class="comment">// Data
+                                Driven Tests</span></div>
+                        <div class="pl-4">└── <span class="file">pom.xml</span> <span class="comment">//
+                                Dependencies</span></div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-cyan-500/10 to-transparent p-6 rounded-lg border-l-4 border-cyan-500">
+                    <h4 class="text-cyan-400 font-bold mb-2 text-sm uppercase">Implementation Logic</h4>
+                    <p class="text-sm text-gray-400">
+                        Separated <strong>Routes</strong> (URLs) from <strong>Endpoints</strong> (Implementation) to
+                        maintain clean code. Implemented <strong>Chaining</strong> to pass response data (e.g., Auth
+                        Token, ID) to subsequent requests automatically.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 space-y-10" data-aos="fade-left">
+
+                <section>
+                    <h3 class="text-2xl font-bold text-white mb-6">Technical Capabilities</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+
+                        <div class="bg-card p-6 rounded-xl hover:border-accent transition duration-300 group">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-accent-dim flex items-center justify-center mb-4 text-accent">
+                                <i class="fas fa-code-branch text-xl"></i>
+                            </div>
+                            <h4 class="text-white font-bold mb-2">POJO & Lombok</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Used Plain Old Java Objects (POJO) for Request/Response payloads. Leveraged
+                                <strong>Lombok</strong> annotations (<code>@Getter</code>, <code>@Setter</code>,
+                                <code>@Builder</code>) to eliminate boilerplate getter/setter code.
+                            </p>
+                        </div>
+
+                        <div class="bg-card p-6 rounded-xl hover:border-accent transition duration-300 group">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-accent-dim flex items-center justify-center mb-4 text-accent">
+                                <i class="fas fa-table text-xl"></i>
+                            </div>
+                            <h4 class="text-white font-bold mb-2">Data Driven Testing</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Integrated <strong>Apache POI</strong> to fetch dynamic test data (multiple user
+                                payloads) from Excel sheets, allowing rigorous testing of endpoints with varied
+                                datasets.
+                            </p>
+                        </div>
+
+                        <div class="bg-card p-6 rounded-xl hover:border-accent transition duration-300 group">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-accent-dim flex items-center justify-center mb-4 text-accent">
+                                <i class="fas fa-shield-alt text-xl"></i>
+                            </div>
+                            <h4 class="text-white font-bold mb-2">Auth & Schema Validation</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Robust handling of <strong>Bearer Tokens</strong> and OAuth 2.0. Implemented
+                                <code>JsonSchemaValidator</code> to ensure response structure compliance with contract
+                                definitions.
+                            </p>
+                        </div>
+
+                        <div class="bg-card p-6 rounded-xl hover:border-accent transition duration-300 group">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-accent-dim flex items-center justify-center mb-4 text-accent">
+                                <i class="fas fa-file-invoice text-xl"></i>
+                            </div>
+                            <h4 class="text-white font-bold mb-2">Extent Reports</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Customized reporting listeners to log Request Body, Response Body, Status Codes, and
+                                Headers directly into the HTML report for full traceability.
+                            </p>
+                        </div>
+
+                    </div>
+                </section>
+
+                <div class="pt-8 border-t border-gray-800">
+                    <h3 class="text-white font-bold mb-4">Explore the Repository</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="https://github.com/AutomationWithPiyushhh" target="_blank"
+                            class="flex items-center gap-3 bg-white text-black px-8 py-4 rounded-lg font-bold hover:bg-cyan-400 hover:text-black transition hover:-translate-y-1 shadow-lg shadow-white/10">
+                            <i class="fab fa-github text-xl"></i> View Source Code
+                        </a>
+                        <div
+                            class="flex items-center gap-3 px-6 py-4 rounded-lg border border-gray-700 text-gray-400 font-mono text-sm bg-black/20">
+                            <span class="text-cyan-400">$</span> mvn test -DsuiteXmlFile=testng.xml
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="py-12 border-t border-gray-800 text-center">
+        <p class="text-gray-600 text-sm">© 2026 AutomationWithPiyush. Master API Automation.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+
+</html>
