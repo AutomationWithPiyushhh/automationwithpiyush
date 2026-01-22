@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Elements | AutomationWithPiyush</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .bg-card {
+            background-color: #252631;
+        }
+
+        .text-accent {
+            color: #facc15;
+        }
+
+        /* Custom Input Styling */
+        input[type="text"],
+        input[type="email"] {
+            background-color: #1a1b23;
+            border: 1px solid #374151;
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #facc15;
+            box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
+        }
+
+        /* Toast Notification Animation */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .toast {
+            background: #252631;
+            border-left: 4px solid #facc15;
+            color: white;
+            padding: 1rem 1.5rem;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease-out forwards, fadeOut 0.5s ease-in 2.5s forwards;
+            min-width: 300px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="pb-20">
+
+    <div id="toast-container"></div>
+
+    <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-7xl mx-auto z-50">
+        <div class="flex items-center gap-3">
+            <img src="awp.png" alt="Logo" class="h-10 w-auto rounded">
+            <span class="font-bold text-xl tracking-tighter">Automation<span class="text-accent">OPD</span></span>
+        </div>
+        <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Hub
+        </a>
+    </nav>
+
+    <header class="max-w-7xl mx-auto px-6 py-10" data-aos="fade-down">
+        <p class="text-accent uppercase tracking-widest text-xs font-bold mb-4">— Surgical Room 02</p>
+        <h1 class="text-4xl md:text-5xl font-bold">Web Element <span class="text-gray-600">Diagnostics</span></h1>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12">
+
+        <section class="space-y-8" data-aos="fade-right">
+
+            <div class="bg-card p-8 rounded-xl border border-gray-800 shadow-xl">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold flex items-center">
+                        <i class="fas fa-wpforms text-accent mr-3"></i> Input Form
+                    </h3>
+                    <button type="button" onclick="clearForm()"
+                        class="text-xs text-gray-500 hover:text-white underline">Clear</button>
+                </div>
+
+                <form id="practiceForm" class="space-y-5">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="John" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Doe" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Email</label>
+                        <input type="email" id="userEmail" name="email" placeholder="name@example.com" required>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Gender</label>
+                            <div class="flex flex-col gap-2">
+                                <label class="flex items-center cursor-pointer hover:bg-white/5 p-2 rounded transition">
+                                    <input type="radio" name="gender" value="Male" class="accent-yellow-400 w-4 h-4">
+                                    <span class="ml-2 text-sm text-gray-300">Male</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer hover:bg-white/5 p-2 rounded transition">
+                                    <input type="radio" name="gender" value="Female" class="accent-yellow-400 w-4 h-4">
+                                    <span class="ml-2 text-sm text-gray-300">Female</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Interests</label>
+                            <div class="flex flex-col gap-2">
+                                <label class="flex items-center cursor-pointer hover:bg-white/5 p-2 rounded transition">
+                                    <input type="checkbox" id="checkJava" class="accent-yellow-400 w-4 h-4 rounded">
+                                    <span class="ml-2 text-sm text-gray-300">Java</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer hover:bg-white/5 p-2 rounded transition">
+                                    <input type="checkbox" id="checkPython" class="accent-yellow-400 w-4 h-4 rounded">
+                                    <span class="ml-2 text-sm text-gray-300">Python</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitBtn"
+                        class="w-full bg-accent text-black font-bold py-3 rounded hover:bg-white transition-all transform active:scale-95 shadow-lg shadow-yellow-500/20">
+                        Submit Data
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section class="space-y-8" data-aos="fade-left">
+
+            <div class="bg-card p-8 rounded-xl border border-gray-800">
+                <h4 class="text-gray-500 text-xs uppercase font-bold mb-6 tracking-widest">Button Interactions</h4>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <button id="doubleClickBtn"
+                        class="p-3 border border-gray-600 rounded text-sm hover:border-accent hover:text-accent transition font-medium">
+                        Double Click Me
+                    </button>
+
+                    <button oncontextmenu="handleRightClick(event)"
+                        class="p-3 border border-gray-600 rounded text-sm hover:border-red-400 hover:text-red-400 transition font-medium">
+                        Right Click Me
+                    </button>
+
+                    <button onmouseenter="this.innerText='Hovered!'" onmouseleave="this.innerText='Hover Me'"
+                        class="p-3 bg-gray-700 rounded text-sm hover:bg-gray-600 transition font-medium">
+                        Hover Me
+                    </button>
+
+                    <div class="relative group">
+                        <button id="disabledBtn"
+                            class="w-full p-3 bg-gray-800 text-gray-500 rounded text-sm cursor-not-allowed border border-transparent"
+                            disabled onclick="showToast('Disabled Button Clicked!', 'success')">
+                            Disabled
+                        </button>
+                        <button onclick="toggleDisabled()"
+                            class="absolute -top-2 -right-2 bg-blue-500 text-white w-6 h-6 rounded-full text-xs hover:bg-blue-400 shadow-lg"
+                            title="Toggle Enable">
+                            <i class="fas fa-lock-open"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-6 border-t border-gray-700">
+                    <div class="flex justify-between items-center">
+                        <p class="text-sm text-gray-400">Explicit Wait (3s)</p>
+                        <button onclick="startAsync()"
+                            class="text-xs bg-white text-black px-3 py-1 rounded font-bold hover:bg-accent transition">
+                            Trigger
+                        </button>
+                    </div>
+                    <div id="loader" class="hidden mt-3 text-accent text-xs animate-pulse">
+                        <i class="fas fa-circle-notch fa-spin mr-2"></i> Fetching data from server...
+                    </div>
+                    <div id="hiddenElement"
+                        class="hidden mt-3 p-2 bg-green-500/10 border border-green-500/50 text-green-400 text-xs font-mono rounded text-center">
+                        Element Rendered Successfully
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-card rounded-xl border border-gray-800 overflow-hidden">
+                <div class="p-6 border-b border-gray-800 bg-[#1f202a]">
+                    <h3 class="font-bold text-sm uppercase tracking-widest">User Table</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-[#1a1b23] text-gray-500 border-b border-gray-800">
+                            <tr>
+                                <th class="px-6 py-3">Name</th>
+                                <th class="px-6 py-3">Role</th>
+                                <th class="px-6 py-3 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTableBody" class="divide-y divide-gray-800">
+                            <tr class="group hover:bg-white/5 transition">
+                                <td class="px-6 py-4 font-medium" data-val="John Wick">John Wick</td>
+                                <td class="px-6 py-4 text-gray-400" data-val="Assassin">Assassin</td>
+                                <td class="px-6 py-4 text-right space-x-2">
+                                    <button onclick="editRow(this)" class="text-blue-400 hover:text-white"><i
+                                            class="fas fa-edit"></i></button>
+                                    <button onclick="deleteRow(this)" class="text-red-400 hover:text-white"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr class="group hover:bg-white/5 transition">
+                                <td class="px-6 py-4 font-medium" data-val="Tony Stark">Tony Stark</td>
+                                <td class="px-6 py-4 text-gray-400" data-val="Engineer">Engineer</td>
+                                <td class="px-6 py-4 text-right space-x-2">
+                                    <button onclick="editRow(this)" class="text-blue-400 hover:text-white"><i
+                                            class="fas fa-edit"></i></button>
+                                    <button onclick="deleteRow(this)" class="text-red-400 hover:text-white"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // --- Toast Notification System ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fas fa-check-circle text-accent"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+
+            // Remove from DOM after animation
+            setTimeout(() => { container.removeChild(toast); }, 3000);
+        }
+
+        // --- Form Logic: Adds User to Table ---
+        document.getElementById('practiceForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // 1. Capture Values
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+
+            // Determine Role based on Checkboxes
+            let roleValues = [];
+            if (document.getElementById('checkJava').checked) roleValues.push("Java");
+            if (document.getElementById('checkPython').checked) roleValues.push("Python");
+            let role = roleValues.length > 0 ? roleValues.join(' & ') + " Dev" : "Manual Tester";
+
+            // 2. Button Animation (Processing...)
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerText;
+            btn.innerText = "Adding...";
+            btn.disabled = true;
+            btn.classList.add('opacity-50');
+
+            // 3. Add Row to Table (Simulated Delay)
+            setTimeout(() => {
+                const tableBody = document.getElementById('userTableBody');
+                const newRow = document.createElement('tr');
+                newRow.className = "group hover:bg-white/5 transition";
+
+                newRow.innerHTML = `
+                    <td class="px-6 py-4 font-medium">${firstName} ${lastName}</td>
+                    <td class="px-6 py-4 text-gray-400">${role}</td>
+                    <td class="px-6 py-4 text-right space-x-2">
+                        <button onclick="editRow(this)" class="text-blue-400 hover:text-white"><i class="fas fa-edit"></i></button>
+                        <button onclick="deleteRow(this)" class="text-red-400 hover:text-white"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+
+                tableBody.appendChild(newRow);
+
+                // Reset Form & Button
+                btn.innerText = originalText;
+                btn.disabled = false;
+                btn.classList.remove('opacity-50');
+                document.getElementById('practiceForm').reset();
+
+                showToast(`User ${firstName} Added Successfully!`);
+                newRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            }, 500);
+        });
+
+        function clearForm() {
+            document.getElementById('practiceForm').reset();
+            showToast("Form Cleared");
+        }
+
+        // --- Button Logic ---
+
+        // Double Click
+        document.getElementById('doubleClickBtn').addEventListener('dblclick', function () {
+            this.classList.toggle('border-accent');
+            this.classList.toggle('text-accent');
+            showToast("Double Click Verified!");
+        });
+
+        // Right Click
+        function handleRightClick(e) {
+            e.preventDefault();
+            showToast("Context Menu (Right Click) Prevented!");
+        }
+
+        // Disabled Toggle
+        function toggleDisabled() {
+            const btn = document.getElementById('disabledBtn');
+            if (btn.disabled) {
+                btn.disabled = false;
+                btn.classList.remove('cursor-not-allowed', 'bg-gray-800', 'text-gray-500');
+                btn.classList.add('bg-green-600', 'text-white', 'hover:bg-green-500');
+                btn.innerText = "Enabled & Clickable";
+                showToast("Button Enabled");
+            } else {
+                btn.disabled = true;
+                btn.classList.add('cursor-not-allowed', 'bg-gray-800', 'text-gray-500');
+                btn.classList.remove('bg-green-600', 'text-white', 'hover:bg-green-500');
+                btn.innerText = "Disabled";
+                showToast("Button Disabled");
+            }
+        }
+
+        // --- Sync/Wait Logic ---
+        function startAsync() {
+            const loader = document.getElementById('loader');
+            const element = document.getElementById('hiddenElement');
+
+            loader.classList.remove('hidden');
+            element.classList.add('hidden');
+
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                element.classList.remove('hidden');
+                showToast("Async Element Loaded");
+            }, 3000);
+        }
+
+        // --- Table Logic ---
+        function deleteRow(btn) {
+            const row = btn.closest('tr');
+            row.style.opacity = '0';
+            setTimeout(() => {
+                row.remove();
+                showToast("Row Deleted");
+            }, 300);
+        }
+
+        function editRow(btn) {
+            const row = btn.closest('tr');
+            const cells = row.getElementsByTagName('td');
+
+            // Populate Form
+            document.getElementById('firstName').value = cells[0].innerText.split(' ')[0];
+            document.getElementById('lastName').value = cells[0].innerText.split(' ')[1] || '';
+
+            // Scroll to form
+            document.querySelector('header').scrollIntoView({ behavior: 'smooth' });
+            showToast("Data Loaded into Form");
+        }
+    </script>
+</body>
+
+</html>

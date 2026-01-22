@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locators Lab | AutomationWithPiyush</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .bg-card {
+            background-color: #252631;
+            transition: all 0.3s ease;
+        }
+
+        .text-accent {
+            color: #facc15;
+        }
+
+        .border-accent {
+            border-color: #facc15;
+        }
+
+        .bg-accent {
+            background-color: #facc15;
+        }
+
+        .lab-input {
+            background-color: #1a1b23;
+            border: 1px solid #334155;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .lab-input:focus {
+            border-color: #facc15;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
+        }
+
+        /* Custom Checkbox */
+        .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            background-color: #1a1b23;
+            border: 1px solid #4b5563;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .custom-checkbox:checked {
+            background-color: #facc15;
+            border-color: #facc15;
+        }
+
+        .custom-checkbox:checked::after {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: #000;
+            font-size: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Success Animation */
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #facc15;
+            color: #000;
+            font-size: 40px;
+            animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        /* Toast Notification */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: #252631;
+            border-left: 4px solid #facc15;
+            color: white;
+            padding: 1rem 1.5rem;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.3s ease-out forwards;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body class="pb-20 flex flex-col min-h-screen">
+
+    <div id="toast-container"></div>
+
+    <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-7xl mx-auto w-full z-50"
+        data-aos="fade-down">
+        <div class="flex items-center gap-3">
+        </div>
+        <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">
+            <i class="fas fa-arrow-left mr-2"></i> Back to ward
+        </a>
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center px-6 py-12">
+        <div class="max-w-6xl w-full grid lg:grid-cols-2 gap-16 items-center">
+
+            <div data-aos="fade-right">
+                <p class="text-accent uppercase tracking-widest text-xs font-bold mb-4">— Basic Identification Unit</p>
+                <h1 class="text-5xl font-bold mb-6">Locators <span class="text-gray-600">Lab</span></h1>
+                <p class="text-gray-400 text-xl leading-relaxed mb-8">
+                    Test your scripts against real-world login scenarios. Practice finding elements by <code
+                        class="text-white bg-gray-800 px-2 py-1 rounded text-sm">id</code>, <code
+                        class="text-white bg-gray-800 px-2 py-1 rounded text-sm">name</code>, and handling <b>Dynamic
+                        IDs</b>.
+                </p>
+
+                <div
+                    class="p-6 border-l-4 border-accent bg-accent/5 rounded-r-lg inline-block group hover:bg-accent/10 transition-colors">
+                    <p class="text-sm text-gray-400">
+                        <i class="fas fa-lightbulb text-accent mr-2"></i>
+                        <b>Pro Tip:</b> The Login button ID changes on every refresh. Use Xpath/CSS contains() or
+                        starts-with().
+                    </p>
+                    <a href="relative.html"
+                        class="text-accent font-bold text-sm hover:text-white transition-colors flex items-center gap-2 mt-3">
+                        Try Relative Locators Next <i
+                            class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div id="auth-container"
+                class="bg-card rounded-xl shadow-2xl p-8 md:p-10 border border-gray-800 relative overflow-hidden"
+                data-aos="zoom-in" data-aos-delay="100">
+
+                <div class="absolute top-0 right-0 p-4 opacity-10">
+                    <i class="fas fa-fingerprint text-6xl text-white"></i>
+                </div>
+
+                <form id="loginForm" class="space-y-6 relative z-10">
+                    <div class="space-y-2">
+                        <label class="text-gray-400 text-xs font-bold uppercase tracking-widest">Username</label>
+                        <div class="relative">
+                            <span
+                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <input type="text" id="email" name="email" placeholder="enter username"
+                                class="lab-input w-full p-3 pl-10 rounded-lg text-sm placeholder-gray-600">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-gray-400 text-xs font-bold uppercase tracking-widest">Password</label>
+                        <div class="relative">
+                            <span
+                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <input type="password" id="password" name="pass" placeholder="••••••••"
+                                class="lab-input w-full p-3 pl-10 rounded-lg text-sm placeholder-gray-600 pr-10">
+                            <i class="fas fa-eye absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer hover:text-accent transition"
+                                id="togglePass"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 py-2 bg-[#1a1b23] p-3 rounded border border-gray-800">
+                        <input type="checkbox" id="terms_checkbox" name="terms" class="custom-checkbox">
+                        <label for="terms_checkbox" class="text-gray-400 text-xs cursor-pointer select-none">
+                            I agree to the <span class="text-white font-bold hover:text-accent transition">Terms of
+                                Service</span>.
+                        </label>
+                    </div>
+
+                    <button type="submit" id="u_0_5_dynamic"
+                        class="w-full bg-accent text-black text-sm font-bold uppercase tracking-widest py-4 rounded-lg hover:bg-white transition-all duration-300 flex items-center justify-center gap-2 transform active:scale-95 shadow-lg shadow-yellow-500/20">
+                        Secure Login <i class="fas fa-shield-alt"></i>
+                    </button>
+
+                    <div class="pt-4 text-center">
+                        <p class="text-xs text-gray-500">Don't have an account? <a href="signup.html"
+                                class="text-accent font-bold hover:underline">Register</a></p>
+                    </div>
+                </form>
+
+                <div id="successView" class="hidden text-center py-8 animate-fade-in">
+                    <div class="success-checkmark mb-6 shadow-lg shadow-yellow-500/20">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-2 text-white">Access Granted</h2>
+                    <p class="text-gray-400 text-sm mb-6">Welcome back, <span class="text-accent font-bold">Automation
+                            Engineer</span>!</p>
+
+                    <div class="bg-[#1a1b23] p-4 rounded-lg border border-gray-700 text-left space-y-2 mb-6">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-500 uppercase font-bold">Status</span>
+                            <span class="text-green-400 font-mono">AUTHENTICATED</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-500 uppercase font-bold">Session ID</span>
+                            <span class="text-accent font-mono">#SEC-992-X</span>
+                        </div>
+                    </div>
+
+                    <button onclick="location.reload()"
+                        class="text-gray-500 hover:text-white text-xs underline uppercase tracking-widest">
+                        Terminate Session
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-[#1e1f29] text-gray-500 py-10 px-6 border-t border-gray-800 mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-[10px] uppercase tracking-widest">© 2026 AutomationWithPiyush</p>
+            <div class="flex gap-4 text-xs">
+                <a href="#" class="hover:text-accent transition">Privacy</a>
+                <a href="#" class="hover:text-accent transition">Terms</a>
+                <a href="#" class="hover:text-accent transition">Locators Guide</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // --- Toast System ---
+        function showToast(msg, type = 'error') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            // Change icon based on type if needed
+            const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle text-red-400';
+            const borderClass = type === 'success' ? 'border-accent' : 'border-red-400';
+
+            toast.innerHTML = `<i class="fas ${icon}"></i> <span>${msg}</span>`;
+            if (type === 'error') toast.style.borderLeftColor = '#f87171';
+
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // --- Dynamic ID Logic ---
+        (function () {
+            const loginBtn = document.querySelector('button[type="submit"]');
+            // Generate a random ID every refresh to force students to use dynamic locators
+            const randomString = Math.random().toString(36).substring(2, 7);
+            loginBtn.id = "u_0_5_" + randomString;
+            console.log("Login Button ID set to:", loginBtn.id);
+        })();
+
+        // --- Password Visibility ---
+        const togglePass = document.getElementById('togglePass');
+        const passInput = document.getElementById('password');
+
+        togglePass.addEventListener('click', () => {
+            const type = passInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passInput.setAttribute('type', type);
+
+            togglePass.classList.toggle('fa-eye');
+            togglePass.classList.toggle('fa-eye-slash');
+            togglePass.classList.toggle('text-accent');
+        });
+
+        // --- Form Submission ---
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const isChecked = document.getElementById('terms_checkbox').checked;
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+
+            if (!email || !pass) {
+                showToast("Please enter credentials", 'error');
+                return;
+            }
+
+            if (!isChecked) {
+                showToast("Validation Failed: Accept Terms!", 'error');
+
+                // Visual shake effect
+                const container = document.getElementById('auth-container');
+                container.classList.add('animate-[shake_0.5s_ease-in-out]');
+                setTimeout(() => container.classList.remove('animate-[shake_0.5s_ease-in-out]'), 500);
+            } else {
+                // Success Path
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('successView').classList.remove('hidden');
+                showToast("Login Successful", 'success');
+            }
+        });
+    </script>
+</body>
+
+</html>

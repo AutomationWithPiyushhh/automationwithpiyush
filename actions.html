@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surgical Dexterity | AutomationWithPiyush</title>
+    <title>Actions Class | AutomationWithPiyush</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
 
@@ -17,252 +19,399 @@
             overflow-x: hidden;
         }
 
-        .lab-bg {
-            background-image: radial-gradient(#2d2e3d 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-
         .bg-card {
             background-color: #252631;
-            border: 1px solid #334155;
+            transition: all 0.3s ease;
         }
 
-        /* Seekbar Precision Styling */
+        .text-accent {
+            color: #facc15;
+        }
+
+        .border-accent {
+            border-color: #facc15;
+        }
+
+        .bg-accent {
+            background-color: #facc15;
+        }
+
+        /* Custom Range Slider */
         input[type=range] {
             -webkit-appearance: none;
             width: 100%;
             background: transparent;
         }
 
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 10px;
-            cursor: pointer;
-            background: #334155;
-            border-radius: 5px;
-        }
-
         input[type=range]::-webkit-slider-thumb {
-            height: 26px;
-            width: 26px;
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
             border-radius: 50%;
             background: #facc15;
             cursor: pointer;
-            -webkit-appearance: none;
-            margin-top: -8px;
-            box-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
+            margin-top: -10px;
+            box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+            border: 2px solid #1a1b23;
         }
 
-        .text-yellow-accent {
-            color: #facc15;
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #4b5563;
+            border-radius: 2px;
         }
 
-        .bg-yellow-accent {
-            background-color: #facc15;
+        /* Toast Notification */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: #252631;
+            border-left: 4px solid #facc15;
+            color: white;
+            padding: 1rem 1.5rem;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.3s ease-out forwards;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Progress Bar for Click & Hold */
+        .progress-ring {
+            transition: stroke-dashoffset 0.05s linear;
         }
     </style>
 </head>
 
-<body class="lab-bg min-h-screen flex flex-col">
+<body class="pb-20">
 
-    <nav class="p-6 md:p-8 max-w-7xl mx-auto w-full flex justify-between items-center">
-        <div></div>
-        <a href="index.html"
-            class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium group">
-            <i class="fas fa-door-open text-red-500 group-hover:text-amber-400 transition-colors"></i>
-            Discharge Ward
+    <div id="toast-container"></div>
+
+    <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-7xl mx-auto z-50">
+        <div class="flex items-center gap-3">
+        </div>
+        <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">
+            <i class="fas fa-arrow-left mr-2"></i> Back to ward
         </a>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6 py-12">
-        <header class="mb-12">
-            <h1 class="text-5xl font-extrabold mb-4 text-amber-400">Actions Anatomy</h1>
-            <p class="text-gray-400 text-lg flex items-center gap-2">
-                <i class="fas fa-hand-holding-medical text-red-500"></i>
-                Master the steady hand: Practice advanced mouse procedures and coordinate-based anatomy.
-            </p>
+    <header class="max-w-7xl mx-auto px-6 py-10" data-aos="fade-down">
+        <p class="text-accent uppercase tracking-widest text-xs font-bold mb-4">— Surgical Dexterity Unit</p>
+        <h1 class="text-4xl md:text-5xl font-bold">Actions <span class="text-gray-600">Anatomy</span></h1>
+        <p class="mt-4 text-gray-400 max-w-2xl">
+            Calibrate your <code>Actions</code> class. Perform complex mouse gestures including drag-and-drop, context
+            clicks, and precision holding.
+        </p>
+    </header>
 
-            <div class="mt-4 inline-block px-3 py-1 bg-red-900/30 border border-red-500/50 rounded-full">
-                <span class="text-red-500 text-xs font-bold uppercase tracking-widest">
-                    <i class="fas fa-heartbeat mr-1"></i> Specialized Ward: Surgical Dexterity
-                </span>
-            </div>
-        </header>
+    <main class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            <div class="bg-card p-8 rounded-xl group relative overflow-hidden">
-                <h3 class="text-yellow-accent text-xs font-bold uppercase mb-4 tracking-widest">01. Hover
-                    (MoveToElement)</h3>
-                <div id="hover-box"
-                    class="h-40 bg-[#1a1b23] rounded-lg border border-gray-700 flex flex-col items-center justify-center transition-all group-hover:border-yellow-accent">
-                    <i class="fas fa-hand-pointer text-3xl mb-4 text-gray-700 group-hover:text-yellow-accent"></i>
-                    <p class="text-gray-500 font-bold group-hover:hidden">Scan Area to Reveal</p>
-                    <p class="hidden group-hover:block text-yellow-accent font-black text-xl tracking-tighter">TISSUE
-                        REVEALED!</p>
-                </div>
-            </div>
-
-            <div class="bg-card p-8 rounded-xl">
-                <h3 class="text-yellow-accent text-xs font-bold uppercase mb-4 tracking-widest">02. Click</h3>
-                <div id="click-target"
-                    onclick="this.innerHTML='<span class=\'text-yellow-accent font-black text-xl\'>PROCEDURE SUCCESS!</span>'; this.classList.add('border-yellow-accent')"
-                    class="h-40 bg-[#1a1b23] border border-gray-700 rounded-lg flex flex-col items-center justify-center transition-all cursor-pointer select-none active:scale-95">
-                    <i class="fas fa-mouse text-3xl mb-4 text-gray-700"></i>
-                    <p class="text-gray-500 font-bold">Standard Incision</p>
-                </div>
-            </div>
-
-            <div class="bg-card p-8 rounded-xl">
-                <h3 class="text-yellow-accent text-xs font-bold uppercase mb-4 tracking-widest">03. Right Click
-                </h3>
-                <div id="context-area"
-                    class="h-40 bg-[#1a1b23] border border-gray-700 rounded-lg flex items-center justify-center cursor-context-menu transition-all">
-                    <p id="context-msg" class="text-gray-500 font-bold">Right Click Diagnostic</p>
-                </div>
-            </div>
-
-            <div class="bg-card p-8 rounded-xl">
-                <h3 class="text-yellow-accent text-xs font-bold uppercase mb-4 tracking-widest">04. Double Click</h3>
-                <button id="double-click-target"
-                    class="w-full h-40 border-2 border-dashed border-gray-700 text-gray-500 hover:border-yellow-accent hover:text-yellow-accent transition-all rounded-lg font-black text-xl">
-                    DOUBLE TAP UNIT
+        <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent group" data-aos="fade-up">
+            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">01. Hover</h3>
+            <div
+                class="h-48 flex items-center justify-center relative group/hover-target bg-[#1a1b23] rounded-lg border border-dashed border-gray-600">
+                <button
+                    class="px-6 py-3 bg-gray-700 rounded-lg font-bold text-sm group-hover/hover-target:bg-accent group-hover/hover-target:text-black transition-all">
+                    Hover Me
                 </button>
-            </div>
 
-            <div class="bg-card p-8 rounded-xl">
-                <h3 class="text-yellow-accent text-xs font-bold uppercase mb-4 tracking-widest">05. Click and Hold</h3>
-                <div id="hold-target"
-                    class="h-40 bg-[#1a1b23] border border-gray-700 rounded-lg flex flex-col items-center justify-center transition-all cursor-pointer select-none">
-                    <i class="fas fa-compress-arrows-alt text-3xl mb-4 text-gray-700"></i>
-                    <p id="hold-msg" class="text-gray-500 font-bold">Apply Pressure</p>
-                </div>
-            </div>
-
-            <div class="bg-card p-8 rounded-xl">
-                <h3 class="text-yellow-accent text-xs font-bold uppercase mb-4 tracking-widest">06. Drag & Drop Surgery
-                </h3>
-
-                <div id="source-container" class="mb-6 min-h-[60px]">
-                    <div id="drag-source" draggable="true"
-                        class="bg-yellow-accent text-black p-4 rounded font-bold text-center cursor-grab active:cursor-grabbing">
-                        PATIENT ORGAN
-                    </div>
-                </div>
-
-                <div id="drop-target"
-                    class="h-32 border-2 border-dashed border-gray-700 rounded-lg flex items-center justify-center text-xs text-gray-600 font-bold uppercase p-2 text-center">
-                    <span id="drop-placeholder">Transplant Zone</span>
-                </div>
-            </div>
-            <div class="bg-card p-8 rounded-xl lg:col-span-3">
-                <h3 class="text-yellow-accent text-xs font-bold uppercase mb-6 tracking-widest">
-                    07. Seekbar / Slider (Neutral Pulse Calibration)
-                </h3>
-                <div class="space-y-10">
-                    <div class="flex justify-between items-end">
-                        <div>
-                            <h4 class="text-xl font-bold">Cardiac Rhythm Alignment</h4>
-                        </div>
-                        <span id="slider-value" class="text-6xl font-black text-yellow-accent">0</span>
-                    </div>
-                    <div class="relative">
-                        <input type="range" id="precision-seekbar" min="-100" max="100" value="0" step="1">
-
-                        <div
-                            class="absolute left-1/2 top-0 w-px h-full bg-yellow-accent/40 -translate-x-1/2 pointer-events-none">
-                        </div>
-
-                        <div class="flex justify-between mt-2 text-[10px] text-gray-600 font-mono">
-                            <span class="text-blue-400">BRADYCARDIA (-100bpm)</span>
-                            <span class="text-yellow-accent font-bold">STABLE (0)</span>
-                            <span class="text-red-500">TACHYCARDIA (+100bpm)</span>
-                        </div>
+                <div
+                    class="absolute top-28 opacity-0 group-hover/hover-target:opacity-100 group-hover/hover-target:top-32 transition-all duration-300">
+                    <div
+                        class="bg-white text-black px-4 py-2 rounded shadow-xl text-xs font-bold flex items-center gap-2">
+                        <i class="fas fa-syringe text-red-500"></i> Injection Ready
                     </div>
                 </div>
             </div>
-
         </div>
+
+        <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent group" data-aos="fade-up"
+            data-aos-delay="100">
+            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">02. Left Click</h3>
+            <div id="click-box" onclick="handleClick()"
+                class="h-48 bg-[#1a1b23] rounded-lg border border-gray-700 flex flex-col items-center justify-center cursor-pointer select-none transition-all active:scale-95 hover:bg-gray-800">
+                <i id="click-icon" class="fas fa-mouse-pointer text-3xl mb-3 text-gray-600"></i>
+                <p id="click-text" class="text-sm font-bold text-gray-500">Click to Activate</p>
+            </div>
+        </div>
+
+        <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent group" data-aos="fade-up"
+            data-aos-delay="200">
+            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">03. Right Click</h3>
+            </h3>
+            <div id="right-click-area" oncontextmenu="handleContext(event)"
+                class="h-48 bg-[#1a1b23] rounded-lg border border-gray-700 flex flex-col items-center justify-center cursor-context-menu hover:bg-gray-800 transition-colors">
+                <i class="fas fa-mouse text-3xl mb-3 text-gray-600"></i>
+                <p class="text-sm font-bold text-gray-500">Right Click Here</p>
+                <div id="context-menu"
+                    class="hidden absolute mt-12 bg-white text-black text-xs font-bold py-2 px-4 rounded shadow-lg">
+                    <i class="fas fa-check-circle text-green-600 mr-2"></i> Menu Accessed
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent group" data-aos="fade-up">
+            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">04. Double Click</h3>
+            <div id="double-click-area" ondblclick="handleDoubleClick()"
+                class="h-48 bg-[#1a1b23] rounded-lg border border-dashed border-gray-600 flex flex-col items-center justify-center cursor-pointer hover:border-accent hover:text-accent transition-all">
+                <i id="db-icon" class="fas fa-bolt text-3xl mb-3 text-gray-600"></i>
+                <p id="db-text" class="text-sm font-bold text-gray-500">Double Tap to Charge</p>
+            </div>
+        </div>
+
+        <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent group" data-aos="fade-up"
+            data-aos-delay="100">
+            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">05. Click & Hold</h3>
+            <div id="click-hold"
+                class="relative h-48 bg-[#1a1b23] rounded-lg border border-gray-700 flex flex-col items-center justify-center cursor-pointer select-none transition-colors">
+                <svg class="absolute inset-0 w-full h-full p-4 pointer-events-none" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" stroke="#333" stroke-width="2" fill="none" />
+                    <circle id="hold-progress" class="progress-ring" cx="50" cy="50" r="45" stroke="#facc15"
+                        stroke-width="4" fill="none" stroke-dasharray="283" stroke-dashoffset="283"
+                        transform="rotate(-90 50 50)" />
+                </svg>
+                <i id="hold-icon"
+                    class="fas fa-fingerprint text-4xl mb-2 text-gray-600 group-hover:text-white transition-colors"></i>
+                <p id="hold-text" class="text-sm font-bold text-gray-500 z-10">Hold for 3 Seconds</p>
+            </div>
+        </div>
+
+        <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent" data-aos="fade-up"
+            data-aos-delay="200">
+            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">06. Drag & Drop</h3>
+            <div class="flex flex-col gap-4 items-center justify-center h-48">
+                <div id="draggable" draggable="true" ondragstart="drag(event)"
+                    class="px-4 py-2 bg-gray-700 rounded-full flex items-center gap-2 cursor-grab active:cursor-grabbing hover:bg-white hover:text-black transition shadow-lg border border-transparent">
+                    <i class="fas fa-grip-vertical text-gray-400"></i>
+                    <span class="text-xs font-bold uppercase">Drag Me</span>
+                </div>
+
+                <i class="fas fa-arrow-down text-gray-600"></i>
+
+                <div id="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="leaveDrop(event)"
+                    class="w-full h-24 border-2 border-dashed border-gray-600 rounded-xl flex items-center justify-center transition-all bg-[#1a1b23]">
+                    <p class="text-xs text-gray-500 font-bold pointer-events-none">Drop Zone</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-3 bg-card p-8 rounded-xl border border-gray-800 hover:border-accent" data-aos="fade-up">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest">07. Range Slider (Bidirectional)
+                </h3>
+                <span id="slider-val" class="text-3xl font-black text-gray-500 font-mono">0</span>
+            </div>
+
+            <div class="relative px-4 pt-4 pb-8">
+                <div class="absolute left-1/2 -top-2 w-px h-12 bg-gray-600 z-0 transform -translate-x-1/2"></div>
+
+                <input type="range" id="pulse-slider" min="-100" max="100" value="0" oninput="updateSlider(this.value)"
+                    class="relative z-10">
+
+                <div class="flex justify-between mt-4 text-[10px] text-gray-500 font-bold uppercase font-mono">
+                    <span class="text-red-400">Negative (-100)</span>
+                    <span class="text-gray-300">Zero (Center)</span>
+                    <span class="text-green-400">Positive (+100)</span>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <footer class="py-10 text-center border-t border-gray-800 mt-20">
-        <p class="text-[10px] text-gray-600 uppercase tracking-widest">© 2026 AutomationWithPiyush | Actions Anatomy</p>
+        <p class="text-[10px] text-gray-600 uppercase tracking-widest">© 2026 AutomationWithPiyush | Surgical Dexterity
+        </p>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Slider Logic
+        AOS.init({ duration: 800, once: true });
 
-        const slider = document.getElementById('precision-seekbar');
-        const valDisp = document.getElementById('slider-value');
-
-        slider.oninput = function () {
-            valDisp.innerHTML = (this.value > 0) ? `+${this.value}` : this.value;
+        // --- Toast System ---
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fas fa-check-circle text-accent"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
         }
 
-        // Click and Hold Logic
+        // --- 2. Left Click Logic ---
+        function handleClick() {
+            const box = document.getElementById('click-box');
+            const icon = document.getElementById('click-icon');
+            const text = document.getElementById('click-text');
+
+            box.classList.add('border-accent', 'bg-accent/10');
+            icon.classList.replace('text-gray-600', 'text-accent');
+            text.innerText = "Click Activated!";
+            text.classList.replace('text-gray-500', 'text-white');
+            showToast("Left Click Verified");
+        }
+
+        // --- 3. Context Click Logic ---
+        function handleContext(e) {
+            e.preventDefault();
+            const menu = document.getElementById('context-menu');
+            menu.classList.remove('hidden');
+            showToast("Right Click Intercepted");
+            setTimeout(() => menu.classList.add('hidden'), 2000);
+        }
+
+        // --- 4. Double Click Logic ---
+        function handleDoubleClick() {
+            const area = document.getElementById('double-click-area');
+            const icon = document.getElementById('db-icon');
+            const text = document.getElementById('db-text');
+
+            area.classList.add('border-accent', 'bg-accent/10');
+            icon.classList.replace('text-gray-600', 'text-accent');
+            text.innerText = "System Charged!";
+            text.classList.replace('text-gray-500', 'text-white');
+            showToast("Double Click Verified");
+        }
+
+        // --- 5. Click & Hold Logic (Modified) ---
+        const holdArea = document.getElementById('click-hold');
+        const progressRing = document.getElementById('hold-progress');
+        const holdText = document.getElementById('hold-text');
+        const holdIcon = document.getElementById('hold-icon');
         let holdTimer;
-        const holdTarget = document.getElementById('hold-target');
-        const holdMsg = document.getElementById('hold-msg');
 
-        holdTarget.addEventListener('mousedown', () => {
-            holdTarget.classList.add('border-yellow-accent');
-            holdTimer = setTimeout(() => {
-                holdMsg.innerText = "PRESSURE SUCCESS!";
-                holdMsg.classList.add('text-yellow-accent');
-                holdTarget.style.background = "#facc15";
-            }, 2000);
+        // MOUSE DOWN: Turn Yellow (Holding State)
+        holdArea.addEventListener('mousedown', () => {
+            // Reset Failure/Neutral States
+            holdArea.classList.remove('border-red-500');
+            holdText.classList.remove('text-red-500', 'text-gray-500');
+
+            // Apply Holding State (Yellow)
+            holdArea.classList.add('border-accent'); // Add Yellow Border
+            holdText.classList.add('text-accent');    // Add Yellow Text
+            holdIcon.classList.add('text-accent');    // Add Yellow Icon
+            holdText.innerText = "Holding...";
+
+            let start = Date.now();
+
+            holdTimer = setInterval(() => {
+                let elapsed = Date.now() - start;
+                let percentage = Math.min(elapsed / 3000, 1); // 3 seconds target
+                let offset = 283 - (283 * percentage);
+                progressRing.style.strokeDashoffset = offset;
+
+                if (percentage >= 1) {
+                    clearInterval(holdTimer);
+                    completeHold();
+                }
+            }, 50);
         });
 
-        holdTarget.addEventListener('mouseup', () => {
-            clearTimeout(holdTimer);
-            if (holdMsg.innerText !== "PRESSURE SUCCESS!") {
-                holdTarget.classList.remove('border-yellow-accent');
+        // RELEASE LOGIC: Check for Success or Failure
+        const resetHold = () => {
+            clearInterval(holdTimer);
+            progressRing.style.strokeDashoffset = 283;
+
+            // If not yet successful (released early)
+            if (holdText.innerText !== "Success!") {
+
+                // FAILURE STATE (Red)
+                holdText.innerText = "Released too early!";
+                holdText.classList.remove('text-accent');
+                holdText.classList.add('text-red-500'); // Text Red
+
+                holdArea.classList.remove('border-accent');
+                holdArea.classList.add('border-red-500'); // Border Red
+
+                holdIcon.classList.remove('text-accent');
+                holdIcon.classList.add('text-red-500'); // Icon Red
+
+                // Reset to Neutral after 1 second
+                setTimeout(() => {
+                    // Only reset if it's still showing the error
+                    if (holdText.innerText === "Released too early!") {
+                        holdText.innerText = "Hold for 3 Seconds";
+                        holdText.classList.remove('text-red-500');
+                        holdText.classList.add('text-gray-500');
+
+                        holdArea.classList.remove('border-red-500');
+                        holdIcon.classList.remove('text-red-500');
+                        holdIcon.classList.add('text-gray-600');
+                    }
+                }, 1000);
             }
-        });
-
-        // Context Click (Right Click)
-        document.getElementById('context-area').oncontextmenu = (e) => {
-            e.preventDefault();
-            const area = document.getElementById('context-area');
-            const msg = document.getElementById('context-msg');
-            msg.innerText = "DIAGNOSED!";
-            msg.classList.remove('text-gray-500');
-            msg.classList.add('text-yellow-accent');
-            area.classList.add('border-yellow-accent');
-            area.style.borderStyle = "solid";
         };
 
-        // Double Click
-        document.getElementById('double-click-target').ondblclick = function () {
-            this.innerText = "ACTIVATED!";
-            this.style.borderColor = "#facc15";
-            this.style.color = "#facc15";
-            this.style.borderStyle = "solid";
-        };
+        holdArea.addEventListener('mouseup', resetHold);
+        holdArea.addEventListener('mouseleave', resetHold);
 
-        // Drag & Drop Logic
-        const source = document.getElementById('drag-source');
-        const target = document.getElementById('drop-target');
-        const placeholder = document.getElementById('drop-placeholder');
+        function completeHold() {
+            holdText.innerText = "Success!";
+            holdText.classList.replace('text-accent', 'text-green-400');
+            holdArea.classList.replace('border-accent', 'border-green-400');
+            holdIcon.classList.replace('text-accent', 'text-green-400');
+            showToast("Pressure Hold Complete!");
+        }
 
-        source.ondragstart = (e) => {
-            e.dataTransfer.setData("text", e.target.id);
-            setTimeout(() => source.classList.add('opacity-50'), 0);
-        };
-        source.ondragend = () => source.classList.remove('opacity-50');
-        target.ondragover = (e) => { e.preventDefault(); target.classList.add('border-yellow-accent', 'bg-yellow-accent/5'); };
-        target.ondragleave = () => { target.classList.remove('border-yellow-accent', 'bg-yellow-accent/5'); };
-        target.ondrop = (e) => {
-            e.preventDefault();
-            const data = e.dataTransfer.getData("text");
-            const draggedElement = document.getElementById(data);
-            if (placeholder) placeholder.remove();
-            target.appendChild(draggedElement);
-            target.classList.remove('border-dashed', 'bg-yellow-accent/5');
-            target.classList.add('border-solid', 'border-yellow-accent');
-            draggedElement.innerText = "TRANSPLANT SUCCESS!";
-            draggedElement.classList.add('w-full');
-        };
+        // --- 6. Drag & Drop Logic ---
+        function allowDrop(ev) {
+            ev.preventDefault();
+            const zone = document.getElementById('drop-zone');
+            zone.classList.add('border-accent', 'bg-accent/10');
+        }
+
+        function leaveDrop(ev) {
+            const zone = document.getElementById('drop-zone');
+            zone.classList.remove('border-accent', 'bg-accent/10');
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            const zone = document.getElementById('drop-zone');
+
+            zone.innerHTML = "";
+            zone.appendChild(document.getElementById(data));
+            zone.classList.remove('border-dashed', 'bg-accent/10');
+            zone.classList.add('border-solid', 'border-accent');
+
+            showToast("Dropped Successfully!");
+        }
+
+        // --- 7. Slider Logic (Bi-directional) ---
+        function updateSlider(val) {
+            const display = document.getElementById('slider-val');
+            display.innerText = val > 0 ? `+${val}` : val;
+
+            // Color Logic
+            if (val == 0) display.className = "text-3xl font-black font-mono text-gray-500";
+            else if (val < 0) display.className = "text-3xl font-black font-mono text-red-400";
+            else display.className = "text-3xl font-black font-mono text-green-400";
+        }
     </script>
 </body>
 
