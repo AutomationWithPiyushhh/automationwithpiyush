@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automation Lab | Synchronization Dashboard</title>
+    <title>Synchronization | AutomationWithPiyush</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
 
@@ -20,202 +21,305 @@
 
         .bg-card {
             background-color: #252631;
+            transition: all 0.3s ease;
         }
 
         .text-accent {
             color: #facc15;
         }
 
-        .lab-bg {
-            background-image: radial-gradient(#2d2e3d 1px, transparent 1px);
-            background-size: 30px 30px;
+        .bg-accent {
+            background-color: #facc15;
         }
 
-        .lab-input {
-            background-color: #1a1b23;
-            border: 1px solid #3f3f46;
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .loader {
-            border: 2px solid #3f3f46;
-            border-top: 2px solid #facc15;
+        /* Loader Animation */
+        .reactor-loader {
+            width: 48px;
+            height: 48px;
+            border: 3px solid #FFF;
             border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            animation: spin 1s linear infinite;
             display: inline-block;
+            position: relative;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
         }
 
-        @keyframes spin {
+        .reactor-loader::after {
+            content: '';
+            box-sizing: border-box;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-bottom-color: #facc15;
+            animation: rotation 0.5s linear infinite reverse;
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+
             100% {
                 transform: rotate(360deg);
             }
         }
 
-        /* Ball Fall Animation for REMOVE button */
-        @keyframes ballFall {
-            0% {
-                transform: translateY(-500px);
+        /* Toast */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: #252631;
+            border-left: 4px solid #facc15;
+            color: white;
+            padding: 1rem 1.5rem;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.3s ease-out forwards;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
                 opacity: 0;
             }
 
-            60% {
-                transform: translateY(0);
+            to {
+                transform: translateX(0);
                 opacity: 1;
-            }
-
-            75% {
-                transform: translateY(-30px);
-            }
-
-            90% {
-                transform: translateY(-10px);
-            }
-
-            100% {
-                transform: translateY(0);
             }
         }
 
-        .animate-fall {
-            animation: ballFall 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        /* Disabled Input Style */
+        input:disabled {
+            background-color: #1a1b23;
+            border-color: #374151;
+            color: #6b7280;
+            cursor: not-allowed;
+        }
+
+        input:enabled {
+            background-color: #252631;
+            border-color: #facc15;
+            color: white;
         }
     </style>
 </head>
 
-<body class="lab-bg min-h-screen">
+<body class="pb-20">
 
-    <nav class="p-6 md:p-8 max-w-7xl mx-auto w-full flex justify-between items-center" data-aos="fade-down">
-        <a href="index.html" class="hover:opacity-80 transition-opacity">
+    <div id="toast-container"></div>
 
-        </a>
-        <a href="index.html"
-            class="text-gray-400 hover:text-white transition flex items-center gap-2 font-medium group">
-            <i class="fas fa-door-open text-yellow-500 group-hover:text-amber-400 transition-colors"></i>
-            Back to OPD
+    <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-7xl mx-auto z-50">
+        <div class="flex items-center gap-3">
+        </div>
+        <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Ward
         </a>
     </nav>
 
-    <header class="text-center py-10" data-aos="fade-up">
-        <h1 class="text-4xl md:text-6xl font-bold mb-4">Synchronization <span class="text-accent">Stability.</span></h1>
-        <p class="text-gray-400 max-w-2xl mx-auto">Practice handling dynamic DOM changes and state transitions.</p>
+    <header class="max-w-7xl mx-auto px-6 py-10" data-aos="fade-down">
+        <p class="text-accent uppercase tracking-widest text-xs font-bold mb-4">— System Synchronization Unit</p>
+        <h1 class="text-4xl md:text-5xl font-bold">Time <span class="text-gray-600">Dilation</span></h1>
+        <p class="mt-4 text-gray-400 max-w-2xl">
+            Handle dynamic DOM updates. Elements may appear, disappear, or change state after significant delays.
+        </p>
     </header>
 
-    <main class="max-w-[1400px] mx-auto px-6 pb-20 grid lg:grid-cols-2 gap-8">
+    <main class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12">
 
-        <section class="flex flex-col h-full" data-aos="fade-right">
-            <div class="text-center mb-6">
-                <h2 class="text-3xl font-bold mb-2 text-white">Global <span class="text-accent">Wait</span></h2>
-                <p class="text-sm text-gray-400">Button is destroyed and recreated after 4 seconds.</p>
+        <div class="bg-card p-10 rounded-xl border border-gray-800 shadow-2xl relative overflow-hidden"
+            data-aos="fade-right">
+            <div class="absolute top-0 right-0 p-6 opacity-5">
+                <i class="fas fa-network-wired text-8xl text-white"></i>
             </div>
 
-            <div
-                class="bg-card flex-grow rounded-2xl border border-gray-800 p-10 flex flex-col items-center justify-center min-h-[400px]">
+            <h3 class="text-xl font-bold mb-2 text-white">Network Latency (Implicit Wait)</h3>
+            <p class="text-sm text-gray-400 mb-8 border-l-2 border-gray-600 pl-3">
+                <b>Scenario:</b> An element is completely removed from the DOM and recreated.
+                <br><b>Challenge:</b> Locate the button <i>after</i> the loader finishes.
+            </p>
 
-                <div id="action-message"
-                    class="h-8 text-accent font-bold mb-4 opacity-0 transition-all duration-500 transform translate-y-4">
-                </div>
+            <div id="reactor-container"
+                class="min-h-[200px] flex flex-col items-center justify-center bg-[#1a1b23] rounded-lg border border-dashed border-gray-700 relative">
 
-                <div id="implicit-container">
-                    <button id="add" onclick="toggleImplicit('add')"
-                        class="px-10 py-4 bg-white text-black font-bold rounded-lg hover:bg-accent transition-all duration-300 shadow-xl">
-                        ADD
+                <div id="dynamic-content" class="text-center w-full">
+                    <button onclick="startProcess('start')"
+                        class="group relative inline-flex items-center justify-center px-8 py-3 text-base font-bold text-black transition-all duration-200 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
+                        START PROCESS
                     </button>
                 </div>
 
-                <div id="implicit-status" class="mt-6 text-gray-500 text-xs italic hidden">
-                    <span class="loader mr-2"></span> Recreating element in DOM...
+                <div id="server-loader" class="hidden flex-col items-center">
+                    <span class="reactor-loader mb-4"></span>
+                    <p class="text-xs text-accent font-mono animate-pulse">ESTABLISHING CONNECTION...</p>
                 </div>
-            </div>
-        </section>
 
-        <section class="flex flex-col h-full" data-aos="fade-left">
-            <div class="text-center mb-6">
-                <h2 class="text-3xl font-bold mb-2 text-white">Smart <span class="text-accent">Wait</span></h2>
-                <p class="text-sm text-gray-400">Elements are present but disabled. Practice Explicit Waits.</p>
             </div>
-            <div class="bg-card flex-grow rounded-2xl border border-gray-800 p-10 min-h-[400px]">
-                <div class="flex flex-wrap gap-4 justify-center mb-10">
-                    <button id="trigger1" onclick="enableInput(1, 5000)"
-                        class="bg-white text-black px-5 py-2 rounded-lg font-bold hover:bg-accent transition-all text-sm">
-                        Enable Box 1
+        </div>
+
+        <div class="bg-card p-10 rounded-xl border border-gray-800 shadow-2xl relative overflow-hidden"
+            data-aos="fade-left">
+            <div class="absolute top-0 right-0 p-6 opacity-5">
+                <i class="fas fa-lock text-8xl text-white"></i>
+            </div>
+
+            <h3 class="text-xl font-bold mb-2 text-white">State Transition (Explicit Wait)</h3>
+            <p class="text-sm text-gray-400 mb-8 border-l-2 border-gray-600 pl-3">
+                <b>Scenario:</b> Elements exist but are disabled.
+                <br><b>Challenge:</b> Wait for <code>element to be clickable</code>.
+            </p>
+
+            <div class="space-y-6">
+                <div class="grid grid-cols-2 gap-4">
+                    <button id="trigger-display" onclick="unlockField('display')"
+                        class="px-4 py-3 bg-gray-700 hover:bg-gray-600 rounded text-sm font-bold border-b-2 border-gray-900 active:border-b-0 active:mt-0.5">
+                        Unlock Display
                     </button>
-                    <button id="trigger2" onclick="enableInput(2, 10000)"
-                        class="bg-white text-black px-5 py-2 rounded-lg font-bold hover:bg-accent transition-all text-sm">
-                        Enable Box 2
+                    <button id="trigger-input" onclick="unlockField('input')"
+                        class="px-4 py-3 bg-gray-700 hover:bg-gray-600 rounded text-sm font-bold border-b-2 border-gray-900 active:border-b-0 active:mt-0.5">
+                        Unlock Input
                     </button>
                 </div>
-                <div class="space-y-6 flex flex-col items-center">
-                    <div class="w-full max-w-sm">
-                        <label class="text-xs text-gray-500 block mb-2 uppercase">Textbox 1</label>
-                        <input type="text" id="target-1" disabled
-                            class="lab-input w-full p-3 rounded-lg text-base outline-none">
+
+                <div class="p-6 bg-[#1a1b23] rounded-lg border border-gray-700 space-y-4">
+
+                    <div>
+                        <label class="text-[10px] uppercase font-bold text-gray-500 mb-1 block">System Monitor</label>
+                        <div class="relative">
+                            <input type="text" id="target-display" disabled value="LOCKED" data-status="locked"
+                                class="w-full bg-[#1a1b23] border border-red-900/50 text-red-500 p-3 rounded font-mono text-sm">
+                            <i class="fas fa-lock absolute right-3 top-3 text-red-500" id="icon-display"></i>
+                        </div>
                     </div>
-                    <div class="w-full max-w-sm">
-                        <label class="text-xs text-gray-500 block mb-2 uppercase">Textbox 2</label>
-                        <input type="text" id="target-2" disabled
-                            class="lab-input w-full p-3 rounded-lg text-base outline-none">
+
+                    <div>
+                        <label class="text-[10px] uppercase font-bold text-gray-500 mb-1 block">Command Line</label>
+                        <div class="relative">
+                            <input type="text" id="target-input" disabled placeholder="Waiting for auth..."
+                                data-status="disabled"
+                                class="w-full bg-[#1a1b23] border border-red-900/50 text-gray-500 p-3 rounded font-mono text-sm">
+                            <div id="input-loader" class="hidden absolute right-3 top-3">
+                                <i class="fas fa-circle-notch fa-spin text-accent"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div id="explicit-status" class="hidden text-gray-500 text-xs italic">
-                        <span class="loader mr-2"></span> Changing element state...
-                    </div>
+
                 </div>
             </div>
-        </section>
+        </div>
+
     </main>
+
+    <footer class="py-10 text-center border-t border-gray-800 mt-20">
+        <p class="text-[10px] text-gray-600 uppercase tracking-widest">© 2026 AutomationWithPiyush | Time Dilation Unit
+        </p>
+    </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({ duration: 800, once: true });
 
-        function toggleImplicit(type) {
-            const container = document.getElementById('implicit-container');
-            const status = document.getElementById('implicit-status');
-            const message = document.getElementById('action-message');
-
-            // 1. Trigger the Animated Notification Message
-            message.innerText = (type === 'add') ? "Clicked on ADD" : "Clicked on REMOVE";
-            message.classList.remove('opacity-0', 'translate-y-4');
-            message.classList.add('opacity-100', 'translate-y-0');
-
-            // Hide message after 2 seconds
-            setTimeout(() => {
-                message.classList.add('opacity-0', 'translate-y-4');
-                message.classList.remove('opacity-100', 'translate-y-0');
-            }, 2000);
-
-            // 2. Clear DOM and show loader
-            container.innerHTML = '';
-            status.classList.remove('hidden');
-
-            // 3. Re-create element after 4 seconds (Simulating slow network/server)
-            setTimeout(() => {
-                status.classList.add('hidden');
-                if (type === 'add') {
-                    container.innerHTML = `<button id="remove" onclick="toggleImplicit('remove')" class="px-10 py-4 bg-red-500 text-white font-bold rounded-lg shadow-xl animate-fall">REMOVE</button>`;
-                } else {
-                    container.innerHTML = `<button id="add" onclick="toggleImplicit('add')" class="px-10 py-4 bg-white text-black font-bold rounded-lg shadow-xl">ADD</button>`;
-                }
-            }, 4000);
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fas fa-check-circle text-accent"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
         }
 
-        function enableInput(num, delay) {
-            const status = document.getElementById('explicit-status');
-            const btn = document.getElementById('trigger' + num);
-            const input = document.getElementById('target-' + num);
+        // --- IMPLICIT WAIT LOGIC ---
+        function startProcess(action) {
+            const container = document.getElementById('dynamic-content');
+            const loader = document.getElementById('server-loader');
 
-            status.classList.remove('hidden');
-            btn.disabled = true;
-            btn.style.opacity = "0.5";
+            container.innerHTML = '';
+            loader.classList.remove('hidden');
+            loader.classList.add('flex');
+
+            // Random time between 3s and 6s
+            const randomTime = Math.floor(Math.random() * 3000) + 3000;
 
             setTimeout(() => {
+                loader.classList.add('hidden');
+                loader.classList.remove('flex');
+
+                if (action === 'start') {
+                    container.innerHTML = `
+                        <button onclick="startProcess('stop')" class="px-8 py-3 bg-red-500 hover:bg-red-400 text-white font-bold rounded shadow-[0_0_15px_rgba(239,68,68,0.5)] transition-all">
+                            STOP PROCESS
+                        </button>
+                    `;
+                    showToast(`Process Started (${randomTime}ms wait)`);
+                } else {
+                    container.innerHTML = `
+                        <button onclick="startProcess('start')" class="px-8 py-3 bg-white hover:bg-gray-200 text-black font-bold rounded transition-all">
+                            START PROCESS
+                        </button>
+                    `;
+                    showToast("Process Stopped");
+                }
+            }, randomTime);
+        }
+
+        // --- EXPLICIT WAIT LOGIC (Updated to match Implicit) ---
+        function unlockField(type) {
+            const btn = document.getElementById(`trigger-${type}`);
+            const input = document.getElementById(`target-${type}`);
+
+            // Generate Random Time between 3s and 6s
+            const randomTime = Math.floor(Math.random() * 3000) + 3000;
+
+            // Visual feedback
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            btn.innerText = `Processing...`;
+
+            if (type === 'input') {
+                document.getElementById('input-loader').classList.remove('hidden');
+            }
+
+            setTimeout(() => {
+                // Change State
                 input.disabled = false;
-                input.placeholder = "Now Enabled!";
-                input.classList.add('border-[#facc15]');
-                status.classList.add('hidden');
-            }, delay);
+
+                // Change Attributes
+                if (type === 'display') {
+                    input.value = "SYSTEM READY";
+                    input.setAttribute('data-status', 'unlocked');
+                    input.classList.remove('border-red-900/50', 'text-red-500');
+                    input.classList.add('border-green-500', 'text-green-400');
+                    document.getElementById('icon-display').className = "fas fa-unlock text-green-500 absolute right-3 top-3";
+                } else {
+                    input.placeholder = "Enter Command...";
+                    input.setAttribute('data-status', 'enabled');
+                    input.classList.remove('border-red-900/50');
+                    input.classList.add('border-accent');
+                    document.getElementById('input-loader').classList.add('hidden');
+                    input.focus();
+                }
+
+                // Reset Button
+                btn.innerText = "Completed";
+                btn.classList.replace('bg-gray-700', 'bg-green-600');
+
+                // Show Toast with specific wait time (Requested Change)
+                showToast(`${type.toUpperCase()} Unlocked (Waited ${randomTime}ms)`);
+            }, randomTime);
         }
     </script>
 </body>
