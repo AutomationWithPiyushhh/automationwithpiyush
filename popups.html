@@ -161,7 +161,28 @@
             </div>
         </section>
 
+        <section class="bg-card p-8 rounded-xl border border-gray-800 text-center" data-aos="fade-up">
+            <h3 class="text-xl font-bold mb-4">Browser Notifications</h3>
+            <p class="text-gray-400 text-sm mb-6 max-w-2xl mx-auto">These are OS-level toasts requested by the browser.
+                <br> You usually handle these via ChromeOptions <br>(<code>"--disable-notifications"</code>).
+            </p>
+            <button onclick="requestNotification()"
+                class="px-8 py-3 border border-accent text-accent font-bold rounded hover:bg-accent hover:text-black transition">Request
+                Permission</button>
+        </section>
         <section class="grid lg:grid-cols-2 gap-8" data-aos="fade-up">
+
+            <div class="bg-card p-8 rounded-xl border border-gray-800">
+                <h3 class="text-xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-id-card text-accent mr-3"></i> Authentication Popup
+                </h3>
+                <p class="text-gray-400 text-sm mb-6">Browser-level Basic Auth popups cannot be inspected. You must pass
+                    credentials in the URL: <code>http://user:pass@url.com</code>.</p>
+                <a href="https://the-internet.herokuapp.com/basic_auth" target="_blank"
+                    class="block text-center px-8 py-3 border border-gray-600 text-gray-300 font-bold rounded hover:border-accent hover:text-accent transition">Trigger
+                    Basic Auth (External) <i class="fas fa-external-link-alt ml-2"></i></a>
+            </div>
+
             <div class="bg-card p-8 rounded-xl border border-gray-800">
                 <h3 class="text-xl font-bold mb-6 flex items-center">
                     <i class="fas fa-layer-group text-accent mr-3"></i> Hidden Division (Modal)
@@ -174,17 +195,39 @@
                     Modal</button>
             </div>
 
+        </section>
+
+
+        <section class="grid lg:grid-cols-2 gap-8" data-aos="fade-up">
             <div class="bg-card p-8 rounded-xl border border-gray-800">
-                <h3 class="text-xl font-bold mb-6 flex items-center">
-                    <i class="fas fa-id-card text-accent mr-3"></i> Authentication Popup
-                </h3>
-                <p class="text-gray-400 text-sm mb-6">Browser-level Basic Auth popups cannot be inspected. You must pass
-                    credentials in the URL: <code>http://user:pass@url.com</code>.</p>
-                <a href="https://the-internet.herokuapp.com/basic_auth" target="_blank"
-                    class="block text-center px-8 py-3 border border-gray-600 text-gray-300 font-bold rounded hover:border-accent hover:text-accent transition">Trigger
-                    Basic Auth (External) <i class="fas fa-external-link-alt ml-2"></i></a>
+                <h3 class="text-xl font-bold mb-6">File Upload</h3>
+                <p class="text-gray-400 text-sm mb-6">Standard <code>input type="file"</code>. Use
+                    <code>sendKeys("C:/path/to/file.txt")</code> to upload directly.
+                </p>
+                <div
+                    class="p-6 border-2 border-dashed border-gray-600 rounded-lg text-center hover:border-accent transition group">
+                    <div class="file-input-wrapper">
+                        <button
+                            class="bg-gray-700 text-white px-6 py-2 rounded font-bold group-hover:bg-accent group-hover:text-black transition pointer-events-none">Choose
+                            File</button>
+                        <input type="file" id="fileUpload" onchange="handleFileUpload(this)">
+                    </div>
+                    <p id="fileNameDisplay" class="mt-4 text-xs text-gray-500">No file selected</p>
+                </div>
+            </div>
+
+            <div class="bg-card p-8 rounded-xl border border-gray-800">
+                <h3 class="text-xl font-bold mb-6">File Download</h3>
+                <p class="text-gray-400 text-sm mb-6">Triggers a browser-level download. You must configure Browser
+                    Profile settings to handle this automatically in Selenium.</p>
+                <button onclick="triggerDownload()"
+                    class="w-full h-32 flex flex-col items-center justify-center bg-gray-700/50 rounded-lg hover:bg-gray-700 transition">
+                    <i class="fas fa-cloud-download-alt text-4xl text-accent mb-3"></i>
+                    <span class="font-bold">Download Report.pdf</span>
+                </button>
             </div>
         </section>
+
 
         <section class="bg-card p-8 rounded-xl border border-gray-800" data-aos="fade-up">
             <h3 class="text-xl font-bold mb-6 flex items-center">
@@ -221,45 +264,7 @@
             </div>
         </section>
 
-        <section class="grid lg:grid-cols-2 gap-8" data-aos="fade-up">
-            <div class="bg-card p-8 rounded-xl border border-gray-800">
-                <h3 class="text-xl font-bold mb-6">File Upload</h3>
-                <p class="text-gray-400 text-sm mb-6">Standard <code>input type="file"</code>. Use
-                    <code>sendKeys("C:/path/to/file.txt")</code> to upload directly.
-                </p>
-                <div
-                    class="p-6 border-2 border-dashed border-gray-600 rounded-lg text-center hover:border-accent transition group">
-                    <div class="file-input-wrapper">
-                        <button
-                            class="bg-gray-700 text-white px-6 py-2 rounded font-bold group-hover:bg-accent group-hover:text-black transition pointer-events-none">Choose
-                            File</button>
-                        <input type="file" id="fileUpload" onchange="handleFileUpload(this)">
-                    </div>
-                    <p id="fileNameDisplay" class="mt-4 text-xs text-gray-500">No file selected</p>
-                </div>
-            </div>
 
-            <div class="bg-card p-8 rounded-xl border border-gray-800">
-                <h3 class="text-xl font-bold mb-6">File Download</h3>
-                <p class="text-gray-400 text-sm mb-6">Triggers a browser-level download. You must configure Browser
-                    Profile settings to handle this automatically in Selenium.</p>
-                <button onclick="triggerDownload()"
-                    class="w-full h-32 flex flex-col items-center justify-center bg-gray-700/50 rounded-lg hover:bg-gray-700 transition">
-                    <i class="fas fa-cloud-download-alt text-4xl text-accent mb-3"></i>
-                    <span class="font-bold">Download Report.pdf</span>
-                </button>
-            </div>
-        </section>
-
-        <section class="bg-card p-8 rounded-xl border border-gray-800 text-center" data-aos="fade-up">
-            <h3 class="text-xl font-bold mb-4">Browser Notifications</h3>
-            <p class="text-gray-400 text-sm mb-6 max-w-2xl mx-auto">These are OS-level toasts requested by the browser.
-                <br> You usually handle these via ChromeOptions <br>(<code>"--disable-notifications"</code>).
-            </p>
-            <button onclick="requestNotification()"
-                class="px-8 py-3 border border-accent text-accent font-bold rounded hover:bg-accent hover:text-black transition">Request
-                Permission</button>
-        </section>
 
     </main>
 
