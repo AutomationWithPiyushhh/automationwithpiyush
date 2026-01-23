@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AutomationWithPiyush</title>
 
+    <link rel="icon" type="image/png" href="icon.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -86,8 +88,13 @@
             </a>
         </div>
 
-        <div class="hidden md:flex gap-10 text-gray-400 font-medium text-sm lg:text-base">
-            <a href="#practice" class="hover:text-amber-400 transition">Practice</a>
+        <div class="hidden md:flex items-center gap-10 text-gray-400 font-medium text-sm lg:text-base">
+
+            <a href="#practice"
+                class="bg-amber-400 text-black px-6 py-2 rounded-full font-bold hover:bg-white hover:scale-105 transition-all shadow-[0_0_20px_rgba(250,204,21,0.4)]">
+                Practice
+            </a>
+
             <a href="#services" class="hover:text-amber-400 transition">Services</a>
             <a href="#works" class="hover:text-amber-400 transition">Works</a>
             <a href="#blog" class="hover:text-amber-400 transition">Blog</a>
@@ -100,9 +107,12 @@
 
         <div id="mobile-menu"
             class="hidden fixed inset-0 bg-[#1a1b23] flex flex-col items-center justify-center gap-8 text-2xl z-40 md:hidden">
+
+            <a href="#practice" class="text-amber-400 font-bold border-2 border-amber-400 px-8 py-2 rounded-full"
+                onclick="toggleMenu()">Practice</a>
+
             <a href="#services" class="hover:text-amber-400 transition" onclick="toggleMenu()">Services</a>
             <a href="#works" class="hover:text-amber-400 transition" onclick="toggleMenu()">Works</a>
-            <a href="#practice" class="hover:text-amber-400 transition" onclick="toggleMenu()">Practice</a>
             <a href="#blog" class="hover:text-amber-400 transition" onclick="toggleMenu()">Blog</a>
             <a href="#contact" class="hover:text-amber-400 transition" onclick="toggleMenu()">Contact</a>
             <button class="mt-4 text-amber-400 text-lg" onclick="toggleMenu()">Close Menu</button>
@@ -153,7 +163,7 @@
     <section id="practice" class="max-w-7xl mx-auto px-6 md:px-8 py-20 border-t border-gray-800">
         <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <div data-aos="fade-right">
-                <p class="text-gray-500 uppercase text-xs mb-4 tracking-widest font-bold">— Automation OPD</p>
+                <p class="text-gray-500 uppercase text-xs mb-4 tracking-widest">— Automation OPD</p>
                 <h3 class="text-4xl md:text-5xl font-bold leading-tight">Software Diagnostics<br>& Surgical
                     Environments.</h3>
             </div>
@@ -192,6 +202,22 @@
                 <div class="flex gap-2">
                     <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Forms</span>
                     <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Tables</span>
+                </div>
+                <div
+                    class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                    Enter Mastery OT <i class="fas fa-arrow-right ml-2"></i>
+                </div>
+            </div>
+
+            <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-amber-400 transition-all group cursor-pointer"
+                data-aos="zoom-in" data-aos-delay="500" onclick="window.location.href='synchronization.html'">
+                <i class="fas fa-hourglass-half text-3xl text-amber-400 mb-6"></i>
+                <h4 class="text-2xl font-bold mb-4">Synchronization</h4>
+                <p class="text-gray-400 mb-6">Solve flaky tests by mastering Implicit, Explicit, and Fluent waits for
+                    modern UI logic.</p>
+                <div class="flex gap-2">
+                    <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Explicit</span>
+                    <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Fluent</span>
                 </div>
                 <div
                     class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
@@ -249,21 +275,7 @@
                 </div>
             </div>
 
-            <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-amber-400 transition-all group cursor-pointer"
-                data-aos="zoom-in" data-aos-delay="500" onclick="window.location.href='synchronization.html'">
-                <i class="fas fa-hourglass-half text-3xl text-amber-400 mb-6"></i>
-                <h4 class="text-2xl font-bold mb-4">Synchronization</h4>
-                <p class="text-gray-400 mb-6">Solve flaky tests by mastering Implicit, Explicit, and Fluent waits for
-                    modern UI logic.</p>
-                <div class="flex gap-2">
-                    <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Explicit</span>
-                    <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Fluent</span>
-                </div>
-                <div
-                    class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                    Enter Mastery OT <i class="fas fa-arrow-right ml-2"></i>
-                </div>
-            </div>
+
 
         </div>
     </section>
@@ -393,7 +405,7 @@
                 <h3 class="text-4xl md:text-5xl font-bold leading-tight">Latest Chapters &<br>Automation Insights.</h3>
             </div>
             <div data-aos="fade-left">
-                <a href="https://github.com/AutomationWithPiyushhh?tab=repositories" target="_blank"
+                <a href="coming-soon.html" target="_blank"
                     class="text-amber-400 font-bold border-b-2 border-amber-400 pb-1 hover:text-white hover:border-white transition">View
                     All Chapters</a>
             </div>
@@ -401,7 +413,7 @@
 
         <div class="space-y-6 md:space-y-8">
             <div class="group cursor-pointer flex flex-col md:flex-row justify-between items-start md:items-center py-8 border-b border-gray-800 hover:border-amber-400 transition-colors"
-                data-aos="fade-up" onclick="window.location.href='browser-initialization.html'">
+                data-aos="fade-up" onclick="window.location.href='coming-soon.html'">
                 <div class="flex flex-col gap-2">
                     <p class="text-amber-400 text-xs font-bold uppercase tracking-widest">Goal 1 • Chapter 01</p>
                     <h4 class="text-2xl md:text-3xl font-bold group-hover:translate-x-2 transition-transform">Basic
@@ -414,7 +426,7 @@
             </div>
 
             <div class="group cursor-pointer flex flex-col md:flex-row justify-between items-start md:items-center py-8 border-b border-gray-800 hover:border-amber-400 transition-colors"
-                data-aos="fade-up" data-aos-delay="100" onclick="window.location.href='js-executor.html'">
+                data-aos="fade-up" data-aos-delay="100" onclick="window.location.href='coming-soon.html'">
                 <div class="flex flex-col gap-2">
                     <p class="text-amber-400 text-xs font-bold uppercase tracking-widest">Goal 2 • Chapter 02</p>
                     <h4 class="text-2xl md:text-3xl font-bold group-hover:translate-x-2 transition-transform">Advanced

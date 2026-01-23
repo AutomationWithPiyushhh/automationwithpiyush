@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module Coming Soon | AutomationWithPiyush</title>
+    <link rel="icon" type="image/png" href="icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            /* Prevent scrolling */
+        }
+
+        /* Animated Background Grid */
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+
+        /* Loading Bar Animation */
+        .loading-bar {
+            width: 0%;
+            animation: load 3s ease-in-out forwards;
+        }
+
+        @keyframes load {
+            0% {
+                width: 0%;
+            }
+
+            50% {
+                width: 70%;
+            }
+
+            100% {
+                width: 95%;
+            }
+        }
+
+        /* Glitch Text Effect */
+        .glitch-text {
+            position: relative;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -1px 0 #facc15;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -1px 0 #00ffff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(12px, 9999px, 5px, 0);
+            }
+
+            50% {
+                clip: rect(65px, 9999px, 80px, 0);
+            }
+
+            100% {
+                clip: rect(10px, 9999px, 90px, 0);
+            }
+        }
+
+        @keyframes glitch-anim2 {
+            0% {
+                clip: rect(89px, 9999px, 12px, 0);
+            }
+
+            50% {
+                clip: rect(2px, 9999px, 80px, 0);
+            }
+
+            100% {
+                clip: rect(50px, 9999px, 10px, 0);
+            }
+        }
+    </style>
+</head>
+
+<body class="h-screen w-full flex items-center justify-center relative">
+
+    <div class="absolute inset-0 bg-grid opacity-30 pointer-events-none"></div>
+
+    <div class="absolute top-10 left-10 text-gray-700 animate-bounce delay-700"><i class="fas fa-code text-4xl"></i>
+    </div>
+    <div class="absolute bottom-20 right-20 text-gray-700 animate-bounce delay-1000"><i
+            class="fas fa-terminal text-3xl"></i></div>
+    <div class="absolute top-1/2 right-10 text-gray-700 animate-pulse"><i class="fas fa-cog text-5xl fa-spin"
+            style="animation-duration: 10s;"></i></div>
+
+    <div class="relative z-10 text-center max-w-2xl px-6" data-aos="zoom-in" data-aos-duration="1000">
+
+        <div class="mb-8 relative inline-block">
+            <div class="absolute inset-0 bg-amber-400 blur-2xl opacity-20 rounded-full animate-pulse"></div>
+            <i class="fas fa-rocket text-7xl md:text-8xl text-amber-400 relative z-10 animate-bounce"
+                style="animation-duration: 3s;"></i>
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tighter text-white glitch-text" data-text="COMING SOON">
+            COMING SOON
+        </h1>
+
+        <p class="text-gray-400 text-lg md:text-xl font-mono mb-10 h-16">
+            <span id="typewriter"></span><span class="animate-blink">|</span>
+        </p>
+
+        <div
+            class="w-full max-w-md mx-auto bg-gray-800 h-2 rounded-full overflow-hidden mb-4 relative border border-gray-700">
+            <div class="bg-amber-400 h-full loading-bar relative shadow-[0_0_10px_#facc15]"></div>
+        </div>
+        <div class="flex justify-between max-w-md mx-auto text-xs text-gray-500 font-mono mb-10">
+            <span>COMPILING RESOURCES...</span>
+            <span class="text-amber-400">95%</span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="index.html"
+                class="px-8 py-3 rounded-full bg-white text-black font-bold hover:bg-amber-400 transition-all transform hover:scale-105 shadow-lg">
+                <i class="fas fa-arrow-left mr-2"></i> Return Home
+            </a>
+            <a href="mailto:automation.with.piyush@gmail.com?subject=Notify Me When Module is Live"
+                class="px-8 py-3 rounded-full border border-gray-600 text-gray-300 font-bold hover:border-amber-400 hover:text-amber-400 transition-all">
+                <i class="fas fa-bell mr-2"></i> Notify Me
+            </a>
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // Typewriter Effect for the subtitle
+        const text = "Master is currently scripting this module. Stay tuned.";
+        const typewriterElement = document.getElementById("typewriter");
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                typewriterElement.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50); // Speed of typing
+            }
+        }
+
+        // Start typing after a short delay
+        setTimeout(typeWriter, 500);
+    </script>
+</body>
+
+</html>
