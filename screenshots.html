@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-Ray Diagnostics | AutomationWithPiyush</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Fira+Code:wght@400&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .bg-card {
+            background-color: #252631;
+            border: 1px solid #374151;
+        }
+
+        /* Code Snippet Styling */
+        .code-block {
+            background-color: #111827;
+            border-left: 4px solid #3b82f6;
+            font-family: 'Fira Code', monospace;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            color: #e5e7eb;
+        }
+
+        .keyword {
+            color: #c678dd;
+        }
+
+        /* Purple for keywords */
+        .type {
+            color: #e5c07b;
+        }
+
+        /* Yellow for types */
+        .string {
+            color: #98c379;
+        }
+
+        /* Green for strings */
+        .method {
+            color: #61afef;
+        }
+
+        /* Blue for methods */
+
+        /* The Practice Target */
+        #xray-zone {
+            background-image: repeating-linear-gradient(45deg, #1f2937 25%, transparent 25%, transparent 75%, #1f2937 75%, #1f2937), repeating-linear-gradient(45deg, #1f2937 25%, #111827 25%, #111827 75%, #1f2937 75%, #1f2937);
+            background-position: 0 0, 10px 10px;
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="p-6 md:p-12">
+
+    <div class="max-w-7xl mx-auto">
+        <header class="flex justify-between items-center mb-12" data-aos="fade-down">
+            <div>
+                <h1 class="text-3xl font-bold flex items-center gap-3">
+                    <i class="fas fa-camera text-blue-400"></i>
+                    X-Ray <span class="text-blue-400">Diagnostics</span>
+                </h1>
+                <p class="text-gray-400 mt-2 text-sm">Evidence Capture & Documentation Unit</p>
+            </div>
+            <a href="index.html" class="text-gray-400 hover:text-white transition">
+                <i class="fas fa-arrow-left"></i> Back to Suite
+            </a>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+            <div class="space-y-8">
+
+                <div class="bg-card p-6 rounded-xl" data-aos="fade-right">
+                    <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">SOP-01</span>
+                        Full Body Scan
+                    </h2>
+                    <p class="text-gray-400 text-sm mb-4">
+                        To capture the entire viewport, we must typecast the WebDriver instance to the <code
+                            class="text-amber-400">TakesScreenshot</code> interface. This allows us to call the <code
+                            class="text-amber-400">getScreenshotAs</code> method, which returns a file object
+                        representing
+                        the screenshot.
+                    </p>
+
+                    <div class="code-block">
+                        <span class="keyword">import</span> org.openqa.selenium.OutputType;<br>
+                        <span class="keyword">import</span> org.openqa.selenium.TakesScreenshot;<br><br>
+
+                        <span class="type">TakesScreenshot</span> tks = (<span class="type">TakesScreenshot</span>)
+                        driver;<br>
+                        <span class="type">File</span> source = tks.<span
+                            class="method">getScreenshotAs</span>(OutputType.FILE);<br>
+                        <span class="type">File</span> destination = <span class="keyword">new</span> <span
+                            class="type">File</span>(<span class="string">"./scans/fullbody.png"</span>);<br>
+                        FileHandler.<span class="method">copy</span>(source, destination);
+                    </div>
+                </div>
+
+                <div class="bg-card p-6 rounded-xl" data-aos="fade-right" data-aos-delay="100">
+                    <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <span class="bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-xs">SOP-02</span>
+                        Targeted Biopsy (Element)
+                    </h2>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Modern Selenium (v4+) allows capturing a specific organ (WebElement) without the surrounding
+                        noise. We call the method directly on the element found.
+                    </p>
+
+                    <div class="code-block">
+                        <span class="type">WebElement</span> organ = driver.<span
+                            class="method">findElement</span>(By.id(<span class="string">"heatmap"</span>));<br><br>
+                        <span class="type">File</span> source = organ.<span
+                            class="method">getScreenshotAs</span>(OutputType.FILE);<br>
+                        <span class="type">File</span> dest = <span class="keyword">new</span> <span
+                            class="type">File</span>(<span class="string">"./scans/organ_biopsy.png"</span>);<br>
+                        FileUtils.<span class="method">copyFile</span>(source, dest);
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="space-y-8">
+
+                <div class="bg-card p-1 rounded-xl border-dashed border-2 border-gray-600 relative" data-aos="zoom-in">
+                    <div class="absolute -top-3 left-4 bg-gray-800 px-2 text-xs text-gray-400">PATIENT: ID-7729</div>
+
+                    <div class="p-6 bg-gray-900 rounded-lg">
+                        <h3 class="text-lg font-bold mb-4 text-center">Practice Zone</h3>
+                        <p class="text-sm text-gray-500 text-center mb-6">
+                            Write a script to capture a screenshot of the <strong>Thermal Heatmap</strong> below.
+                        </p>
+
+                        <div id="heatmap"
+                            class="w-full h-48 rounded-lg relative overflow-hidden flex items-center justify-center group cursor-crosshair transition-all duration-500 hover:shadow-[0_0_20px_rgba(59,130,246,0.5)]">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-red-900/40 via-purple-900/40 to-blue-900/40">
+                            </div>
+
+                            <div class="absolute inset-0"
+                                style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px; opacity: 0.1;">
+                            </div>
+
+                            <div class="relative z-10 text-center">
+                                <i class="fas fa-heartbeat text-5xl text-red-500 animate-pulse"></i>
+                                <p class="mt-2 text-xs font-mono text-red-300">LIVE VITAL SIGNS</p>
+                            </div>
+
+                            <div
+                                class="absolute bottom-2 right-2 text-[10px] text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                                Artifact ID: #992
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex justify-between items-center text-xs text-gray-500 font-mono">
+                            <span>Element ID: <span class="text-amber-400">#heatmap</span></span>
+                            <span>Status: <span class="text-green-400">Stable</span></span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
+</body>
+
+</html>

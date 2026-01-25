@@ -17,6 +17,7 @@
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            /* Prevent scrolling while dragging */
         }
 
         .bg-card {
@@ -34,32 +35,6 @@
 
         .bg-accent {
             background-color: #facc15;
-        }
-
-        input[type=range] {
-            -webkit-appearance: none;
-            width: 100%;
-            background: transparent;
-        }
-
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 24px;
-            width: 24px;
-            border-radius: 50%;
-            background: #facc15;
-            cursor: pointer;
-            margin-top: -10px;
-            box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
-            border: 2px solid #1a1b23;
-        }
-
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            cursor: pointer;
-            background: #4b5563;
-            border-radius: 2px;
         }
 
         #toast-container {
@@ -99,7 +74,7 @@
             transition: stroke-dashoffset 0.05s linear;
         }
 
-        /* Drag and Drop Specific Styles */
+        /* UPDATED DRAG STYLES */
         .drop-zone {
             transition: background-color 0.3s, border-color 0.3s;
         }
@@ -107,10 +82,24 @@
         .drag-item {
             cursor: grab;
             user-select: none;
+            position: relative;
+            z-index: 10;
+            touch-action: none;
+            /* Critical for modern touch/pointer events */
         }
 
         .drag-item:active {
             cursor: grabbing;
+        }
+
+        .drag-item.is-dragging {
+            position: fixed;
+            z-index: 9999;
+            pointer-events: none;
+            /* Allows checking element below cursor */
+            opacity: 0.9;
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
         }
 
         .correct-match {
@@ -123,6 +112,33 @@
             border-color: #f87171 !important;
             background-color: rgba(248, 113, 113, 0.1) !important;
         }
+
+        /* Range Slider Styles */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #facc15;
+            cursor: pointer;
+            margin-top: -10px;
+            box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+            border: 2px solid #1a1b23;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #4b5563;
+            border-radius: 2px;
+        }
     </style>
 </head>
 
@@ -132,7 +148,6 @@
 
     <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-7xl mx-auto z-50">
         <div class="flex items-center gap-3">
-
         </div>
         <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">
             <i class="fas fa-arrow-left mr-2"></i> Back to Ward
@@ -217,50 +232,47 @@
 
         <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent lg:col-span-4 lg:col-start-2"
             data-aos="fade-up" data-aos-delay="200">
-            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">06. Drag & Drop (Global
-                Geography)</h3>
+            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">06. Drag & Drop (Selenium
+                Compatible)</h3>
 
             <div class="grid grid-cols-2 gap-8">
 
                 <div class="space-y-3">
                     <p class="text-[10px] text-gray-500 font-bold uppercase mb-2">Draggable Capitals</p>
-                    <div id="cap-ottawa" draggable="true" ondragstart="drag(event, 'canada')"
+
+                    <div id="cap-ottawa" data-country="canada"
                         class="drag-item h-12 bg-gray-700 rounded-lg flex items-center justify-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
                         Ottawa</div>
-                    <div id="cap-madrid" draggable="true" ondragstart="drag(event, 'spain')"
+                    <div id="cap-madrid" data-country="spain"
                         class="drag-item h-12 bg-gray-700 rounded-lg flex items-center justify-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
                         Madrid</div>
-                    <div id="cap-canberra" draggable="true" ondragstart="drag(event, 'australia')"
+                    <div id="cap-canberra" data-country="australia"
                         class="drag-item h-12 bg-gray-700 rounded-lg flex items-center justify-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
                         Canberra</div>
-                    <div id="cap-tokyo" draggable="true" ondragstart="drag(event, 'japan')"
+                    <div id="cap-tokyo" data-country="japan"
                         class="drag-item h-12 bg-gray-700 rounded-lg flex items-center justify-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
                         Tokyo</div>
-                    <div id="cap-seoul" draggable="true" ondragstart="drag(event, 'southkorea')"
+                    <div id="cap-seoul" data-country="southkorea"
                         class="drag-item h-12 bg-gray-700 rounded-lg flex items-center justify-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
                         Seoul</div>
                 </div>
 
                 <div class="space-y-3">
                     <p class="text-[10px] text-gray-500 font-bold uppercase mb-2 text-right">Target Countries</p>
-                    <div id="target-australia" ondrop="drop(event, 'australia')" ondragover="allowDrop(event)"
-                        ondragleave="leaveDrop(event)"
+
+                    <div id="target-australia" data-country="australia"
                         class="drop-zone h-12 border border-dashed border-gray-600 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400 bg-[#1a1b23]">
                         Australia</div>
-                    <div id="target-canada" ondrop="drop(event, 'canada')" ondragover="allowDrop(event)"
-                        ondragleave="leaveDrop(event)"
+                    <div id="target-canada" data-country="canada"
                         class="drop-zone h-12 border border-dashed border-gray-600 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400 bg-[#1a1b23]">
                         Canada</div>
-                    <div id="target-spain" ondrop="drop(event, 'spain')" ondragover="allowDrop(event)"
-                        ondragleave="leaveDrop(event)"
+                    <div id="target-spain" data-country="spain"
                         class="drop-zone h-12 border border-dashed border-gray-600 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400 bg-[#1a1b23]">
                         Spain</div>
-                    <div id="target-southkorea" ondrop="drop(event, 'southkorea')" ondragover="allowDrop(event)"
-                        ondragleave="leaveDrop(event)"
+                    <div id="target-southkorea" data-country="southkorea"
                         class="drop-zone h-12 border border-dashed border-gray-600 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400 bg-[#1a1b23]">
                         South Korea</div>
-                    <div id="target-japan" ondrop="drop(event, 'japan')" ondragover="allowDrop(event)"
-                        ondragleave="leaveDrop(event)"
+                    <div id="target-japan" data-country="japan"
                         class="drop-zone h-12 border border-dashed border-gray-600 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400 bg-[#1a1b23]">
                         Japan</div>
                 </div>
@@ -297,6 +309,7 @@
     <script>
         AOS.init({ duration: 800, once: true });
 
+        // --- Toast & Basic Interactions ---
         function showToast(msg, isError = false) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -327,6 +340,15 @@
             showToast("Double Click Verified");
         }
 
+        function updateSlider(val) {
+            const display = document.getElementById('slider-val');
+            display.innerText = val > 0 ? `+${val}` : val;
+            if (val == 0) display.className = "text-3xl font-black font-mono text-gray-500";
+            else if (val < 0) display.className = "text-3xl font-black font-mono text-red-400";
+            else display.className = "text-3xl font-black font-mono text-green-400";
+        }
+
+        // --- Click & Hold Logic ---
         const holdArea = document.getElementById('click-hold');
         const progressRing = document.getElementById('hold-progress');
         const holdText = document.getElementById('hold-text');
@@ -337,12 +359,10 @@
             holdArea.classList.remove('border-red-500');
             holdText.classList.remove('text-red-500');
             holdIcon.classList.remove('text-red-500');
-
             holdArea.classList.add('border-accent');
             holdText.classList.add('text-accent');
             holdIcon.classList.add('text-accent');
             holdText.innerText = "Holding...";
-
             let start = Date.now();
             holdTimer = setInterval(() => {
                 let elapsed = Date.now() - start;
@@ -360,7 +380,6 @@
                 holdText.classList.replace('text-accent', 'text-red-500');
                 holdArea.classList.replace('border-accent', 'border-red-500');
                 holdIcon.classList.replace('text-accent', 'text-red-500');
-
                 setTimeout(() => {
                     if (holdText.innerText === "Released too early!") {
                         holdText.innerText = "Hold for 3 Seconds";
@@ -384,41 +403,110 @@
             showToast("Hold Verified");
         }
 
-        // --- Drag and Drop Logic ---
-        function drag(ev, countryCode) {
-            ev.dataTransfer.setData("country", countryCode);
-            ev.dataTransfer.setData("sourceId", ev.target.id);
+
+        // ==========================================
+        //  NEW: AUTOMATION-FRIENDLY DRAG & DROP LOGIC
+        // ==========================================
+
+        let activeDragItem = null;
+        let originalParent = null;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        // Attach listeners to all draggable items
+        document.querySelectorAll('.drag-item').forEach(item => {
+            item.addEventListener('mousedown', startDrag);
+        });
+
+        function startDrag(e) {
+            e.preventDefault(); // Prevent text selection
+            activeDragItem = this;
+            originalParent = this.parentNode; // Remember where it came from
+
+            // Calculate where mouse is relative to the element
+            const rect = activeDragItem.getBoundingClientRect();
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+
+            // Make it float
+            activeDragItem.classList.add('is-dragging');
+
+            // Set initial position
+            moveDragItem(e.clientX, e.clientY);
+
+            // Listen for movement and release on the document level
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
         }
 
-        function allowDrop(ev) { ev.preventDefault(); ev.target.classList.add('bg-white/5'); }
-        function leaveDrop(ev) { ev.target.classList.remove('bg-white/5'); }
+        function onMouseMove(e) {
+            if (!activeDragItem) return;
+            moveDragItem(e.clientX, e.clientY);
+        }
 
-        function drop(ev, targetCountry) {
-            ev.preventDefault();
-            ev.target.classList.remove('bg-white/5');
-            const draggedCountry = ev.dataTransfer.getData("country");
-            const sourceId = ev.dataTransfer.getData("sourceId");
-            const sourceElem = document.getElementById(sourceId);
+        function moveDragItem(x, y) {
+            activeDragItem.style.left = (x - offsetX) + 'px';
+            activeDragItem.style.top = (y - offsetY) + 'px';
+        }
 
-            if (draggedCountry === targetCountry) {
-                ev.target.classList.add('correct-match');
-                ev.target.innerText = `${ev.target.innerText}: MATCHED`;
-                sourceElem.style.display = 'none';
-                showToast(`Correct! ${sourceElem.innerText} matched.`);
+        function onMouseUp(e) {
+            if (!activeDragItem) return;
+
+            // 1. Temporarily hide the dragged item so we can see what's underneath
+            activeDragItem.style.display = 'none';
+
+            // 2. Identify the element under the mouse
+            let elemBelow = document.elementFromPoint(e.clientX, e.clientY);
+
+            // 3. Show the dragged item again
+            activeDragItem.style.display = 'flex';
+
+            // 4. Check if the element below is a drop zone
+            let dropZone = elemBelow ? elemBelow.closest('.drop-zone') : null;
+
+            if (dropZone) {
+                // Check if countries match
+                const sourceCountry = activeDragItem.getAttribute('data-country');
+                const targetCountry = dropZone.getAttribute('data-country');
+
+                if (sourceCountry === targetCountry) {
+                    handleSuccess(activeDragItem, dropZone);
+                } else {
+                    handleFailure(activeDragItem, dropZone);
+                }
             } else {
-                ev.target.classList.add('wrong-match');
-                showToast("Incorrect Capital!", true);
-                setTimeout(() => ev.target.classList.remove('wrong-match'), 1000);
+                resetDrag(); // Dropped in empty space
             }
+
+            // Cleanup listeners
+            activeDragItem.classList.remove('is-dragging');
+            activeDragItem.style.left = '';
+            activeDragItem.style.top = '';
+            activeDragItem = null;
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
         }
 
-        function updateSlider(val) {
-            const display = document.getElementById('slider-val');
-            display.innerText = val > 0 ? `+${val}` : val;
-            if (val == 0) display.className = "text-3xl font-black font-mono text-gray-500";
-            else if (val < 0) display.className = "text-3xl font-black font-mono text-red-400";
-            else display.className = "text-3xl font-black font-mono text-green-400";
+        function handleSuccess(item, zone) {
+            zone.classList.add('correct-match');
+            zone.innerText = item.innerText + ": MATCHED";
+            item.style.display = 'none'; // Remove the item
+            showToast(`Correct! ${item.innerText} matched.`);
         }
+
+        function handleFailure(item, zone) {
+            zone.classList.add('wrong-match');
+            showToast("Incorrect Match!", true);
+            setTimeout(() => zone.classList.remove('wrong-match'), 1000);
+            resetDrag(); // Return item to start
+        }
+
+        function resetDrag() {
+            activeDragItem.style.position = '';
+            activeDragItem.style.width = '';
+            activeDragItem.style.zIndex = '';
+        }
+
     </script>
 </body>
 
