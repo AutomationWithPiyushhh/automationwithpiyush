@@ -17,7 +17,6 @@
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            /* Prevent scrolling while dragging */
         }
 
         .bg-card {
@@ -37,6 +36,54 @@
             background-color: #facc15;
         }
 
+        /* --- DRAG & DROP STYLES (Refined) --- */
+        .drop-zone {
+            transition: all 0.2s ease;
+        }
+
+        /* Visual feedback when hovering over a drop zone with an item */
+        .drop-zone:hover {
+            border-color: #facc15;
+            background-color: rgba(250, 204, 21, 0.1);
+            transform: scale(1.02);
+        }
+
+        .drag-item {
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+            position: relative;
+            z-index: 10;
+        }
+
+        .drag-item:active {
+            cursor: grabbing;
+        }
+
+        /* THE KEY FIX: pointer-events: none */
+        .drag-item.is-dragging {
+            position: fixed;
+            z-index: 9999;
+            opacity: 0.9;
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+
+            /* This allows the mouse to "see through" the item to the drop zone below */
+            pointer-events: none;
+        }
+
+        .correct-match {
+            border-color: #4ade80 !important;
+            background-color: rgba(74, 222, 128, 0.1) !important;
+            color: #4ade80 !important;
+        }
+
+        .wrong-match {
+            border-color: #f87171 !important;
+            background-color: rgba(248, 113, 113, 0.1) !important;
+        }
+
+        /* Toast & Slider Styles */
         #toast-container {
             position: fixed;
             top: 20px;
@@ -74,46 +121,6 @@
             transition: stroke-dashoffset 0.05s linear;
         }
 
-        /* UPDATED DRAG STYLES */
-        .drop-zone {
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-
-        .drag-item {
-            cursor: grab;
-            user-select: none;
-            position: relative;
-            z-index: 10;
-            touch-action: none;
-            /* Critical for modern touch/pointer events */
-        }
-
-        .drag-item:active {
-            cursor: grabbing;
-        }
-
-        .drag-item.is-dragging {
-            position: fixed;
-            z-index: 9999;
-            pointer-events: none;
-            /* Allows checking element below cursor */
-            opacity: 0.9;
-            transform: scale(1.05);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-        }
-
-        .correct-match {
-            border-color: #4ade80 !important;
-            background-color: rgba(74, 222, 128, 0.1) !important;
-            color: #4ade80 !important;
-        }
-
-        .wrong-match {
-            border-color: #f87171 !important;
-            background-color: rgba(248, 113, 113, 0.1) !important;
-        }
-
-        /* Range Slider Styles */
         input[type=range] {
             -webkit-appearance: none;
             width: 100%;
@@ -147,8 +154,7 @@
     <div id="toast-container"></div>
 
     <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-7xl mx-auto z-50">
-        <div class="flex items-center gap-3">
-        </div>
+        <div class="flex items-center gap-3"></div>
         <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">
             <i class="fas fa-arrow-left mr-2"></i> Back to Ward
         </a>
@@ -234,12 +240,9 @@
             data-aos="fade-up" data-aos-delay="200">
             <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">06. Drag & Drop (Selenium
                 Compatible)</h3>
-
             <div class="grid grid-cols-2 gap-8">
-
                 <div class="space-y-3">
                     <p class="text-[10px] text-gray-500 font-bold uppercase mb-2">Draggable Capitals</p>
-
                     <div id="cap-ottawa" data-country="canada"
                         class="drag-item h-12 bg-gray-700 rounded-lg flex items-center justify-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
                         Ottawa</div>
@@ -259,7 +262,6 @@
 
                 <div class="space-y-3">
                     <p class="text-[10px] text-gray-500 font-bold uppercase mb-2 text-right">Target Countries</p>
-
                     <div id="target-australia" data-country="australia"
                         class="drop-zone h-12 border border-dashed border-gray-600 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400 bg-[#1a1b23]">
                         Australia</div>
@@ -276,7 +278,6 @@
                         class="drop-zone h-12 border border-dashed border-gray-600 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400 bg-[#1a1b23]">
                         Japan</div>
                 </div>
-
             </div>
         </div>
 
@@ -309,7 +310,7 @@
     <script>
         AOS.init({ duration: 800, once: true });
 
-        // --- Toast & Basic Interactions ---
+        // --- Basic Interactions ---
         function showToast(msg, isError = false) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -348,7 +349,7 @@
             else display.className = "text-3xl font-black font-mono text-green-400";
         }
 
-        // --- Click & Hold Logic ---
+        // --- Click & Hold ---
         const holdArea = document.getElementById('click-hold');
         const progressRing = document.getElementById('hold-progress');
         const holdText = document.getElementById('hold-text');
@@ -403,38 +404,31 @@
             showToast("Hold Verified");
         }
 
-
         // ==========================================
-        //  NEW: AUTOMATION-FRIENDLY DRAG & DROP LOGIC
+        //  REFINED DRAG & DROP (Manual Smoothness Fix)
         // ==========================================
 
         let activeDragItem = null;
-        let originalParent = null;
         let offsetX = 0;
         let offsetY = 0;
 
-        // Attach listeners to all draggable items
         document.querySelectorAll('.drag-item').forEach(item => {
             item.addEventListener('mousedown', startDrag);
         });
 
         function startDrag(e) {
-            e.preventDefault(); // Prevent text selection
+            e.preventDefault();
             activeDragItem = this;
-            originalParent = this.parentNode; // Remember where it came from
 
-            // Calculate where mouse is relative to the element
             const rect = activeDragItem.getBoundingClientRect();
             offsetX = e.clientX - rect.left;
             offsetY = e.clientY - rect.top;
 
-            // Make it float
             activeDragItem.classList.add('is-dragging');
 
             // Set initial position
             moveDragItem(e.clientX, e.clientY);
 
-            // Listen for movement and release on the document level
             document.addEventListener('mousemove', onMouseMove);
             document.addEventListener('mouseup', onMouseUp);
         }
@@ -452,20 +446,12 @@
         function onMouseUp(e) {
             if (!activeDragItem) return;
 
-            // 1. Temporarily hide the dragged item so we can see what's underneath
-            activeDragItem.style.display = 'none';
-
-            // 2. Identify the element under the mouse
+            // Thanks to pointer-events: none, we can directly detect what's under the cursor!
+            // No need to hide/show the element anymore.
             let elemBelow = document.elementFromPoint(e.clientX, e.clientY);
-
-            // 3. Show the dragged item again
-            activeDragItem.style.display = 'flex';
-
-            // 4. Check if the element below is a drop zone
             let dropZone = elemBelow ? elemBelow.closest('.drop-zone') : null;
 
             if (dropZone) {
-                // Check if countries match
                 const sourceCountry = activeDragItem.getAttribute('data-country');
                 const targetCountry = dropZone.getAttribute('data-country');
 
@@ -475,10 +461,10 @@
                     handleFailure(activeDragItem, dropZone);
                 }
             } else {
-                resetDrag(); // Dropped in empty space
+                resetDrag();
             }
 
-            // Cleanup listeners
+            // Cleanup
             activeDragItem.classList.remove('is-dragging');
             activeDragItem.style.left = '';
             activeDragItem.style.top = '';
@@ -490,7 +476,7 @@
         function handleSuccess(item, zone) {
             zone.classList.add('correct-match');
             zone.innerText = item.innerText + ": MATCHED";
-            item.style.display = 'none'; // Remove the item
+            item.style.display = 'none';
             showToast(`Correct! ${item.innerText} matched.`);
         }
 
@@ -498,12 +484,11 @@
             zone.classList.add('wrong-match');
             showToast("Incorrect Match!", true);
             setTimeout(() => zone.classList.remove('wrong-match'), 1000);
-            resetDrag(); // Return item to start
+            resetDrag();
         }
 
         function resetDrag() {
             activeDragItem.style.position = '';
-            activeDragItem.style.width = '';
             activeDragItem.style.zIndex = '';
         }
 
