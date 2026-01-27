@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selenium Shopping Cart Game</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
+
+        .container {
+            display: flex;
+            width: 800px;
+            gap: 40px;
+        }
+
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        /* Product Shelf */
+        .shelf {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .product {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .product:hover {
+            background-color: #f9f9f9;
+            border-color: #bbb;
+        }
+
+        .product span {
+            font-weight: bold;
+            color: #2ecc71;
+        }
+
+        /* Shopping Cart */
+        .cart-area {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        #cart {
+            flex-grow: 1;
+            min-height: 200px;
+            border: 2px dashed #3498db;
+            border-radius: 5px;
+            background-color: #f0f8ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+        }
+
+        #cart.hovered {
+            background-color: #e6f2ff;
+            border-color: #1e90ff;
+        }
+
+        .cart-item {
+            width: 90%;
+            background: #3498db;
+            color: white;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Total Price Section */
+        .total-section {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: right;
+            border-top: 2px solid #eee;
+            padding-top: 15px;
+        }
+
+        #total-price {
+            color: #e74c3c;
+        }
+
+        #lbl-status {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: green;
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="shelf">
+            <h2>Products</h2>
+            <div class="product" draggable="true" id="item-mobile" data-price="500">
+                Mobile Phone <span>$500</span>
+            </div>
+            <div class="product" draggable="true" id="item-laptop" data-price="1000">
+                Laptop <span>$1000</span>
+            </div>
+            <div class="product" draggable="true" id="item-headphones" data-price="200">
+                Headphones <span>$200</span>
+            </div>
+            <div class="product" draggable="true" id="item-watch" data-price="300">
+                Smart Watch <span>$300</span>
+            </div>
+        </div>
+
+        <div class="cart-area">
+            <h2>Shopping Cart</h2>
+            <div id="cart">Drop Items Here</div>
+
+            <div class="total-section">
+                Total: $<span id="total-price">0</span>
+            </div>
+            <div id="lbl-status">Target Amount Reached!</div>
+        </div>
+    </div>
+
+    <script>
+        const products = document.querySelectorAll('.product');
+        const cart = document.getElementById('cart');
+        const totalPriceSpan = document.getElementById('total-price');
+        const statusLbl = document.getElementById('lbl-status');
+        let currentTotal = 0;
+
+        products.forEach(product => {
+            product.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', JSON.stringify({
+                    id: product.id,
+                    name: product.childNodes[0].textContent.trim(),
+                    price: parseInt(product.getAttribute('data-price'))
+                }));
+            });
+        });
+
+        cart.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            cart.classList.add('hovered');
+        });
+
+        cart.addEventListener('dragleave', () => {
+            cart.classList.remove('hovered');
+        });
+
+        cart.addEventListener('drop', (e) => {
+            e.preventDefault();
+            cart.classList.remove('hovered');
+
+            const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+
+            // Remove placeholder text if it exists
+            if (cart.innerText === "Drop Items Here") cart.innerText = "";
+
+            // Create new element in cart (visual copy)
+            const newItem = document.createElement('div');
+            newItem.classList.add('cart-item');
+            newItem.innerHTML = `${data.name} <span>$${data.price}</span>`;
+            cart.appendChild(newItem);
+
+            // Update Total
+            currentTotal += data.price;
+            totalPriceSpan.innerText = currentTotal;
+
+            // Check Automation Goal (Example: if total >= 1500)
+            if (currentTotal > 0) {
+                statusLbl.style.display = 'block';
+                statusLbl.innerText = "Cart updated.";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

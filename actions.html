@@ -36,16 +36,14 @@
             background-color: #facc15;
         }
 
-        /* --- DRAG & DROP STYLES (Refined) --- */
+        /* --- DRAG & DROP STYLES --- */
         .drop-zone {
             transition: all 0.2s ease;
         }
 
-        /* Visual feedback when hovering over a drop zone with an item */
         .drop-zone:hover {
             border-color: #facc15;
-            background-color: rgba(250, 204, 21, 0.1);
-            transform: scale(1.02);
+            background-color: rgba(250, 204, 21, 0.05);
         }
 
         .drag-item {
@@ -54,33 +52,29 @@
             touch-action: none;
             position: relative;
             z-index: 10;
+            transition: transform 0.1s;
         }
 
         .drag-item:active {
             cursor: grabbing;
         }
 
-        /* THE KEY FIX: pointer-events: none */
+        /* The item while being dragged */
         .drag-item.is-dragging {
             position: fixed;
             z-index: 9999;
             opacity: 0.9;
             transform: scale(1.05);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-
-            /* This allows the mouse to "see through" the item to the drop zone below */
             pointer-events: none;
+            /* Critical for identifying drop zone below */
         }
 
-        .correct-match {
-            border-color: #4ade80 !important;
-            background-color: rgba(74, 222, 128, 0.1) !important;
-            color: #4ade80 !important;
-        }
-
-        .wrong-match {
-            border-color: #f87171 !important;
-            background-color: rgba(248, 113, 113, 0.1) !important;
+        /* When inside the cart, change style slightly */
+        #shopping-cart .drag-item {
+            background-color: #2d3748;
+            /* Darker bg */
+            border-left: 3px solid #facc15;
         }
 
         /* Toast & Slider Styles */
@@ -238,53 +232,64 @@
 
         <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent lg:col-span-4 lg:col-start-2"
             data-aos="fade-up" data-aos-delay="200">
-            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">06. Drag & Drop (Selenium
-                Compatible)</h3>
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest">06. Shopping Cart (Drag & Drop)
+                </h3>
+                <div class="bg-gray-900 border border-gray-700 rounded px-4 py-2 flex items-center gap-2">
+                    <span class="text-[10px] text-gray-500 uppercase font-bold">Total:</span>
+                    <span id="cart-total" class="text-xl font-mono font-bold text-accent">$0</span>
+                </div>
+            </div>
+
             <div class="grid grid-cols-2 gap-8">
-                <div class="space-y-3">
-                    <p class="text-[10px] text-gray-500 font-bold uppercase mb-2">Draggable Capitals</p>
-                    <div id="cap-ottawa" data-country="canada"
-                        class="drag-item h-12 bg-gray-700 rounded-lg flex items-center justify-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
-                        Ottawa</div>
-                    <div id="cap-madrid" data-country="spain"
-                        class="drag-item h-12 bg-gray-700 rounded-lg flex items-center justify-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
-                        Madrid</div>
-                    <div id="cap-canberra" data-country="australia"
-                        class="drag-item h-12 bg-gray-700 rounded-lg flex items-center justify-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
-                        Canberra</div>
-                    <div id="cap-tokyo" data-country="japan"
-                        class="drag-item h-12 bg-gray-700 rounded-lg flex items-center justify-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
-                        Tokyo</div>
-                    <div id="cap-seoul" data-country="southkorea"
-                        class="drag-item h-12 bg-gray-700 rounded-lg flex items-center justify-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
-                        Seoul</div>
+                <div id="shelf-zone"
+                    class="drop-zone space-y-3 min-h-[250px] p-4 rounded-lg border border-dashed border-gray-700 bg-[#1a1b23]/50 relative">
+                    <p class="text-[10px] text-gray-500 font-bold uppercase mb-2 absolute -top-6 left-0">Available
+                        Products</p>
+
+                    <div id="prod-laptop" data-price="1200"
+                        class="drag-item h-12 bg-gray-700 rounded-lg flex justify-between px-4 items-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
+                        <span class="pointer-events-none"><i class="fas fa-laptop mr-2"></i>Laptop</span>
+                        <span class="text-accent pointer-events-none">$1200</span>
+                    </div>
+
+                    <div id="prod-phone" data-price="800"
+                        class="drag-item h-12 bg-gray-700 rounded-lg flex justify-between px-4 items-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
+                        <span class="pointer-events-none"><i class="fas fa-mobile-alt mr-2"></i>iPhone</span>
+                        <span class="text-accent pointer-events-none">$800</span>
+                    </div>
+
+                    <div id="prod-watch" data-price="300"
+                        class="drag-item h-12 bg-gray-700 rounded-lg flex justify-between px-4 items-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
+                        <span class="pointer-events-none"><i class="fas fa-clock mr-2"></i>Watch</span>
+                        <span class="text-accent pointer-events-none">$300</span>
+                    </div>
+
+                    <div id="prod-headphones" data-price="150"
+                        class="drag-item h-12 bg-gray-700 rounded-lg flex justify-between px-4 items-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
+                        <span class="pointer-events-none"><i class="fas fa-headphones mr-2"></i>Headset</span>
+                        <span class="text-accent pointer-events-none">$150</span>
+                    </div>
                 </div>
 
-                <div class="space-y-3">
-                    <p class="text-[10px] text-gray-500 font-bold uppercase mb-2 text-right">Target Countries</p>
-                    <div id="target-australia" data-country="australia"
-                        class="drop-zone h-12 border border-dashed border-gray-600 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400 bg-[#1a1b23]">
-                        Australia</div>
-                    <div id="target-canada" data-country="canada"
-                        class="drop-zone h-12 border border-dashed border-gray-600 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400 bg-[#1a1b23]">
-                        Canada</div>
-                    <div id="target-spain" data-country="spain"
-                        class="drop-zone h-12 border border-dashed border-gray-600 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400 bg-[#1a1b23]">
-                        Spain</div>
-                    <div id="target-southkorea" data-country="southkorea"
-                        class="drop-zone h-12 border border-dashed border-gray-600 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400 bg-[#1a1b23]">
-                        South Korea</div>
-                    <div id="target-japan" data-country="japan"
-                        class="drop-zone h-12 border border-dashed border-gray-600 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400 bg-[#1a1b23]">
-                        Japan</div>
+                <div class="space-y-3 relative">
+                    <p class="text-[10px] text-gray-500 font-bold uppercase mb-2 text-right absolute -top-6 right-0">
+                        Your Cart</p>
+
+                    <div id="cart-zone"
+                        class="drop-zone h-full min-h-[250px] border-2 border-dashed border-gray-600 rounded-lg flex flex-col gap-3 p-4 bg-[#1a1b23] transition-colors relative">
+                        <div id="cart-placeholder"
+                            class="absolute inset-0 flex items-center justify-center text-gray-700 pointer-events-none">
+                            <span class="text-xs uppercase font-bold">Drop Items Here</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent lg:col-span-6" data-aos="fade-up">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest">07. Range Slider (Bidirectional)
-                </h3>
+                <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest">07. Range Slider</h3>
                 <span id="slider-val" class="text-3xl font-black text-gray-500 font-mono">0</span>
             </div>
             <div class="relative px-4 pt-4 pb-8">
@@ -293,7 +298,7 @@
                     class="relative z-10">
                 <div class="flex justify-between mt-4 text-[10px] text-gray-500 font-bold uppercase font-mono">
                     <span class="text-red-400">Negative (-100)</span>
-                    <span class="text-gray-300">Zero (Center)</span>
+                    <span class="text-gray-300">Zero</span>
                     <span class="text-green-400">Positive (+100)</span>
                 </div>
             </div>
@@ -310,7 +315,7 @@
     <script>
         AOS.init({ duration: 800, once: true });
 
-        // --- Basic Interactions ---
+        // --- Basic Utils ---
         function showToast(msg, isError = false) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -405,12 +410,19 @@
         }
 
         // ==========================================
-        //  REFINED DRAG & DROP (Manual Smoothness Fix)
+        //  SHOPPING CART DRAG & DROP LOGIC
         // ==========================================
 
         let activeDragItem = null;
         let offsetX = 0;
         let offsetY = 0;
+        let currentTotalPrice = 0;
+        let dragOriginZone = null; // 'shelf-zone' or 'cart-zone'
+
+        const cartZone = document.getElementById('cart-zone');
+        const shelfZone = document.getElementById('shelf-zone');
+        const totalDisplay = document.getElementById('cart-total');
+        const cartPlaceholder = document.getElementById('cart-placeholder');
 
         document.querySelectorAll('.drag-item').forEach(item => {
             item.addEventListener('mousedown', startDrag);
@@ -419,6 +431,7 @@
         function startDrag(e) {
             e.preventDefault();
             activeDragItem = this;
+            dragOriginZone = activeDragItem.parentElement.id; // Remember where we started
 
             const rect = activeDragItem.getBoundingClientRect();
             offsetX = e.clientX - rect.left;
@@ -426,8 +439,12 @@
 
             activeDragItem.classList.add('is-dragging');
 
-            // Set initial position
-            moveDragItem(e.clientX, e.clientY);
+            // Set initial position immediately to prevent jump
+            activeDragItem.style.left = (e.clientX - offsetX) + 'px';
+            activeDragItem.style.top = (e.clientY - offsetY) + 'px';
+
+            // If dragging from cart, width might change, so fix width
+            activeDragItem.style.width = rect.width + 'px';
 
             document.addEventListener('mousemove', onMouseMove);
             document.addEventListener('mouseup', onMouseUp);
@@ -435,61 +452,78 @@
 
         function onMouseMove(e) {
             if (!activeDragItem) return;
-            moveDragItem(e.clientX, e.clientY);
-        }
-
-        function moveDragItem(x, y) {
-            activeDragItem.style.left = (x - offsetX) + 'px';
-            activeDragItem.style.top = (y - offsetY) + 'px';
+            activeDragItem.style.left = (e.clientX - offsetX) + 'px';
+            activeDragItem.style.top = (e.clientY - offsetY) + 'px';
         }
 
         function onMouseUp(e) {
             if (!activeDragItem) return;
 
-            // Thanks to pointer-events: none, we can directly detect what's under the cursor!
-            // No need to hide/show the element anymore.
+            // Find what is under the mouse
             let elemBelow = document.elementFromPoint(e.clientX, e.clientY);
-            let dropZone = elemBelow ? elemBelow.closest('.drop-zone') : null;
+            let dropTarget = elemBelow ? elemBelow.closest('.drop-zone') : null;
+            let targetId = dropTarget ? dropTarget.id : null;
 
-            if (dropZone) {
-                const sourceCountry = activeDragItem.getAttribute('data-country');
-                const targetCountry = dropZone.getAttribute('data-country');
-
-                if (sourceCountry === targetCountry) {
-                    handleSuccess(activeDragItem, dropZone);
-                } else {
-                    handleFailure(activeDragItem, dropZone);
-                }
-            } else {
-                resetDrag();
-            }
+            handleDropLogic(targetId);
 
             // Cleanup
             activeDragItem.classList.remove('is-dragging');
             activeDragItem.style.left = '';
             activeDragItem.style.top = '';
+            activeDragItem.style.position = '';
+            activeDragItem.style.width = ''; // Reset width
+            activeDragItem.style.zIndex = '';
+
             activeDragItem = null;
+            dragOriginZone = null;
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
         }
 
-        function handleSuccess(item, zone) {
-            zone.classList.add('correct-match');
-            zone.innerText = item.innerText + ": MATCHED";
-            item.style.display = 'none';
-            showToast(`Correct! ${item.innerText} matched.`);
+        function handleDropLogic(targetId) {
+            const price = parseInt(activeDragItem.getAttribute('data-price'));
+
+            // SCENARIO 1: Adding to Cart (Shelf -> Cart)
+            if (dragOriginZone === 'shelf-zone' && targetId === 'cart-zone') {
+                cartZone.appendChild(activeDragItem);
+                updateTotal(price);
+                showToast(`Added to Cart: $${price}`);
+            }
+
+            // SCENARIO 2: Removing from Cart (Cart -> Shelf OR Cart -> Nowhere)
+            // If we are dragging FROM cart, and we drop it ANYWHERE except the cart...
+            else if (dragOriginZone === 'cart-zone' && targetId !== 'cart-zone') {
+                shelfZone.appendChild(activeDragItem); // Return to shelf
+                updateTotal(-price); // Subtract price
+                showToast(`Removed from Cart`, true);
+            }
+
+            // SCENARIO 3: Reordering (Shelf -> Shelf or Cart -> Cart)
+            // No price change, just visual movement (handled by appendChild automatically)
+            else if (targetId && targetId === dragOriginZone) {
+                // Just put it back in the flow
+                // (Optional: You could implement specific sorting logic here)
+            }
+
+            updatePlaceholder();
         }
 
-        function handleFailure(item, zone) {
-            zone.classList.add('wrong-match');
-            showToast("Incorrect Match!", true);
-            setTimeout(() => zone.classList.remove('wrong-match'), 1000);
-            resetDrag();
+        function updatePlaceholder() {
+            // Hide placeholder if cart has items (more than just the placeholder div)
+            if (cartZone.children.length > 1) {
+                cartPlaceholder.style.opacity = '0';
+            } else {
+                cartPlaceholder.style.opacity = '1';
+            }
         }
 
-        function resetDrag() {
-            activeDragItem.style.position = '';
-            activeDragItem.style.zIndex = '';
+        function updateTotal(amount) {
+            currentTotalPrice += amount;
+            totalDisplay.innerText = '$' + currentTotalPrice;
+
+            // Visual pulse on total
+            totalDisplay.classList.add('text-white');
+            setTimeout(() => totalDisplay.classList.remove('text-white'), 300);
         }
 
     </script>
