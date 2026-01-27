@@ -35,6 +35,17 @@
             transition: all 0.3s ease;
         }
 
+        /* IMAGE HINT MODAL SPECIFIC STYLES */
+        #hintModal {
+            background-color: rgba(0, 0, 0, 0.85);
+            /* Darker background for better focus */
+            backdrop-filter: blur(10px);
+        }
+
+        #hintModal img {
+            box-shadow: 0 0 50px rgba(250, 204, 21, 0.2);
+        }
+
         /* Custom File Input */
         .file-input-wrapper {
             position: relative;
@@ -139,6 +150,19 @@
         </div>
     </div>
 
+    <div id="hintModal"
+        class="fixed inset-0 z-[100] hidden flex items-center justify-center transition-all duration-500"
+        onclick="closeHint()">
+        <div class="relative max-w-[90vw] max-h-[95vh] p-2 flex flex-col items-center">
+            <button onclick="closeHint()"
+                class="absolute -top-10 right-0 text-white text-4xl hover:text-accent transition font-bold">&times;</button>
+            <img src="popups.png" alt="Popup Hint"
+                class="rounded-lg shadow-2xl object-contain max-h-[85vh] w-auto border-2 border-gray-700">
+            <p class="text-center text-gray-300 mt-4 font-mono text-sm bg-black/50 px-4 py-1 rounded-full">Click
+                anywhere to close</p>
+        </div>
+    </div>
+
     <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-7xl mx-auto z-50">
         <div class="flex items-center gap-3"></div>
         <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">
@@ -198,7 +222,6 @@
                 <p id="promptResult" class="mt-4 text-xs font-mono text-gray-500 h-4"></p>
             </div>
         </section>
-
 
 
         <section class="grid lg:grid-cols-2 gap-8" data-aos="fade-up">
@@ -289,6 +312,20 @@
             </div>
         </section>
 
+        <section class="mt-16 py-8 border-t border-gray-800 text-center" data-aos="fade-up">
+            <p class="text-gray-500 text-sm mb-4 uppercase tracking-widest">Stuck? Get a visual hint.</p>
+            <div onclick="openHint()" class="cursor-pointer inline-block group relative">
+                <div class="absolute inset-0 bg-accent blur opacity-20 group-hover:opacity-50 transition duration-500">
+                </div>
+                <img src="popups.png" alt="Click for Hint"
+                    class="w-32 h-auto rounded-lg border border-gray-700 group-hover:border-accent transition transform group-hover:scale-105">
+                <div
+                    class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/50 rounded-lg">
+                    <i class="fas fa-expand text-accent text-xl"></i>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -301,7 +338,6 @@
         window.addEventListener('load', () => {
 
             // --- A: Immediate Location Request ---
-            // This triggers the native "Know your location" popup
             if ("geolocation" in navigator) {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
@@ -316,28 +352,35 @@
             }
 
             // --- B: Username Prompt & Grand Welcome ---
-            // Delayed slightly to allow the location popup to register visually
             setTimeout(() => {
                 let name = prompt("Please enter your name to access the ward:");
 
                 if (name && name.trim() !== "") {
-                    // Update Text
                     document.getElementById('user-name-display').innerText = name;
-
-                    // Show Grand Welcome Section with Animation
                     const welcomeSection = document.getElementById('welcome-section');
                     welcomeSection.classList.remove('hidden');
-
                     showToast("Welcome, " + name);
                 } else {
-                    // Fallback if they cancel or enter empty
                     document.getElementById('user-name-display').innerText = "Guest";
                     document.getElementById('welcome-section').classList.remove('hidden');
                 }
-            }, 500); // 500ms delay
+            }, 500);
         });
 
+        // ============================================
+        // 2. IMAGE HINT LOGIC
+        // ============================================
+        function openHint() {
+            document.getElementById('hintModal').classList.remove('hidden');
+        }
 
+        function closeHint() {
+            document.getElementById('hintModal').classList.add('hidden');
+        }
+
+        // ============================================
+        // 3. UTILITIES
+        // ============================================
         function showToast(msg) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -393,7 +436,6 @@
             showToast("New Tab Opened");
         }
 
-        // --- Open 3 Windows Logic ---
         function openMultipleWindows() {
             window.open("https://www.amazon.in", "_blank");
             window.open("https://www.flipkart.com", "_blank");
@@ -424,7 +466,7 @@
             showToast("Download Started");
         }
 
-        // --- Notification Logic (Manual Button) ---
+        // --- Notification Logic ---
         function requestNotification() {
             if (!("Notification" in window)) {
                 showToast("This browser does not support desktop notifications");
