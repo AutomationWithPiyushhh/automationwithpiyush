@@ -14,6 +14,7 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
 
         body {
             background-color: #1a1b23;
@@ -75,13 +76,57 @@
         #mobile-menu {
             transition: all 0.3s ease-in-out;
         }
+
+        /* --- SHLOKA OVERLAY STYLES --- */
+        #shloka-overlay {
+            position: absolute;
+            /* Changed from fixed to absolute */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Covers only the section parent */
+            background-color: #1a1b23;
+            z-index: 40;
+            /* Below Nav (z-50) but above content */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            transition: opacity 1.5s ease-out, visibility 1.5s;
+        }
+
+        .shloka-text {
+            font-family: 'Cinzel', serif;
+            line-height: 2;
+            letter-spacing: 0.05em;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 10%;
+            width: 80%;
+            max-width: 400px;
+            height: 2px;
+            background-color: #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #facc15;
+            transition-timing-function: linear;
+        }
     </style>
 </head>
 
-<body class="overflow-x-hidden">
+<body>
 
-    <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 md:py-8 max-w-7xl mx-auto z-50"
-        data-aos="fade-down">
+    <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 md:py-8 max-w-7xl mx-auto z-50">
         <div class="flex items-center gap-3">
             <a href="index.html" class="hover:opacity-80 transition-opacity">
                 <img src="awp.png" alt="AutomationWithPiyush Logo" class="h-16 md:h-20 w-auto rounded-lg">
@@ -89,12 +134,10 @@
         </div>
 
         <div class="hidden md:flex items-center gap-10 text-gray-400 font-medium text-sm lg:text-base">
-
             <a href="#practice"
                 class="bg-amber-400 text-black px-6 py-2 rounded-full font-bold hover:bg-white hover:scale-105 transition-all shadow-[0_0_20px_rgba(250,204,21,0.4)]">
                 Practice
             </a>
-
             <a href="#services" class="hover:text-amber-400 transition">Services</a>
             <a href="#works" class="hover:text-amber-400 transition">Works</a>
             <a href="#blog" class="hover:text-amber-400 transition">Blog</a>
@@ -107,10 +150,8 @@
 
         <div id="mobile-menu"
             class="hidden fixed inset-0 bg-[#1a1b23] flex flex-col items-center justify-center gap-8 text-2xl z-40 md:hidden">
-
             <a href="#practice" class="text-amber-400 font-bold border-2 border-amber-400 px-8 py-2 rounded-full"
                 onclick="toggleMenu()">Practice</a>
-
             <a href="#services" class="hover:text-amber-400 transition" onclick="toggleMenu()">Services</a>
             <a href="#works" class="hover:text-amber-400 transition" onclick="toggleMenu()">Works</a>
             <a href="#blog" class="hover:text-amber-400 transition" onclick="toggleMenu()">Blog</a>
@@ -120,7 +161,34 @@
     </nav>
 
     <section
-        class="max-w-7xl mx-auto px-6 md:px-8 pt-10 md:pt-20 pb-20 md:pb-32 grid lg:grid-cols-2 gap-10 md:gap-16 items-center text-center lg:text-left">
+        class="relative max-w-7xl mx-auto px-6 md:px-8 pt-10 md:pt-20 pb-20 md:pb-32 grid lg:grid-cols-2 gap-10 md:gap-16 items-center text-center lg:text-left">
+
+        <div id="shloka-overlay">
+            <div class="shloka-text mb-12" data-aos="fade-in" data-aos-duration="2000">
+                <h1 class="text-3xl md:text-5xl font-bold text-amber-400 mb-8 leading-relaxed">
+                    Karmanye Vadhikaraste<br>Ma Phaleshu Kadachana
+                </h1>
+                <h2 class="text-2xl md:text-4xl text-amber-400/80 mb-12 leading-relaxed">
+                    Ma Karma Phala Hetur Bhuh<br>Ma Te Sango Stv Akarmani
+                </h2>
+
+                <div class="max-w-2xl mx-auto border-t border-gray-700 pt-8">
+                    <p class="text-gray-300 text-lg md:text-xl italic font-light font-sans">
+                        "You have a right to perform your prescribed duties, but you are not entitled to the fruits of
+                        your
+                        actions.<br>
+                        Never consider yourself to be the cause of the results of your activities, nor be attached to
+                        inaction."
+                    </p>
+                    <p class="text-gray-500 text-sm mt-4 uppercase tracking-widest">— Bhagavad Gita, Chapter 2, Verse 47
+                    </p>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div id="progress-bar"></div>
+            </div>
+        </div>
         <div data-aos="fade-right">
             <h1 class="text-5xl md:text-8xl font-bold leading-tight md:leading-none mb-8">
                 Piyush<br><span class="text-gray-600">Baldaniya...</span>
@@ -176,7 +244,6 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
             <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-amber-400 transition-all group cursor-pointer"
                 data-aos="zoom-in" onclick="window.location.href='locators.html'">
                 <i class="fas fa-search text-3xl text-amber-400 mb-6"></i>
@@ -274,9 +341,6 @@
                     Enter Mastery OT <i class="fas fa-arrow-right ml-2"></i>
                 </div>
             </div>
-
-
-
         </div>
     </section>
 
@@ -476,6 +540,30 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+
+        // --- INTRO SHLOKA LOGIC ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const bar = document.getElementById("progress-bar");
+            const overlay = document.getElementById("shloka-overlay");
+
+            // Trigger the 30-second animation after a brief delay to ensure rendering
+            setTimeout(() => {
+                bar.style.width = "100%";
+                // The transition in CSS is set to 10s linear
+                bar.style.transition = "width 10s linear";
+            }, 100);
+
+            // After 10  seconds, hide overlay (do NOT unlock body scroll as it wasn't locked)
+            setTimeout(() => {
+                overlay.style.opacity = "0";
+                overlay.style.visibility = "hidden"; // Ensures clicks pass through after fade
+
+                // Re-trigger AOS to animate the hero section elements cleanly
+                setTimeout(() => {
+                    AOS.refresh();
+                }, 500);
+            }, 10000); // 30 seconds
+        });
 
         // Mobile Menu Toggle
         function toggleMenu() {
