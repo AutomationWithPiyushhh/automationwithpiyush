@@ -24,7 +24,7 @@
             scroll-behavior: smooth;
         }
 
-        /* Responsive UI Colors */
+        /* --- GLOBAL STYLES --- */
         .text-accent {
             color: #facc15;
         }
@@ -33,7 +33,7 @@
             background-color: #252631;
         }
 
-        /* Smooth Custom Scrollbar */
+        /* Smooth Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -47,10 +47,59 @@
             border-radius: 10px;
         }
 
+        /* --- CAROUSEL SPECIFIC STYLES --- */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            height: 85vh;
+            min-height: 600px;
+        }
+
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+            cursor: grab;
+        }
+
+        .carousel-track:active {
+            cursor: grabbing;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        /* Shloka Animation */
+        .shloka-text {
+            font-family: 'Cinzel', serif;
+            line-height: 2;
+            letter-spacing: 0.05em;
+            animation: kenburns 20s infinite alternate;
+        }
+
+        @keyframes kenburns {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.05);
+            }
+        }
+
         /* Typewriter Cursor */
         .typewriter-cursor::after {
             content: "|";
             animation: blink 1s infinite;
+            color: #facc15;
         }
 
         @keyframes blink {
@@ -65,66 +114,108 @@
             }
         }
 
-        /* Project Card Hover Effects */
+        /* Carousel Navigation */
+        .carousel-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 20;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .nav-dot.active {
+            background-color: #facc15;
+            width: 30px;
+            border-radius: 5px;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 30;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(8px);
+        }
+
+        .carousel-arrow:hover {
+            background-color: #facc15;
+            color: #1a1b23;
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.4);
+        }
+
+        .arrow-left {
+            left: 25px;
+        }
+
+        .arrow-right {
+            right: 25px;
+        }
+
+        /* Option Cards in Carousel */
+        .option-card {
+            background: rgba(37, 38, 49, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .option-card:hover {
+            transform: translateY(-12px);
+            border-color: #facc15;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- CARD STYLES (Project & Practice) --- */
         .project-card:hover .project-preview {
             transform: scale(1.03);
             border-color: #facc15;
             box-shadow: 0 10px 30px -10px rgba(250, 204, 21, 0.2);
         }
 
-        /* Mobile Menu Transition */
         #mobile-menu {
             transition: all 0.3s ease-in-out;
         }
 
-        /* --- SHLOKA OVERLAY STYLES --- */
-        #shloka-overlay {
-            position: absolute;
-            /* Changed from fixed to absolute */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Covers only the section parent */
-            background-color: #1a1b23;
-            z-index: 40;
-            /* Below Nav (z-50) but above content */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            text-align: center;
-            transition: opacity 1.5s ease-out, visibility 1.5s;
-        }
+        @media (max-width: 640px) {
+            .carousel-arrow {
+                width: 45px;
+                height: 45px;
+            }
 
-        .shloka-text {
-            font-family: 'Cinzel', serif;
-            line-height: 2;
-            letter-spacing: 0.05em;
-        }
+            .arrow-left {
+                left: 10px;
+            }
 
-        .progress-container {
-            position: absolute;
-            bottom: 10%;
-            width: 80%;
-            max-width: 400px;
-            height: 2px;
-            background-color: #333;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        #progress-bar {
-            height: 100%;
-            width: 0%;
-            background-color: #facc15;
-            transition-timing-function: linear;
+            .arrow-right {
+                right: 10px;
+            }
         }
     </style>
 </head>
 
-<body>
+<body class="overflow-x-hidden">
 
     <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 md:py-8 max-w-7xl mx-auto z-50">
         <div class="flex items-center gap-3">
@@ -135,9 +226,7 @@
 
         <div class="hidden md:flex items-center gap-10 text-gray-400 font-medium text-sm lg:text-base">
             <a href="#practice"
-                class="bg-amber-400 text-black px-6 py-2 rounded-full font-bold hover:bg-white hover:scale-105 transition-all shadow-[0_0_20px_rgba(250,204,21,0.4)]">
-                Practice
-            </a>
+                class="bg-amber-400 text-black px-6 py-2 rounded-full font-bold hover:bg-white hover:scale-105 transition-all shadow-[0_0_20px_rgba(250,204,21,0.4)]">Practice</a>
             <a href="#services" class="hover:text-amber-400 transition">Services</a>
             <a href="#works" class="hover:text-amber-400 transition">Works</a>
             <a href="#blog" class="hover:text-amber-400 transition">Blog</a>
@@ -149,95 +238,140 @@
         </button>
 
         <div id="mobile-menu"
-            class="hidden fixed inset-0 bg-[#1a1b23] flex flex-col items-center justify-center gap-8 text-2xl z-40 md:hidden">
+            class="hidden fixed inset-0 bg-[#1a1b23] flex flex-col items-center justify-center gap-8 text-2xl z-[60] md:hidden">
             <a href="#practice" class="text-amber-400 font-bold border-2 border-amber-400 px-8 py-2 rounded-full"
                 onclick="toggleMenu()">Practice</a>
             <a href="#services" class="hover:text-amber-400 transition" onclick="toggleMenu()">Services</a>
             <a href="#works" class="hover:text-amber-400 transition" onclick="toggleMenu()">Works</a>
             <a href="#blog" class="hover:text-amber-400 transition" onclick="toggleMenu()">Blog</a>
             <a href="#contact" class="hover:text-amber-400 transition" onclick="toggleMenu()">Contact</a>
-            <button class="mt-4 text-amber-400 text-lg" onclick="toggleMenu()">Close Menu</button>
+            <button class="mt-4 text-amber-400 text-lg font-bold" onclick="toggleMenu()"><i
+                    class="fas fa-times mr-2"></i>Close</button>
         </div>
     </nav>
 
-    <section
-        class="relative max-w-7xl mx-auto px-6 md:px-8 pt-10 md:pt-20 pb-20 md:pb-32 grid lg:grid-cols-2 gap-10 md:gap-16 items-center text-center lg:text-left">
+    <section class="max-w-7xl mx-auto px-6 md:px-8 mb-20">
+        <div id="hero-carousel" class="carousel-container rounded-3xl border border-gray-800 bg-[#1f2029] shadow-2xl">
 
-        <div id="shloka-overlay">
-            <div class="shloka-text mb-12" data-aos="fade-in" data-aos-duration="2000">
-                <h1 class="text-3xl md:text-5xl font-bold text-amber-400 mb-8 leading-relaxed">
-                    Karmanye Vadhikaraste<br>Ma Phaleshu Kadachana
-                </h1>
-                <h2 class="text-2xl md:text-4xl text-amber-400/80 mb-12 leading-relaxed">
-                    Ma Karma Phala Hetur Bhuh<br>Ma Te Sango Stv Akarmani
-                </h2>
+            <div class="carousel-track" id="track">
 
-                <div class="max-w-2xl mx-auto border-t border-gray-700 pt-8">
-                    <p class="text-gray-300 text-lg md:text-xl italic font-light font-sans">
-                        "You have a right to perform your prescribed duties, but you are not entitled to the fruits of
-                        your
-                        actions.<br>
-                        Never consider yourself to be the cause of the results of your activities, nor be attached to
-                        inaction."
-                    </p>
-                    <p class="text-gray-500 text-sm mt-4 uppercase tracking-widest">— Bhagavad Gita, Chapter 2, Verse 47
-                    </p>
+                <div class="carousel-slide flex-col text-center">
+                    <div class="shloka-text px-4" data-aos="zoom-out" data-aos-duration="1500">
+                        <h1
+                            class="text-3xl md:text-5xl font-bold text-amber-400 mb-8 leading-relaxed drop-shadow-[0_0_15px_rgba(250,204,21,0.4)]">
+                            कर्मण्येवाधिकारस्ते मा फलेषु कदाचन
+                        </h1>
+                        <h2 class="text-2xl md:text-4xl text-amber-400/80 mb-12 leading-relaxed">
+                            मा कर्म-फल-हेतुः भूः मा ते सङ्गः अस्तु अकर्मणि
+                        </h2>
+                        <div class="max-w-2xl mx-auto border-t border-gray-700 pt-8 opacity-70">
+                            <p class="text-gray-300 text-lg italic font-light font-sans">
+                                "You have a right to perform your prescribed duties, but you are not entitled to the
+                                fruits of your actions."
+                            </p>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="carousel-slide">
+                    <div class="grid lg:grid-cols-2 gap-10 items-center w-full px-6 text-center lg:text-left">
+                        <div>
+                            <h1 class="text-6xl md:text-8xl font-bold leading-tight mb-6 tracking-tighter">
+                                Piyush<br><span class="text-gray-600">Baldaniya</span>
+                            </h1>
+                            <div class="flex justify-center lg:justify-start gap-8 mb-8">
+                                <a href="https://www.linkedin.com/in/piyushbaldaniya/" target="_blank"
+                                    class="text-gray-500 hover:text-amber-400 transition-all hover:scale-125"><i
+                                        class="fab fa-linkedin-in text-3xl"></i></a>
+                                <a href="https://github.com/AutomationWithPiyushhh" target="_blank"
+                                    class="text-gray-500 hover:text-amber-400 transition-all hover:scale-125"><i
+                                        class="fab fa-github text-3xl"></i></a>
+                                <a href="https://www.youtube.com/@AutomationWithPiyush" target="_blank"
+                                    class="text-gray-500 hover:text-amber-400 transition-all hover:scale-125"><i
+                                        class="fab fa-youtube text-3xl"></i></a>
+                            </div>
+                        </div>
+                        <div class="lg:border-l border-gray-800 lg:pl-12">
+                            <p class="text-amber-400 uppercase tracking-[0.4em] text-xs font-bold mb-6">— Introduction
+                            </p>
+                            <h2 class="text-3xl md:text-4xl font-semibold mb-6 leading-tight h-24 lg:h-auto">
+                                Teaching <span id="typewriter" class="typewriter-cursor text-white"></span>
+                            </h2>
+                            <p class="text-gray-400 text-lg max-w-md mx-auto lg:mx-0">
+                                I help QA professionals transition to automation by mastering Java Selenium and
+                                architecting scalable Hybrid Frameworks.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-slide flex-col">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">Level Up Your Career</h2>
+                    <div class="grid md:grid-cols-2 gap-8 w-full max-w-4xl px-4">
+                        <a href="schedule.html"
+                            class="option-card p-10 rounded-2xl text-center group relative overflow-hidden">
+                            <div
+                                class="absolute top-0 left-0 w-full h-1 bg-amber-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500">
+                            </div>
+                            <div
+                                class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-amber-400 transition-all duration-300">
+                                <i class="fas fa-book-open text-2xl text-amber-400 group-hover:text-black"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-3">Syllabus & Schedule</h3>
+                            <p class="text-gray-400 text-sm">20 Goals to master Selenium. Access daily notes and topics.
+                            </p>
+                            <div
+                                class="mt-8 text-xs font-bold uppercase tracking-widest text-gray-500 group-hover:text-white transition-colors">
+                                View Course <i
+                                    class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </a>
+
+                        <a href="#practice"
+                            class="option-card p-10 rounded-2xl text-center group relative overflow-hidden">
+                            <div
+                                class="absolute top-0 left-0 w-full h-1 bg-green-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500">
+                            </div>
+                            <div
+                                class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-green-400 transition-all duration-300">
+                                <i class="fas fa-laptop-code text-2xl text-green-400 group-hover:text-black"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-3">Live Practice</h3>
+                            <p class="text-gray-400 text-sm">Real-time automation labs. Test your scripts on live DOM
+                                elements.</p>
+                            <div
+                                class="mt-8 text-xs font-bold uppercase tracking-widest text-gray-500 group-hover:text-white transition-colors">
+                                Start Coding <i
+                                    class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="progress-container">
-                <div id="progress-bar"></div>
-            </div>
-        </div>
-        <div data-aos="fade-right">
-            <h1 class="text-5xl md:text-8xl font-bold leading-tight md:leading-none mb-8">
-                Piyush<br><span class="text-gray-600">Baldaniya...</span>
-            </h1>
-            <div class="flex justify-center lg:justify-start gap-6 mb-12">
-                <a href="https://www.linkedin.com/in/piyushbaldaniya/" target="_blank"
-                    class="text-gray-500 hover:text-amber-400 transition-all transform hover:scale-110">
-                    <i class="fab fa-linkedin-in text-2xl md:text-3xl"></i>
-                </a>
-                <a href="https://github.com/AutomationWithPiyushhh" target="_blank"
-                    class="text-gray-500 hover:text-amber-400 transition-all transform hover:scale-110">
-                    <i class="fab fa-github text-2xl md:text-3xl"></i>
-                </a>
-                <a href="https://www.youtube.com/@AutomationWithPiyush" target="_blank"
-                    class="text-gray-500 hover:text-amber-400 transition-all transform hover:scale-110">
-                    <i class="fab fa-youtube text-2xl md:text-3xl"></i>
-                </a>
-            </div>
-        </div>
+            <button class="carousel-arrow arrow-left" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+            <button class="carousel-arrow arrow-right" onclick="nextSlideUser()"><i
+                    class="fas fa-chevron-right"></i></button>
 
-        <div data-aos="fade-left" data-aos-delay="200">
-            <p class="text-amber-400 uppercase tracking-[0.3em] text-xs font-bold mb-4">— Introduction</p>
-            <h2 class="text-3xl md:text-4xl font-semibold mb-6 leading-tight">
-                Teaching <span id="typewriter" class="typewriter-cursor text-white"></span>
-            </h2>
-            <p class="text-gray-400 text-base md:text-lg mb-8 leading-relaxed max-w-md mx-auto lg:mx-0">
-                I help QA professionals transition to automation by mastering Java Selenium and architecting scalable
-                Hybrid Frameworks.
-            </p>
-            <a href="#practice" class="inline-flex items-center gap-3 text-white font-bold group">
-                Practice Now
-                <span
-                    class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center group-hover:border-amber-400 transition-colors">
-                    <i class="fas fa-arrow-right text-amber-400 group-hover:translate-x-1 transition-transform"></i>
-                </span>
-            </a>
+            <div class="carousel-nav">
+                <div class="nav-dot active" onclick="jumpToSlide(0)"></div>
+                <div class="nav-dot" onclick="jumpToSlide(1)"></div>
+                <div class="nav-dot" onclick="jumpToSlide(2)"></div>
+            </div>
         </div>
     </section>
 
     <section id="practice" class="max-w-7xl mx-auto px-6 md:px-8 py-20 border-t border-gray-800">
         <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <div data-aos="fade-right">
-                <p class="text-gray-500 uppercase text-xs mb-4 tracking-widest">— Automation OPD</p>
+                <p class="text-gray-500 uppercase text-xs mb-4 tracking-widest font-bold">— Automation OPD</p>
                 <h3 class="text-4xl md:text-5xl font-bold leading-tight">Software Diagnostics<br>& Surgical
                     Environments.</h3>
             </div>
             <div data-aos="fade-left">
                 <a href="surgical-suite.html"
-                    class="px-8 py-4 bg-amber-400 text-black font-bold hover:bg-white transition-colors duration-300 rounded text-sm md:text-base flex items-center">
+                    class="px-8 py-4 bg-amber-400 text-black font-bold hover:bg-white hover:scale-105 transition-all duration-300 rounded-lg text-sm md:text-base flex items-center shadow-lg">
                     Enter Surgical Suite <i class="fas fa-stethoscope ml-2"></i>
                 </a>
             </div>
@@ -246,7 +380,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-amber-400 transition-all group cursor-pointer"
                 data-aos="zoom-in" onclick="window.location.href='locators.html'">
-                <i class="fas fa-search text-3xl text-amber-400 mb-6"></i>
+                <i class="fas fa-search text-3xl text-amber-400 mb-6 group-hover:scale-110 transition-transform"></i>
                 <h4 class="text-2xl font-bold mb-4">Locators</h4>
                 <p class="text-gray-400 mb-6">Master XPath, CSS Selectors, and dynamic attributes to identify elements
                     accurately in any UI.</p>
@@ -255,14 +389,15 @@
                     <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">CSS</span>
                 </div>
                 <div
-                    class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                    Enter Mastery OT <i class="fas fa-arrow-right ml-2"></i>
+                    class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-all">
+                    Enter Mastery OT <i
+                        class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </div>
             </div>
 
             <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-amber-400 transition-all group cursor-pointer"
                 data-aos="zoom-in" data-aos-delay="100" onclick="window.location.href='elements.html'">
-                <i class="fas fa-cube text-3xl text-amber-400 mb-6"></i>
+                <i class="fas fa-cube text-3xl text-amber-400 mb-6 group-hover:scale-110 transition-transform"></i>
                 <h4 class="text-2xl font-bold mb-4">Web Elements</h4>
                 <p class="text-gray-400 mb-6">Practice interactions with buttons, checkboxes, radio buttons, and complex
                     web tables.</p>
@@ -271,64 +406,52 @@
                     <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Tables</span>
                 </div>
                 <div
-                    class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                    Enter Mastery OT <i class="fas fa-arrow-right ml-2"></i>
-                </div>
-            </div>
-
-            <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-amber-400 transition-all group cursor-pointer"
-                data-aos="zoom-in" data-aos-delay="500" onclick="window.location.href='synchronization.html'">
-                <i class="fas fa-hourglass-half text-3xl text-amber-400 mb-6"></i>
-                <h4 class="text-2xl font-bold mb-4">Synchronization</h4>
-                <p class="text-gray-400 mb-6">Solve flaky tests by mastering Implicit, Explicit, and Fluent waits for
-                    modern UI logic.</p>
-                <div class="flex gap-2">
-                    <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Explicit</span>
-                    <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Fluent</span>
-                </div>
-                <div
-                    class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                    Enter Mastery OT <i class="fas fa-arrow-right ml-2"></i>
+                    class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-all">
+                    Enter Mastery OT <i
+                        class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </div>
             </div>
 
             <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-amber-400 transition-all group cursor-pointer relative overflow-hidden"
                 data-aos="zoom-in" data-aos-delay="200" onclick="window.location.href='dropdown.html'">
-                <i class="fas fa-caret-square-down text-3xl text-amber-400 mb-6"></i>
+                <i
+                    class="fas fa-caret-square-down text-3xl text-amber-400 mb-6 group-hover:scale-110 transition-transform"></i>
                 <h4 class="text-2xl font-bold mb-4">Dropdowns</h4>
-                <p class="text-gray-400 mb-6">Master the <b>Select Class</b>. Practice single/multi-selection,
-                    deselection techniques, and retrieval methods.</p>
+                <p class="text-gray-400 mb-6">Master the Select Class. Practice single/multi-selection, deselection
+                    techniques, and retrieval methods.</p>
                 <div class="flex flex-wrap gap-2">
                     <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Single-Select</span>
                     <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Multi-Select</span>
-                    <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Through Robot</span>
                 </div>
                 <div
-                    class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                    Enter Mastery OT <i class="fas fa-arrow-right ml-2"></i>
+                    class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-all">
+                    Enter Mastery OT <i
+                        class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </div>
             </div>
 
             <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-amber-400 transition-all group cursor-pointer"
                 data-aos="zoom-in" data-aos-delay="300" onclick="window.location.href='actions.html'">
-                <i class="fas fa-mouse-pointer text-3xl text-amber-400 mb-6"></i>
+                <i
+                    class="fas fa-mouse-pointer text-3xl text-amber-400 mb-6 group-hover:scale-110 transition-transform"></i>
                 <h4 class="text-2xl font-bold mb-4">Actions Class</h4>
                 <p class="text-gray-400 mb-6">Master drag-and-drop, hover effects, context-clicks, and complex keyboard
                     sequences.</p>
                 <div class="flex gap-2">
                     <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Drag & Drop</span>
                     <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Hover</span>
-                    <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Offsets</span>
                 </div>
                 <div
-                    class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                    Enter Mastery OT <i class="fas fa-arrow-right ml-2"></i>
+                    class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-all">
+                    Enter Mastery OT <i
+                        class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </div>
             </div>
 
             <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-amber-400 transition-all group cursor-pointer"
                 data-aos="zoom-in" data-aos-delay="400" onclick="window.location.href='popups.html'">
-                <i class="fas fa-window-restore text-3xl text-amber-400 mb-6"></i>
+                <i
+                    class="fas fa-window-restore text-3xl text-amber-400 mb-6 group-hover:scale-110 transition-transform"></i>
                 <h4 class="text-2xl font-bold mb-4">Popups & Windows</h4>
                 <p class="text-gray-400 mb-6">Switch between multiple tabs, windows, and handle JavaScript alerts or
                     iframes seamlessly.</p>
@@ -337,8 +460,27 @@
                     <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Tabs</span>
                 </div>
                 <div
-                    class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                    Enter Mastery OT <i class="fas fa-arrow-right ml-2"></i>
+                    class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-all">
+                    Enter Mastery OT <i
+                        class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </div>
+
+            <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-amber-400 transition-all group cursor-pointer"
+                data-aos="zoom-in" data-aos-delay="500" onclick="window.location.href='synchronization.html'">
+                <i
+                    class="fas fa-hourglass-half text-3xl text-amber-400 mb-6 group-hover:scale-110 transition-transform"></i>
+                <h4 class="text-2xl font-bold mb-4">Synchronization</h4>
+                <p class="text-gray-400 mb-6">Solve flaky tests by mastering Implicit, Explicit, and Fluent waits for
+                    modern UI logic.</p>
+                <div class="flex gap-2">
+                    <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Explicit</span>
+                    <span class="text-[10px] border border-gray-700 px-2 py-1 rounded uppercase">Fluent</span>
+                </div>
+                <div
+                    class="mt-6 flex items-center text-amber-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-all">
+                    Enter Mastery OT <i
+                        class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </div>
             </div>
         </div>
@@ -363,22 +505,22 @@
 
     <section id="services" class="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-32">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-amber-400 p-8 md:p-12 rounded-sm text-black transition-all hover:-translate-y-3 duration-300"
-                data-aos="fade-up" data-aos-delay="100">
+            <div class="bg-amber-400 p-8 md:p-12 rounded-xl text-black transition-all hover:-translate-y-3 shadow-xl"
+                data-aos="fade-up">
                 <i class="fas fa-code text-4xl mb-8"></i>
                 <h3 class="text-xl md:text-2xl font-bold mb-4">Java Selenium</h3>
                 <p class="font-medium opacity-80 text-sm md:text-base">Master the core engine of web automation from
                     basic locators to advanced sync.</p>
             </div>
-            <div class="bg-card p-8 md:p-12 rounded-sm transition-all hover:-translate-y-3 duration-300 group"
-                data-aos="fade-up" data-aos-delay="200">
+            <div class="bg-card p-8 md:p-12 rounded-xl border border-gray-800 transition-all hover:-translate-y-3 group shadow-xl"
+                data-aos="fade-up" data-aos-delay="100">
                 <i class="fas fa-layer-group text-4xl mb-8 text-amber-400"></i>
                 <h3 class="text-xl md:text-2xl font-bold mb-4">Hybrid Framework</h3>
                 <p class="text-gray-400 text-sm md:text-base">Learn to build the "Gold Standard" architecture using POM,
                     TestNG, and Apache POI.</p>
             </div>
-            <div class="bg-card p-8 md:p-12 rounded-sm transition-all hover:-translate-y-3 duration-300 group"
-                data-aos="fade-up" data-aos-delay="300">
+            <div class="bg-card p-8 md:p-12 rounded-xl border border-gray-800 transition-all hover:-translate-y-3 group shadow-xl"
+                data-aos="fade-up" data-aos-delay="200">
                 <i class="fas fa-terminal text-4xl mb-8 text-amber-400"></i>
                 <h3 class="text-xl md:text-2xl font-bold mb-4">CI/CD & DevOps</h3>
                 <p class="text-gray-400 text-sm md:text-base">Integrate your test suites with Jenkins, Docker, and Maven
@@ -395,7 +537,7 @@
             </div>
             <div data-aos="fade-left">
                 <a href="https://github.com/AutomationWithPiyushhh?tab=repositories" target="_blank"
-                    class="px-8 py-4 bg-white text-black font-bold hover:bg-amber-400 transition-colors duration-300 rounded text-sm md:text-base">
+                    class="px-8 py-4 bg-white text-black font-bold hover:bg-amber-400 transition-all duration-300 rounded-lg">
                     View All GitHub <i class="fab fa-github ml-2"></i>
                 </a>
             </div>
@@ -404,12 +546,10 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12">
             <div class="project-card group cursor-pointer" data-aos="fade-up"
                 onclick="window.location.href='project-vtiger.html'">
-                <div
-                    class="project-preview bg-card rounded-xl p-6 md:p-8 mb-6 border border-gray-800 group-hover:border-amber-400 transition-all duration-500">
+                <div class="project-preview bg-card rounded-xl p-6 md:p-8 mb-6 border border-gray-800">
                     <div
-                        class="h-48 md:h-64 bg-[#1a1b23] rounded-lg p-4 md:p-6 font-mono text-xs md:text-sm text-green-400/80 overflow-hidden relative">
-                        <div
-                            class="absolute top-4 right-4 text-gray-700 text-[10px] md:text-xs uppercase tracking-widest">
+                        class="h-48 md:h-64 bg-[#1a1b23] rounded-lg p-6 font-mono text-xs text-green-400/80 overflow-hidden relative">
+                        <div class="absolute top-4 right-4 text-gray-700 text-[10px] uppercase tracking-widest">
                             BaseClass.java</div>
                         <p class="mb-2">public class vTigerFramework {</p>
                         <p class="ml-4 text-amber-400">@Test</p>
@@ -424,8 +564,7 @@
                     <div>
                         <h4 class="text-xl md:text-2xl font-bold group-hover:text-amber-400 transition-colors">CRM
                             Enterprise Framework</h4>
-                        <p class="text-gray-500 mt-2 text-xs md:text-sm uppercase tracking-widest font-bold">POM •
-                            Selenium • Apache POI</p>
+                        <p class="text-gray-500 mt-2 text-xs uppercase tracking-widest">POM • Selenium • Apache POI</p>
                     </div>
                     <i
                         class="fas fa-arrow-right text-gray-600 group-hover:text-amber-400 group-hover:translate-x-2 transition-all"></i>
@@ -434,8 +573,7 @@
 
             <div class="project-card group cursor-pointer" data-aos="fade-up" data-aos-delay="200"
                 onclick="window.open('api-project.html', '_blank')">
-                <div
-                    class="project-preview bg-card rounded-xl p-6 md:p-8 mb-6 border border-gray-800 group-hover:border-amber-400 transition-all duration-500">
+                <div class="project-preview bg-card rounded-xl p-6 md:p-8 mb-6 border border-gray-800">
                     <div
                         class="h-48 md:h-64 bg-[#1a1b23] rounded-lg p-6 flex flex-col justify-center items-center text-center">
                         <i
@@ -445,16 +583,16 @@
                             <span class="bg-blue-500/10 text-blue-400 text-[10px] px-2 py-1 rounded">POST</span>
                             <span class="bg-red-500/10 text-red-400 text-[10px] px-2 py-1 rounded">DELETE</span>
                         </div>
-                        <p class="text-gray-500 text-xs md:text-sm italic">Scalable RestAssured Engine with Jackson
-                            Serialization</p>
+                        <p class="text-gray-500 text-xs italic">Scalable RestAssured Engine with Jackson Serialization
+                        </p>
                     </div>
                 </div>
                 <div class="flex justify-between items-start">
                     <div>
                         <h4 class="text-xl md:text-2xl font-bold group-hover:text-amber-400 transition-colors">REST API
                             Testing Suite</h4>
-                        <p class="text-gray-500 mt-2 text-xs md:text-sm uppercase tracking-widest font-bold">RestAssured
-                            • Jackson • Maven</p>
+                        <p class="text-gray-500 mt-2 text-xs uppercase tracking-widest">RestAssured • Jackson • Maven
+                        </p>
                     </div>
                     <i class="fas fa-external-link-alt text-gray-600 group-hover:text-amber-400 transition-colors"></i>
                 </div>
@@ -513,11 +651,13 @@
 
         <div class="flex justify-center gap-6 md:gap-8 mt-16">
             <a href="https://www.linkedin.com/in/piyushbaldaniya/" target="_blank"
-                class="text-gray-500 hover:text-white transition"><i
+                class="text-gray-500 hover:text-white transition-all transform hover:scale-110"><i
                     class="fab fa-linkedin text-xl md:text-2xl"></i></a>
             <a href="https://github.com/AutomationWithPiyushhh" target="_blank"
-                class="text-gray-500 hover:text-white transition"><i class="fab fa-github text-xl md:text-2xl"></i></a>
-            <a href="https://x.com/Just_Automaton" target="_blank" class="text-gray-500 hover:text-white transition"><i
+                class="text-gray-500 hover:text-white transition-all transform hover:scale-110"><i
+                    class="fab fa-github text-xl md:text-2xl"></i></a>
+            <a href="https://x.com/Just_Automaton" target="_blank"
+                class="text-gray-500 hover:text-white transition-all transform hover:scale-110"><i
                     class="fab fa-twitter text-xl md:text-2xl"></i></a>
         </div>
 
@@ -527,68 +667,135 @@
                 Connect Everywhere <i class="fas fa-external-link-alt ml-2"></i>
             </button>
         </div>
-
-        <script>
-            function openSocialChannels() {
-                window.open("https://www.linkedin.com/in/piyushbaldaniya/", "_blank");
-                window.open("https://github.com/AutomationWithPiyushhh", "_blank");
-                window.open("https://x.com/Just_Automaton", "_blank");
-            }
-        </script>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // --- INTRO SHLOKA LOGIC ---
-        document.addEventListener("DOMContentLoaded", () => {
-            const bar = document.getElementById("progress-bar");
-            const overlay = document.getElementById("shloka-overlay");
+        // --- CAROUSEL LOGIC ---
+        let currentSlide = 0;
+        const totalSlides = 3;
+        const track = document.getElementById('track');
+        const dots = document.querySelectorAll('.nav-dot');
+        const carouselContainer = document.getElementById('hero-carousel');
+        let slideInterval;
+        let currentSpeed = 5000;
 
-            // Trigger the 30-second animation after a brief delay to ensure rendering
-            setTimeout(() => {
-                bar.style.width = "100%";
-                // The transition in CSS is set to 10s linear
-                bar.style.transition = "width 10s linear";
-            }, 100);
+        let touchStartX = 0;
+        let touchEndX = 0;
 
-            // After 10  seconds, hide overlay (do NOT unlock body scroll as it wasn't locked)
-            setTimeout(() => {
-                overlay.style.opacity = "0";
-                overlay.style.visibility = "hidden"; // Ensures clicks pass through after fade
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+        }
 
-                // Re-trigger AOS to animate the hero section elements cleanly
-                setTimeout(() => {
-                    AOS.refresh();
-                }, 500);
-            }, 10000); // 30 seconds
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+            resetTimer();
+        }
+
+        function nextSlideUser() {
+            nextSlide();
+            resetTimer();
+        }
+
+        function startSlideShow(speed) {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, speed);
+        }
+
+        function resetTimer() {
+            startSlideShow(currentSpeed);
+        }
+
+        function jumpToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+            resetTimer();
+        }
+
+        // Swipe Gestures
+        carouselContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        carouselContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const threshold = 50;
+            if (touchStartX - touchEndX > threshold) nextSlideUser();
+            else if (touchEndX - touchStartX > threshold) prevSlide();
+        }
+
+        // Hover Timing
+        carouselContainer.addEventListener('mouseenter', () => {
+            currentSpeed = 10000;
+            startSlideShow(currentSpeed);
         });
 
-        // Mobile Menu Toggle
+        carouselContainer.addEventListener('mouseleave', () => {
+            currentSpeed = 5000;
+            startSlideShow(currentSpeed);
+        });
+
+        startSlideShow(5000);
+
+        // --- TYPEWRITER ---
+        const words = ["Automation Testing.", "Hybrid Frameworks.", "Java Selenium.", "SDET Skills."];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentWord = words[wordIndex];
+            const typeElement = document.getElementById("typewriter");
+            if (!typeElement) return;
+
+            if (isDeleting) {
+                typeElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typeElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 75 : 150;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                typeSpeed = 2000;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                typeSpeed = 500;
+            }
+            setTimeout(type, typeSpeed);
+        }
+        type();
+
         function toggleMenu() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
         }
 
-        // Typewriter Effect
-        const words = ["Automation Testing.", "Hybrid Frameworks.", "Java Selenium.", "SDET Skills."];
-        let i = 0, j = 0, currentWord = "", isDeleting = false;
-
-        function type() {
-            currentWord = words[i];
-            if (isDeleting) {
-                document.getElementById("typewriter").textContent = currentWord.substring(0, j - 1);
-                j--;
-                if (j == 0) { isDeleting = false; i = (i + 1) % words.length; }
-            } else {
-                document.getElementById("typewriter").textContent = currentWord.substring(0, j + 1);
-                j++;
-                if (j == currentWord.length) { isDeleting = true; setTimeout(type, 2000); return; }
-            }
-            setTimeout(type, isDeleting ? 50 : 150);
+        function openSocialChannels() {
+            window.open("https://www.linkedin.com/in/piyushbaldaniya/", "_blank");
+            window.open("https://github.com/AutomationWithPiyushhh", "_blank");
+            window.open("https://x.com/Just_Automaton", "_blank");
         }
-        type();
     </script>
 </body>
 

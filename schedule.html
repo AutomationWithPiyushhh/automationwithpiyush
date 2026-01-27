@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20-Day Selenium Bootcamp | AutomationWithPiyush</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .text-accent {
+            color: #facc15;
+        }
+
+        .bg-accent {
+            background-color: #facc15;
+        }
+
+        .border-accent {
+            border-color: #facc15;
+        }
+
+        /* Card Styles */
+        .day-card {
+            background-color: #252631;
+            border: 1px solid #2d3748;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-card:hover {
+            transform: translateY(-5px);
+            border-color: #facc15;
+            box-shadow: 0 10px 20px rgba(250, 204, 21, 0.1);
+        }
+
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #2d3748;
+            transition: background 0.3s;
+        }
+
+        .day-card:hover::before {
+            background: #facc15;
+        }
+
+        .day-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03);
+            position: absolute;
+            right: 10px;
+            bottom: -10px;
+            line-height: 1;
+            z-index: 0;
+            transition: color 0.3s;
+        }
+
+        .day-card:hover .day-number {
+            color: rgba(250, 204, 21, 0.1);
+        }
+
+        /* Status Badge */
+        .status-badge {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-weight: bold;
+        }
+
+        .status-ready {
+            background: rgba(74, 222, 128, 0.1);
+            color: #4ade80;
+            border: 1px solid rgba(74, 222, 128, 0.2);
+        }
+
+        .status-locked {
+            background: rgba(255, 255, 255, 0.05);
+            color: #9ca3af;
+        }
+    </style>
+</head>
+
+<body class="pb-20">
+
+    <nav class="flex justify-between items-center px-6 py-6 max-w-7xl mx-auto">
+        <div class="flex items-center gap-2">
+
+        </div>
+        <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">
+            <i class="fas fa-home mr-2"></i> Home
+        </a>
+    </nav>
+
+    <header class="max-w-7xl mx-auto px-6 py-12 text-center" data-aos="fade-down">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">Master Selenium By <span class="text-accent">20 Goals</span>
+        </h1>
+        <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+            Complete the tasks to master the framework. Click a card to view the lecture.
+        </p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="course-grid">
+    </main>
+
+    <footer class="text-center py-12 mt-12 text-gray-600 text-sm">
+        &copy; 2026 AutomationWithPiyush. All rights reserved.
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // --- UPDATED SYLLABUS CONFIGURATION ---
+        const courseData = [
+            { day: 1, topic: "Introduction to Selenium", icon: "fa-info-circle", link: "#" },
+            { day: 2, topic: "Selenium Architecture", icon: "fa-project-diagram", link: "#" },
+            { day: 3, topic: "Selenium WebDriver Architecture", icon: "fa-network-wired", link: "#" },
+            { day: 4, topic: "Installation of Selenium", icon: "fa-download", link: "#" },
+            { day: 5, topic: "Launch An Empty Browser", icon: "fa-window-maximize", link: "#" },
+            { day: 6, topic: "WebDriver interface", icon: "fa-code", link: "#" },
+            { day: 7, topic: "HTML Structure for Testers", icon: "fa-html5", link: "#" },
+            { day: 8, topic: "SearchContext interface", icon: "fa-search", link: "#" },
+            { day: 9, topic: "Locators & XPath", icon: "fa-crosshairs", link: "#" },
+            { day: 10, topic: "Relative Locators", icon: "fa-map-signs", link: "#" },
+            { day: 11, topic: "WebElement interface", icon: "fa-cube", link: "#" },
+            { day: 12, topic: "Synchronization (Waits)", icon: "fa-hourglass-half", link: "#" },
+            { day: 13, topic: "DropDown / ListBox", icon: "fa-list-ul", link: "#" },
+            { day: 14, topic: "Auto Suggestion Handling", icon: "fa-magic", link: "#" },
+            { day: 15, topic: "Actions Class", icon: "fa-mouse-pointer", link: "#" },
+            { day: 16, topic: "TakesScreenshot interface", icon: "fa-camera", link: "#" },
+            { day: 17, topic: "JavascriptExecutor interface", icon: "fa-bolt", link: "#" },
+            { day: 18, topic: "Handling Frames (Iframe)", icon: "fa-border-none", link: "#" },
+            { day: 19, topic: "Handling Pop-Ups", icon: "fa-comment-alt", link: "#" },
+            { day: 20, topic: "Handling Windows", icon: "fa-columns", link: "#" }
+        ];
+
+        const gridContainer = document.getElementById('course-grid');
+
+        // Generate Cards
+        courseData.forEach((item, index) => {
+            // Check if link is '#' (Coming Soon) or real
+            const isReady = item.link !== "#";
+            const statusClass = isReady ? 'status-ready' : 'status-locked';
+            const statusText = isReady ? 'Available' : 'Coming Soon';
+            const iconColor = isReady ? 'text-accent' : 'text-gray-600';
+
+            const cardHTML = `
+                <a href="${item.link}" class="day-card block p-6 rounded-xl relative group" data-aos="fade-up" data-aos-delay="${index * 50}">
+                    <div class="flex justify-between items-start mb-4 relative z-10">
+                        <div class="w-10 h-10 rounded-lg bg-[#1a1b23] border border-gray-700 flex items-center justify-center ${iconColor} group-hover:text-black group-hover:bg-accent group-hover:border-accent transition-colors">
+                            <i class="fas ${item.icon}"></i>
+                        </div>
+                        <span class="status-badge ${statusClass}">${statusText}</span>
+                    </div>
+                    
+                    <div class="relative z-10">
+                        <h4 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">Day ${item.day < 10 ? '0' + item.day : item.day}</h4>
+                        <h3 class="text-lg font-bold text-white group-hover:text-accent transition-colors leading-tight">${item.topic}</h3>
+                    </div>
+
+                    <div class="day-number">${item.day}</div>
+                </a>
+            `;
+
+            gridContainer.innerHTML += cardHTML;
+        });
+
+    </script>
+</body>
+
+</html>
