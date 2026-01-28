@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering POM | AutomationWithPiyush</title>
+
+    <link rel="icon" type="image/png" href="icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+        body {
+            background-color: #1a1b23;
+            color: #d1d5db;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- TYPOGRAPHY & ACCENTS --- */
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .text-accent {
+            color: #facc15;
+        }
+
+        .border-accent {
+            border-color: #facc15;
+        }
+
+        /* --- CODE BLOCKS (VS Code Dark Theme Look) --- */
+        pre {
+            background-color: #0d0e11;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        pre::before {
+            content: "JAVA";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #333;
+            color: #aaa;
+            font-size: 0.65rem;
+            padding: 4px 8px;
+            border-bottom-left-radius: 8px;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Syntax Highlighting Colors */
+        .c-keyword {
+            color: #c678dd;
+        }
+
+        /* purple */
+        .c-class {
+            color: #e5c07b;
+        }
+
+        /* yellow */
+        .c-method {
+            color: #61afef;
+        }
+
+        /* blue */
+        .c-string {
+            color: #98c379;
+        }
+
+        /* green */
+        .c-comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+
+        /* gray */
+        .c-annotation {
+            color: #d19a66;
+        }
+
+        /* orange */
+
+        /* --- UI COMPONENTS --- */
+        .blog-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .blog-content ul {
+            list-style: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Progress Bar */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #facc15;
+            z-index: 100;
+            width: 0%;
+            transition: width 0.1s;
+        }
+    </style>
+</head>
+
+<body class="relative">
+
+    <div id="progress-bar"></div>
+
+    <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-5xl mx-auto z-50">
+        <a href="blog.html" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+            <i class="fas fa-arrow-left"></i> <span class="font-bold uppercase tracking-widest text-xs">Back to
+                Blog</span>
+        </a>
+        <a href="index.html" class="text-amber-400 font-bold hover:opacity-80">AutomationWithPiyush</a>
+    </nav>
+
+    <header class="max-w-4xl mx-auto px-6 pt-10 pb-16 text-center">
+        <div class="inline-block px-3 py-1 mb-6 border border-amber-400/30 rounded-full bg-amber-400/10">
+            <span class="text-amber-400 text-xs font-bold uppercase tracking-widest">Selenium Frameworks</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl mb-8 leading-tight" data-aos="fade-up">
+            Mastering the Page Object Model (POM)
+        </h1>
+        <div class="flex justify-center items-center gap-6 text-sm text-gray-500" data-aos="fade-up"
+            data-aos-delay="100">
+            <div class="flex items-center gap-2">
+                <img src="awp.png" class="w-8 h-8 rounded-full border border-gray-700">
+                <span class="text-gray-300">Piyush Baldaniya</span>
+            </div>
+            <span>•</span>
+            <span>Oct 24, 2025</span>
+            <span>•</span>
+            <span>10 min read</span>
+        </div>
+    </header>
+
+    <article class="max-w-3xl mx-auto px-6 pb-24 blog-content">
+
+        <div data-aos="fade-up">
+            <p class="text-xl text-gray-300 font-light border-l-4 border-amber-400 pl-6 italic mb-12">
+                "If your test scripts are littered with `driver.findElement(By.xpath("//div..."))`, you are not writing
+                automation; you are writing a maintenance nightmare."
+            </p>
+
+            <p>
+                Imagine a login page. You have 50 test cases that need to log in. In a linear script ("Spaghetti Code"),
+                you would write the locator for the username field 50 times.
+                Now, imagine the developer changes the ID of that username field. You now have to find and replace that
+                locator in 50 different places.
+            </p>
+            <p>
+                This is where the <strong>Page Object Model (POM)</strong> saves the day. It acts as an "Object
+                Repository," separating your page elements (locators) from your tests (logic).
+            </p>
+        </div>
+
+        <div class="mt-16" data-aos="fade-up">
+            <h2 class="text-3xl mb-6 text-white">The "Old Way" vs. POM</h2>
+            <p>
+                In the old way, logic and data are mixed. This is hard to read and harder to debug.
+            </p>
+
+            <pre><code><span class="c-keyword">public void</span> <span class="c-method">testLogin</span>() {
+    <span class="c-comment">// Spaghetti Code: Hardcoded locators inside the test</span>
+    driver.<span class="c-method">findElement</span>(By.<span class="c-method">id</span>(<span class="c-string">"username"</span>)).<span class="c-method">sendKeys</span>(<span class="c-string">"admin"</span>);
+    driver.<span class="c-method">findElement</span>(By.<span class="c-method">id</span>(<span class="c-string">"password"</span>)).<span class="c-method">sendKeys</span>(<span class="c-string">"12345"</span>);
+    driver.<span class="c-method">findElement</span>(By.<span class="c-method">cssSelector</span>(<span class="c-string">"btn-login"</span>)).<span class="c-method">click</span>();
+}</code></pre>
+        </div>
+
+        <div class="mt-16" data-aos="fade-up">
+            <h2 class="text-3xl mb-6 text-white">Enter Page Factory</h2>
+            <p>
+                Selenium provides a built-in support class called <code>PageFactory</code> to initialize web elements.
+                We use the <code>@FindBy</code> annotation to define elements nicely at the top of the class.
+            </p>
+            <p>
+                Here is how a professional Page Class looks:
+            </p>
+
+            <pre><code><span class="c-keyword">public class</span> <span class="c-class">LoginPage</span> {
+
+    WebDriver driver;
+
+    <span class="c-comment">// 1. Define Locators using @FindBy</span>
+    <span class="c-annotation">@FindBy</span>(id = <span class="c-string">"username"</span>)
+    WebElement txtUsername;
+
+    <span class="c-annotation">@FindBy</span>(id = <span class="c-string">"password"</span>)
+    WebElement txtPassword;
+
+    <span class="c-annotation">@FindBy</span>(xpath = <span class="c-string">"//button[@type='submit']"</span>)
+    WebElement btnLogin;
+
+    <span class="c-comment">// 2. Initialize elements in Constructor</span>
+    <span class="c-keyword">public</span> <span class="c-class">LoginPage</span>(WebDriver driver) {
+        <span class="c-keyword">this</span>.driver = driver;
+        <span class="c-comment">// This "activates" the elements</span>
+        PageFactory.<span class="c-method">initElements</span>(driver, <span class="c-keyword">this</span>);
+    }
+
+    <span class="c-comment">// 3. Create Action Methods (Business Logic)</span>
+    <span class="c-keyword">public void</span> <span class="c-method">performLogin</span>(String user, String pass) {
+        txtUsername.<span class="c-method">sendKeys</span>(user);
+        txtPassword.<span class="c-method">sendKeys</span>(pass);
+        btnLogin.<span class="c-method">click</span>();
+    }
+}</code></pre>
+        </div>
+
+        <div class="mt-16" data-aos="fade-up">
+            <h2 class="text-3xl mb-6 text-white">The Pro Tip: Lazy Initialization</h2>
+            <p>
+                By default, <code>PageFactory.initElements(driver, this)</code> initializes elements immediately.
+                However, usually, we want <strong>AjaxElementLocatorFactory</strong>.
+            </p>
+            <p>
+                Why? Because modern apps (React/Angular) are slow. Elements don't appear instantly. If you use the
+                standard init, you might get <code>NoSuchElementException</code>.
+            </p>
+            <p>
+                Using <code>AjaxElementLocatorFactory</code> implements a "Lazy Wait" (essentially an Implicit Wait
+                specifically for these elements).
+            </p>
+
+            <pre><code><span class="c-keyword">public</span> <span class="c-class">LoginPage</span>(WebDriver driver) {
+    <span class="c-keyword">this</span>.driver = driver;
+    
+    <span class="c-comment">// Waits up to 15 seconds for elements to appear before throwing error</span>
+    AjaxElementLocatorFactory factory = <span class="c-keyword">new</span> <span class="c-class">AjaxElementLocatorFactory</span>(driver, <span class="c-keyword">15</span>);
+    
+    PageFactory.<span class="c-method">initElements</span>(factory, <span class="c-keyword">this</span>);
+}</code></pre>
+        </div>
+
+        <div class="mt-20 bg-[#252631] p-8 rounded-xl border border-gray-700" data-aos="fade-up">
+            <h3 class="text-xl font-bold text-amber-400 mb-4">Summary</h3>
+            <ul class="text-gray-300">
+                <li><strong>Maintenance:</strong> If UI changes, you update only the Page Class, not the Test Class.
+                </li>
+                <li><strong>Readability:</strong> Tests become readable English (e.g.,
+                    <code>loginPage.performLogin()</code>).
+                </li>
+                <li><strong>Stability:</strong> Use <code>AjaxElementLocatorFactory</code> to handle dynamic elements
+                    automatically.</li>
+            </ul>
+        </div>
+
+        <div class="mt-16 text-center">
+            <p class="text-gray-400 mb-6">Ready to practice?</p>
+            <a href="index.html#practice"
+                class="bg-amber-400 text-black px-8 py-3 rounded-lg font-bold hover:bg-white transition-all">
+                Go to Practice Labs <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+
+    </article>
+
+    <footer class="border-t border-gray-800 bg-[#1f2029] py-12 text-center">
+        <div class="text-gray-500 text-sm">
+            &copy; 2025 AutomationWithPiyush. Keep Coding.
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // Scroll Progress Bar Logic
+        window.onscroll = function () {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+
+</html>
