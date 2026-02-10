@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Elements | AutomationWithPiyush</title>
+    <title>Automation Practice | Surgical Mode</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
@@ -30,7 +33,10 @@
 
         /* Custom Input Styling */
         input[type="text"],
-        input[type="email"] {
+        input[type="email"],
+        input[type="date"],
+        select,
+        textarea {
             background-color: #1a1b23;
             border: 1px solid #374151;
             color: white;
@@ -40,7 +46,9 @@
             transition: all 0.3s;
         }
 
-        input:focus {
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: #facc15;
             box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
@@ -91,6 +99,25 @@
                 pointer-events: none;
             }
         }
+
+        /* Overriding jQuery UI for Dark Theme */
+        .ui-widget-content {
+            background: #1a1b23 !important;
+            border: 1px solid #374151 !important;
+            color: white !important;
+        }
+
+        .ui-widget-header {
+            background: #374151 !important;
+            border: 1px solid #4b5563 !important;
+            color: white !important;
+        }
+
+        .ui-slider-handle {
+            background: #facc15 !important;
+            border-radius: 50% !important;
+            border: none !important;
+        }
     </style>
 </head>
 
@@ -100,47 +127,42 @@
 
     <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-7xl mx-auto z-50">
         <div class="flex items-center gap-3">
-            <img src="awp.png" alt="Logo" class="h-10 w-auto rounded">
-            <span class="font-bold text-xl tracking-tighter">Automation<span class="text-accent">OPD</span></span>
         </div>
         <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">
-            <i class="fas fa-arrow-left mr-2"></i> Back to Hub
+            <i class="fas fa-arrow-left mr-2"></i> Back to ward
         </a>
+
     </nav>
 
     <header class="max-w-7xl mx-auto px-6 py-10" data-aos="fade-down">
-        <p class="text-accent uppercase tracking-widest text-xs font-bold mb-4">— Surgical Room 02</p>
-        <h1 class="text-4xl md:text-5xl font-bold">Web Element <span class="text-gray-600">Diagnostics</span></h1>
+        <p class="text-accent uppercase tracking-widest text-xs font-bold mb-4">— System Diagnostics & Controls</p>
+        <h1 class="text-4xl md:text-5xl font-bold">Test Element <span class="text-gray-600">Playground</span></h1>
     </header>
 
     <main class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12">
 
         <section class="space-y-8" data-aos="fade-right">
-
             <div class="bg-card p-8 rounded-xl border border-gray-800 shadow-xl">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-xl font-bold flex items-center">
-                        <i class="fas fa-wpforms text-accent mr-3"></i> Input Form
+                        <i class="fas fa-keyboard text-accent mr-3"></i> GUI Input Forms
                     </h3>
-                    <button type="button" onclick="clearForm()"
-                        class="text-xs text-gray-500 hover:text-white underline">Clear</button>
                 </div>
 
-                <form id="practiceForm" class="space-y-5">
+                <form id="guiForm" class="space-y-5">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">First Name</label>
-                            <input type="text" id="firstName" name="firstName" placeholder="John" required>
+                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Name</label>
+                            <input type="text" id="name" placeholder="Enter Name">
                         </div>
                         <div>
-                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Last Name</label>
-                            <input type="text" id="lastName" name="lastName" placeholder="Doe" required>
+                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Email</label>
+                            <input type="email" id="email" placeholder="Enter Email">
                         </div>
                     </div>
-
                     <div>
-                        <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Email</label>
-                        <input type="email" id="userEmail" name="email" placeholder="name@example.com" required>
+                        <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Address</label>
+                        <textarea id="address" rows="2" placeholder="Enter Address"></textarea>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
@@ -148,128 +170,163 @@
                             <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Gender</label>
                             <div class="flex flex-col gap-2">
                                 <label class="flex items-center cursor-pointer hover:bg-white/5 p-2 rounded transition">
-                                    <input type="radio" name="gender" value="Male" class="accent-yellow-400 w-4 h-4">
+                                    <input type="radio" name="gender" value="male" class="accent-yellow-400 w-4 h-4">
                                     <span class="ml-2 text-sm text-gray-300">Male</span>
                                 </label>
                                 <label class="flex items-center cursor-pointer hover:bg-white/5 p-2 rounded transition">
-                                    <input type="radio" name="gender" value="Female" class="accent-yellow-400 w-4 h-4">
+                                    <input type="radio" name="gender" value="female" class="accent-yellow-400 w-4 h-4">
                                     <span class="ml-2 text-sm text-gray-300">Female</span>
                                 </label>
                             </div>
                         </div>
-
                         <div>
-                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Interests</label>
-                            <div class="flex flex-col gap-2">
-                                <label class="flex items-center cursor-pointer hover:bg-white/5 p-2 rounded transition">
-                                    <input type="checkbox" id="checkJava" class="accent-yellow-400 w-4 h-4 rounded">
-                                    <span class="ml-2 text-sm text-gray-300">Java</span>
-                                </label>
-                                <label class="flex items-center cursor-pointer hover:bg-white/5 p-2 rounded transition">
-                                    <input type="checkbox" id="checkPython" class="accent-yellow-400 w-4 h-4 rounded">
-                                    <span class="ml-2 text-sm text-gray-300">Python</span>
-                                </label>
+                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Days</label>
+                            <div class="flex flex-col gap-1 h-24 overflow-y-auto">
+                                <label class="flex items-center"><input type="checkbox" id="sunday"
+                                        class="accent-yellow-400 mr-2">Sun</label>
+                                <label class="flex items-center"><input type="checkbox" id="monday"
+                                        class="accent-yellow-400 mr-2">Mon</label>
+                                <label class="flex items-center"><input type="checkbox" id="tuesday"
+                                        class="accent-yellow-400 mr-2">Tue</label>
+                                <label class="flex items-center"><input type="checkbox" id="wednesday"
+                                        class="accent-yellow-400 mr-2">Wed</label>
+                                <label class="flex items-center"><input type="checkbox" id="thursday"
+                                        class="accent-yellow-400 mr-2">Thu</label>
                             </div>
                         </div>
                     </div>
 
-                    <button type="submit" id="submitBtn"
-                        class="w-full bg-accent text-black font-bold py-3 rounded hover:bg-white transition-all transform active:scale-95 shadow-lg shadow-yellow-500/20">
-                        Submit Data
-                    </button>
+                    <div>
+                        <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Country</label>
+                        <select id="country">
+                            <option value="usa">United States</option>
+                            <option value="uk">United Kingdom</option>
+                            <option value="canada">Canada</option>
+                            <option value="india">India</option>
+                            <option value="china">China</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Date Picker</label>
+                        <input type="date" id="datepicker">
+                    </div>
                 </form>
+            </div>
+
+            <div class="bg-card rounded-xl border border-gray-800 overflow-hidden">
+                <div class="p-6 border-b border-gray-800 bg-[#1f202a] flex justify-between items-center">
+                    <h3 class="font-bold text-sm uppercase tracking-widest">Static Web Table</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm" name="BookTable" id="productTable">
+                        <thead class="bg-[#1a1b23] text-gray-500 border-b border-gray-800">
+                            <tr>
+                                <th class="px-6 py-3">Book</th>
+                                <th class="px-6 py-3">Author</th>
+                                <th class="px-6 py-3">Subject</th>
+                                <th class="px-6 py-3 text-right">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-800">
+                            <tr class="hover:bg-white/5 transition">
+                                <td class="px-6 py-4">Learn Selenium</td>
+                                <td class="px-6 py-4">Amit</td>
+                                <td class="px-6 py-4">Selenium</td>
+                                <td class="px-6 py-4 text-right text-accent">300</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition">
+                                <td class="px-6 py-4">Learn Java</td>
+                                <td class="px-6 py-4">Mukesh</td>
+                                <td class="px-6 py-4">Java</td>
+                                <td class="px-6 py-4 text-right text-accent">500</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition">
+                                <td class="px-6 py-4">Master JS</td>
+                                <td class="px-6 py-4">Amit</td>
+                                <td class="px-6 py-4">JavaScript</td>
+                                <td class="px-6 py-4 text-right text-accent">1000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
         <section class="space-y-8" data-aos="fade-left">
 
             <div class="bg-card p-8 rounded-xl border border-gray-800">
-                <h4 class="text-gray-500 text-xs uppercase font-bold mb-6 tracking-widest">Button Interactions</h4>
-
+                <h4 class="text-gray-500 text-xs uppercase font-bold mb-6 tracking-widest">Alerts & Popups</h4>
                 <div class="grid grid-cols-2 gap-4">
-                    <button id="doubleClickBtn"
-                        class="p-3 border border-gray-600 rounded text-sm hover:border-accent hover:text-accent transition font-medium">
-                        Double Click Me
-                    </button>
+                    <button onclick="myFunctionAlert()"
+                        class="p-3 border border-gray-600 rounded text-sm hover:border-accent hover:text-accent transition">Simple
+                        Alert</button>
+                    <button onclick="myFunctionConfirm()"
+                        class="p-3 border border-gray-600 rounded text-sm hover:border-blue-400 hover:text-blue-400 transition">Confirmation</button>
+                    <button onclick="myFunctionPrompt()"
+                        class="p-3 border border-gray-600 rounded text-sm hover:border-green-400 hover:text-green-400 transition">Prompt</button>
+                    <button onclick="openNewWindow()"
+                        class="p-3 bg-gray-700 rounded text-sm hover:bg-gray-600 transition">New Tab</button>
+                </div>
+                <p id="demo" class="mt-4 text-center text-sm text-gray-400 min-h-[20px]"></p>
+            </div>
 
-                    <button oncontextmenu="handleRightClick(event)"
-                        class="p-3 border border-gray-600 rounded text-sm hover:border-red-400 hover:text-red-400 transition font-medium">
-                        Right Click Me
-                    </button>
+            <div class="bg-card p-8 rounded-xl border border-gray-800">
+                <h4 class="text-gray-500 text-xs uppercase font-bold mb-6 tracking-widest">Advanced Interactions</h4>
 
-                    <button onmouseenter="this.innerText='Hovered!'" onmouseleave="this.innerText='Hover Me'"
-                        class="p-3 bg-gray-700 rounded text-sm hover:bg-gray-600 transition font-medium">
-                        Hover Me
-                    </button>
-
-                    <div class="relative group">
-                        <button id="disabledBtn"
-                            class="w-full p-3 bg-gray-800 text-gray-500 rounded text-sm cursor-not-allowed border border-transparent"
-                            disabled onclick="showToast('Disabled Button Clicked!', 'success')">
-                            Disabled
-                        </button>
-                        <button onclick="toggleDisabled()"
-                            class="absolute -top-2 -right-2 bg-blue-500 text-white w-6 h-6 rounded-full text-xs hover:bg-blue-400 shadow-lg"
-                            title="Toggle Enable">
-                            <i class="fas fa-lock-open"></i>
-                        </button>
+                <div class="mb-8">
+                    <div class="grid grid-cols-2 gap-2 mb-2">
+                        <input type="text" id="field1" value="Hello World!" readonly
+                            class="opacity-50 cursor-not-allowed">
+                        <input type="text" id="field2" placeholder="Copy here..." readonly>
                     </div>
+                    <button ondblclick="copyText()"
+                        class="w-full text-xs bg-white text-black px-3 py-2 rounded font-bold hover:bg-accent transition transform active:scale-95">
+                        Double Click to Copy
+                    </button>
                 </div>
 
-                <div class="mt-6 pt-6 border-t border-gray-700">
-                    <div class="flex justify-between items-center">
-                        <p class="text-sm text-gray-400">Explicit Wait (3s)</p>
-                        <button onclick="startAsync()"
-                            class="text-xs bg-white text-black px-3 py-1 rounded font-bold hover:bg-accent transition">
-                            Trigger
-                        </button>
-                    </div>
-                    <div id="loader" class="hidden mt-3 text-accent text-xs animate-pulse">
-                        <i class="fas fa-circle-notch fa-spin mr-2"></i> Fetching data from server...
-                    </div>
-                    <div id="hiddenElement"
-                        class="hidden mt-3 p-2 bg-green-500/10 border border-green-500/50 text-green-400 text-xs font-mono rounded text-center">
-                        Element Rendered Successfully
+                <div class="mb-8">
+                    <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">JQuery Slider</label>
+                    <div id="slider-range" class="mb-4"></div>
+                    <p class="text-accent text-sm text-center font-mono">Range: <span id="amount"></span></p>
+                </div>
+
+                <div>
+                    <label class="block text-gray-500 text-[10px] uppercase font-bold mb-4">Drag & Drop (JQuery
+                        UI)</label>
+                    <div class="flex gap-4 h-32">
+                        <div id="draggable"
+                            class="w-1/3 bg-gray-700 rounded flex items-center justify-center cursor-move hover:border border-accent transition">
+                            <span class="text-xs font-bold">DRAG ME</span>
+                        </div>
+                        <div id="droppable"
+                            class="w-2/3 border-2 border-dashed border-gray-600 rounded flex items-center justify-center bg-black/20">
+                            <span class="text-xs text-gray-500">DROP HERE</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="bg-card rounded-xl border border-gray-800 overflow-hidden">
-                <div class="p-6 border-b border-gray-800 bg-[#1f202a]">
-                    <h3 class="font-bold text-sm uppercase tracking-widest">User Table</h3>
+                <div class="p-4 border-b border-gray-800 bg-[#1f202a] flex justify-between">
+                    <h3 class="font-bold text-sm uppercase tracking-widest">Dynamic Table (CPU)</h3>
+                    <span class="text-xs text-accent animate-pulse">Live</span>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-[#1a1b23] text-gray-500 border-b border-gray-800">
+                <div class="p-4">
+                    <table class="w-full text-left text-sm" id="taskTable">
+                        <thead class="text-gray-500 border-b border-gray-700">
                             <tr>
-                                <th class="px-6 py-3">Name</th>
-                                <th class="px-6 py-3">Role</th>
-                                <th class="px-6 py-3 text-right">Actions</th>
+                                <th class="py-2">Name</th>
+                                <th class="py-2">CPU</th>
+                                <th class="py-2">Memory</th>
+                                <th class="py-2">Network</th>
                             </tr>
                         </thead>
-                        <tbody id="userTableBody" class="divide-y divide-gray-800">
-                            <tr class="group hover:bg-white/5 transition">
-                                <td class="px-6 py-4 font-medium" data-val="John Wick">John Wick</td>
-                                <td class="px-6 py-4 text-gray-400" data-val="Assassin">Assassin</td>
-                                <td class="px-6 py-4 text-right space-x-2">
-                                    <button onclick="editRow(this)" class="text-blue-400 hover:text-white"><i
-                                            class="fas fa-edit"></i></button>
-                                    <button onclick="deleteRow(this)" class="text-red-400 hover:text-white"><i
-                                            class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr class="group hover:bg-white/5 transition">
-                                <td class="px-6 py-4 font-medium" data-val="Tony Stark">Tony Stark</td>
-                                <td class="px-6 py-4 text-gray-400" data-val="Engineer">Engineer</td>
-                                <td class="px-6 py-4 text-right space-x-2">
-                                    <button onclick="editRow(this)" class="text-blue-400 hover:text-white"><i
-                                            class="fas fa-edit"></i></button>
-                                    <button onclick="deleteRow(this)" class="text-red-400 hover:text-white"><i
-                                            class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
+                        <tbody id="dynamicRows" class="font-mono text-xs">
                         </tbody>
                     </table>
+                    <div class="mt-2 text-xs text-gray-500" id="chrome-cpu-display">Chrome CPU: -</div>
                 </div>
             </div>
 
@@ -277,147 +334,124 @@
 
     </main>
 
+    <footer class="max-w-7xl mx-auto px-6 py-6 text-center text-gray-600 text-xs">
+        <p>Automation Practice Reimagined | <i class="fas fa-flask"></i> Surgical Mode</p>
+    </footer>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 800, once: true });
 
-        // --- Toast Notification System ---
+        // --- Toast Notification Helper ---
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             toast.className = 'toast';
             toast.innerHTML = `<i class="fas fa-check-circle text-accent"></i> <span>${message}</span>`;
             container.appendChild(toast);
-
-            // Remove from DOM after animation
             setTimeout(() => { container.removeChild(toast); }, 3000);
         }
 
-        // --- Form Logic: Adds User to Table ---
-        document.getElementById('practiceForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            // 1. Capture Values
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-
-            // Determine Role based on Checkboxes
-            let roleValues = [];
-            if (document.getElementById('checkJava').checked) roleValues.push("Java");
-            if (document.getElementById('checkPython').checked) roleValues.push("Python");
-            let role = roleValues.length > 0 ? roleValues.join(' & ') + " Dev" : "Manual Tester";
-
-            // 2. Button Animation (Processing...)
-            const btn = document.getElementById('submitBtn');
-            const originalText = btn.innerText;
-            btn.innerText = "Adding...";
-            btn.disabled = true;
-            btn.classList.add('opacity-50');
-
-            // 3. Add Row to Table (Simulated Delay)
-            setTimeout(() => {
-                const tableBody = document.getElementById('userTableBody');
-                const newRow = document.createElement('tr');
-                newRow.className = "group hover:bg-white/5 transition";
-
-                newRow.innerHTML = `
-                    <td class="px-6 py-4 font-medium">${firstName} ${lastName}</td>
-                    <td class="px-6 py-4 text-gray-400">${role}</td>
-                    <td class="px-6 py-4 text-right space-x-2">
-                        <button onclick="editRow(this)" class="text-blue-400 hover:text-white"><i class="fas fa-edit"></i></button>
-                        <button onclick="deleteRow(this)" class="text-red-400 hover:text-white"><i class="fas fa-trash"></i></button>
-                    </td>
-                `;
-
-                tableBody.appendChild(newRow);
-
-                // Reset Form & Button
-                btn.innerText = originalText;
-                btn.disabled = false;
-                btn.classList.remove('opacity-50');
-                document.getElementById('practiceForm').reset();
-
-                showToast(`User ${firstName} Added Successfully!`);
-                newRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-            }, 500);
-        });
-
-        function clearForm() {
-            document.getElementById('practiceForm').reset();
-            showToast("Form Cleared");
+        // --- Alerts Logic ---
+        function myFunctionAlert() {
+            alert("I am an alert box!");
+            showToast("Alert handled");
         }
 
-        // --- Button Logic ---
-
-        // Double Click
-        document.getElementById('doubleClickBtn').addEventListener('dblclick', function () {
-            this.classList.toggle('border-accent');
-            this.classList.toggle('text-accent');
-            showToast("Double Click Verified!");
-        });
-
-        // Right Click
-        function handleRightClick(e) {
-            e.preventDefault();
-            showToast("Context Menu (Right Click) Prevented!");
-        }
-
-        // Disabled Toggle
-        function toggleDisabled() {
-            const btn = document.getElementById('disabledBtn');
-            if (btn.disabled) {
-                btn.disabled = false;
-                btn.classList.remove('cursor-not-allowed', 'bg-gray-800', 'text-gray-500');
-                btn.classList.add('bg-green-600', 'text-white', 'hover:bg-green-500');
-                btn.innerText = "Enabled & Clickable";
-                showToast("Button Enabled");
+        function myFunctionConfirm() {
+            let txt;
+            if (confirm("Press a button!")) {
+                txt = "You pressed OK!";
+                showToast("Confirmed: OK");
             } else {
-                btn.disabled = true;
-                btn.classList.add('cursor-not-allowed', 'bg-gray-800', 'text-gray-500');
-                btn.classList.remove('bg-green-600', 'text-white', 'hover:bg-green-500');
-                btn.innerText = "Disabled";
-                showToast("Button Disabled");
+                txt = "You pressed Cancel!";
+                showToast("Confirmed: Cancel");
+            }
+            document.getElementById("demo").innerHTML = txt;
+        }
+
+        function myFunctionPrompt() {
+            let person = prompt("Please enter your name:", "Harry Potter");
+            if (person == null || person == "") {
+                document.getElementById("demo").innerHTML = "User cancelled the prompt.";
+            } else {
+                document.getElementById("demo").innerHTML = "Hello " + person + "!";
+                showToast("Prompt input received");
             }
         }
 
-        // --- Sync/Wait Logic ---
-        function startAsync() {
-            const loader = document.getElementById('loader');
-            const element = document.getElementById('hiddenElement');
-
-            loader.classList.remove('hidden');
-            element.classList.add('hidden');
-
-            setTimeout(() => {
-                loader.classList.add('hidden');
-                element.classList.remove('hidden');
-                showToast("Async Element Loaded");
-            }, 3000);
+        function openNewWindow() {
+            window.open("https://www.google.com", "_blank");
+            showToast("New Tab Opened");
         }
 
-        // --- Table Logic ---
-        function deleteRow(btn) {
-            const row = btn.closest('tr');
-            row.style.opacity = '0';
-            setTimeout(() => {
-                row.remove();
-                showToast("Row Deleted");
-            }, 300);
+        // --- Double Click Logic ---
+        function copyText() {
+            document.getElementById("field2").value = document.getElementById("field1").value;
+            showToast("Text Copied Successfully");
         }
 
-        function editRow(btn) {
-            const row = btn.closest('tr');
-            const cells = row.getElementsByTagName('td');
+        // --- JQuery UI: Slider ---
+        $(function () {
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 500,
+                values: [75, 300],
+                slide: function (event, ui) {
+                    $("#amount").html("$" + ui.values[0] + " - $" + ui.values[1]);
+                }
+            });
+            $("#amount").html("$" + $("#slider-range").slider("values", 0) +
+                " - $" + $("#slider-range").slider("values", 1));
+        });
 
-            // Populate Form
-            document.getElementById('firstName').value = cells[0].innerText.split(' ')[0];
-            document.getElementById('lastName').value = cells[0].innerText.split(' ')[1] || '';
+        // --- JQuery UI: Drag and Drop ---
+        $(function () {
+            $("#draggable").draggable({ revert: "invalid" });
+            $("#droppable").droppable({
+                drop: function (event, ui) {
+                    $(this)
+                        .addClass("border-accent")
+                        .find("span")
+                        .html("DROPPED!");
+                    showToast("Element Dropped!");
+                }
+            });
+        });
 
-            // Scroll to form
-            document.querySelector('header').scrollIntoView({ behavior: 'smooth' });
-            showToast("Data Loaded into Form");
+        // --- Dynamic Table Logic (Simulated) ---
+        const processes = ['System', 'Chrome', 'Firefox', 'Safari'];
+
+        function updateDynamicTable() {
+            const tbody = document.getElementById('dynamicRows');
+            tbody.innerHTML = '';
+
+            processes.forEach(proc => {
+                const cpu = (Math.random() * 10).toFixed(1) + '%';
+                const mem = (Math.random() * 200 + 50).toFixed(1) + ' MB';
+                const net = (Math.random() * 5).toFixed(1) + ' Mbps';
+
+                const row = `
+                    <tr class="border-b border-gray-800 hover:text-accent transition-colors">
+                        <td class="py-2">${proc}</td>
+                        <td class="py-2 text-green-400">${cpu}</td>
+                        <td class="py-2 text-blue-400">${mem}</td>
+                        <td class="py-2 text-yellow-400">${net}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+
+                if (proc === 'Chrome') {
+                    document.getElementById('chrome-cpu-display').innerText = `Chrome CPU: ${cpu}`;
+                }
+            });
         }
+
+        // Initial load and interval
+        updateDynamicTable();
+        setInterval(updateDynamicTable, 2000);
+
     </script>
 </body>
 
