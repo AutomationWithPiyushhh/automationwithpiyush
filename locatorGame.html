@@ -7,6 +7,8 @@
     <title>Locator Master | AutomationWithPiyush</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Add canvas-confetti for celebratory animations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
@@ -160,6 +162,111 @@
             padding: 0.5rem 1.5rem;
             font-weight: 600;
         }
+
+        /* --- NEW ANIMATIONS --- */
+        @keyframes successGlow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+                transform: scale(1);
+            }
+
+            50% {
+                box-shadow: 0 0 0 15px rgba(34, 197, 94, 0);
+                transform: scale(1.02);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+                transform: scale(1);
+            }
+        }
+
+        .success-glow {
+            animation: successGlow 0.6s ease-out;
+            border-color: #22c55e !important;
+        }
+
+        @keyframes errorFlash {
+            0% {
+                border-color: #f87171;
+                background-color: #fef2f2;
+            }
+
+            50% {
+                border-color: #ef4444;
+                background-color: #fee2e2;
+            }
+
+            100% {
+                border-color: rgba(251, 191, 36, 0.3);
+                background-color: rgba(255, 255, 255, 0.9);
+            }
+        }
+
+        .error-flash {
+            animation: errorFlash 0.5s ease-out;
+        }
+
+        @keyframes levelUpTransition {
+            0% {
+                opacity: 0;
+                transform: scale(0.9) translateY(30px) rotateX(-10deg);
+                filter: blur(5px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0) rotateX(0);
+                filter: blur(0);
+            }
+        }
+
+        .level-up-anim {
+            animation: levelUpTransition 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes skipTransition {
+            0% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+
+            50% {
+                opacity: 0;
+                transform: translateX(-50px) scale(0.95);
+                filter: grayscale(100%);
+            }
+
+            51% {
+                opacity: 0;
+                transform: translateX(50px) scale(0.95);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+                filter: grayscale(0%);
+            }
+        }
+
+        .skip-anim {
+            animation: skipTransition 0.6s ease-in-out forwards;
+        }
+
+        .celebration-bg {
+            background: linear-gradient(135deg, rgba(253, 230, 138, 0.8), rgba(254, 215, 170, 0.8));
+            animation: bgPulse 2s infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            from {
+                filter: brightness(1);
+            }
+
+            to {
+                filter: brightness(1.1);
+            }
+        }
     </style>
 </head>
 
@@ -225,12 +332,26 @@
 
         <!-- Game Complete Modal (Hidden by default) -->
         <div id="game-complete"
-            class="hidden mt-10 p-10 bg-gradient-to-br from-amber-100 to-orange-100 border border-amber-300 rounded-3xl text-center pop-in shadow-xl">
-            <i class="fa-solid fa-crown text-6xl text-amber-500 mb-4 drop-shadow-md"></i>
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Automation Master!</h2>
-            <p class="text-gray-700 text-lg mb-6">You have successfully mastered Direct Locators, CSS Selectors, and
-                advanced XPath Axes!</p>
-            <p class="text-2xl font-bold text-amber-600 mb-8">Final Score: <span id="final-score">0</span></p>
+            class="hidden mt-10 p-10 bg-gradient-to-br from-amber-100 to-orange-100 border border-amber-300 rounded-3xl text-center pop-in shadow-xl transition-all duration-500">
+            <div id="final-icon-container" class="text-6xl mb-4 drop-shadow-md transform transition hover:scale-110">
+                <i class="fa-solid fa-crown text-amber-500"></i>
+            </div>
+            <h2 id="final-title" class="text-4xl font-bold text-gray-900 mb-4">Automation Master!</h2>
+            <p id="final-message" class="text-gray-700 text-lg mb-6">You have successfully mastered Direct Locators, CSS
+                Selectors, and advanced XPath Axes!</p>
+
+            <div class="bg-white/50 rounded-2xl p-6 mb-8 inline-block shadow-sm">
+                <p class="text-gray-600 font-semibold uppercase tracking-widest text-sm mb-1">Final Score</p>
+                <p class="text-5xl font-extrabold text-amber-600"><span id="final-score">0</span> <span
+                        class="text-2xl text-gray-400">/ <span id="max-score">0</span></span></p>
+            </div>
+
+            <p class="text-sm text-gray-500 italic">"Om, May the Lord protect and move us both together..."</p>
+
+            <button onclick="location.reload()"
+                class="mt-8 bg-gray-900 hover:bg-black text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105 flex items-center mx-auto">
+                <i class="fa-solid fa-rotate-right mr-2"></i> Play Again
+            </button>
         </div>
 
     </main>
@@ -381,10 +502,15 @@
         let currentLevelIndex = 0;
         let score = 0;
         let completedChallengesInLevel = 0;
+        let maxScore = 0; // Will be calculated on init
 
         // --- CORE LOGIC ---
 
         function initGame() {
+            // Calculate max possible score dynamically
+            maxScore = gameData.reduce((total, level) => total + (level.challenges.length * 10), 0);
+            document.getElementById('max-score').innerText = maxScore;
+
             loadLevel(currentLevelIndex);
         }
 
@@ -471,15 +597,28 @@
                 // Success
                 errorEl.classList.add('hidden');
                 inputEl.disabled = true;
-                inputEl.classList.add('bg-green-50', 'border-green-400', 'text-green-800');
+
+                // Add success animations
+                inputEl.classList.add('bg-green-50', 'text-green-800');
                 inputEl.classList.remove('glass-input');
+                cardEl.classList.add('success-glow', 'border-green-300', 'bg-green-50/40');
 
                 btnEl.disabled = true;
                 btnEl.innerHTML = `Correct <i class="fa-solid fa-check ml-2"></i>`;
                 btnEl.classList.remove('bg-amber-400', 'hover:bg-amber-500');
-                btnEl.classList.add('bg-green-500', 'text-white');
+                btnEl.classList.add('bg-green-500', 'text-white', 'scale-105');
 
-                cardEl.classList.add('border-green-200', 'bg-green-50/30');
+                // Confetti mini-burst on the button
+                const rect = btnEl.getBoundingClientRect();
+                const x = (rect.left + rect.width / 2) / window.innerWidth;
+                const y = (rect.top + rect.height / 2) / window.innerHeight;
+                confetti({
+                    particleCount: 40,
+                    spread: 50,
+                    origin: { x, y },
+                    colors: ['#22c55e', '#fbbf24', '#ffffff'],
+                    disableForReducedMotion: true
+                });
 
                 addPoints(10, btnEl);
                 completedChallengesInLevel++;
@@ -488,9 +627,17 @@
             } else {
                 // Fail
                 errorEl.classList.remove('hidden');
+
+                // Reset and re-trigger shake + flash
                 cardEl.classList.remove('shake');
+                inputEl.classList.remove('error-flash');
                 void cardEl.offsetWidth; // trigger reflow
                 cardEl.classList.add('shake');
+                inputEl.classList.add('error-flash');
+
+                // Small haptic-like red border
+                inputEl.style.borderColor = '#ef4444';
+                setTimeout(() => { if (!inputEl.disabled) inputEl.style.borderColor = ''; }, 500);
             }
         }
 
@@ -545,10 +692,52 @@
             document.getElementById('back-btn').classList.add('hidden'); // Hide back button
             document.getElementById('level-complete').classList.add('hidden'); // Hide level complete if visible
 
-            document.getElementById('game-complete').classList.remove('hidden');
+            const gameCompleteEl = document.getElementById('game-complete');
+            gameCompleteEl.classList.remove('hidden');
             document.getElementById('final-score').innerText = score;
+
+            // Dynamic Celebration based on Score
+            const iconContainer = document.getElementById('final-icon-container');
+            const titleEl = document.getElementById('final-title');
+            const messageEl = document.getElementById('final-message');
+
             document.getElementById('level-title').innerText = "Course Completed";
-            document.getElementById('level-desc').innerText = "You have mastered all locators.";
+            document.getElementById('level-desc').innerText = "Here is your final performance.";
+
+            if (score === maxScore) {
+                // Perfect Score
+                iconContainer.innerHTML = '<i class="fa-solid fa-trophy text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.8)]"></i>';
+                titleEl.innerText = "Flawless Master!";
+                titleEl.className = "text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-600 mb-4 animate-pulse";
+                messageEl.innerText = "Absolutely perfect! You found every single locator without skipping. You are a Selenium God!";
+                gameCompleteEl.classList.add('celebration-bg');
+
+                // Continuous confetti
+                const duration = 3000;
+                const end = Date.now() + duration;
+                (function frame() {
+                    confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#fbbf24', '#f59e0b', '#ef4444'] });
+                    confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#fbbf24', '#f59e0b', '#ef4444'] });
+                    if (Date.now() < end) requestAnimationFrame(frame);
+                }());
+
+            } else if (score === 0) {
+                // Zero Score
+                iconContainer.innerHTML = '<i class="fa-solid fa-seedling text-green-500"></i>';
+                titleEl.innerText = "Every Expert Was a Beginner";
+                titleEl.className = "text-4xl font-bold text-gray-800 mb-4";
+                messageEl.innerText = "You skipped the challenges, but that's okay! Locators take practice. Restart the game and try tackling them one by one. You've got this!";
+
+            } else {
+                // Partial Score
+                iconContainer.innerHTML = '<i class="fa-solid fa-medal text-blue-500"></i>';
+                titleEl.innerText = "Great Effort!";
+                titleEl.className = "text-4xl font-bold text-gray-800 mb-4";
+                messageEl.innerText = "You successfully solved several locators! Review the ones you skipped and aim for a perfect score next time.";
+
+                // Single nice confetti burst
+                confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+            }
         }
 
         function checkLevelComplete() {
@@ -559,6 +748,14 @@
                         document.getElementById('level-complete').classList.remove('hidden');
                         document.getElementById('skip-btn').classList.add('hidden'); // Hide skip button when Level Complete shows
                         document.getElementById('back-btn').classList.add('hidden'); // Hide back button when Level Complete shows
+
+                        // Level complete celebration confetti
+                        confetti({
+                            particleCount: 100,
+                            spread: 70,
+                            origin: { y: 0.8 },
+                            colors: ['#22c55e', '#ffffff']
+                        });
                     }, 500);
                 } else {
                     // Game Complete
@@ -570,31 +767,51 @@
         }
 
         function skipLevel() {
-            if (currentLevelIndex < gameData.length - 1) {
-                // Not the last level, skip to the next
-                currentLevelIndex++;
-                loadLevel(currentLevelIndex);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                // It is the last level, skip finishes the game
-                showGameComplete();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+            const container = document.getElementById('game-container');
+
+            // Add skip animation
+            container.classList.add('skip-anim');
+
+            setTimeout(() => {
+                if (currentLevelIndex < gameData.length - 1) {
+                    // Not the last level, skip to the next
+                    currentLevelIndex++;
+                    loadLevel(currentLevelIndex);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    // It is the last level, skip finishes the game
+                    showGameComplete();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+
+                // Remove animation class after transition
+                setTimeout(() => container.classList.remove('skip-anim'), 50);
+            }, 300); // Wait for half the skip animation duration
         }
 
         function previousLevel() {
             if (currentLevelIndex > 0) {
-                // Go back to previous level
-                currentLevelIndex--;
-                loadLevel(currentLevelIndex);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                const container = document.getElementById('game-container');
+                container.classList.add('skip-anim'); // Reuse skip animation for going back
+
+                setTimeout(() => {
+                    currentLevelIndex--;
+                    loadLevel(currentLevelIndex);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    setTimeout(() => container.classList.remove('skip-anim'), 50);
+                }, 300);
             }
         }
 
         function nextLevel() {
+            const container = document.getElementById('game-container');
+            container.classList.add('level-up-anim'); // Play happy level up animation
+
             currentLevelIndex++;
             loadLevel(currentLevelIndex);
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            setTimeout(() => container.classList.remove('level-up-anim'), 600);
         }
 
         // Start Game
