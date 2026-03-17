@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locator Master | AutomationWithPiyush</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb;
+            /* Light background from your image */
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Abstract iOS Glassy Background Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            top: -10%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(251, 191, 36, 0.3);
+        }
+
+        /* Amber */
+        .orb-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: rgba(245, 158, 11, 0.2);
+        }
+
+        .orb-3 {
+            top: 40%;
+            left: 40%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.8);
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-30px) scale(1.05);
+            }
+        }
+
+        /* iOS Glassmorphism Panel */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+            border-radius: 24px;
+        }
+
+        .glass-input {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .glass-input:focus {
+            outline: none;
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+        }
+
+        /* Animations */
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-8px);
+            }
+
+            75% {
+                transform: translateX(8px);
+            }
+        }
+
+        .shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.9) translateY(10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .pop-in {
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes pointFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-40px) scale(1.5);
+            }
+        }
+
+        .point-float {
+            position: absolute;
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.2rem;
+            animation: pointFloat 1s ease-out forwards;
+            pointer-events: none;
+        }
+
+        .code-block {
+            font-family: 'Courier New', Courier, monospace;
+            background: rgba(30, 41, 59, 0.05);
+            border-left: 4px solid #fbbf24;
+        }
+
+        /* Nav styling replicating the image */
+        .nav-btn-active {
+            background-color: #fbbf24;
+            /* Yellow from image */
+            color: #000;
+            border-radius: 9999px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body class="text-gray-800 min-h-screen flex flex-col items-center pt-6 pb-12">
+
+    <!-- Background Orbs for Glassy Effect -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Main Game Container -->
+    <main class="w-11/12 max-w-5xl glass-panel p-8 md:p-12 relative z-10 pop-in" id="game-container">
+
+        <!-- Header & Stats -->
+        <div
+            class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-gray-200 pb-6 mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 mb-2" id="level-title">Loading Level...</h1>
+                <p class="text-gray-500" id="level-desc">Prepare your locators.</p>
+            </div>
+
+            <div class="flex flex-row items-center space-x-2 md:space-x-4 mt-4 md:mt-0">
+                <!-- Back Button -->
+                <button onclick="previousLevel()" id="back-btn"
+                    class="text-gray-500 hover:text-amber-600 font-semibold px-4 py-2 rounded-full hover:bg-white/50 transition-all flex items-center shadow-sm border border-transparent hover:border-amber-200 hidden">
+                    <i class="fa-solid fa-backward-step mr-2"></i> Back
+                </button>
+
+                <!-- Skip Button -->
+                <button onclick="skipLevel()" id="skip-btn"
+                    class="text-gray-500 hover:text-amber-600 font-semibold px-4 py-2 rounded-full hover:bg-white/50 transition-all flex items-center shadow-sm border border-transparent hover:border-amber-200">
+                    Skip <i class="fa-solid fa-forward-step ml-2"></i>
+                </button>
+
+                <!-- Score Display -->
+                <div
+                    class="glass-panel px-6 py-3 bg-white/40 flex items-center space-x-4 border-amber-200 border ml-2 md:ml-0">
+                    <i class="fa-solid fa-trophy text-amber-500 text-2xl"></i>
+                    <div>
+                        <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">Score</p>
+                        <p class="text-2xl font-bold text-gray-900 leading-none" id="score-display">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Challenge Area -->
+        <div id="challenges-container" class="space-y-8">
+            <!-- Challenges injected here by JS -->
+        </div>
+
+        <!-- Level Complete Modal (Hidden by default) -->
+        <div id="level-complete"
+            class="hidden mt-10 p-8 bg-green-50 border border-green-200 rounded-2xl text-center pop-in">
+            <h2 class="text-2xl font-bold text-green-700 mb-2"><i class="fa-solid fa-circle-check mr-2"></i>Level
+                Complete!</h2>
+            <p class="text-green-600 mb-6">Excellent work! You successfully found all elements.</p>
+            <button onclick="nextLevel()"
+                class="bg-amber-400 hover:bg-amber-500 text-black font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
+                Start Next Level <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+
+        <!-- Game Complete Modal (Hidden by default) -->
+        <div id="game-complete"
+            class="hidden mt-10 p-10 bg-gradient-to-br from-amber-100 to-orange-100 border border-amber-300 rounded-3xl text-center pop-in shadow-xl">
+            <i class="fa-solid fa-crown text-6xl text-amber-500 mb-4 drop-shadow-md"></i>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Automation Master!</h2>
+            <p class="text-gray-700 text-lg mb-6">You have successfully mastered Direct Locators, CSS Selectors, and
+                advanced XPath Axes!</p>
+            <p class="text-2xl font-bold text-amber-600 mb-8">Final Score: <span id="final-score">0</span></p>
+        </div>
+
+    </main>
+
+    <script>
+        // --- GAME DATA ---
+        const gameData = [
+            {
+                level: 1,
+                title: "Level 1: The Basics",
+                desc: "Master the direct locators: id, name, and linkText.",
+                challenges: [
+                    {
+                        id: "l1-c1",
+                        instruction: "Find the username input field using its <strong>ID</strong>.",
+                        htmlSnippet: `<input id="user-login" type="text" placeholder="Username">`,
+                        elementHtml: `<input type="text" placeholder="Username" class="border border-gray-300 p-2 rounded w-full bg-gray-50" disabled>`,
+                        expectedType: "id",
+                        expectedValues: ["user-login"],
+                        placeholder: "By.id(...)"
+                    },
+                    {
+                        id: "l1-c2",
+                        instruction: "Find the submit button using its <strong>Name</strong>.",
+                        htmlSnippet: `<button name="submit_action">Submit</button>`,
+                        elementHtml: `<button class="bg-blue-600 text-white px-4 py-2 rounded opacity-75 cursor-not-allowed">Submit</button>`,
+                        expectedType: "name",
+                        expectedValues: ["submit_action"],
+                        placeholder: "By.name(...)"
+                    },
+                    {
+                        id: "l1-c3",
+                        instruction: "Find the link using exact <strong>Link Text</strong>.",
+                        htmlSnippet: `<a href="/dashboard">Go to Dashboard</a>`,
+                        elementHtml: `<a href="#" class="text-blue-600 underline font-medium cursor-not-allowed pointer-events-none">Go to Dashboard</a>`,
+                        expectedType: "linkText",
+                        expectedValues: ["Go to Dashboard"],
+                        placeholder: "By.linkText(...)"
+                    }
+                ]
+            },
+            {
+                level: 2,
+                title: "Level 2: Partial Text",
+                desc: "Sometimes full text is too long or dynamic. Use partialLinkText.",
+                challenges: [
+                    {
+                        id: "l2-c1",
+                        instruction: "Find this link using <strong>Partial Link Text</strong> (Target the word 'Terms').",
+                        htmlSnippet: `<a href="/terms">Click here to read our Terms and Conditions</a>`,
+                        elementHtml: `<a href="#" class="text-blue-600 hover:text-blue-800 cursor-not-allowed pointer-events-none">Click here to read our Terms and Conditions</a>`,
+                        expectedType: "partialLinkText",
+                        expectedValues: ["Terms", "Terms and", "Terms and Conditions"],
+                        placeholder: "By.partialLinkText(...)"
+                    }
+                ]
+            },
+            {
+                level: 3,
+                title: "Level 3: CSS Selectors",
+                desc: "Target elements using classes and CSS relationships.",
+                challenges: [
+                    {
+                        id: "l3-c1",
+                        instruction: "Find this input using a <strong>CSS Selector</strong> targeting its class name.",
+                        htmlSnippet: `<input class="search-box" type="text">`,
+                        elementHtml: `<input type="text" class="border border-gray-300 p-2 rounded w-full bg-gray-50" disabled placeholder="Search...">`,
+                        expectedType: "cssSelector",
+                        expectedValues: [".search-box", "input.search-box", "[class='search-box']", "input[class='search-box']", "input[type = 'text']"],
+                        placeholder: "By.cssSelector(...)"
+                    }
+                ]
+            },
+            {
+                level: 4,
+                title: "Level 4: XPath Masterclass",
+                desc: "The ultimate weapon. Master attributes, text, contains, and axes.",
+                challenges: [
+                    {
+                        id: "l4-c1",
+                        instruction: "1. XPath by <strong>Attribute</strong>. Target the placeholder.",
+                        htmlSnippet: `<input placeholder="Enter City">`,
+                        elementHtml: `<input type="text" placeholder="Enter City" class="border p-2 rounded bg-gray-50 w-64" disabled>`,
+                        expectedType: "xpath",
+                        expectedValues: ["//input[@placeholder='Enter City']"],
+                        placeholder: "By.xpath(...)"
+                    },
+                    {
+                        id: "l4-c2",
+                        instruction: "2. XPath by <strong>Text Function</strong>. Target the visible text.",
+                        htmlSnippet: `<button>Register Now</button>`,
+                        elementHtml: `<button class="bg-indigo-600 text-white px-4 py-2 rounded opacity-75">Register Now</button>`,
+                        expectedType: "xpath",
+                        expectedValues: ["//button[text()='Register Now']"],
+                        placeholder: "By.xpath(...)"
+                    },
+                    {
+                        id: "l4-c3",
+                        instruction: "3. XPath by <strong>Contains()</strong>. The class name is dynamic (e.g., success-123). Target the word 'success'.",
+                        htmlSnippet: `<div class="msg-success-9847">Saved Successfully</div>`,
+                        elementHtml: `<div class="bg-green-100 text-green-800 p-2 rounded w-full">Saved Successfully</div>`,
+                        expectedType: "xpath",
+                        expectedValues: ["//div[contains(@class, 'success')]", "//div[contains(@class,'msg-success')]"],
+                        placeholder: "By.xpath(...)"
+                    },
+                    {
+                        id: "l4-c4",
+                        instruction: "4. XPath by <strong>Multiple Attributes</strong>. Ensure it's type='submit' AND value='Save'.",
+                        htmlSnippet: `<input type="submit" value="Save" class="btn">`,
+                        elementHtml: `<input type="button" value="Save" class="bg-gray-800 text-white px-6 py-2 rounded" disabled>`,
+                        expectedType: "xpath",
+                        expectedValues: ["//input[@type='submit' and @value='Save']", "//input[@value='Save' and @type='submit']"],
+                        placeholder: "By.xpath(...)"
+                    },
+                    {
+                        id: "l4-c5",
+                        instruction: "5. XPath by <strong>Surroundings (Parent -> Child)</strong>. Find the 'Apple' span that is inside the 'fruit-box' div.",
+                        htmlSnippet: `<div id="fruit-box">\n  <span class="item">Apple</span>\n</div>\n<div id="veg-box">\n  <span class="item">Apple</span>\n</div>`,
+                        elementHtml: `
+                            <div class="flex space-x-4">
+                                <div class="border-2 border-green-300 p-2 rounded text-center"><span class="text-xs text-green-600 block mb-1">#fruit-box</span><span class="bg-red-100 text-red-800 px-2 py-1 rounded">Apple (Target)</span></div>
+                                <div class="border-2 border-gray-300 p-2 rounded text-center opacity-50"><span class="text-xs text-gray-500 block mb-1">#veg-box</span><span class="bg-red-100 text-red-800 px-2 py-1 rounded">Apple</span></div>
+                            </div>
+                        `,
+                        expectedType: "xpath",
+                        expectedValues: ["//div[@id='fruit-box']//span[@class='item']", "//div[@id='fruit-box']/span[@class='item']"],
+                        placeholder: "By.xpath(...)"
+                    },
+                    {
+                        id: "l4-c6",
+                        instruction: "6. XPath by <strong>Axes (Following-sibling)</strong>. Target the 'Delete' button exactly for 'Jane'.",
+                        htmlSnippet: `<tr>\n  <td>Jane</td>\n  <td><button>Delete</button></td>\n</tr>`,
+                        elementHtml: `
+                            <div class="border rounded p-2 bg-white">
+                                <div class="flex justify-between border-b p-1 opacity-50"><span>John</span><button class="text-red-500">Delete</button></div>
+                                <div class="flex justify-between p-1 bg-yellow-50"><span>Jane</span><button class="text-red-600 font-bold border border-red-200 px-2 rounded">Delete (Target)</button></div>
+                            </div>
+                        `,
+                        expectedType: "xpath",
+                        expectedValues: ["//td[text()='Jane']/following-sibling::td/button", "//td[text()='Jane']/following-sibling::td//button"],
+                        placeholder: "By.xpath(...)"
+                    }
+                ]
+            }
+        ];
+
+        // --- GAME STATE ---
+        let currentLevelIndex = 0;
+        let score = 0;
+        let completedChallengesInLevel = 0;
+
+        // --- CORE LOGIC ---
+
+        function initGame() {
+            loadLevel(currentLevelIndex);
+        }
+
+        function loadLevel(index) {
+            const levelData = gameData[index];
+            document.getElementById('level-title').innerText = levelData.title;
+            document.getElementById('level-desc').innerText = levelData.desc;
+
+            const container = document.getElementById('challenges-container');
+            container.innerHTML = ''; // Clear previous
+            completedChallengesInLevel = 0;
+
+            // Reset Modals and Buttons
+            document.getElementById('level-complete').classList.add('hidden');
+            document.getElementById('game-complete').classList.add('hidden');
+            document.getElementById('skip-btn').classList.remove('hidden');
+
+            // Hide Back button on the first level
+            if (index === 0) {
+                document.getElementById('back-btn').classList.add('hidden');
+            } else {
+                document.getElementById('back-btn').classList.remove('hidden');
+            }
+
+            levelData.challenges.forEach((ch, i) => {
+                const delay = i * 0.1; // Staggered animation
+
+                // Escape HTML for snippet display
+                const escapedSnippet = ch.htmlSnippet.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
+
+                const challengeCard = `
+                    <div class="bg-white/70 backdrop-blur-sm border border-gray-100 rounded-2xl p-6 shadow-sm pop-in" style="animation-delay: ${delay}s" id="card-${ch.id}">
+                        <div class="flex items-start mb-4">
+                            <div class="bg-amber-100 text-amber-800 w-8 h-8 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">${i + 1}</div>
+                            <p class="text-gray-800 text-lg" style="margin-top: 2px;">${ch.instruction}</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-4 pl-11">
+                            <!-- Visual Element -->
+                            <div>
+                                <p class="text-xs text-gray-400 font-semibold mb-2 uppercase tracking-wider">Target Element in UI</p>
+                                <div class="p-4 bg-white border border-gray-200 rounded-xl min-h-[80px] flex items-center shadow-inner">
+                                    ${ch.elementHtml}
+                                </div>
+                            </div>
+                            <!-- HTML Source -->
+                            <div>
+                                <p class="text-xs text-gray-400 font-semibold mb-2 uppercase tracking-wider">DOM Source Code</p>
+                                <div class="code-block p-4 rounded-xl text-sm text-gray-700 overflow-x-auto min-h-[80px] flex items-center shadow-inner">
+                                    <code>${escapedSnippet}</code>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input Area -->
+                        <div class="pl-11 mt-6 relative">
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">Write your Selenium Locator (Java):</label>
+                            <div class="flex space-x-3">
+                                <input type="text" id="input-${ch.id}" class="glass-input w-full p-3 rounded-xl font-mono text-sm text-blue-800" placeholder='${ch.placeholder}' onkeydown="if(event.key === 'Enter') checkAnswer('${ch.id}', '${ch.expectedType}')">
+                                <button id="btn-${ch.id}" onclick="checkAnswer('${ch.id}', '${ch.expectedType}')" class="bg-amber-400 hover:bg-amber-500 text-black font-semibold px-6 py-3 rounded-xl transition duration-200 flex items-center whitespace-nowrap shadow-sm">
+                                    Verify <i class="fa-solid fa-check-circle ml-2"></i>
+                                </button>
+                            </div>
+                            <p id="error-${ch.id}" class="text-red-500 text-sm mt-2 hidden font-medium"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Incorrect locator or syntax. Check quotes and spelling!</p>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += challengeCard;
+            });
+        }
+
+        function checkAnswer(challengeId, expectedType) {
+            const inputEl = document.getElementById(`input-${challengeId}`);
+            const btnEl = document.getElementById(`btn-${challengeId}`);
+            const cardEl = document.getElementById(`card-${challengeId}`);
+            const errorEl = document.getElementById(`error-${challengeId}`);
+
+            if (inputEl.disabled) return; // Already solved
+
+            const userInput = inputEl.value.trim();
+            const challenge = gameData[currentLevelIndex].challenges.find(c => c.id === challengeId);
+
+            if (validateLocator(userInput, challenge.expectedType, challenge.expectedValues)) {
+                // Success
+                errorEl.classList.add('hidden');
+                inputEl.disabled = true;
+                inputEl.classList.add('bg-green-50', 'border-green-400', 'text-green-800');
+                inputEl.classList.remove('glass-input');
+
+                btnEl.disabled = true;
+                btnEl.innerHTML = `Correct <i class="fa-solid fa-check ml-2"></i>`;
+                btnEl.classList.remove('bg-amber-400', 'hover:bg-amber-500');
+                btnEl.classList.add('bg-green-500', 'text-white');
+
+                cardEl.classList.add('border-green-200', 'bg-green-50/30');
+
+                addPoints(10, btnEl);
+                completedChallengesInLevel++;
+
+                checkLevelComplete();
+            } else {
+                // Fail
+                errorEl.classList.remove('hidden');
+                cardEl.classList.remove('shake');
+                void cardEl.offsetWidth; // trigger reflow
+                cardEl.classList.add('shake');
+            }
+        }
+
+        function validateLocator(userInput, expectedType, expectedValues) {
+            // Flexible Regex to parse `By.locatorName("value")` or `By.locatorName('value')`
+            const match = userInput.match(/^By\.([a-zA-Z]+)\(\s*(['"])(.*?)\2\s*\)$/);
+            if (!match) return false;
+
+            const type = match[1];
+            const value = match[3];
+
+            if (type.toLowerCase() !== expectedType.toLowerCase()) return false;
+
+            // Check if extracted value matches expected values (ignoring minor quote differences inside xpath)
+            for (let expected of expectedValues) {
+                // Normalize internal quotes for comparison
+                const normalizedValue = value.replace(/'/g, '"');
+                const normalizedExpected = expected.replace(/'/g, '"');
+
+                if (normalizedValue === normalizedExpected) return true;
+                if (value === expected) return true;
+            }
+            return false;
+        }
+
+        function addPoints(points, triggerElement) {
+            score += points;
+
+            // Animate score counter
+            const scoreEl = document.getElementById('score-display');
+            scoreEl.innerText = score;
+            scoreEl.classList.remove('pop-in');
+            void scoreEl.offsetWidth;
+            scoreEl.classList.add('pop-in', 'text-amber-500');
+            setTimeout(() => scoreEl.classList.remove('text-amber-500'), 500);
+
+            // Floating +10 text
+            const rect = triggerElement.getBoundingClientRect();
+            const floatText = document.createElement('div');
+            floatText.innerText = `+${points}`;
+            floatText.className = 'point-float';
+            floatText.style.left = `${rect.left + (rect.width / 2)}px`;
+            floatText.style.top = `${rect.top - 20}px`;
+            document.body.appendChild(floatText);
+
+            setTimeout(() => floatText.remove(), 1000);
+        }
+
+        function showGameComplete() {
+            document.getElementById('challenges-container').innerHTML = '';
+            document.getElementById('skip-btn').classList.add('hidden'); // Hide skip button
+            document.getElementById('back-btn').classList.add('hidden'); // Hide back button
+            document.getElementById('level-complete').classList.add('hidden'); // Hide level complete if visible
+
+            document.getElementById('game-complete').classList.remove('hidden');
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('level-title').innerText = "Course Completed";
+            document.getElementById('level-desc').innerText = "You have mastered all locators.";
+        }
+
+        function checkLevelComplete() {
+            const levelData = gameData[currentLevelIndex];
+            if (completedChallengesInLevel === levelData.challenges.length) {
+                if (currentLevelIndex < gameData.length - 1) {
+                    setTimeout(() => {
+                        document.getElementById('level-complete').classList.remove('hidden');
+                        document.getElementById('skip-btn').classList.add('hidden'); // Hide skip button when Level Complete shows
+                        document.getElementById('back-btn').classList.add('hidden'); // Hide back button when Level Complete shows
+                    }, 500);
+                } else {
+                    // Game Complete
+                    setTimeout(() => {
+                        showGameComplete();
+                    }, 800);
+                }
+            }
+        }
+
+        function skipLevel() {
+            if (currentLevelIndex < gameData.length - 1) {
+                // Not the last level, skip to the next
+                currentLevelIndex++;
+                loadLevel(currentLevelIndex);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                // It is the last level, skip finishes the game
+                showGameComplete();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function previousLevel() {
+            if (currentLevelIndex > 0) {
+                // Go back to previous level
+                currentLevelIndex--;
+                loadLevel(currentLevelIndex);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function nextLevel() {
+            currentLevelIndex++;
+            loadLevel(currentLevelIndex);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Start Game
+        window.onload = initGame;
+
+    </script>
+</body>
+
+</html>
