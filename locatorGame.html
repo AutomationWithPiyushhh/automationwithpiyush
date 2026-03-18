@@ -476,7 +476,7 @@
                             </div>
                         `,
                         expectedType: "xpath",
-                        expectedValues: ["//div[@id='fruit-box']//span[@class='item']", "//div[@id='fruit-box']/span[@class='item']"],
+                        expectedValues: ["//div[@id='fruit-box']/span", "//div[@id='fruit-box']//span", "//div[@id='fruit-box']//span[@class='item']", "//div[@id='fruit-box']/span[@class='item']"],
                         placeholder: "By.xpath(...)"
                     },
                     {
@@ -490,7 +490,7 @@
                             </div>
                         `,
                         expectedType: "xpath",
-                        expectedValues: ["//td[text()='Jane']/following-sibling::td/button", "//td[text()='Jane']/following-sibling::td//button"],
+                        expectedValues: ["//td[text()='Jane']/../td/button", "//td[text()='Jane']/following-sibling::td/button", "//td[text()='Jane']/following-sibling::td//button"],
                         placeholder: "By.xpath(...)"
                     }
                 ]
