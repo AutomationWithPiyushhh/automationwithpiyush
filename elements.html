@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automation Practice | Surgical Mode</title>
+    <title>WebElement Interface</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -14,76 +14,122 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
         body {
-            background-color: #1a1b23;
-            color: #ffffff;
+            /* Warm, creamy gradient background matching the image */
+            background: linear-gradient(135deg, #fffcf5 0%, #f3ede0 100%);
+            color: #1f2937;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        .bg-card {
-            background-color: #252631;
+        /* Glassmorphism Classes */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 1);
+            border-radius: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 50px -10px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 1rem;
         }
 
         .text-accent {
-            color: #facc15;
+            color: #fbbc05;
+            /* Amber/Yellow from image */
         }
 
-        /* Custom Input Styling */
+        .bg-accent {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        .bg-accent:hover {
+            background-color: #ffca2c;
+        }
+
+        /* Custom Input Styling - Light & Glassy */
         input[type="text"],
         input[type="email"],
         input[type="date"],
         select,
         textarea {
-            background-color: #1a1b23;
-            border: 1px solid #374151;
-            color: white;
-            padding: 0.75rem;
-            border-radius: 0.375rem;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            color: #1f2937;
+            padding: 0.875rem 1rem;
+            border-radius: 0.75rem;
             width: 100%;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
         }
 
         input:focus,
         select:focus,
         textarea:focus {
             outline: none;
-            border-color: #facc15;
-            box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
+            border-color: #ffc107;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.15), inset 0 2px 4px rgba(0, 0, 0, 0.01);
+        }
+
+        /* Checkbox & Radio */
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: 1.1rem;
+            height: 1.1rem;
+            accent-color: #ffc107;
+            cursor: pointer;
         }
 
         /* Toast Notification Animation */
         #toast-container {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
+            top: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .toast {
-            background: #252631;
-            border-left: 4px solid #facc15;
-            color: white;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-left: 4px solid #ffc107;
+            border-radius: 12px;
+            color: #1f2937;
             padding: 1rem 1.5rem;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
-            gap: 10px;
-            animation: slideIn 0.3s ease-out forwards, fadeOut 0.5s ease-in 2.5s forwards;
-            min-width: 300px;
+            gap: 12px;
+            font-weight: 600;
+            animation: slideInBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards, fadeOut 0.4s ease-in 3s forwards;
+            min-width: 280px;
         }
 
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
+        @keyframes slideInBounce {
+            0% {
+                transform: translateX(120%);
                 opacity: 0;
             }
 
-            to {
+            100% {
                 transform: translateX(0);
                 opacity: 1;
             }
@@ -92,31 +138,98 @@
         @keyframes fadeOut {
             from {
                 opacity: 1;
+                transform: translateX(0);
             }
 
             to {
                 opacity: 0;
+                transform: translateX(20px);
                 pointer-events: none;
             }
         }
 
-        /* Overriding jQuery UI for Dark Theme */
+        /* Overriding jQuery UI for Light Glassy Theme */
         .ui-widget-content {
-            background: #1a1b23 !important;
-            border: 1px solid #374151 !important;
-            color: white !important;
+            background: rgba(255, 255, 255, 0.6) !important;
+            backdrop-filter: blur(8px) !important;
+            border: 1px solid rgba(0, 0, 0, 0.1) !important;
+            border-radius: 1rem !important;
+            color: #1f2937 !important;
         }
 
         .ui-widget-header {
-            background: #374151 !important;
-            border: 1px solid #4b5563 !important;
-            color: white !important;
+            background: rgba(255, 193, 7, 0.3) !important;
+            border: none !important;
         }
 
         .ui-slider-handle {
-            background: #facc15 !important;
+            background: #ffffff !important;
+            border: 2px solid #ffc107 !important;
             border-radius: 50% !important;
-            border: none !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+            width: 1.2em !important;
+            height: 1.2em !important;
+            top: -.3em !important;
+            outline: none !important;
+            transition: transform 0.1s;
+        }
+
+        .ui-slider-handle:active {
+            transform: scale(1.1);
+        }
+
+        /* Custom Modal Styles (Replacing alert/confirm/prompt) */
+        #custom-modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #custom-modal-backdrop.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #custom-modal-backdrop.show .modal-content {
+            transform: scale(1);
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
@@ -125,127 +238,172 @@
 
     <div id="toast-container"></div>
 
-    <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-7xl mx-auto z-50">
-        <div class="flex items-center gap-3">
+    <!-- Custom Glassy Modal -->
+    <div id="custom-modal-backdrop">
+        <div class="modal-content text-center">
+            <div id="modal-icon" class="text-4xl mb-4 text-accent"><i class="fas fa-bell"></i></div>
+            <h3 id="modal-title" class="text-xl font-bold mb-2">Notice</h3>
+            <p id="modal-message" class="text-gray-600 mb-6 text-sm">Message goes here</p>
+
+            <div id="modal-input-container" class="mb-6 hidden">
+                <input type="text" id="modal-input" class="text-center" placeholder="Enter value...">
+            </div>
+
+            <div id="modal-buttons" class="flex justify-center gap-3">
+                <button id="modal-btn-cancel"
+                    class="hidden px-5 py-2.5 rounded-full text-sm font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition">Cancel</button>
+                <button id="modal-btn-confirm"
+                    class="px-5 py-2.5 rounded-full text-sm font-semibold bg-accent text-black shadow-md hover:shadow-lg transition">OK</button>
+            </div>
         </div>
-        <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">
-            <i class="fas fa-arrow-left mr-2"></i> Back to ward
+    </div>
+
+    <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-7xl mx-auto z-50">
+        <a href="#"
+            class="text-gray-500 hover:text-black transition-colors text-sm font-semibold flex items-center bg-white/40 px-4 py-2 rounded-full backdrop-blur-md border border-white/50">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
         </a>
 
     </nav>
 
-    <header class="max-w-7xl mx-auto px-6 py-10" data-aos="fade-down">
-        <p class="text-accent uppercase tracking-widest text-xs font-bold mb-4">— System Diagnostics & Controls</p>
-        <h1 class="text-4xl md:text-5xl font-bold">Test Element <span class="text-gray-600">Playground</span></h1>
+    <header class="max-w-7xl mx-auto px-6 py-6 mb-4" data-aos="fade-down">
+
+        <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-2">Test Element <span
+                class="text-gray-400">Playground</span></h1>
+        <p class="text-gray-500">Master UI interactions in a beautifully simulated environment.</p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12">
+    <main class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-8 md:gap-12">
 
-        <section class="space-y-8" data-aos="fade-right">
-            <div class="bg-card p-8 rounded-xl border border-gray-800 shadow-xl">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-xl font-bold flex items-center">
-                        <i class="fas fa-keyboard text-accent mr-3"></i> GUI Input Forms
+        <section class="space-y-8" data-aos="fade-right" data-aos-delay="100">
+            <!-- Form Card -->
+            <div class="glass-card p-6 md:p-8 relative overflow-hidden">
+                <!-- Decorative yellow blur blob -->
+                <div
+                    class="absolute -top-10 -right-10 w-40 h-40 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 pointer-events-none">
+                </div>
+
+                <div class="flex justify-between items-center mb-8 relative z-10">
+                    <h3 class="text-xl font-bold flex items-center text-gray-800">
+                        <span
+                            class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center mr-3 shadow-inner">
+                            <i class="fas fa-keyboard text-accent text-sm"></i>
+                        </span>
+                        GUI Input Forms
                     </h3>
                 </div>
 
-                <form id="guiForm" class="space-y-5">
-                    <div class="grid grid-cols-2 gap-4">
+                <form id="guiForm" class="space-y-6 relative z-10">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div>
-                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Name</label>
-                            <input type="text" id="name" placeholder="Enter Name">
+                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2 ml-1">Full
+                                Name</label>
+                            <input type="text" id="name" placeholder="John Doe">
                         </div>
                         <div>
-                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Email</label>
-                            <input type="email" id="email" placeholder="Enter Email">
+                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2 ml-1">Email
+                                Address</label>
+                            <input type="email" id="email" placeholder="john@example.com">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Address</label>
-                        <textarea id="address" rows="2" placeholder="Enter Address"></textarea>
+                        <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2 ml-1">Shipping
+                            Address</label>
+                        <textarea id="address" rows="2" placeholder="123 Apple Park Way..."></textarea>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-2 gap-5 glass-panel p-4">
                         <div>
-                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Gender</label>
-                            <div class="flex flex-col gap-2">
-                                <label class="flex items-center cursor-pointer hover:bg-white/5 p-2 rounded transition">
-                                    <input type="radio" name="gender" value="male" class="accent-yellow-400 w-4 h-4">
-                                    <span class="ml-2 text-sm text-gray-300">Male</span>
+                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-3">Gender</label>
+                            <div class="flex flex-col gap-3">
+                                <label class="flex items-center cursor-pointer group">
+                                    <input type="radio" name="gender" value="male">
+                                    <span
+                                        class="ml-3 text-sm text-gray-700 font-medium group-hover:text-black transition">Male</span>
                                 </label>
-                                <label class="flex items-center cursor-pointer hover:bg-white/5 p-2 rounded transition">
-                                    <input type="radio" name="gender" value="female" class="accent-yellow-400 w-4 h-4">
-                                    <span class="ml-2 text-sm text-gray-300">Female</span>
+                                <label class="flex items-center cursor-pointer group">
+                                    <input type="radio" name="gender" value="female">
+                                    <span
+                                        class="ml-3 text-sm text-gray-700 font-medium group-hover:text-black transition">Female</span>
                                 </label>
                             </div>
                         </div>
                         <div>
-                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Days</label>
-                            <div class="flex flex-col gap-1 h-24 overflow-y-auto">
-                                <label class="flex items-center"><input type="checkbox" id="sunday"
-                                        class="accent-yellow-400 mr-2">Sun</label>
-                                <label class="flex items-center"><input type="checkbox" id="monday"
-                                        class="accent-yellow-400 mr-2">Mon</label>
-                                <label class="flex items-center"><input type="checkbox" id="tuesday"
-                                        class="accent-yellow-400 mr-2">Tue</label>
-                                <label class="flex items-center"><input type="checkbox" id="wednesday"
-                                        class="accent-yellow-400 mr-2">Wed</label>
-                                <label class="flex items-center"><input type="checkbox" id="thursday"
-                                        class="accent-yellow-400 mr-2">Thu</label>
+                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-3">Available
+                                Days</label>
+                            <div class="flex flex-col gap-2 h-20 overflow-y-auto pr-2">
+                                <label class="flex items-center group cursor-pointer"><input type="checkbox" id="sunday"
+                                        class="mr-3"><span
+                                        class="text-sm font-medium text-gray-600 group-hover:text-black">Sunday</span></label>
+                                <label class="flex items-center group cursor-pointer"><input type="checkbox" id="monday"
+                                        class="mr-3"><span
+                                        class="text-sm font-medium text-gray-600 group-hover:text-black">Monday</span></label>
+                                <label class="flex items-center group cursor-pointer"><input type="checkbox"
+                                        id="tuesday" class="mr-3"><span
+                                        class="text-sm font-medium text-gray-600 group-hover:text-black">Tuesday</span></label>
+                                <label class="flex items-center group cursor-pointer"><input type="checkbox"
+                                        id="wednesday" class="mr-3"><span
+                                        class="text-sm font-medium text-gray-600 group-hover:text-black">Wednesday</span></label>
                             </div>
                         </div>
                     </div>
 
-                    <div>
-                        <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Country</label>
-                        <select id="country">
-                            <option value="usa">United States</option>
-                            <option value="uk">United Kingdom</option>
-                            <option value="canada">Canada</option>
-                            <option value="india">India</option>
-                            <option value="china">China</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">Date Picker</label>
-                        <input type="date" id="datepicker">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2 ml-1">Region</label>
+                            <select id="country" class="cursor-pointer">
+                                <option value="usa">United States</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="canada">Canada</option>
+                                <option value="india">India</option>
+                                <option value="china">China</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2 ml-1">Appointment
+                                Date</label>
+                            <input type="date" id="datepicker" class="cursor-pointer">
+                        </div>
                     </div>
                 </form>
             </div>
 
-            <div class="bg-card rounded-xl border border-gray-800 overflow-hidden">
-                <div class="p-6 border-b border-gray-800 bg-[#1f202a] flex justify-between items-center">
-                    <h3 class="font-bold text-sm uppercase tracking-widest">Static Web Table</h3>
+            <!-- Static Table Card -->
+            <div class="glass-card overflow-hidden">
+                <div
+                    class="p-5 border-b border-gray-100 bg-white/40 flex justify-between items-center backdrop-blur-md">
+                    <h3 class="font-bold text-xs uppercase tracking-widest text-gray-500 flex items-center">
+                        <i class="fas fa-table text-accent mr-2"></i> Data Grid
+                    </h3>
                 </div>
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto p-2">
                     <table class="w-full text-left text-sm" name="BookTable" id="productTable">
-                        <thead class="bg-[#1a1b23] text-gray-500 border-b border-gray-800">
+                        <thead class="text-gray-400 text-xs uppercase bg-black/5 rounded-lg">
                             <tr>
-                                <th class="px-6 py-3">Book</th>
-                                <th class="px-6 py-3">Author</th>
-                                <th class="px-6 py-3">Subject</th>
-                                <th class="px-6 py-3 text-right">Price</th>
+                                <th class="px-5 py-3 rounded-l-lg font-semibold">Book</th>
+                                <th class="px-5 py-3 font-semibold">Author</th>
+                                <th class="px-5 py-3 font-semibold">Subject</th>
+                                <th class="px-5 py-3 text-right rounded-r-lg font-semibold">Price</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-800">
-                            <tr class="hover:bg-white/5 transition">
-                                <td class="px-6 py-4">Learn Selenium</td>
-                                <td class="px-6 py-4">Amit</td>
-                                <td class="px-6 py-4">Selenium</td>
-                                <td class="px-6 py-4 text-right text-accent">300</td>
+                        <tbody class="divide-y divide-gray-100/50">
+                            <tr class="hover:bg-white/60 transition duration-200 cursor-default">
+                                <td class="px-5 py-4 font-medium text-gray-800">Learn Selenium</td>
+                                <td class="px-5 py-4 text-gray-600">Amit</td>
+                                <td class="px-5 py-4 text-gray-600">Selenium</td>
+                                <td class="px-5 py-4 text-right font-bold text-accent">300</td>
                             </tr>
-                            <tr class="hover:bg-white/5 transition">
-                                <td class="px-6 py-4">Learn Java</td>
-                                <td class="px-6 py-4">Mukesh</td>
-                                <td class="px-6 py-4">Java</td>
-                                <td class="px-6 py-4 text-right text-accent">500</td>
+                            <tr class="hover:bg-white/60 transition duration-200 cursor-default">
+                                <td class="px-5 py-4 font-medium text-gray-800">Learn Java</td>
+                                <td class="px-5 py-4 text-gray-600">Mukesh</td>
+                                <td class="px-5 py-4 text-gray-600">Java</td>
+                                <td class="px-5 py-4 text-right font-bold text-accent">500</td>
                             </tr>
-                            <tr class="hover:bg-white/5 transition">
-                                <td class="px-6 py-4">Master JS</td>
-                                <td class="px-6 py-4">Amit</td>
-                                <td class="px-6 py-4">JavaScript</td>
-                                <td class="px-6 py-4 text-right text-accent">1000</td>
+                            <tr class="hover:bg-white/60 transition duration-200 cursor-default">
+                                <td class="px-5 py-4 font-medium text-gray-800">Master JS</td>
+                                <td class="px-5 py-4 text-gray-600">Amit</td>
+                                <td class="px-5 py-4 text-gray-600">JavaScript</td>
+                                <td class="px-5 py-4 text-right font-bold text-accent">1000</td>
                             </tr>
                         </tbody>
                     </table>
@@ -253,80 +411,114 @@
             </div>
         </section>
 
-        <section class="space-y-8" data-aos="fade-left">
+        <section class="space-y-8" data-aos="fade-left" data-aos-delay="200">
 
-            <div class="bg-card p-8 rounded-xl border border-gray-800">
-                <h4 class="text-gray-500 text-xs uppercase font-bold mb-6 tracking-widest">Alerts & Popups</h4>
-                <div class="grid grid-cols-2 gap-4">
-                    <button onclick="myFunctionAlert()"
-                        class="p-3 border border-gray-600 rounded text-sm hover:border-accent hover:text-accent transition">Simple
-                        Alert</button>
-                    <button onclick="myFunctionConfirm()"
-                        class="p-3 border border-gray-600 rounded text-sm hover:border-blue-400 hover:text-blue-400 transition">Confirmation</button>
-                    <button onclick="myFunctionPrompt()"
-                        class="p-3 border border-gray-600 rounded text-sm hover:border-green-400 hover:text-green-400 transition">Prompt</button>
+            <!-- Modals & Buttons Card -->
+            <div class="glass-card p-6 md:p-8">
+                <h4 class="text-gray-400 text-[10px] uppercase font-bold mb-5 tracking-widest flex items-center">
+                    <i class="fas fa-layer-group text-accent mr-2"></i> Modals & Popups
+                </h4>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="triggerAlert()"
+                        class="p-3 bg-white/50 border border-white rounded-2xl text-sm font-semibold hover:bg-white hover:shadow-md transition-all active:scale-95 text-gray-700">
+                        Notice Alert
+                    </button>
+                    <button onclick="triggerConfirm()"
+                        class="p-3 bg-white/50 border border-white rounded-2xl text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 hover:shadow-md transition-all active:scale-95 text-gray-700">
+                        Confirm Action
+                    </button>
+                    <button onclick="triggerPrompt()"
+                        class="p-3 bg-white/50 border border-white rounded-2xl text-sm font-semibold hover:bg-green-50 hover:text-green-600 hover:shadow-md transition-all active:scale-95 text-gray-700">
+                        Input Prompt
+                    </button>
                     <button onclick="openNewWindow()"
-                        class="p-3 bg-gray-700 rounded text-sm hover:bg-gray-600 transition">New Tab</button>
-                </div>
-                <p id="demo" class="mt-4 text-center text-sm text-gray-400 min-h-[20px]"></p>
-            </div>
-
-            <div class="bg-card p-8 rounded-xl border border-gray-800">
-                <h4 class="text-gray-500 text-xs uppercase font-bold mb-6 tracking-widest">Advanced Interactions</h4>
-
-                <div class="mb-8">
-                    <div class="grid grid-cols-2 gap-2 mb-2">
-                        <input type="text" id="field1" value="Hello World!" readonly
-                            class="opacity-50 cursor-not-allowed">
-                        <input type="text" id="field2" placeholder="Copy here..." readonly>
-                    </div>
-                    <button ondblclick="copyText()"
-                        class="w-full text-xs bg-white text-black px-3 py-2 rounded font-bold hover:bg-accent transition transform active:scale-95">
-                        Double Click to Copy
+                        class="p-3 bg-gray-900 text-white rounded-2xl text-sm font-semibold hover:bg-gray-800 shadow-md transition-all active:scale-95">
+                        <i class="fas fa-external-link-alt mr-1"></i> New Tab
                     </button>
                 </div>
 
-                <div class="mb-8">
-                    <label class="block text-gray-500 text-[10px] uppercase font-bold mb-2">JQuery Slider</label>
-                    <div id="slider-range" class="mb-4"></div>
-                    <p class="text-accent text-sm text-center font-mono">Range: <span id="amount"></span></p>
+                <div class="mt-5 p-3 glass-panel text-center">
+                    <p id="demo" class="text-sm font-medium text-gray-500 min-h-[20px]">Result will appear here</p>
+                </div>
+            </div>
+
+            <!-- Advanced Interactions Card -->
+            <div class="glass-card p-6 md:p-8">
+                <h4 class="text-gray-400 text-[10px] uppercase font-bold mb-6 tracking-widest flex items-center">
+                    <i class="fas fa-magic text-accent mr-2"></i> Advanced Interactions
+                </h4>
+
+                <!-- Double Click -->
+                <div class="mb-8 p-4 glass-panel border-l-4 border-l-yellow-400 bg-white/60">
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <input type="text" id="field1" value="Hello World!" readonly
+                            class="opacity-60 cursor-not-allowed bg-gray-50 border-dashed">
+                        <input type="text" id="field2" placeholder="Copy destination..." readonly class="bg-white">
+                    </div>
+                    <button ondblclick="copyText()"
+                        class="w-full bg-accent text-black px-4 py-3 rounded-xl font-bold hover:shadow-lg transition-all transform active:scale-[0.98] flex justify-center items-center gap-2">
+                        <i class="fas fa-copy"></i> Double Click to Copy
+                    </button>
                 </div>
 
+                <!-- Slider -->
+                <div class="mb-8 pl-1">
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="block text-gray-600 text-[10px] uppercase font-bold">Price Range Slider</label>
+                        <span id="amount"
+                            class="text-accent text-sm font-bold bg-yellow-50 px-3 py-1 rounded-full shadow-sm border border-yellow-100"></span>
+                    </div>
+                    <div class="px-2">
+                        <div id="slider-range" class="mb-2"></div>
+                    </div>
+                </div>
+
+                <!-- Drag & Drop -->
                 <div>
-                    <label class="block text-gray-500 text-[10px] uppercase font-bold mb-4">Drag & Drop (JQuery
-                        UI)</label>
-                    <div class="flex gap-4 h-32">
+                    <label class="block text-gray-600 text-[10px] uppercase font-bold mb-3 pl-1">Drag & Drop
+                        Engine</label>
+                    <div class="flex gap-4 h-32 relative">
                         <div id="draggable"
-                            class="w-1/3 bg-gray-700 rounded flex items-center justify-center cursor-move hover:border border-accent transition">
-                            <span class="text-xs font-bold">DRAG ME</span>
+                            class="w-1/3 bg-accent text-black rounded-2xl flex flex-col items-center justify-center cursor-grab active:cursor-grabbing shadow-lg hover:shadow-xl transition-shadow z-10 border-2 border-white">
+                            <i class="fas fa-hand-rock text-xl mb-1 opacity-70"></i>
+                            <span class="text-[10px] font-black tracking-wider uppercase">Drag Me</span>
                         </div>
                         <div id="droppable"
-                            class="w-2/3 border-2 border-dashed border-gray-600 rounded flex items-center justify-center bg-black/20">
-                            <span class="text-xs text-gray-500">DROP HERE</span>
+                            class="w-2/3 border-2 border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center bg-white/40 transition-colors">
+                            <i class="fas fa-inbox text-2xl text-gray-300 mb-2 transition-colors" id="drop-icon"></i>
+                            <span class="text-xs font-bold text-gray-400 tracking-wider">DROP TARGET</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-card rounded-xl border border-gray-800 overflow-hidden">
-                <div class="p-4 border-b border-gray-800 bg-[#1f202a] flex justify-between">
-                    <h3 class="font-bold text-sm uppercase tracking-widest">Dynamic Table (CPU)</h3>
-                    <span class="text-xs text-accent animate-pulse">Live</span>
+            <!-- Dynamic Table Card -->
+            <div class="glass-card overflow-hidden">
+                <div
+                    class="p-4 border-b border-gray-100 bg-white/40 flex justify-between items-center backdrop-blur-md">
+                    <h3 class="font-bold text-xs uppercase tracking-widest text-gray-500">Live Telemetry</h3>
+                    <span
+                        class="text-[10px] font-bold text-accent bg-yellow-50 px-2 py-1 rounded-full border border-yellow-100 flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-accent animate-pulse block"></span> Live
+                    </span>
                 </div>
                 <div class="p-4">
                     <table class="w-full text-left text-sm" id="taskTable">
-                        <thead class="text-gray-500 border-b border-gray-700">
+                        <thead class="text-gray-400 border-b border-gray-100 text-xs">
                             <tr>
-                                <th class="py-2">Name</th>
-                                <th class="py-2">CPU</th>
-                                <th class="py-2">Memory</th>
-                                <th class="py-2">Network</th>
+                                <th class="py-2 px-2">Process</th>
+                                <th class="py-2 px-2">CPU</th>
+                                <th class="py-2 px-2">Memory</th>
+                                <th class="py-2 px-2">Network</th>
                             </tr>
                         </thead>
                         <tbody id="dynamicRows" class="font-mono text-xs">
+                            <!-- Rows injected via JS -->
                         </tbody>
                     </table>
-                    <div class="mt-2 text-xs text-gray-500" id="chrome-cpu-display">Chrome CPU: -</div>
+                    <div class="mt-4 text-[10px] font-bold uppercase tracking-widest text-gray-400 text-right pr-2"
+                        id="chrome-cpu-display">Tracking: Chrome</div>
                 </div>
             </div>
 
@@ -334,61 +526,163 @@
 
     </main>
 
-    <footer class="max-w-7xl mx-auto px-6 py-6 text-center text-gray-600 text-xs">
-        <p>Automation Practice Reimagined | <i class="fas fa-flask"></i> Surgical Mode</p>
+    <footer class="max-w-7xl mx-auto px-6 py-10 mt-10 text-center text-gray-400 text-xs font-medium">
+        <p>&copy; 2026 AutomationWithPiyush. All rights reserved.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 800, once: true });
+        AOS.init({ duration: 800, once: true, offset: 50 });
 
         // --- Toast Notification Helper ---
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             toast.className = 'toast';
-            toast.innerHTML = `<i class="fas fa-check-circle text-accent"></i> <span>${message}</span>`;
+
+            let icon = '<i class="fas fa-check-circle text-accent text-lg"></i>';
+            if (type === 'error') icon = '<i class="fas fa-times-circle text-red-500 text-lg"></i>';
+            if (type === 'info') icon = '<i class="fas fa-info-circle text-blue-500 text-lg"></i>';
+
+            toast.innerHTML = `${icon} <span>${message}</span>`;
             container.appendChild(toast);
-            setTimeout(() => { container.removeChild(toast); }, 3000);
+            setTimeout(() => {
+                if (container.contains(toast)) container.removeChild(toast);
+            }, 3400);
         }
 
-        // --- Alerts Logic ---
-        function myFunctionAlert() {
-            alert("I am an alert box!");
-            showToast("Alert handled");
-        }
+        // --- Custom Modal Logic (Replacing Native Alerts) ---
+        const modalBackdrop = document.getElementById('custom-modal-backdrop');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMessage = document.getElementById('modal-message');
+        const modalInputContainer = document.getElementById('modal-input-container');
+        const modalInput = document.getElementById('modal-input');
+        const btnCancel = document.getElementById('modal-btn-cancel');
+        const btnConfirm = document.getElementById('modal-btn-confirm');
+        const modalIcon = document.getElementById('modal-icon');
 
-        function myFunctionConfirm() {
-            let txt;
-            if (confirm("Press a button!")) {
-                txt = "You pressed OK!";
-                showToast("Confirmed: OK");
+        let modalCallback = null;
+
+        function showModal(options) {
+            modalTitle.innerText = options.title || 'Notice';
+            modalMessage.innerText = options.message || '';
+
+            // Icon setup
+            modalIcon.innerHTML = options.icon || '<i class="fas fa-bell"></i>';
+            modalIcon.className = `text-4xl mb-4 ${options.iconColor || 'text-accent'}`;
+
+            // Input setup
+            if (options.type === 'prompt') {
+                modalInputContainer.classList.remove('hidden');
+                modalInput.value = options.defaultValue || '';
+                modalInput.focus();
             } else {
-                txt = "You pressed Cancel!";
-                showToast("Confirmed: Cancel");
+                modalInputContainer.classList.add('hidden');
             }
-            document.getElementById("demo").innerHTML = txt;
+
+            // Buttons setup
+            if (options.type === 'alert') {
+                btnCancel.classList.add('hidden');
+                btnConfirm.innerText = 'OK';
+            } else {
+                btnCancel.classList.remove('hidden');
+                btnConfirm.innerText = options.confirmText || 'Confirm';
+            }
+
+            modalCallback = options.callback;
+            modalBackdrop.classList.add('show');
         }
 
-        function myFunctionPrompt() {
-            let person = prompt("Please enter your name:", "Harry Potter");
-            if (person == null || person == "") {
-                document.getElementById("demo").innerHTML = "User cancelled the prompt.";
-            } else {
-                document.getElementById("demo").innerHTML = "Hello " + person + "!";
-                showToast("Prompt input received");
+        function closeModal() {
+            modalBackdrop.classList.remove('show');
+            setTimeout(() => {
+                modalInput.value = '';
+                modalCallback = null;
+            }, 300); // Wait for transition
+        }
+
+        btnCancel.onclick = () => {
+            if (modalCallback) modalCallback(null);
+            closeModal();
+        };
+
+        btnConfirm.onclick = () => {
+            if (modalCallback) {
+                const value = !modalInputContainer.classList.contains('hidden') ? modalInput.value : true;
+                modalCallback(value);
             }
+            closeModal();
+        };
+
+        // --- Simulated Alert Functions ---
+        function triggerAlert() {
+            showModal({
+                type: 'alert',
+                title: 'System Notice',
+                message: 'This is a beautifully simulated glassy alert box!',
+                icon: '<i class="fas fa-exclamation-circle"></i>',
+                callback: () => {
+                    showToast("Alert acknowledged");
+                }
+            });
+        }
+
+        function triggerConfirm() {
+            showModal({
+                type: 'confirm',
+                title: 'Confirm Action',
+                message: 'Are you sure you want to proceed with this action?',
+                icon: '<i class="fas fa-question-circle"></i>',
+                iconColor: 'text-blue-500',
+                confirmText: 'Yes, Proceed',
+                callback: (result) => {
+                    const txt = result ? "You pressed Proceed!" : "You pressed Cancel!";
+                    document.getElementById("demo").innerHTML = `<span class="${result ? 'text-green-600' : 'text-red-500'} font-semibold">${txt}</span>`;
+                    showToast(txt, result ? 'success' : 'error');
+                }
+            });
+        }
+
+        function triggerPrompt() {
+            showModal({
+                type: 'prompt',
+                title: 'User Input Required',
+                message: 'Please enter your avatar name for the session:',
+                defaultValue: 'Harry Potter',
+                icon: '<i class="fas fa-user-edit"></i>',
+                iconColor: 'text-green-500',
+                confirmText: 'Save',
+                callback: (person) => {
+                    if (person === null || person === "") {
+                        document.getElementById("demo").innerHTML = "User cancelled the prompt.";
+                        showToast("Prompt cancelled", "info");
+                    } else {
+                        document.getElementById("demo").innerHTML = `Hello, <span class="text-black font-bold">${person}</span>!`;
+                        showToast("Avatar name saved");
+                    }
+                }
+            });
         }
 
         function openNewWindow() {
+            // Using a safe blank target to prevent issues in iframe
             window.open("https://www.google.com", "_blank");
-            showToast("New Tab Opened");
+            showToast("Navigation triggered", "info");
         }
 
         // --- Double Click Logic ---
         function copyText() {
-            document.getElementById("field2").value = document.getElementById("field1").value;
-            showToast("Text Copied Successfully");
+            const source = document.getElementById("field1");
+            const target = document.getElementById("field2");
+            target.value = source.value;
+
+            // Visual feedback
+            target.classList.add('bg-yellow-50', 'border-yellow-400');
+            setTimeout(() => {
+                target.classList.remove('bg-yellow-50', 'border-yellow-400');
+            }, 500);
+
+            showToast("Content copied successfully");
         }
 
         // --- JQuery UI: Slider ---
@@ -408,20 +702,35 @@
 
         // --- JQuery UI: Drag and Drop ---
         $(function () {
-            $("#draggable").draggable({ revert: "invalid" });
+            $("#draggable").draggable({
+                revert: "invalid",
+                zIndex: 100,
+                start: function () {
+                    $(this).addClass("scale-105 shadow-2xl");
+                },
+                stop: function () {
+                    $(this).removeClass("scale-105 shadow-2xl");
+                }
+            });
             $("#droppable").droppable({
+                accept: "#draggable",
                 drop: function (event, ui) {
                     $(this)
-                        .addClass("border-accent")
+                        .removeClass("bg-white/40 border-gray-300 text-gray-400")
+                        .addClass("bg-green-50 border-green-400 text-green-600 shadow-inner")
                         .find("span")
-                        .html("DROPPED!");
-                    showToast("Element Dropped!");
+                        .html("SUCCESSFULLY DROPPED");
+
+                    $(this).find("i").removeClass("fa-inbox").addClass("fa-check-circle text-green-500");
+
+                    ui.draggable.draggable("disable").css({ cursor: "default" }).addClass("bg-green-400 border-transparent");
+                    showToast("Element Dropped Successfully!");
                 }
             });
         });
 
         // --- Dynamic Table Logic (Simulated) ---
-        const processes = ['System', 'Chrome', 'Firefox', 'Safari'];
+        const processes = ['Kernel_Task', 'Chrome Engine', 'Safari WebKit', 'WindowServer'];
 
         function updateDynamicTable() {
             const tbody = document.getElementById('dynamicRows');
@@ -433,24 +742,24 @@
                 const net = (Math.random() * 5).toFixed(1) + ' Mbps';
 
                 const row = `
-                    <tr class="border-b border-gray-800 hover:text-accent transition-colors">
-                        <td class="py-2">${proc}</td>
-                        <td class="py-2 text-green-400">${cpu}</td>
-                        <td class="py-2 text-blue-400">${mem}</td>
-                        <td class="py-2 text-yellow-400">${net}</td>
+                    <tr class="border-b border-gray-100/50 hover:bg-white/50 transition-colors">
+                        <td class="py-2.5 px-2 font-medium text-gray-700">${proc}</td>
+                        <td class="py-2.5 px-2 text-emerald-600 font-semibold">${cpu}</td>
+                        <td class="py-2.5 px-2 text-blue-600">${mem}</td>
+                        <td class="py-2.5 px-2 text-amber-600">${net}</td>
                     </tr>
                 `;
                 tbody.innerHTML += row;
 
-                if (proc === 'Chrome') {
-                    document.getElementById('chrome-cpu-display').innerText = `Chrome CPU: ${cpu}`;
+                if (proc === 'Chrome Engine') {
+                    document.getElementById('chrome-cpu-display').innerText = `Chrome Thread CPU: ${cpu}`;
                 }
             });
         }
 
         // Initial load and interval
         updateDynamicTable();
-        setInterval(updateDynamicTable, 2000);
+        setInterval(updateDynamicTable, 2500);
 
     </script>
 </body>
