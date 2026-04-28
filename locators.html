@@ -1,259 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selenium Locator Practice</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Selenium Automation Practice</title>
     <style>
-        /* Minimal custom styling, keeping it clean for DOM inspection */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* Classic Web 1.0 Styling */
+        body { 
+            font-family: "Times New Roman", Times, serif; 
+            background-color: #e0e0e0; 
+            color: #000000;
+            padding: 20px; 
+        }
+        .wrapper { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            background-color: #ffffff; 
+            padding: 25px; 
+            border: 2px solid #000000; 
+        }
+        h1, h2 { 
+            border-bottom: 2px solid #000000; 
+            padding-bottom: 5px;
+        }
+        section { 
+            border: 1px dashed #666666; 
+            padding: 15px; 
+            margin-bottom: 20px; 
+            background-color: #f8f8f8;
+        }
+        .form-group { 
+            margin-bottom: 15px; 
+            padding-bottom: 10px;
+            border-bottom: 1px dotted #cccccc;
+        }
+        label { 
+            display: block; 
+            font-weight: bold; 
+            margin-bottom: 5px; 
+            color: #000080;
+        }
+        input[type="text"], input[type="password"], input[type="email"] { 
+            width: 250px; 
+            padding: 4px; 
+            border: 2px inset #cccccc; 
+        }
+        button { 
+            padding: 5px 15px; 
+            background-color: #dddddd; 
+            color: #000000; 
+            border: 2px outset #cccccc; 
+            cursor: pointer; 
+            font-family: "Times New Roman", Times, serif;
+            font-weight: bold;
+        }
+        button:active {
+            border-style: inset;
+        }
+        ul {
+            list-style-type: square;
+        }
+        a {
+            color: #0000EE;
+            text-decoration: underline;
+        }
+        a:visited {
+            color: #551A8B;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #ffffff;
+        }
+        th, td {
+            border: 1px solid #000000;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #cccccc;
+        }
+        .site-footer {
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 20px;
+            border-top: 1px solid #000000;
+            padding-top: 10px;
+        }
+        .parent-wrapper {
+            border: 1px solid #000000; 
+            padding: 10px; 
+            background: #ffffff;
+            margin-top: 5px;
         }
     </style>
 </head>
+<body>
 
-<body class="bg-gray-50 text-gray-800 p-8">
+<div class="wrapper">
+    <h1>Selenium Locator Assessment</h1>
 
-    <div class="max-w-6xl mx-auto space-y-12">
+    <section id="traditional-locators">
+        <h2>Part 1: Core Locators</h2>
+        
+        <div class="form-group">
+            <label>Task 1: Locate the Username field.</label>
+            <input type="text" id="user_login_field" placeholder="Username">
+        </div>
 
-        <!-- Header -->
-        <header class="text-center pb-8 border-b-2 border-gray-200">
-            <h1 class="text-4xl font-bold text-blue-700">Selenium WebDriver Practice Portal</h1>
-            <p class="mt-2 text-gray-600">Inspect the DOM to find elements based on the required locators.</p>
-        </header>
+        <div class="form-group">
+            <label>Task 2: Locate the Password field.</label>
+            <input type="password" name="security_passphrase" placeholder="Password">
+        </div>
 
-        <!-- ==========================================
-             SECTION 1: BASIC DIRECT LOCATORS
-             ========================================== -->
-        <section class="bg-white p-8 rounded-xl shadow-md border border-gray-100">
-            <h2 class="text-2xl font-semibold mb-6 text-gray-800 border-b pb-2">Part 1: Basic Direct Locators</h2>
+        <div class="form-group">
+            <label>Task 3: Locate the Submit button.</label>
+            <button class="btn primary_action submit_btn">Submit</button>
+            <button class="btn secondary_action">Cancel</button>
+        </div>
+        
+        <div class="form-group">
+            <label>Task 4: Locate the "Reset Password" and "Logout User" links.</label>
+            <ul>
+                <li><a href="#reset">Reset Password</a></li>
+                <li><a href="#profile">Logout User: John Doe</a></li>
+                <li><a href="#help">Help Center</a></li>
+            </ul>
+        </div>
+    </section>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <section id="css-locators">
+        <h2>Part 2: CSS Selectors</h2>
+        
+        <div class="form-group">
+            <label>Task 5: Locate the Employee ID field.</label>
+            <input type="text" id="employee-id-input" placeholder="Employee ID">
+        </div>
 
-                <!-- ID and Name Locators -->
-                <div class="space-y-4">
-                    <h3 class="text-lg font-medium text-gray-700">1. ID and Name</h3>
-                    <div class="p-4 border rounded bg-gray-50">
-                        <label for="username" class="block text-sm font-medium mb-1">Username (Find by ID):</label>
-                        <!-- Target this input using ID -->
-                        <input type="text" id="login-username" class="w-full p-2 border rounded mb-4"
-                            placeholder="Enter Username">
+        <div class="form-group">
+            <label>Task 6: Locate the Verify Status button.</label>
+            <button class="verify-status-btn">Verify Status</button>
+        </div>
 
-                        <label class="block text-sm font-medium mb-1">Email (Find by Name):</label>
-                        <!-- Target this input using Name -->
-                        <input type="email" name="user_email_address" class="w-full p-2 border rounded"
-                            placeholder="Enter Email">
-                    </div>
-                </div>
-
-                <!-- Link Text and Partial Link Text Locators -->
-                <div class="space-y-4">
-                    <h3 class="text-lg font-medium text-gray-700">2. LinkText and PartialLinkText</h3>
-                    <div class="p-4 border rounded bg-gray-50 flex flex-col space-y-3">
-                        <!-- Target using exact LinkText -->
-                        <a href="#dashboard" class="text-blue-600 hover:underline font-medium">Go to Dashboard</a>
-
-                        <!-- Target using PartialLinkText (e.g., "Terms and") -->
-                        <a href="#terms" class="text-blue-600 hover:underline text-sm">Click here to read our Terms and
-                            Conditions</a>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Class Name and Tag Name (findElements practice) -->
-            <div class="mt-8">
-                <h3 class="text-lg font-medium text-gray-700 mb-4">3. ClassName and TagName (Use <code
-                        class="bg-gray-200 px-1 rounded">findElements</code>)</h3>
-
-                <div class="p-4 border rounded bg-gray-50 grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                    <!-- ClassName Practice (Images) -->
-                    <div>
-                        <p class="text-sm font-medium mb-2">Find all images by ClassName (<code
-                                class="text-red-600">avatar-image</code>):</p>
-                        <div class="flex space-x-4">
-                            <!-- Target these 3 images using their shared class name -->
-                            <img src="https://ui-avatars.com/api/?name=User+A&background=random" alt="User A"
-                                class="avatar-image w-16 h-16 rounded-full border-2 border-white shadow">
-                            <img src="https://ui-avatars.com/api/?name=User+B&background=random" alt="User B"
-                                class="avatar-image w-16 h-16 rounded-full border-2 border-white shadow">
-                            <img src="https://ui-avatars.com/api/?name=User+C&background=random" alt="User C"
-                                class="avatar-image w-16 h-16 rounded-full border-2 border-white shadow">
-                        </div>
-                    </div>
-
-                    <!-- TagName Practice (Links inside a specific block) -->
-                    <div id="useful-links-section">
-                        <p class="text-sm font-medium mb-2">Find all links by TagName (<code
-                                class="text-red-600">a</code>) in this box:</p>
-                        <div class="flex flex-col space-y-1">
-                            <!-- Target these elements using TagName 'a' -->
-                            <a href="#home" class="text-gray-600 hover:text-blue-600">Home</a>
-                            <a href="#about" class="text-gray-600 hover:text-blue-600">About Us</a>
-                            <a href="#services" class="text-gray-600 hover:text-blue-600">Services</a>
-                            <a href="#contact" class="text-gray-600 hover:text-blue-600">Contact</a>
-                        </div>
-                    </div>
+        <div class="form-group">
+            <label>Task 7: Locate the paragraph containing "Target A" (without matching "Target B").</label>
+            <div class="parent-wrapper">
+                <p class="target-child">Target A</p>
+                <div class="inner-wrapper">
+                    <p class="target-child">Target B</p>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- ==========================================
-             SECTION 2: ADVANCED LOCATORS (CSS & XPATH)
-             ========================================== -->
-        <section class="bg-white p-8 rounded-xl shadow-md border border-gray-100">
-            <h2 class="text-2xl font-semibold mb-6 text-gray-800 border-b pb-2">Part 2: CSS Selectors & Advanced XPath
-            </h2>
+        <div class="form-group">
+            <label>Task 8: Locate the Access Code field.</label>
+            <input type="text" data-role="admin-access" placeholder="Access Code">
+        </div>
+    </section>
 
-            <!-- CSS Selectors -->
-            <div class="mb-10">
-                <h3 class="text-xl font-medium text-gray-700 mb-4">1. CSS Selectors Practice</h3>
-                <div class="p-4 border border-blue-200 rounded bg-blue-50 grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Practice CSS: input[type='password'] or input[data-test='password-field'] -->
-                    <div>
-                        <label class="block text-sm font-medium mb-1 text-blue-900">Custom Attribute (CSS):</label>
-                        <input type="password" data-test="password-field" class="w-full p-2 border rounded"
-                            placeholder="Password input">
-                    </div>
-                    <!-- Practice CSS: #css-parent > .css-child -->
-                    <div id="css-parent" class="flex items-center">
-                        <span class="css-child bg-blue-600 text-white px-4 py-2 rounded shadow">
-                            Target me using Parent > Child CSS
-                        </span>
-                    </div>
-                </div>
-            </div>
+    <section id="xpath-locators">
+        <h2>Part 3: XPath Strategies</h2>
 
-            <!-- XPATH Mastery Section -->
+        <div class="form-group">
+            <label>Task 9: Locate the paragraph containing the text "Navigation Point".</label>
             <div>
-                <h3 class="text-xl font-medium text-gray-700 mb-4">2. The Ultimate XPath Mastery Challenge</h3>
-                <p class="text-sm text-gray-500 mb-4">These elements have no simple ID or Name. You MUST use specific
-                    XPath strategies.</p>
-
-                <div class="space-y-6">
-
-                    <!-- a) Attribute -->
-                    <div class="p-4 border rounded border-gray-200 flex items-center justify-between">
-                        <span class="font-medium">a) XPath by Attribute:</span>
-                        <!-- Target using //input[@placeholder='Search Products...'] -->
-                        <input type="text" placeholder="Search Products..." class="p-2 border rounded w-64 bg-gray-50">
-                    </div>
-
-                    <!-- b) Text Function -->
-                    <div class="p-4 border rounded border-gray-200 flex items-center justify-between">
-                        <span class="font-medium">b) XPath by Text Function:</span>
-                        <!-- Target using //button[text()='Confirm Registration'] -->
-                        <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Confirm
-                            Registration</button>
-                    </div>
-
-                    <!-- c) Contains, Starts-with (and simulate Ends-with) -->
-                    <div class="p-4 border rounded border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <!-- Target using //div[starts-with(@id, 'success-msg-')] -->
-                        <div id="success-msg-987456"
-                            class="bg-green-100 text-green-800 p-2 rounded text-sm text-center">
-                            starts-with() practice
-                        </div>
-                        <!-- Target using //div[contains(@class, 'warning-text')] -->
-                        <div
-                            class="alert-box warning-text notification p-2 bg-yellow-100 text-yellow-800 rounded text-sm text-center">
-                            contains() practice
-                        </div>
-                        <!-- XPath 1.0 doesn't support ends-with() natively in browsers, but we practice the logic -->
-                        <div id="upload-btn-dynamic-end"
-                            class="bg-purple-100 text-purple-800 p-2 rounded text-sm text-center">
-                            Ends-with (use CSS $= or complex XPath)
-                        </div>
-                    </div>
-
-                    <!-- d) Multiple Attributes -->
-                    <div class="p-4 border rounded border-gray-200 flex items-center justify-between">
-                        <span class="font-medium">d) XPath by Multiple Attributes:</span>
-                        <!-- Target using //input[@type='submit' and @value='Update Profile'] -->
-                        <input type="submit" value="Update Profile" data-role="admin"
-                            class="bg-gray-800 text-white px-4 py-2 rounded cursor-pointer">
-                    </div>
-
-                    <!-- e) Surroundings (Dependent/Independent) & f) Axes -->
-                    <div class="p-4 border rounded border-gray-200">
-                        <span class="font-medium block mb-4">e) Surroundings & f) Axes (Dependent/Independent
-                            Elements):</span>
-                        <p class="text-sm text-gray-500 mb-2">Task: Find the "Delete" button exactly for "Jane Smith"
-                            without using indexing.</p>
-
-                        <table class="w-full border-collapse">
-                            <thead>
-                                <tr class="bg-gray-100 border-b">
-                                    <th class="text-left p-2">Employee Name</th>
-                                    <th class="text-left p-2">Role</th>
-                                    <th class="text-left p-2">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="border-b">
-                                    <td class="p-2">John Doe</td>
-                                    <td class="p-2">Developer</td>
-                                    <td class="p-2"><button
-                                            class="text-red-600 hover:text-red-800 font-medium">Delete</button></td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="p-2">Jane Smith</td>
-                                    <td class="p-2">Manager</td>
-                                    <!-- Target this specific button: //td[text()='Jane Smith']/following-sibling::td/button -->
-                                    <td class="p-2"><button
-                                            class="text-red-600 hover:text-red-800 font-medium">Delete</button></td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="p-2">Mike Ross</td>
-                                    <td class="p-2">Analyst</td>
-                                    <td class="p-2"><button
-                                            class="text-red-600 hover:text-red-800 font-medium">Delete</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <div class="mt-4 p-3 bg-gray-50 rounded border">
-                            <p class="text-sm font-medium mb-2">Axes Practice (Parent/Child/Ancestor):</p>
-                            <!-- Target child from parent: //div[@class='ancestor-box']//span[@class='child-target'] -->
-                            <!-- Target parent from child: //span[text()='Target Me']/parent::div -->
-                            <div class="ancestor-box border-2 border-dashed border-gray-400 p-4 rounded text-center">
-                                <span class="child-target bg-indigo-100 text-indigo-800 px-3 py-1 rounded shadow">Target
-                                    Me</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- g) Indexing -->
-                    <div class="p-4 border rounded border-gray-200">
-                        <span class="font-medium block mb-4">g) XPath by Indexing:</span>
-                        <p class="text-sm text-gray-500 mb-2">Task: Click the 2nd checkbox from this identical list
-                            using <code class="bg-gray-100 px-1">(//input[@type='checkbox'])[2]</code>.</p>
-
-                        <div class="flex space-x-6">
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
-                                <span>Option A</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
-                                <span>Option B</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
-                                <span>Option C</span>
-                            </label>
-                        </div>
-                    </div>
-
-                </div>
+                <p>Navigation Point</p>
             </div>
-        </section>
+        </div>
 
-    </div>
+        <div class="form-group">
+            <label>Task 10: Locate the Search Query field.</label>
+            <input type="text" aria-label="search-query" placeholder="Search Query...">
+        </div>
+
+        <div class="form-group">
+            <label>Task 11: Locate the Generate Report button.</label>
+            <br>
+            <button>Generate Report</button>
+        </div>
+
+        <div class="form-group">
+            <label>Task 12: Locate the Contact Email field.</label>
+            <input type="email" name="contact_email" class="form-input" required placeholder="Contact Email">
+        </div>
+
+        <div class="form-group">
+            <label>Task 13: Locate the Submit Order 2026 button.</label>
+            <br>
+            <button class="btn-submit-987654">Submit Order 2026</button>
+        </div>
+        
+        <div class="form-group" style="border-bottom: none;">
+            <label>Task 14: Grid Traversals</label>
+            <ul>
+                <li>Locate the checkbox specifically for "Bob_User".</li>
+                <li>Locate the Role text ("Administrator") specifically for "Alice_Admin".</li>
+                <li>Locate the "Edit" button specifically for "Bob_User".</li>
+            </ul>
+            
+            <table id="users-grid">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" name="user_check"></td>
+                        <td>Alice_Admin</td> 
+                        <td>Administrator</td>
+                        <td><button class="edit-btn">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="user_check"></td>
+                        <td>Bob_User</td> 
+                        <td>Standard User</td>
+                        <td><button class="edit-btn">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 AutomationWithPiyush</p>
+    </footer>
+
+</div>
 
 </body>
-
 </html>

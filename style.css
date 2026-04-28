@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
+body {
+    background-color: #1a1b23;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* --- GLOBAL STYLES --- */
+.text-accent {
+    color: #facc15;
+}
+
+.bg-card {
+    background-color: #252631;
+}
+
+/* Smooth Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1b23;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+/* --- CAROUSEL SPECIFIC STYLES --- */
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    height: 85vh;
+    min-height: 600px;
+}
+
+.carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+    cursor: grab;
+}
+
+.carousel-track:active {
+    cursor: grabbing;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+/* Shloka Animation */
+.shloka-text {
+    font-family: 'Cinzel', serif;
+    line-height: 2;
+    letter-spacing: 0.05em;
+    animation: kenburns 20s infinite alternate;
+}
+
+@keyframes kenburns {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.05);
+    }
+}
+
+/* Typewriter Cursor */
+.typewriter-cursor::after {
+    content: "|";
+    animation: blink 1s infinite;
+    color: #facc15;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Carousel Navigation */
+.carousel-nav {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 20;
+}
+
+.nav-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.nav-dot.active {
+    background-color: #facc15;
+    width: 30px;
+    border-radius: 5px;
+}
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 30;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(8px);
+}
+
+.carousel-arrow:hover {
+    background-color: #facc15;
+    color: #1a1b23;
+    box-shadow: 0 0 20px rgba(250, 204, 21, 0.4);
+}
+
+.arrow-left {
+    left: 25px;
+}
+
+.arrow-right {
+    right: 25px;
+}
+
+/* Option Cards in Carousel */
+.option-card {
+    background: rgba(37, 38, 49, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.option-card:hover {
+    transform: translateY(-12px);
+    border-color: #facc15;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* --- CARD STYLES (Project & Practice) --- */
+.project-card:hover .project-preview {
+    transform: scale(1.03);
+    border-color: #facc15;
+    box-shadow: 0 10px 30px -10px rgba(250, 204, 21, 0.2);
+}
+
+#mobile-menu {
+    transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 640px) {
+    .carousel-arrow {
+        width: 45px;
+        height: 45px;
+    }
+
+    .arrow-left {
+        left: 10px;
+    }
+
+    .arrow-right {
+        right: 10px;
+    }
+}

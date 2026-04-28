@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REST API Automation | SDET Portfolio</title>
+    <title>GoRest API Automation | SDET Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -101,17 +101,17 @@
             <div class="lg:w-2/3">
                 <div
                     class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-6 border border-cyan-500/20">
-                    <i class="fas fa-network-wired"></i> Backend Automation
+                    <i class="fas fa-network-wired"></i> Enterprise Backend Automation
                 </div>
                 <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white">
-                    REST API <br>
+                    GoRest API <br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Testing
                         Architecture</span>
                 </h1>
                 <p class="text-lg text-gray-400 leading-relaxed max-w-2xl">
-                    A comprehensive <strong>API Automation Framework</strong> built on RestAssured and TestNG.
-                    Optimized for validating microservices, ensuring schema compliance, and handling complex
-                    <strong>Serialization/Deserialization</strong> with Jackson library.
+                    An industrial-grade <strong>API Automation Framework</strong> built for microservices validation.
+                    Engineered with RestAssured and TestNG, featuring OAuth2 handling, strict schema compliance, and
+                    stateful <strong>Request Chaining</strong> for End-to-End lifecycle testing.
                 </p>
 
                 <div class="flex flex-wrap gap-3 mt-8">
@@ -120,16 +120,16 @@
                             class="fas fa-globe mr-2"></i>RestAssured</span>
                     <span
                         class="px-4 py-2 bg-[#1e293b] rounded text-xs font-mono text-purple-400 border border-gray-700"><i
-                            class="fas fa-cube mr-2"></i>Jackson API</span>
+                            class="fas fa-link mr-2"></i>Req Chaining</span>
                     <span
                         class="px-4 py-2 bg-[#1e293b] rounded text-xs font-mono text-red-400 border border-gray-700"><i
-                            class="fas fa-pepper-hot mr-2"></i>Lombok</span>
+                            class="fas fa-pepper-hot mr-2"></i>Lombok / POJO</span>
                     <span
                         class="px-4 py-2 bg-[#1e293b] rounded text-xs font-mono text-yellow-400 border border-gray-700"><i
                             class="fas fa-database mr-2"></i>Data Driven</span>
                     <span
                         class="px-4 py-2 bg-[#1e293b] rounded text-xs font-mono text-green-400 border border-gray-700"><i
-                            class="fas fa-file-code mr-2"></i>JSON Schema</span>
+                            class="fas fa-file-contract mr-2"></i>Contract Testing</span>
                 </div>
             </div>
 
@@ -142,16 +142,16 @@
                     <h3 class="text-gray-400 text-sm uppercase tracking-widest font-bold mb-6">Efficiency Metrics</h3>
                     <div class="space-y-6 relative z-10">
                         <div>
-                            <p class="text-3xl font-bold text-white">200ms</p>
-                            <p class="text-xs text-gray-500">Avg. Request Latency</p>
+                            <p class="text-3xl font-bold text-white">Dynamic</p>
+                            <p class="text-xs text-gray-500">Payload Generation (Zero 422 Errors)</p>
                         </div>
                         <div>
                             <p class="text-3xl font-bold text-white">100%</p>
                             <p class="text-xs text-gray-500">Schema Validation Coverage</p>
                         </div>
                         <div>
-                            <p class="text-3xl font-bold text-white">CRUD</p>
-                            <p class="text-xs text-gray-500">Full Lifecycle Coverage</p>
+                            <p class="text-3xl font-bold text-white">E2E CRUD</p>
+                            <p class="text-xs text-gray-500">Stateful Lifecycle Verification</p>
                         </div>
                     </div>
                 </div>
@@ -170,25 +170,32 @@
                     </h3>
                     <div
                         class="bg-[#0d1117] p-6 rounded-lg border border-gray-800 font-mono text-xs md:text-sm overflow-x-auto code-tree shadow-2xl">
-                        <div class="mb-2"><span class="folder">api-framework</span></div>
+                        <div class="mb-2"><span class="folder">GoRest-Backend-Framework</span></div>
                         <div class="pl-4 mb-1">├── <span class="folder">src/main/java</span></div>
-                        <div class="pl-8 mb-1">├── <span class="folder">com.api.endpoints</span></div>
-                        <div class="pl-12 mb-1">├── <span class="file">UserEndPoints.java</span> <span
-                                class="comment">// CRUD operations</span></div>
-                        <div class="pl-12 mb-1">└── <span class="file">Routes.java</span> <span class="comment">// URL
-                                configs</span></div>
-                        <div class="pl-8 mb-1">├── <span class="folder">com.api.payloads</span> <span class="comment">//
-                                POJO Classes</span></div>
-                        <div class="pl-12 mb-1">├── <span class="file">User.java</span> <span class="comment">// Using
-                                Lombok @Data</span></div>
-                        <div class="pl-12 mb-1">└── <span class="file">Pet.java</span></div>
-                        <div class="pl-8 mb-1">└── <span class="folder">com.api.utilities</span> <span
-                                class="comment">// Data Providers</span></div>
+                        <div class="pl-8 mb-1">├── <span class="folder">...endpoints</span></div>
+                        <div class="pl-12 mb-1">├── <span class="file">Routes.java</span> <span class="comment">// API
+                                URL Configs</span></div>
+                        <div class="pl-12 mb-1">└── <span class="file">UserEndpoints.java</span> <span
+                                class="comment">// HTTP Logic</span></div>
+                        <div class="pl-8 mb-1">├── <span class="folder">...payloads</span></div>
+                        <div class="pl-12 mb-1">└── <span class="file">GorestUser.java</span> <span class="comment">//
+                                POJO & Lombok</span></div>
+                        <div class="pl-8 mb-1">└── <span class="folder">...utilities</span></div>
+                        <div class="pl-12 mb-1">├── <span class="file">ConfigReader.java</span></div>
+                        <div class="pl-12 mb-1">├── <span class="file">ExcelReader.java</span> <span class="comment">//
+                                Apache POI</span></div>
+                        <div class="pl-12 mb-1">└── <span class="file">ExtentReportManager.java</span></div>
                         <div class="pl-4 mb-1">├── <span class="folder">src/test/java</span></div>
-                        <div class="pl-8 mb-1">├── <span class="folder">com.api.tests</span></div>
-                        <div class="pl-12 mb-1">├── <span class="file">UserTests.java</span></div>
-                        <div class="pl-12 mb-1">└── <span class="file">DDTests.java</span> <span class="comment">// Data
-                                Driven Tests</span></div>
+                        <div class="pl-8 mb-1">└── <span class="folder">...tests</span></div>
+                        <div class="pl-12 mb-1">├── <span class="file">UserEndToEndTests.java</span></div>
+                        <div class="pl-12 mb-1">└── <span class="file">DataDrivenUserTests.java</span></div>
+                        <div class="pl-4 mb-1">├── <span class="folder">src/test/resources</span></div>
+                        <div class="pl-8 mb-1">├── <span class="file">config.properties</span> <span class="comment">//
+                                OAuth2 Token</span></div>
+                        <div class="pl-8 mb-1">├── <span class="file">UserTestData.xlsx</span></div>
+                        <div class="pl-8 mb-1">└── <span class="file">gorest-user-schema.json</span></div>
+                        <div class="pl-4 mb-1">├── <span class="file">testng.xml</span> <span class="comment">// Suite
+                                Execution</span></div>
                         <div class="pl-4">└── <span class="file">pom.xml</span> <span class="comment">//
                                 Dependencies</span></div>
                     </div>
@@ -197,9 +204,9 @@
                 <div class="bg-gradient-to-r from-cyan-500/10 to-transparent p-6 rounded-lg border-l-4 border-cyan-500">
                     <h4 class="text-cyan-400 font-bold mb-2 text-sm uppercase">Implementation Logic</h4>
                     <p class="text-sm text-gray-400">
-                        Separated <strong>Routes</strong> (URLs) from <strong>Endpoints</strong> (Implementation) to
-                        maintain clean code. Implemented <strong>Chaining</strong> to pass response data (e.g., Auth
-                        Token, ID) to subsequent requests automatically.
+                        Separated <strong>Routes</strong> from <strong>Endpoints</strong> to maintain clean abstraction.
+                        Implemented <strong>Request Chaining</strong>, dynamically extracting generated User IDs from
+                        POST responses to automatically drive subsequent GET, PUT, and DELETE validation scripts.
                     </p>
                 </div>
             </div>
@@ -215,11 +222,11 @@
                                 class="w-10 h-10 rounded-lg bg-accent-dim flex items-center justify-center mb-4 text-accent">
                                 <i class="fas fa-code-branch text-xl"></i>
                             </div>
-                            <h4 class="text-white font-bold mb-2">POJO & Lombok</h4>
+                            <h4 class="text-white font-bold mb-2">POJO & Jackson</h4>
                             <p class="text-gray-400 text-sm leading-relaxed">
-                                Used Plain Old Java Objects (POJO) for Request/Response payloads. Leveraged
-                                <strong>Lombok</strong> annotations (<code>@Getter</code>, <code>@Setter</code>,
-                                <code>@Builder</code>) to eliminate boilerplate getter/setter code.
+                                Used Plain Old Java Objects (POJO) mapped via <strong>Jackson</strong> for dynamic JSON
+                                Serialization. Leveraged <strong>Lombok</strong> to eliminate boilerplate getter/setter
+                                code, ensuring type-safe payloads.
                             </p>
                         </div>
 
@@ -228,11 +235,11 @@
                                 class="w-10 h-10 rounded-lg bg-accent-dim flex items-center justify-center mb-4 text-accent">
                                 <i class="fas fa-table text-xl"></i>
                             </div>
-                            <h4 class="text-white font-bold mb-2">Data Driven Testing</h4>
+                            <h4 class="text-white font-bold mb-2">Dynamic Data Driven Core</h4>
                             <p class="text-gray-400 text-sm leading-relaxed">
-                                Integrated <strong>Apache POI</strong> to fetch dynamic test data (multiple user
-                                payloads) from Excel sheets, allowing rigorous testing of endpoints with varied
-                                datasets.
+                                Integrated <strong>Apache POI</strong> to fetch datasets. Engineered dynamic string
+                                injection (timestamps) into test data at runtime to prevent
+                                <code>422 Unprocessable Entity</code> errors caused by duplicate database records.
                             </p>
                         </div>
 
@@ -241,11 +248,11 @@
                                 class="w-10 h-10 rounded-lg bg-accent-dim flex items-center justify-center mb-4 text-accent">
                                 <i class="fas fa-shield-alt text-xl"></i>
                             </div>
-                            <h4 class="text-white font-bold mb-2">Auth & Schema Validation</h4>
+                            <h4 class="text-white font-bold mb-2">Auth & Contract Testing</h4>
                             <p class="text-gray-400 text-sm leading-relaxed">
-                                Robust handling of <strong>Bearer Tokens</strong> and OAuth 2.0. Implemented
-                                <code>JsonSchemaValidator</code> to ensure response structure compliance with contract
-                                definitions.
+                                Secure handling of <strong>OAuth 2.0 Bearer Tokens</strong> via externalized config
+                                files. Implemented <code>JsonSchemaValidator</code> to enforce strict backend contract
+                                compliance and detect structural shifts.
                             </p>
                         </div>
 
@@ -254,10 +261,11 @@
                                 class="w-10 h-10 rounded-lg bg-accent-dim flex items-center justify-center mb-4 text-accent">
                                 <i class="fas fa-file-invoice text-xl"></i>
                             </div>
-                            <h4 class="text-white font-bold mb-2">Extent Reports</h4>
+                            <h4 class="text-white font-bold mb-2">Extent Reports & CI/CD</h4>
                             <p class="text-gray-400 text-sm leading-relaxed">
-                                Customized reporting listeners to log Request Body, Response Body, Status Codes, and
-                                Headers directly into the HTML report for full traceability.
+                                Designed custom <code>ITestListener</code> logic to generate interactive HTML reports
+                                logging full request/response bodies and stack traces. Ready for
+                                <strong>Jenkins</strong> integration via Maven command line.
                             </p>
                         </div>
 
@@ -267,13 +275,13 @@
                 <div class="pt-8 border-t border-gray-800">
                     <h3 class="text-white font-bold mb-4">Explore the Repository</h3>
                     <div class="flex flex-wrap gap-4">
-                        <a href="https://github.com/AutomationWithPiyushhh" target="_blank"
+                        <a href="https://github.com/AutomationWithPiyushhh/GoRest-Backend-Framework" target="_blank"
                             class="flex items-center gap-3 bg-white text-black px-8 py-4 rounded-lg font-bold hover:bg-cyan-400 hover:text-black transition hover:-translate-y-1 shadow-lg shadow-white/10">
                             <i class="fab fa-github text-xl"></i> View Source Code
                         </a>
                         <div
                             class="flex items-center gap-3 px-6 py-4 rounded-lg border border-gray-700 text-gray-400 font-mono text-sm bg-black/20">
-                            <span class="text-cyan-400">$</span> mvn test -DsuiteXmlFile=testng.xml
+                            <span class="text-cyan-400">$</span> mvn clean test -DsuiteXmlFile=testng.xml
                         </div>
                     </div>
                 </div>

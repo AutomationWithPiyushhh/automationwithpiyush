@@ -238,7 +238,6 @@
 
     <div id="toast-container"></div>
 
-    <!-- Custom Glassy Modal -->
     <div id="custom-modal-backdrop">
         <div class="modal-content text-center">
             <div id="modal-icon" class="text-4xl mb-4 text-accent"><i class="fas fa-bell"></i></div>
@@ -276,9 +275,7 @@
     <main class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-8 md:gap-12">
 
         <section class="space-y-8" data-aos="fade-right" data-aos-delay="100">
-            <!-- Form Card -->
             <div class="glass-card p-6 md:p-8 relative overflow-hidden">
-                <!-- Decorative yellow blur blob -->
                 <div
                     class="absolute -top-10 -right-10 w-40 h-40 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 pointer-events-none">
                 </div>
@@ -365,10 +362,17 @@
                             <input type="date" id="datepicker" class="cursor-pointer">
                         </div>
                     </div>
+
+                    <div class="pt-2">
+                        <button type="submit" id="submit-btn"
+                            class="w-full bg-accent text-black px-4 py-3 rounded-xl font-bold hover:shadow-lg transition-all transform active:scale-[0.98] flex justify-center items-center gap-2">
+                            <i class="fas fa-paper-plane"></i> Submit Form
+                        </button>
+                    </div>
+
                 </form>
             </div>
 
-            <!-- Static Table Card -->
             <div class="glass-card overflow-hidden">
                 <div
                     class="p-5 border-b border-gray-100 bg-white/40 flex justify-between items-center backdrop-blur-md">
@@ -413,7 +417,6 @@
 
         <section class="space-y-8" data-aos="fade-left" data-aos-delay="200">
 
-            <!-- Modals & Buttons Card -->
             <div class="glass-card p-6 md:p-8">
                 <h4 class="text-gray-400 text-[10px] uppercase font-bold mb-5 tracking-widest flex items-center">
                     <i class="fas fa-layer-group text-accent mr-2"></i> Modals & Popups
@@ -443,13 +446,11 @@
                 </div>
             </div>
 
-            <!-- Advanced Interactions Card -->
             <div class="glass-card p-6 md:p-8">
                 <h4 class="text-gray-400 text-[10px] uppercase font-bold mb-6 tracking-widest flex items-center">
                     <i class="fas fa-magic text-accent mr-2"></i> Advanced Interactions
                 </h4>
 
-                <!-- Double Click -->
                 <div class="mb-8 p-4 glass-panel border-l-4 border-l-yellow-400 bg-white/60">
                     <div class="grid grid-cols-2 gap-3 mb-4">
                         <input type="text" id="field1" value="Hello World!" readonly
@@ -462,7 +463,6 @@
                     </button>
                 </div>
 
-                <!-- Slider -->
                 <div class="mb-8 pl-1">
                     <div class="flex justify-between items-center mb-3">
                         <label class="block text-gray-600 text-[10px] uppercase font-bold">Price Range Slider</label>
@@ -474,7 +474,6 @@
                     </div>
                 </div>
 
-                <!-- Drag & Drop -->
                 <div>
                     <label class="block text-gray-600 text-[10px] uppercase font-bold mb-3 pl-1">Drag & Drop
                         Engine</label>
@@ -493,7 +492,6 @@
                 </div>
             </div>
 
-            <!-- Dynamic Table Card -->
             <div class="glass-card overflow-hidden">
                 <div
                     class="p-4 border-b border-gray-100 bg-white/40 flex justify-between items-center backdrop-blur-md">
@@ -514,7 +512,6 @@
                             </tr>
                         </thead>
                         <tbody id="dynamicRows" class="font-mono text-xs">
-                            <!-- Rows injected via JS -->
                         </tbody>
                     </table>
                     <div class="mt-4 text-[10px] font-bold uppercase tracking-widest text-gray-400 text-right pr-2"
@@ -550,6 +547,12 @@
                 if (container.contains(toast)) container.removeChild(toast);
             }, 3400);
         }
+
+        // --- Handle Form Submission ---
+        document.getElementById('guiForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevents the page from actually reloading
+            showToast("Form Submitted Successfully!");
+        });
 
         // --- Custom Modal Logic (Replacing Native Alerts) ---
         const modalBackdrop = document.getElementById('custom-modal-backdrop');
