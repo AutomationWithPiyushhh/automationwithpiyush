@@ -1,39 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actions Class | AutomationWithPiyush</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.6)',
+                            dark: 'rgba(30, 30, 40, 0.6)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
         body {
-            background-color: #1a1b23;
-            color: #ffffff;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            transition-property: background-color, color;
+            transition-duration: 400ms;
+        }
+
+        /* --- Theme Backgrounds & Shared Glass Styles --- */
+        :root body {
+            background-color: #f0f2f6;
+            color: #1c1d21;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.08), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.08), transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .dark body {
+            background-color: #12131a;
+            color: #ffffff;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.04), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.04), transparent 50%);
         }
 
         .bg-card {
-            background-color: #252631;
-            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .text-accent {
-            color: #facc15;
+        :root .bg-card {
+            background-color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
         }
 
-        .border-accent {
+        .dark .bg-card {
+            background-color: rgba(30, 31, 40, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .bg-card:hover {
             border-color: #facc15;
+            box-shadow: 0 8px 30px rgba(250, 204, 21, 0.15);
         }
 
-        .bg-accent {
-            background-color: #facc15;
+        /* Interactive Box Default Styles */
+        .interactive-box {
+            transition: all 0.2s ease;
+        }
+
+        :root .interactive-box {
+            background-color: rgba(255, 255, 255, 0.5);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .interactive-box {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        :root .interactive-box:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .dark .interactive-box:hover {
+            background-color: rgba(255, 255, 255, 0.05);
         }
 
         /* --- DRAG & DROP STYLES --- */
@@ -52,51 +111,71 @@
             touch-action: none;
             position: relative;
             z-index: 10;
-            transition: transform 0.1s;
+            transition: transform 0.1s, box-shadow 0.2s;
         }
 
         .drag-item:active {
             cursor: grabbing;
         }
 
-        /* The item while being dragged */
         .drag-item.is-dragging {
             position: fixed;
             z-index: 9999;
-            opacity: 0.9;
-            transform: scale(1.05);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            opacity: 0.95;
+            transform: scale(1.03);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2);
             pointer-events: none;
-            /* Critical for identifying drop zone below */
         }
 
-        /* When inside the cart, change style slightly */
-        #shopping-cart .drag-item {
-            background-color: #2d3748;
-            /* Darker bg */
+        /* Cart specific styling */
+        :root #shopping-cart .drag-item {
+            background-color: #f8fafc;
             border-left: 3px solid #facc15;
         }
 
-        /* Toast & Slider Styles */
+        .dark #shopping-cart .drag-item {
+            background-color: #1e293b;
+            border-left: 3px solid #facc15;
+        }
+
+        /* --- TOAST --- */
         #toast-container {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             z-index: 9999;
         }
 
         .toast {
-            background: #252631;
-            border-left: 4px solid #facc15;
-            color: white;
-            padding: 1rem 1.5rem;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-            animation: slideIn 0.3s ease-out forwards;
+            border-left: 3px solid #facc15;
+            padding: 0.75rem 1rem;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        :root .toast {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            color: #1c1d21;
+            border-right: 1px solid rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .dark .toast {
+            background: rgba(30, 31, 40, 0.9);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         @keyframes slideIn {
@@ -111,10 +190,12 @@
             }
         }
 
+        /* --- SVG PROGRESS RING --- */
         .progress-ring {
             transition: stroke-dashoffset 0.05s linear;
         }
 
+        /* --- SCALED RANGE SLIDER --- */
         input[type=range] {
             -webkit-appearance: none;
             width: 100%;
@@ -123,276 +204,335 @@
 
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            height: 24px;
-            width: 24px;
+            height: 16px;
+            width: 16px;
             border-radius: 50%;
             background: #facc15;
             cursor: pointer;
-            margin-top: -10px;
-            box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
-            border: 2px solid #1a1b23;
+            margin-top: -6px;
+            box-shadow: 0 0 8px rgba(250, 204, 21, 0.5);
+            border: 2px solid #ffffff;
+        }
+
+        .dark input[type=range]::-webkit-slider-thumb {
+            border-color: #1a1b23;
         }
 
         input[type=range]::-webkit-slider-runnable-track {
             width: 100%;
             height: 4px;
             cursor: pointer;
-            background: #4b5563;
+            background: #cbd5e1;
             border-radius: 2px;
+        }
+
+        .dark input[type=range]::-webkit-slider-runnable-track {
+            background: #4b5563;
         }
     </style>
 </head>
 
-<body class="pb-20">
+<body class="pb-12 min-h-screen flex flex-col items-center pt-4">
 
     <div id="toast-container"></div>
 
-    <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-7xl mx-auto z-50">
-        <div class="flex items-center gap-3"></div>
-        <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">
-            <i class="fas fa-arrow-left mr-2"></i> Back to Ward
+    <div class="w-full max-w-5xl px-4 flex justify-between items-center mb-6 z-50">
+        <a href="index.html"
+            class="flex items-center gap-2 text-slate-600 dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-400 transition-all text-xs font-semibold bg-white/40 dark:bg-black/30 px-3 py-1.5 rounded-full border border-white/50 dark:border-white/10 backdrop-blur-md shadow-sm">
+            <i class="fa-solid fa-arrow-left"></i> Back to Hub
         </a>
-    </nav>
+        <button id="theme-toggle"
+            class="w-7 h-7 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-white/50 dark:border-white/10 flex items-center justify-center transition-all hover:scale-110"
+            onclick="toggleTheme()">
+            <i class="fas fa-moon dark:hidden text-slate-800 text-[10px]"></i>
+            <i class="fas fa-sun hidden dark:block text-amber-400 text-[10px]"></i>
+        </button>
+    </div>
 
-    <header class="max-w-7xl mx-auto px-6 py-10" data-aos="fade-down">
-        <p class="text-accent uppercase tracking-widest text-xs font-bold mb-4">— Surgical Dexterity Unit</p>
-        <h1 class="text-4xl md:text-5xl font-bold">Actions <span class="text-gray-600">Anatomy</span></h1>
+    <header class="w-full max-w-5xl px-4 mb-6" data-aos="fade-down">
+        <p class="text-amber-500 dark:text-amber-400 uppercase tracking-widest text-[9px] font-bold mb-1.5">— Surgical
+            Dexterity Unit</p>
+        <h1 class="text-2xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">Actions <span
+                class="text-slate-500 dark:text-gray-500">Anatomy</span></h1>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+    <main class="w-11/12 max-w-5xl flex-grow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-5">
 
-        <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent group lg:col-span-2"
+        <div class="bg-card p-5 md:p-6 rounded-2xl border border-white/60 dark:border-white/10 shadow-sm group lg:col-span-2"
             data-aos="fade-up">
-            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">01. Hover</h3>
+            <h3 class="text-slate-500 dark:text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-4">01. Hover
+            </h3>
             <div
-                class="h-48 flex items-center justify-center relative group/hover-target bg-[#1a1b23] rounded-lg border border-dashed border-gray-600">
+                class="h-32 flex items-center justify-center relative group/hover-target interactive-box rounded-xl border border-dashed shadow-inner">
                 <button
-                    class="px-6 py-3 bg-gray-700 rounded-lg font-bold text-sm group-hover/hover-target:bg-accent group-hover/hover-target:text-black transition-all">Hover
-                    Me</button>
+                    class="px-4 py-2 bg-slate-200 dark:bg-gray-700 text-slate-800 dark:text-white rounded-lg font-bold text-xs group-hover/hover-target:bg-amber-400 group-hover/hover-target:text-black transition-all shadow-sm">
+                    Hover Me
+                </button>
                 <div
-                    class="absolute top-28 opacity-0 group-hover/hover-target:opacity-100 group-hover/hover-target:top-32 transition-all duration-300">
+                    class="absolute top-16 opacity-0 group-hover/hover-target:opacity-100 group-hover/hover-target:top-20 transition-all duration-300 z-20">
                     <div
-                        class="bg-white text-black px-4 py-2 rounded shadow-xl text-xs font-bold flex items-center gap-2">
+                        class="bg-slate-900 dark:bg-white text-white dark:text-black px-3 py-1.5 rounded-lg shadow-lg text-[10px] font-bold flex items-center gap-1.5">
                         <i class="fas fa-syringe text-red-500"></i> Injection Ready
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent group lg:col-span-2"
+        <div class="bg-card p-5 md:p-6 rounded-2xl border border-white/60 dark:border-white/10 shadow-sm group lg:col-span-2"
             data-aos="fade-up" data-aos-delay="100">
-            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">02. Left Click</h3>
+            <h3 class="text-slate-500 dark:text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-4">02. Left
+                Click</h3>
             <div id="click-box" onclick="handleClick()"
-                class="h-48 bg-[#1a1b23] rounded-lg border border-gray-700 flex flex-col items-center justify-center cursor-pointer select-none transition-all active:scale-95 hover:bg-gray-800">
-                <i id="click-icon" class="fas fa-mouse-pointer text-3xl mb-3 text-gray-600"></i>
-                <p id="click-text" class="text-sm font-bold text-gray-500">Click to Activate</p>
+                class="h-32 interactive-box rounded-xl border flex flex-col items-center justify-center cursor-pointer select-none transition-all active:scale-95 shadow-inner">
+                <i id="click-icon" class="fas fa-mouse-pointer text-2xl mb-2 text-slate-400 dark:text-gray-500"></i>
+                <p id="click-text" class="text-[11px] font-bold text-slate-500 dark:text-gray-400">Click to Activate</p>
             </div>
         </div>
 
-        <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent group lg:col-span-2"
+        <div class="bg-card p-5 md:p-6 rounded-2xl border border-white/60 dark:border-white/10 shadow-sm group lg:col-span-2"
             data-aos="fade-up" data-aos-delay="200">
-            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">03. Right Click</h3>
+            <h3 class="text-slate-500 dark:text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-4">03. Right
+                Click</h3>
             <div id="right-click-area" oncontextmenu="handleContext(event)"
-                class="h-48 bg-[#1a1b23] rounded-lg border border-gray-700 flex flex-col items-center justify-center cursor-context-menu hover:bg-gray-800 transition-colors">
-                <i class="fas fa-mouse text-3xl mb-3 text-gray-600"></i>
-                <p class="text-sm font-bold text-gray-500">Right Click Here</p>
+                class="h-32 interactive-box rounded-xl border flex flex-col items-center justify-center cursor-context-menu transition-colors shadow-inner relative">
+                <i class="fas fa-mouse text-2xl mb-2 text-slate-400 dark:text-gray-500"></i>
+                <p class="text-[11px] font-bold text-slate-500 dark:text-gray-400">Right Click Here</p>
                 <div id="context-menu"
-                    class="hidden absolute mt-12 bg-white text-black text-xs font-bold py-2 px-4 rounded shadow-lg">
-                    <i class="fas fa-check-circle text-green-600 mr-2"></i> Menu Accessed
+                    class="hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-4 bg-slate-900 dark:bg-white text-white dark:text-black text-[10px] font-bold py-1.5 px-3 rounded-lg shadow-lg flex items-center whitespace-nowrap z-50">
+                    <i class="fas fa-check-circle text-green-500 mr-1.5"></i> Menu Accessed
                 </div>
             </div>
         </div>
 
-        <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent group lg:col-span-3"
+        <div class="bg-card p-5 md:p-6 rounded-2xl border border-white/60 dark:border-white/10 shadow-sm group lg:col-span-3"
             data-aos="fade-up">
-            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">04. Double Click</h3>
+            <h3 class="text-slate-500 dark:text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-4">04.
+                Double Click</h3>
             <div id="double-click-area" ondblclick="handleDoubleClick()"
-                class="h-48 bg-[#1a1b23] rounded-lg border border-dashed border-gray-600 flex flex-col items-center justify-center cursor-pointer hover:border-accent hover:text-accent transition-all">
-                <i id="db-icon" class="fas fa-bolt text-3xl mb-3 text-gray-600"></i>
-                <p id="db-text" class="text-sm font-bold text-gray-500">Double Tap to Charge</p>
+                class="h-32 interactive-box rounded-xl border border-dashed flex flex-col items-center justify-center cursor-pointer hover:border-amber-400 transition-all shadow-inner group/db">
+                <i id="db-icon"
+                    class="fas fa-bolt text-2xl mb-2 text-slate-400 dark:text-gray-500 group-hover/db:text-amber-500 transition-colors"></i>
+                <p id="db-text"
+                    class="text-[11px] font-bold text-slate-500 dark:text-gray-400 group-hover/db:text-slate-700 dark:group-hover/db:text-gray-300 transition-colors">
+                    Double Tap to Charge</p>
             </div>
         </div>
 
-        <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent group lg:col-span-3"
+        <div class="bg-card p-5 md:p-6 rounded-2xl border border-white/60 dark:border-white/10 shadow-sm group lg:col-span-3"
             data-aos="fade-up" data-aos-delay="100">
-            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">05. Click & Hold</h3>
+            <h3 class="text-slate-500 dark:text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-4">05. Click
+                & Hold</h3>
             <div id="click-hold"
-                class="relative h-48 bg-[#1a1b23] rounded-lg border border-gray-700 flex flex-col items-center justify-center cursor-pointer select-none transition-colors">
-                <svg class="absolute inset-0 w-full h-full p-4 pointer-events-none" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="45" stroke="#333" stroke-width="2" fill="none" />
-                    <circle id="hold-progress" class="progress-ring" cx="50" cy="50" r="45" stroke="#facc15"
-                        stroke-width="4" fill="none" stroke-dasharray="283" stroke-dashoffset="283"
-                        transform="rotate(-90 50 50)" />
+                class="relative h-32 interactive-box rounded-xl border flex flex-col items-center justify-center cursor-pointer select-none transition-colors shadow-inner overflow-hidden">
+                <svg class="absolute inset-0 w-full h-full p-2 pointer-events-none" viewBox="0 0 100 100">
+                    <circle class="text-slate-200 dark:text-gray-700" cx="50" cy="50" r="42" stroke="currentColor"
+                        stroke-width="3" fill="none" />
+                    <circle id="hold-progress" class="progress-ring text-amber-400" cx="50" cy="50" r="42"
+                        stroke="currentColor" stroke-width="4" fill="none" stroke-dasharray="264"
+                        stroke-dashoffset="264" transform="rotate(-90 50 50)" stroke-linecap="round" />
                 </svg>
                 <i id="hold-icon"
-                    class="fas fa-fingerprint text-4xl mb-2 text-gray-600 group-hover:text-white transition-colors"></i>
-                <p id="hold-text" class="text-sm font-bold text-gray-500 z-10">Hold for 3 Seconds</p>
+                    class="fas fa-fingerprint text-3xl mb-1 text-slate-400 dark:text-gray-500 group-hover:text-slate-600 dark:group-hover:text-gray-300 transition-colors z-10"></i>
+                <p id="hold-text" class="text-[10px] font-bold text-slate-500 dark:text-gray-400 z-10">Hold for 3 Secs
+                </p>
             </div>
         </div>
 
-        <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent lg:col-span-4 lg:col-start-2"
+        <div class="bg-card p-5 md:p-6 rounded-2xl border border-white/60 dark:border-white/10 shadow-sm group lg:col-span-4 lg:col-start-2"
             data-aos="fade-up" data-aos-delay="200">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest">06. Shopping Cart (Drag & Drop)
-                </h3>
-                <div class="bg-gray-900 border border-gray-700 rounded px-4 py-2 flex items-center gap-2">
-                    <span class="text-[10px] text-gray-500 uppercase font-bold">Total:</span>
-                    <span id="cart-total" class="text-xl font-mono font-bold text-accent">$0</span>
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-slate-500 dark:text-gray-400 text-[10px] font-bold uppercase tracking-widest">06. Cart
+                    (Drag & Drop)</h3>
+                <div
+                    class="bg-white/60 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-lg px-3 py-1.5 flex items-center gap-2 shadow-inner">
+                    <span class="text-[9px] text-slate-500 dark:text-gray-500 uppercase font-bold">Total:</span>
+                    <span id="cart-total"
+                        class="text-sm font-mono font-bold text-amber-600 dark:text-amber-400 transition-colors">$0</span>
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-8">
+            <div class="grid grid-cols-2 gap-5">
                 <div id="shelf-zone"
-                    class="drop-zone space-y-3 min-h-[250px] p-4 rounded-lg border border-dashed border-gray-700 bg-[#1a1b23]/50 relative">
-                    <p class="text-[10px] text-gray-500 font-bold uppercase mb-2 absolute -top-6 left-0">Available
-                        Products</p>
+                    class="drop-zone space-y-2 min-h-[160px] p-3 rounded-xl border border-dashed border-slate-300 dark:border-gray-700 bg-slate-50/50 dark:bg-[#1a1b23]/50 relative shadow-inner">
+                    <p
+                        class="text-[9px] text-slate-400 dark:text-gray-500 font-bold uppercase mb-1 absolute -top-5 left-0">
+                        Available</p>
 
                     <div id="prod-laptop" data-price="1200"
-                        class="drag-item h-12 bg-gray-700 rounded-lg flex justify-between px-4 items-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
-                        <span class="pointer-events-none"><i class="fas fa-laptop mr-2"></i>Laptop</span>
-                        <span class="text-accent pointer-events-none">$1200</span>
+                        class="drag-item h-10 bg-white dark:bg-gray-800 rounded-lg flex justify-between px-3 items-center shadow-sm border border-slate-200 dark:border-gray-700 hover:border-amber-400 dark:hover:border-white transition-all text-[10px] font-bold text-slate-700 dark:text-gray-200">
+                        <span class="pointer-events-none"><i
+                                class="fas fa-laptop text-slate-400 dark:text-gray-500 mr-2"></i>Laptop</span>
+                        <span class="text-amber-600 dark:text-amber-400 pointer-events-none">$1200</span>
                     </div>
 
                     <div id="prod-phone" data-price="800"
-                        class="drag-item h-12 bg-gray-700 rounded-lg flex justify-between px-4 items-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
-                        <span class="pointer-events-none"><i class="fas fa-mobile-alt mr-2"></i>iPhone</span>
-                        <span class="text-accent pointer-events-none">$800</span>
+                        class="drag-item h-10 bg-white dark:bg-gray-800 rounded-lg flex justify-between px-3 items-center shadow-sm border border-slate-200 dark:border-gray-700 hover:border-amber-400 dark:hover:border-white transition-all text-[10px] font-bold text-slate-700 dark:text-gray-200">
+                        <span class="pointer-events-none"><i
+                                class="fas fa-mobile-alt text-slate-400 dark:text-gray-500 mr-2"></i>iPhone</span>
+                        <span class="text-amber-600 dark:text-amber-400 pointer-events-none">$800</span>
                     </div>
 
                     <div id="prod-watch" data-price="300"
-                        class="drag-item h-12 bg-gray-700 rounded-lg flex justify-between px-4 items-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
-                        <span class="pointer-events-none"><i class="fas fa-clock mr-2"></i>Watch</span>
-                        <span class="text-accent pointer-events-none">$300</span>
+                        class="drag-item h-10 bg-white dark:bg-gray-800 rounded-lg flex justify-between px-3 items-center shadow-sm border border-slate-200 dark:border-gray-700 hover:border-amber-400 dark:hover:border-white transition-all text-[10px] font-bold text-slate-700 dark:text-gray-200">
+                        <span class="pointer-events-none"><i
+                                class="fas fa-clock text-slate-400 dark:text-gray-500 mr-2"></i>Watch</span>
+                        <span class="text-amber-600 dark:text-amber-400 pointer-events-none">$300</span>
                     </div>
 
                     <div id="prod-headphones" data-price="150"
-                        class="drag-item h-12 bg-gray-700 rounded-lg flex justify-between px-4 items-center shadow-lg border border-transparent hover:border-white transition-all text-xs font-bold">
-                        <span class="pointer-events-none"><i class="fas fa-headphones mr-2"></i>Headset</span>
-                        <span class="text-accent pointer-events-none">$150</span>
+                        class="drag-item h-10 bg-white dark:bg-gray-800 rounded-lg flex justify-between px-3 items-center shadow-sm border border-slate-200 dark:border-gray-700 hover:border-amber-400 dark:hover:border-white transition-all text-[10px] font-bold text-slate-700 dark:text-gray-200">
+                        <span class="pointer-events-none"><i
+                                class="fas fa-headphones text-slate-400 dark:text-gray-500 mr-2"></i>Headset</span>
+                        <span class="text-amber-600 dark:text-amber-400 pointer-events-none">$150</span>
                     </div>
                 </div>
 
-                <div class="space-y-3 relative">
-                    <p class="text-[10px] text-gray-500 font-bold uppercase mb-2 text-right absolute -top-6 right-0">
+                <div class="space-y-2 relative">
+                    <p
+                        class="text-[9px] text-slate-400 dark:text-gray-500 font-bold uppercase mb-1 text-right absolute -top-5 right-0">
                         Your Cart</p>
-
                     <div id="cart-zone"
-                        class="drop-zone h-full min-h-[250px] border-2 border-dashed border-gray-600 rounded-lg flex flex-col gap-3 p-4 bg-[#1a1b23] transition-colors relative">
+                        class="drop-zone h-full min-h-[160px] border-2 border-dashed border-slate-300 dark:border-gray-600 rounded-xl flex flex-col gap-2 p-3 bg-white/40 dark:bg-[#1a1b23]/80 transition-colors relative shadow-inner">
                         <div id="cart-placeholder"
-                            class="absolute inset-0 flex items-center justify-center text-gray-700 pointer-events-none">
-                            <span class="text-xs uppercase font-bold">Drop Items Here</span>
+                            class="absolute inset-0 flex items-center justify-center text-slate-400 dark:text-gray-600 pointer-events-none transition-opacity duration-300">
+                            <span class="text-[10px] uppercase font-bold tracking-widest">Drop Here</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-card p-8 rounded-xl border border-gray-800 hover:border-accent lg:col-span-6" data-aos="fade-up">
-            <div class="flex justify-between items-center mb-8">
-                <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest">07. Range Slider</h3>
-                <span id="slider-val" class="text-3xl font-black text-gray-500 font-mono">0</span>
+        <div class="bg-card p-5 md:p-6 rounded-2xl border border-white/60 dark:border-white/10 shadow-sm group lg:col-span-6"
+            data-aos="fade-up">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-slate-500 dark:text-gray-400 text-[10px] font-bold uppercase tracking-widest">07. Range
+                    Slider</h3>
+                <span id="slider-val"
+                    class="text-xl font-black text-slate-500 dark:text-gray-400 font-mono transition-colors">0</span>
             </div>
-            <div class="relative px-4 pt-4 pb-8">
-                <div class="absolute left-1/2 -top-2 w-px h-12 bg-gray-600 z-0 transform -translate-x-1/2"></div>
+            <div class="relative px-3 pt-2 pb-5">
+                <div
+                    class="absolute left-1/2 -top-1 w-px h-8 bg-slate-300 dark:bg-gray-600 z-0 transform -translate-x-1/2">
+                </div>
                 <input type="range" id="pulse-slider" min="-100" max="100" value="0" oninput="updateSlider(this.value)"
-                    class="relative z-10">
-                <div class="flex justify-between mt-4 text-[10px] text-gray-500 font-bold uppercase font-mono">
-                    <span class="text-red-400">Negative (-100)</span>
-                    <span class="text-gray-300">Zero</span>
-                    <span class="text-green-400">Positive (+100)</span>
+                    class="relative z-10 w-full">
+                <div
+                    class="flex justify-between mt-3 text-[9px] text-slate-500 dark:text-gray-500 font-bold uppercase font-mono tracking-widest">
+                    <span class="text-red-500 dark:text-red-400">Negative (-100)</span>
+                    <span class="text-slate-400 dark:text-gray-500">Zero</span>
+                    <span class="text-green-500 dark:text-green-400">Positive (+100)</span>
                 </div>
             </div>
         </div>
 
     </main>
 
-    <footer class="py-10 text-center border-t border-gray-800 mt-20">
-        <p class="text-[10px] text-gray-600 uppercase tracking-widest">© 2026 AutomationWithPiyush | Surgical Dexterity
-        </p>
+    <footer class="w-full mt-10 py-5 border-t border-slate-300 dark:border-gray-800/50 text-center">
+        <p class="text-[9px] font-bold text-slate-500 dark:text-gray-600 uppercase tracking-widest">© 2026
+            AutomationWithPiyush | Surgical Dexterity</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 800, once: true });
+        AOS.init({ duration: 600, once: true });
+
+        // --- THEME LOGIC ---
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+        }
 
         // --- Basic Utils ---
         function showToast(msg, isError = false) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             toast.className = 'toast';
-            if (isError) toast.style.borderLeftColor = '#f87171';
-            toast.innerHTML = `<i class="fas ${isError ? 'fa-times-circle text-red-400' : 'fa-check-circle text-accent'}"></i> <span>${msg}</span>`;
+            if (isError) toast.style.borderLeftColor = '#ef4444';
+            toast.innerHTML = `<i class="fas ${isError ? 'fa-times-circle text-red-500' : 'fa-check-circle text-amber-500 dark:text-amber-400'} text-sm"></i> <span>${msg}</span>`;
             container.appendChild(toast);
             setTimeout(() => toast.remove(), 3000);
         }
 
+        // --- Click Handlers (Updated for theme compatibility) ---
         function handleClick() {
             const box = document.getElementById('click-box');
-            box.classList.add('border-accent', 'bg-accent/10');
+            box.classList.add('border-amber-400', 'bg-amber-400/10');
             document.getElementById('click-text').innerText = "Click Activated!";
+            document.getElementById('click-text').classList.add('text-amber-600', 'dark:text-amber-400');
+            document.getElementById('click-icon').classList.add('text-amber-500');
             showToast("Left Click Verified");
         }
 
         function handleContext(e) {
             e.preventDefault();
-            document.getElementById('context-menu').classList.remove('hidden');
+            const menu = document.getElementById('context-menu');
+            menu.classList.remove('hidden');
             showToast("Right Click Verified");
-            setTimeout(() => document.getElementById('context-menu').classList.add('hidden'), 2000);
+            setTimeout(() => menu.classList.add('hidden'), 2000);
         }
 
         function handleDoubleClick() {
-            document.getElementById('double-click-area').classList.add('border-accent', 'bg-accent/10');
+            const box = document.getElementById('double-click-area');
+            box.classList.add('border-amber-400', 'bg-amber-400/10');
             document.getElementById('db-text').innerText = "System Charged!";
+            document.getElementById('db-text').classList.add('text-amber-600', 'dark:text-amber-400');
+            document.getElementById('db-icon').classList.add('text-amber-500');
             showToast("Double Click Verified");
         }
 
         function updateSlider(val) {
             const display = document.getElementById('slider-val');
             display.innerText = val > 0 ? `+${val}` : val;
-            if (val == 0) display.className = "text-3xl font-black font-mono text-gray-500";
-            else if (val < 0) display.className = "text-3xl font-black font-mono text-red-400";
-            else display.className = "text-3xl font-black font-mono text-green-400";
+            if (val == 0) display.className = "text-xl font-black font-mono text-slate-500 dark:text-gray-400 transition-colors";
+            else if (val < 0) display.className = "text-xl font-black font-mono text-red-500 dark:text-red-400 transition-colors";
+            else display.className = "text-xl font-black font-mono text-green-500 dark:text-green-400 transition-colors";
         }
 
-        // --- Click & Hold ---
+        // --- Click & Hold (Updated visual logic) ---
         const holdArea = document.getElementById('click-hold');
         const progressRing = document.getElementById('hold-progress');
         const holdText = document.getElementById('hold-text');
         const holdIcon = document.getElementById('hold-icon');
         let holdTimer;
+        // 2 * Math.PI * 42 (radius) = 263.89
+        const dashArray = 264;
 
         holdArea.addEventListener('mousedown', () => {
-            holdArea.classList.remove('border-red-500');
-            holdText.classList.remove('text-red-500');
-            holdIcon.classList.remove('text-red-500');
-            holdArea.classList.add('border-accent');
-            holdText.classList.add('text-accent');
-            holdIcon.classList.add('text-accent');
+            holdArea.classList.remove('border-red-500', 'bg-red-500/5');
+            holdText.classList.remove('text-red-500', 'dark:text-red-400');
+            holdIcon.classList.remove('text-red-500', 'dark:text-red-400');
+
+            holdArea.classList.add('border-amber-400', 'bg-amber-400/5');
+            holdText.classList.add('text-amber-600', 'dark:text-amber-400');
+            holdIcon.classList.add('text-amber-500');
             holdText.innerText = "Holding...";
+
             let start = Date.now();
             holdTimer = setInterval(() => {
                 let elapsed = Date.now() - start;
                 let percentage = Math.min(elapsed / 3000, 1);
-                progressRing.style.strokeDashoffset = 283 - (283 * percentage);
+                progressRing.style.strokeDashoffset = dashArray - (dashArray * percentage);
                 if (percentage >= 1) { clearInterval(holdTimer); completeHold(); }
             }, 50);
         });
 
         const resetHold = () => {
             clearInterval(holdTimer);
-            progressRing.style.strokeDashoffset = 283;
+            progressRing.style.strokeDashoffset = dashArray;
             if (holdText.innerText !== "Success!") {
-                holdText.innerText = "Released too early!";
-                holdText.classList.replace('text-accent', 'text-red-500');
-                holdArea.classList.replace('border-accent', 'border-red-500');
-                holdIcon.classList.replace('text-accent', 'text-red-500');
+                holdText.innerText = "Released early!";
+                holdText.classList.replace('text-amber-600', 'text-red-500');
+                holdText.classList.replace('dark:text-amber-400', 'dark:text-red-400');
+                holdArea.classList.replace('border-amber-400', 'border-red-500');
+                holdArea.classList.replace('bg-amber-400/5', 'bg-red-500/5');
+                holdIcon.classList.replace('text-amber-500', 'text-red-500');
+                holdIcon.classList.add('dark:text-red-400');
+
                 setTimeout(() => {
-                    if (holdText.innerText === "Released too early!") {
-                        holdText.innerText = "Hold for 3 Seconds";
-                        holdText.className = "text-sm font-bold text-gray-500 z-10";
-                        holdArea.classList.remove('border-red-500');
-                        holdIcon.classList.remove('text-red-500');
-                        holdIcon.classList.add('text-gray-600');
+                    if (holdText.innerText === "Released early!") {
+                        holdText.innerText = "Hold for 3 Secs";
+                        holdText.className = "text-[10px] font-bold text-slate-500 dark:text-gray-400 z-10";
+                        holdArea.classList.remove('border-red-500', 'bg-red-500/5');
+                        holdIcon.className = "fas fa-fingerprint text-3xl mb-1 text-slate-400 dark:text-gray-500 group-hover:text-slate-600 dark:group-hover:text-gray-300 transition-colors z-10";
                     }
                 }, 1000);
             }
@@ -403,9 +543,12 @@
 
         function completeHold() {
             holdText.innerText = "Success!";
-            holdText.classList.replace('text-accent', 'text-green-400');
-            holdArea.classList.replace('border-accent', 'border-green-400');
-            holdIcon.classList.replace('text-accent', 'text-green-400');
+            holdText.classList.replace('text-amber-600', 'text-green-600');
+            holdText.classList.replace('dark:text-amber-400', 'dark:text-green-400');
+            holdArea.classList.replace('border-amber-400', 'border-green-400');
+            holdArea.classList.replace('bg-amber-400/5', 'bg-green-500/5');
+            holdIcon.classList.replace('text-amber-500', 'text-green-500');
+            progressRing.classList.replace('text-amber-400', 'text-green-400');
             showToast("Hold Verified");
         }
 
@@ -417,7 +560,7 @@
         let offsetX = 0;
         let offsetY = 0;
         let currentTotalPrice = 0;
-        let dragOriginZone = null; // 'shelf-zone' or 'cart-zone'
+        let dragOriginZone = null;
 
         const cartZone = document.getElementById('cart-zone');
         const shelfZone = document.getElementById('shelf-zone');
@@ -426,41 +569,62 @@
 
         document.querySelectorAll('.drag-item').forEach(item => {
             item.addEventListener('mousedown', startDrag);
+            // Touch support for mobile (basic)
+            item.addEventListener('touchstart', handleTouchStart, { passive: false });
         });
 
         function startDrag(e) {
             e.preventDefault();
-            activeDragItem = this;
-            dragOriginZone = activeDragItem.parentElement.id; // Remember where we started
-
-            const rect = activeDragItem.getBoundingClientRect();
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-
-            activeDragItem.classList.add('is-dragging');
-
-            // Set initial position immediately to prevent jump
-            activeDragItem.style.left = (e.clientX - offsetX) + 'px';
-            activeDragItem.style.top = (e.clientY - offsetY) + 'px';
-
-            // If dragging from cart, width might change, so fix width
-            activeDragItem.style.width = rect.width + 'px';
-
+            initDrag(this, e.clientX, e.clientY);
             document.addEventListener('mousemove', onMouseMove);
             document.addEventListener('mouseup', onMouseUp);
         }
 
-        function onMouseMove(e) {
-            if (!activeDragItem) return;
-            activeDragItem.style.left = (e.clientX - offsetX) + 'px';
-            activeDragItem.style.top = (e.clientY - offsetY) + 'px';
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            initDrag(this, touch.clientX, touch.clientY);
+            document.addEventListener('touchmove', onTouchMove, { passive: false });
+            document.addEventListener('touchend', onTouchEnd);
         }
 
-        function onMouseUp(e) {
+        function initDrag(element, clientX, clientY) {
+            activeDragItem = element;
+            dragOriginZone = activeDragItem.parentElement.id;
+
+            const rect = activeDragItem.getBoundingClientRect();
+            offsetX = clientX - rect.left;
+            offsetY = clientY - rect.top;
+
+            activeDragItem.classList.add('is-dragging');
+            activeDragItem.style.left = (clientX - offsetX) + 'px';
+            activeDragItem.style.top = (clientY - offsetY) + 'px';
+            activeDragItem.style.width = rect.width + 'px';
+        }
+
+        function onMouseMove(e) { moveDragItem(e.clientX, e.clientY); }
+        function onTouchMove(e) { moveDragItem(e.touches[0].clientX, e.touches[0].clientY); }
+
+        function moveDragItem(clientX, clientY) {
+            if (!activeDragItem) return;
+            activeDragItem.style.left = (clientX - offsetX) + 'px';
+            activeDragItem.style.top = (clientY - offsetY) + 'px';
+        }
+
+        function onMouseUp(e) { endDrag(e.clientX, e.clientY); }
+        function onTouchEnd(e) {
+            const touch = e.changedTouches[0];
+            endDrag(touch.clientX, touch.clientY);
+        }
+
+        function endDrag(clientX, clientY) {
             if (!activeDragItem) return;
 
-            // Find what is under the mouse
-            let elemBelow = document.elementFromPoint(e.clientX, e.clientY);
+            // Hide item temporarily to find element underneath
+            activeDragItem.style.visibility = 'hidden';
+            let elemBelow = document.elementFromPoint(clientX, clientY);
+            activeDragItem.style.visibility = 'visible';
+
             let dropTarget = elemBelow ? elemBelow.closest('.drop-zone') : null;
             let targetId = dropTarget ? dropTarget.id : null;
 
@@ -471,45 +635,38 @@
             activeDragItem.style.left = '';
             activeDragItem.style.top = '';
             activeDragItem.style.position = '';
-            activeDragItem.style.width = ''; // Reset width
+            activeDragItem.style.width = '';
             activeDragItem.style.zIndex = '';
 
             activeDragItem = null;
             dragOriginZone = null;
+
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('touchmove', onTouchMove);
+            document.removeEventListener('touchend', onTouchEnd);
         }
 
         function handleDropLogic(targetId) {
             const price = parseInt(activeDragItem.getAttribute('data-price'));
 
-            // SCENARIO 1: Adding to Cart (Shelf -> Cart)
+            // Shelf -> Cart
             if (dragOriginZone === 'shelf-zone' && targetId === 'cart-zone') {
                 cartZone.appendChild(activeDragItem);
                 updateTotal(price);
                 showToast(`Added to Cart: $${price}`);
             }
-
-            // SCENARIO 2: Removing from Cart (Cart -> Shelf OR Cart -> Nowhere)
-            // If we are dragging FROM cart, and we drop it ANYWHERE except the cart...
+            // Cart -> Shelf (or outside)
             else if (dragOriginZone === 'cart-zone' && targetId !== 'cart-zone') {
-                shelfZone.appendChild(activeDragItem); // Return to shelf
-                updateTotal(-price); // Subtract price
+                shelfZone.appendChild(activeDragItem);
+                updateTotal(-price);
                 showToast(`Removed from Cart`, true);
-            }
-
-            // SCENARIO 3: Reordering (Shelf -> Shelf or Cart -> Cart)
-            // No price change, just visual movement (handled by appendChild automatically)
-            else if (targetId && targetId === dragOriginZone) {
-                // Just put it back in the flow
-                // (Optional: You could implement specific sorting logic here)
             }
 
             updatePlaceholder();
         }
 
         function updatePlaceholder() {
-            // Hide placeholder if cart has items (more than just the placeholder div)
             if (cartZone.children.length > 1) {
                 cartPlaceholder.style.opacity = '0';
             } else {
@@ -521,9 +678,12 @@
             currentTotalPrice += amount;
             totalDisplay.innerText = '$' + currentTotalPrice;
 
-            // Visual pulse on total
-            totalDisplay.classList.add('text-white');
-            setTimeout(() => totalDisplay.classList.remove('text-white'), 300);
+            totalDisplay.classList.add('text-green-500', 'dark:text-green-400');
+            totalDisplay.classList.remove('text-amber-600', 'dark:text-amber-400');
+            setTimeout(() => {
+                totalDisplay.classList.remove('text-green-500', 'dark:text-green-400');
+                totalDisplay.classList.add('text-amber-600', 'dark:text-amber-400');
+            }, 300);
         }
 
     </script>
