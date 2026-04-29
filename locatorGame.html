@@ -1,95 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Locator Master | AutomationWithPiyush</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.6)',
+                            dark: 'rgba(30, 30, 40, 0.6)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Add canvas-confetti for celebratory animations -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f9fafb;
-            /* Light background from your image */
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            position: relative;
+            transition-property: background-color, color;
+            transition-duration: 400ms;
         }
 
-        /* Abstract iOS Glassy Background Orbs */
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
-            animation: float 10s infinite ease-in-out;
+        /* --- Theme Backgrounds & Shared Glass Styles from Main Site --- */
+        :root body {
+            background-color: #f0f2f6;
+            color: #1c1d21;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.08), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.08), transparent 50%);
+            background-attachment: fixed;
         }
 
-        .orb-1 {
-            top: -10%;
-            left: -10%;
-            width: 500px;
-            height: 500px;
-            background: rgba(251, 191, 36, 0.3);
+        .dark body {
+            background-color: #12131a;
+            color: #ffffff;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.04), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.04), transparent 50%);
         }
 
-        /* Amber */
-        .orb-2 {
-            bottom: -10%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: rgba(245, 158, 11, 0.2);
+        .bg-card {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .orb-3 {
-            top: 40%;
-            left: 40%;
-            width: 400px;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.8);
-            animation-delay: -5s;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0) scale(1);
-            }
-
-            50% {
-                transform: translateY(-30px) scale(1.05);
-            }
-        }
-
-        /* iOS Glassmorphism Panel */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+        :root .bg-card {
+            background-color: rgba(255, 255, 255, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
-            border-radius: 24px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+        }
+
+        .dark .bg-card {
+            background-color: rgba(30, 31, 40, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
         }
 
         .glass-input {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(251, 191, 36, 0.3);
             transition: all 0.3s ease;
+        }
+
+        :root .glass-input {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            color: #1e3a8a;
+            /* blue-900 */
+        }
+
+        .dark .glass-input {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #60a5fa;
+            /* blue-400 */
         }
 
         .glass-input:focus {
             outline: none;
             border-color: #f59e0b;
-            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
         }
 
-        /* Animations */
+        /* --- Scaled Down Code Block --- */
+        .code-block {
+            font-family: 'Courier New', Courier, monospace;
+            border-left: 3px solid #fbbf24;
+        }
+
+        :root .code-block {
+            background: rgba(30, 41, 59, 0.05);
+            color: #334155;
+        }
+
+        .dark .code-block {
+            background: rgba(0, 0, 0, 0.4);
+            color: #cbd5e1;
+            border-left-color: #f59e0b;
+        }
+
+        /* --- Animations --- */
         @keyframes shake {
 
             0%,
@@ -98,22 +117,22 @@
             }
 
             25% {
-                transform: translateX(-8px);
+                transform: translateX(-5px);
             }
 
             75% {
-                transform: translateX(8px);
+                transform: translateX(5px);
             }
         }
 
         .shake {
-            animation: shake 0.4s ease-in-out;
+            animation: shake 0.3s ease-in-out;
         }
 
         @keyframes popIn {
             0% {
                 opacity: 0;
-                transform: scale(0.9) translateY(10px);
+                transform: scale(0.95) translateY(10px);
             }
 
             100% {
@@ -123,7 +142,7 @@
         }
 
         .pop-in {
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         @keyframes pointFloat {
@@ -134,7 +153,7 @@
 
             100% {
                 opacity: 0;
-                transform: translateY(-40px) scale(1.5);
+                transform: translateY(-30px) scale(1.2);
             }
         }
 
@@ -142,37 +161,21 @@
             position: absolute;
             color: #10b981;
             font-weight: bold;
-            font-size: 1.2rem;
-            animation: pointFloat 1s ease-out forwards;
+            font-size: 0.9rem;
+            animation: pointFloat 0.8s ease-out forwards;
             pointer-events: none;
+            z-index: 50;
         }
 
-        .code-block {
-            font-family: 'Courier New', Courier, monospace;
-            background: rgba(30, 41, 59, 0.05);
-            border-left: 4px solid #fbbf24;
-        }
-
-        /* Nav styling replicating the image */
-        .nav-btn-active {
-            background-color: #fbbf24;
-            /* Yellow from image */
-            color: #000;
-            border-radius: 9999px;
-            padding: 0.5rem 1.5rem;
-            font-weight: 600;
-        }
-
-        /* --- NEW ANIMATIONS --- */
         @keyframes successGlow {
             0% {
-                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
                 transform: scale(1);
             }
 
             50% {
-                box-shadow: 0 0 0 15px rgba(34, 197, 94, 0);
-                transform: scale(1.02);
+                box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+                transform: scale(1.01);
             }
 
             100% {
@@ -182,47 +185,26 @@
         }
 
         .success-glow {
-            animation: successGlow 0.6s ease-out;
-            border-color: #22c55e !important;
+            animation: successGlow 0.5s ease-out;
+            border-color: rgba(34, 197, 94, 0.5) !important;
         }
 
         @keyframes errorFlash {
             0% {
                 border-color: #f87171;
-                background-color: #fef2f2;
             }
 
             50% {
                 border-color: #ef4444;
-                background-color: #fee2e2;
             }
 
             100% {
-                border-color: rgba(251, 191, 36, 0.3);
-                background-color: rgba(255, 255, 255, 0.9);
+                border-color: inherit;
             }
         }
 
         .error-flash {
-            animation: errorFlash 0.5s ease-out;
-        }
-
-        @keyframes levelUpTransition {
-            0% {
-                opacity: 0;
-                transform: scale(0.9) translateY(30px) rotateX(-10deg);
-                filter: blur(5px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0) rotateX(0);
-                filter: blur(0);
-            }
-        }
-
-        .level-up-anim {
-            animation: levelUpTransition 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation: errorFlash 0.4s ease-out;
         }
 
         @keyframes skipTransition {
@@ -233,13 +215,13 @@
 
             50% {
                 opacity: 0;
-                transform: translateX(-50px) scale(0.95);
+                transform: translateX(-30px) scale(0.98);
                 filter: grayscale(100%);
             }
 
             51% {
                 opacity: 0;
-                transform: translateX(50px) scale(0.95);
+                transform: translateX(30px) scale(0.98);
             }
 
             100% {
@@ -250,112 +232,117 @@
         }
 
         .skip-anim {
-            animation: skipTransition 0.6s ease-in-out forwards;
+            animation: skipTransition 0.5s ease-in-out forwards;
         }
 
-        .celebration-bg {
-            background: linear-gradient(135deg, rgba(253, 230, 138, 0.8), rgba(254, 215, 170, 0.8));
-            animation: bgPulse 2s infinite alternate;
-        }
-
-        @keyframes bgPulse {
-            from {
-                filter: brightness(1);
-            }
-
-            to {
-                filter: brightness(1.1);
-            }
+        .level-up-anim {
+            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
     </style>
 </head>
 
-<body class="text-gray-800 min-h-screen flex flex-col items-center pt-6 pb-12">
+<body class="min-h-screen flex flex-col items-center pt-4 pb-10">
 
-    <!-- Background Orbs for Glassy Effect -->
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
+    <div class="w-full max-w-4xl px-4 flex justify-between items-center mb-6 z-50">
+        <a href="index.html"
+            class="flex items-center gap-2 text-slate-600 dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-400 transition-all text-xs font-semibold bg-white/40 dark:bg-black/30 px-3 py-1.5 rounded-full border border-white/50 dark:border-white/10 backdrop-blur-md">
+            <i class="fa-solid fa-arrow-left"></i> Back to Hub
+        </a>
+        <button id="theme-toggle"
+            class="w-7 h-7 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-white/50 dark:border-white/10 flex items-center justify-center transition-all hover:scale-110"
+            onclick="toggleTheme()">
+            <i class="fas fa-moon dark:hidden text-slate-800 text-[10px]"></i>
+            <i class="fas fa-sun hidden dark:block text-amber-400 text-[10px]"></i>
+        </button>
+    </div>
 
-    <!-- Main Game Container -->
-    <main class="w-11/12 max-w-5xl glass-panel p-8 md:p-12 relative z-10 pop-in" id="game-container">
+    <main class="w-11/12 max-w-4xl bg-card rounded-[1.5rem] p-5 md:p-8 relative z-10 pop-in" id="game-container">
 
-        <!-- Header & Stats -->
         <div
-            class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-gray-200 pb-6 mb-8">
+            class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-slate-300/50 dark:border-gray-700/50 pb-4 mb-6">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900 mb-2" id="level-title">Loading Level...</h1>
-                <p class="text-gray-500" id="level-desc">Prepare your locators.</p>
+                <h1 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-1 tracking-tight"
+                    id="level-title">Loading Level...</h1>
+                <p class="text-slate-500 dark:text-gray-400 text-[10px] md:text-xs font-medium uppercase tracking-widest"
+                    id="level-desc">Prepare your locators.</p>
             </div>
 
-            <div class="flex flex-row items-center space-x-2 md:space-x-4 mt-4 md:mt-0">
-                <!-- Back Button -->
+            <div class="flex flex-row items-center space-x-2 md:space-x-3 mt-4 md:mt-0">
                 <button onclick="previousLevel()" id="back-btn"
-                    class="text-gray-500 hover:text-amber-600 font-semibold px-4 py-2 rounded-full hover:bg-white/50 transition-all flex items-center shadow-sm border border-transparent hover:border-amber-200 hidden">
-                    <i class="fa-solid fa-backward-step mr-2"></i> Back
+                    class="text-slate-500 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 text-xs font-semibold px-3 py-1.5 rounded-full bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-black/40 transition-all flex items-center shadow-sm border border-white/40 dark:border-white/5 hidden">
+                    <i class="fa-solid fa-backward-step mr-1.5 text-[10px]"></i> Back
                 </button>
 
-                <!-- Skip Button -->
                 <button onclick="skipLevel()" id="skip-btn"
-                    class="text-gray-500 hover:text-amber-600 font-semibold px-4 py-2 rounded-full hover:bg-white/50 transition-all flex items-center shadow-sm border border-transparent hover:border-amber-200">
-                    Skip <i class="fa-solid fa-forward-step ml-2"></i>
+                    class="text-slate-500 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 text-xs font-semibold px-3 py-1.5 rounded-full bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-black/40 transition-all flex items-center shadow-sm border border-white/40 dark:border-white/5">
+                    Skip <i class="fa-solid fa-forward-step ml-1.5 text-[10px]"></i>
                 </button>
 
-                <!-- Score Display -->
                 <div
-                    class="glass-panel px-6 py-3 bg-white/40 flex items-center space-x-4 border-amber-200 border ml-2 md:ml-0">
-                    <i class="fa-solid fa-trophy text-amber-500 text-2xl"></i>
+                    class="bg-white/50 dark:bg-black/30 px-4 py-1.5 rounded-xl flex items-center space-x-3 border border-amber-200/50 dark:border-amber-500/20 shadow-inner ml-2 md:ml-0">
+                    <i class="fa-solid fa-trophy text-amber-500 text-lg"></i>
                     <div>
-                        <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">Score</p>
-                        <p class="text-2xl font-bold text-gray-900 leading-none" id="score-display">0</p>
+                        <p
+                            class="text-[8px] text-slate-500 dark:text-gray-400 font-bold uppercase tracking-widest leading-none mb-0.5">
+                            Score</p>
+                        <p class="text-lg font-bold text-slate-900 dark:text-white leading-none" id="score-display">0
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Dynamic Challenge Area -->
-        <div id="challenges-container" class="space-y-8">
-            <!-- Challenges injected here by JS -->
+        <div id="challenges-container" class="space-y-5">
         </div>
 
-        <!-- Level Complete Modal (Hidden by default) -->
         <div id="level-complete"
-            class="hidden mt-10 p-8 bg-green-50 border border-green-200 rounded-2xl text-center pop-in">
-            <h2 class="text-2xl font-bold text-green-700 mb-2"><i class="fa-solid fa-circle-check mr-2"></i>Level
-                Complete!</h2>
-            <p class="text-green-600 mb-6">Excellent work! You successfully found all elements.</p>
+            class="hidden mt-6 p-5 bg-green-50/80 dark:bg-green-900/20 border border-green-200 dark:border-green-800/50 rounded-2xl text-center pop-in backdrop-blur-sm">
+            <h2 class="text-lg font-bold text-green-700 dark:text-green-400 mb-1"><i
+                    class="fa-solid fa-circle-check mr-1.5"></i>Level Complete!</h2>
+            <p class="text-green-600 dark:text-green-500/80 text-xs mb-4 font-medium">Excellent work! You successfully
+                found all elements.</p>
             <button onclick="nextLevel()"
-                class="bg-amber-400 hover:bg-amber-500 text-black font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
-                Start Next Level <i class="fa-solid fa-arrow-right ml-2"></i>
+                class="bg-amber-400 hover:bg-amber-500 text-black text-xs font-bold py-2 px-5 rounded-full shadow-md transform transition hover:scale-105 inline-flex items-center">
+                Start Next Level <i class="fa-solid fa-arrow-right ml-1.5"></i>
             </button>
         </div>
 
-        <!-- Game Complete Modal (Hidden by default) -->
         <div id="game-complete"
-            class="hidden mt-10 p-10 bg-gradient-to-br from-amber-100 to-orange-100 border border-amber-300 rounded-3xl text-center pop-in shadow-xl transition-all duration-500">
-            <div id="final-icon-container" class="text-6xl mb-4 drop-shadow-md transform transition hover:scale-110">
+            class="hidden mt-6 p-8 bg-card border border-amber-300/50 dark:border-amber-500/30 rounded-[1.5rem] text-center pop-in shadow-xl transition-all duration-500">
+            <div id="final-icon-container" class="text-5xl mb-3 drop-shadow-md transform transition hover:scale-110">
                 <i class="fa-solid fa-crown text-amber-500"></i>
             </div>
-            <h2 id="final-title" class="text-4xl font-bold text-gray-900 mb-4">Automation Master!</h2>
-            <p id="final-message" class="text-gray-700 text-lg mb-6">You have successfully mastered Direct Locators, CSS
-                Selectors, and advanced XPath Axes!</p>
+            <h2 id="final-title"
+                class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">Automation
+                Master!</h2>
+            <p id="final-message"
+                class="text-slate-600 dark:text-gray-300 text-xs md:text-sm mb-5 font-medium max-w-md mx-auto">You have
+                successfully mastered Direct Locators, CSS Selectors, and advanced XPath Axes!</p>
 
-            <div class="bg-white/50 rounded-2xl p-6 mb-8 inline-block shadow-sm">
-                <p class="text-gray-600 font-semibold uppercase tracking-widest text-sm mb-1">Final Score</p>
-                <p class="text-5xl font-extrabold text-amber-600"><span id="final-score">0</span> <span
-                        class="text-2xl text-gray-400">/ <span id="max-score">0</span></span></p>
+            <div
+                class="bg-white/40 dark:bg-black/30 border border-white/50 dark:border-white/10 rounded-2xl p-4 mb-6 inline-block shadow-inner backdrop-blur-md">
+                <p class="text-slate-500 dark:text-gray-400 font-bold uppercase tracking-widest text-[9px] mb-1">Final
+                    Score</p>
+                <p class="text-3xl font-extrabold text-amber-600 dark:text-amber-400"><span id="final-score">0</span>
+                    <span class="text-lg text-slate-400 dark:text-gray-600">/ <span id="max-score">0</span></span>
+                </p>
             </div>
 
-
+            <br>
             <button onclick="location.reload()"
-                class="mt-8 bg-gray-900 hover:bg-black text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105 flex items-center mx-auto">
-                <i class="fa-solid fa-rotate-right mr-2"></i> Play Again
+                class="bg-slate-900 dark:bg-white hover:bg-black dark:hover:bg-amber-400 text-white dark:text-black text-xs font-bold py-2.5 px-6 rounded-full shadow-lg transform transition hover:scale-105 inline-flex items-center">
+                <i class="fa-solid fa-rotate-right mr-1.5"></i> Play Again
             </button>
         </div>
 
     </main>
 
     <script>
+        // --- THEME LOGIC ---
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+        }
+
         // --- GAME DATA ---
         const gameData = [
             {
@@ -367,7 +354,7 @@
                         id: "l1-c1",
                         instruction: "Find the username input field using its <strong>ID</strong>.",
                         htmlSnippet: `<input id="user-login" type="text" placeholder="Username">`,
-                        elementHtml: `<input type="text" placeholder="Username" class="border border-gray-300 p-2 rounded w-full bg-gray-50" disabled>`,
+                        elementHtml: `<input type="text" placeholder="Username" class="border border-slate-300 dark:border-gray-600 p-1.5 rounded w-full bg-slate-50 dark:bg-gray-800 text-slate-400 dark:text-gray-500 text-xs" disabled>`,
                         expectedType: "id",
                         expectedValues: ["user-login"],
                         placeholder: "By.id(...)"
@@ -376,7 +363,7 @@
                         id: "l1-c2",
                         instruction: "Find the submit button using its <strong>Name</strong>.",
                         htmlSnippet: `<button name="submit_action">Submit</button>`,
-                        elementHtml: `<button class="bg-blue-600 text-white px-4 py-2 rounded opacity-75 cursor-not-allowed">Submit</button>`,
+                        elementHtml: `<button class="bg-blue-600 text-white px-3 py-1.5 rounded text-xs opacity-75 cursor-not-allowed">Submit</button>`,
                         expectedType: "name",
                         expectedValues: ["submit_action"],
                         placeholder: "By.name(...)"
@@ -385,7 +372,7 @@
                         id: "l1-c3",
                         instruction: "Find the link using exact <strong>Link Text</strong>.",
                         htmlSnippet: `<a href="/dashboard">Go to Dashboard</a>`,
-                        elementHtml: `<a href="#" class="text-blue-600 underline font-medium cursor-not-allowed pointer-events-none">Go to Dashboard</a>`,
+                        elementHtml: `<a href="#" class="text-blue-600 dark:text-blue-400 underline text-xs font-medium cursor-not-allowed pointer-events-none">Go to Dashboard</a>`,
                         expectedType: "linkText",
                         expectedValues: ["Go to Dashboard"],
                         placeholder: "By.linkText(...)"
@@ -401,7 +388,7 @@
                         id: "l2-c1",
                         instruction: "Find this link using <strong>Partial Link Text</strong> (Target the word 'Terms').",
                         htmlSnippet: `<a href="/terms">Click here to read our Terms and Conditions</a>`,
-                        elementHtml: `<a href="#" class="text-blue-600 hover:text-blue-800 cursor-not-allowed pointer-events-none">Click here to read our Terms and Conditions</a>`,
+                        elementHtml: `<a href="#" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-xs cursor-not-allowed pointer-events-none">Click here to read our Terms and Conditions</a>`,
                         expectedType: "partialLinkText",
                         expectedValues: ["Terms", "Terms and", "Terms and Conditions"],
                         placeholder: "By.partialLinkText(...)"
@@ -417,7 +404,7 @@
                         id: "l3-c1",
                         instruction: "Find this input using a <strong>CSS Selector</strong> targeting its class name.",
                         htmlSnippet: `<input class="search-box" type="text">`,
-                        elementHtml: `<input type="text" class="border border-gray-300 p-2 rounded w-full bg-gray-50" disabled placeholder="Search...">`,
+                        elementHtml: `<input type="text" class="border border-slate-300 dark:border-gray-600 p-1.5 rounded w-full bg-slate-50 dark:bg-gray-800 text-slate-400 dark:text-gray-500 text-xs" disabled placeholder="Search...">`,
                         expectedType: "cssSelector",
                         expectedValues: [".search-box", "input.search-box", "[class='search-box']", "input[class='search-box']", "input[type = 'text']"],
                         placeholder: "By.cssSelector(...)"
@@ -433,7 +420,7 @@
                         id: "l4-c1",
                         instruction: "1. XPath by <strong>Attribute</strong>. Target the placeholder.",
                         htmlSnippet: `<input placeholder="Enter City">`,
-                        elementHtml: `<input type="text" placeholder="Enter City" class="border p-2 rounded bg-gray-50 w-64" disabled>`,
+                        elementHtml: `<input type="text" placeholder="Enter City" class="border border-slate-300 dark:border-gray-600 p-1.5 rounded w-full bg-slate-50 dark:bg-gray-800 text-slate-400 dark:text-gray-500 text-xs" disabled>`,
                         expectedType: "xpath",
                         expectedValues: ["//input[@placeholder='Enter City']"],
                         placeholder: "By.xpath(...)"
@@ -442,7 +429,7 @@
                         id: "l4-c2",
                         instruction: "2. XPath by <strong>Text Function</strong>. Target the visible text.",
                         htmlSnippet: `<button>Register Now</button>`,
-                        elementHtml: `<button class="bg-indigo-600 text-white px-4 py-2 rounded opacity-75">Register Now</button>`,
+                        elementHtml: `<button class="bg-indigo-600 text-white px-3 py-1.5 rounded text-xs opacity-75">Register Now</button>`,
                         expectedType: "xpath",
                         expectedValues: ["//button[text()='Register Now']"],
                         placeholder: "By.xpath(...)"
@@ -451,7 +438,7 @@
                         id: "l4-c3",
                         instruction: "3. XPath by <strong>Contains()</strong>. The class name is dynamic (e.g., success-123). Target the word 'success'.",
                         htmlSnippet: `<div class="msg-success-9847">Saved Successfully</div>`,
-                        elementHtml: `<div class="bg-green-100 text-green-800 p-2 rounded w-full">Saved Successfully</div>`,
+                        elementHtml: `<div class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 border border-green-200 dark:border-green-800 p-1.5 rounded w-full text-xs text-center font-medium">Saved Successfully</div>`,
                         expectedType: "xpath",
                         expectedValues: ["//div[contains(@class,'success')]", "//div[contains(@class,'msg-success')]"],
                         placeholder: "By.xpath(...)"
@@ -460,19 +447,19 @@
                         id: "l4-c4",
                         instruction: "4. XPath by <strong>Multiple Attributes</strong>. Ensure it's type='submit' AND value='Save'.",
                         htmlSnippet: `<input type="submit" value="Save" class="btn">`,
-                        elementHtml: `<input type="button" value="Save" class="bg-gray-800 text-white px-6 py-2 rounded" disabled>`,
+                        elementHtml: `<input type="button" value="Save" class="bg-slate-800 dark:bg-gray-700 text-white px-4 py-1.5 rounded text-xs" disabled>`,
                         expectedType: "xpath",
                         expectedValues: ["//input[@type='submit' and @value='Save']", "//input[@value='Save' and @type='submit']"],
                         placeholder: "By.xpath(...)"
                     },
                     {
                         id: "l4-c5",
-                        instruction: "5. XPath by <strong>Surroundings (Parent -> Child)</strong>. Find the 'Apple' span that is inside the 'fruit-box' div.",
+                        instruction: "5. XPath by <strong>Surroundings</strong>. Find the 'Apple' span inside 'fruit-box'.",
                         htmlSnippet: `<div id="fruit-box">\n  <span class="item">Apple</span>\n</div>\n<div id="veg-box">\n  <span class="item">Apple</span>\n</div>`,
                         elementHtml: `
-                            <div class="flex space-x-4">
-                                <div class="border-2 border-green-300 p-2 rounded text-center"><span class="text-xs text-green-600 block mb-1">#fruit-box</span><span class="bg-red-100 text-red-800 px-2 py-1 rounded">Apple (Target)</span></div>
-                                <div class="border-2 border-gray-300 p-2 rounded text-center opacity-50"><span class="text-xs text-gray-500 block mb-1">#veg-box</span><span class="bg-red-100 text-red-800 px-2 py-1 rounded">Apple</span></div>
+                            <div class="flex space-x-2 w-full text-[10px]">
+                                <div class="border border-green-400 dark:border-green-600 p-1.5 rounded text-center flex-1"><span class="text-[9px] text-green-600 dark:text-green-400 block mb-0.5">#fruit-box</span><span class="bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-400 px-1.5 py-0.5 rounded inline-block">Apple (Target)</span></div>
+                                <div class="border border-slate-300 dark:border-gray-600 p-1.5 rounded text-center opacity-50 flex-1"><span class="text-[9px] text-slate-500 dark:text-gray-400 block mb-0.5">#veg-box</span><span class="bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-400 px-1.5 py-0.5 rounded inline-block">Apple</span></div>
                             </div>
                         `,
                         expectedType: "xpath",
@@ -481,12 +468,12 @@
                     },
                     {
                         id: "l4-c6",
-                        instruction: "6. XPath by <strong>Axes (Following-sibling)</strong>. Target the 'Delete' button exactly for 'Jane'.",
+                        instruction: "6. XPath by <strong>Axes</strong>. Target the 'Delete' button exactly for 'Jane'.",
                         htmlSnippet: `<tr>\n  <td>Jane</td>\n  <td><button>Delete</button></td>\n</tr>`,
                         elementHtml: `
-                            <div class="border rounded p-2 bg-white">
-                                <div class="flex justify-between border-b p-1 opacity-50"><span>John</span><button class="text-red-500">Delete</button></div>
-                                <div class="flex justify-between p-1 bg-yellow-50"><span>Jane</span><button class="text-red-600 font-bold border border-red-200 px-2 rounded">Delete (Target)</button></div>
+                            <div class="border border-slate-200 dark:border-gray-700 rounded p-1.5 bg-white dark:bg-gray-800 w-full text-[10px]">
+                                <div class="flex justify-between border-b border-slate-100 dark:border-gray-700 p-1 opacity-50 text-slate-700 dark:text-gray-300"><span>John</span><button class="text-red-500">Delete</button></div>
+                                <div class="flex justify-between p-1 bg-amber-50 dark:bg-amber-900/20 text-slate-800 dark:text-white rounded"><span>Jane</span><button class="text-red-600 dark:text-red-400 font-bold border border-red-200 dark:border-red-800/50 px-1.5 rounded">Delete (Target)</button></div>
                             </div>
                         `,
                         expectedType: "xpath",
@@ -501,15 +488,13 @@
         let currentLevelIndex = 0;
         let score = 0;
         let completedChallengesInLevel = 0;
-        let maxScore = 0; // Will be calculated on init
+        let maxScore = 0;
 
         // --- CORE LOGIC ---
 
         function initGame() {
-            // Calculate max possible score dynamically
             maxScore = gameData.reduce((total, level) => total + (level.challenges.length * 10), 0);
             document.getElementById('max-score').innerText = maxScore;
-
             loadLevel(currentLevelIndex);
         }
 
@@ -519,15 +504,13 @@
             document.getElementById('level-desc').innerText = levelData.desc;
 
             const container = document.getElementById('challenges-container');
-            container.innerHTML = ''; // Clear previous
+            container.innerHTML = '';
             completedChallengesInLevel = 0;
 
-            // Reset Modals and Buttons
             document.getElementById('level-complete').classList.add('hidden');
             document.getElementById('game-complete').classList.add('hidden');
             document.getElementById('skip-btn').classList.remove('hidden');
 
-            // Hide Back button on the first level
             if (index === 0) {
                 document.getElementById('back-btn').classList.add('hidden');
             } else {
@@ -535,45 +518,40 @@
             }
 
             levelData.challenges.forEach((ch, i) => {
-                const delay = i * 0.1; // Staggered animation
-
-                // Escape HTML for snippet display
+                const delay = i * 0.08;
                 const escapedSnippet = ch.htmlSnippet.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
 
                 const challengeCard = `
-                    <div class="bg-white/70 backdrop-blur-sm border border-gray-100 rounded-2xl p-6 shadow-sm pop-in" style="animation-delay: ${delay}s" id="card-${ch.id}">
-                        <div class="flex items-start mb-4">
-                            <div class="bg-amber-100 text-amber-800 w-8 h-8 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">${i + 1}</div>
-                            <p class="text-gray-800 text-lg" style="margin-top: 2px;">${ch.instruction}</p>
+                    <div class="bg-white/50 dark:bg-black/20 backdrop-blur-md border border-white/60 dark:border-white/10 rounded-2xl p-4 md:p-5 shadow-sm pop-in" style="animation-delay: ${delay}s" id="card-${ch.id}">
+                        <div class="flex items-start mb-3">
+                            <div class="bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 w-6 h-6 rounded-lg text-xs flex items-center justify-center font-bold mr-2.5 shrink-0">${i + 1}</div>
+                            <p class="text-slate-800 dark:text-white text-xs md:text-sm font-semibold leading-relaxed" style="margin-top: 2px;">${ch.instruction}</p>
                         </div>
                         
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-4 pl-11">
-                            <!-- Visual Element -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 md:pl-8">
                             <div>
-                                <p class="text-xs text-gray-400 font-semibold mb-2 uppercase tracking-wider">Target Element in UI</p>
-                                <div class="p-4 bg-white border border-gray-200 rounded-xl min-h-[80px] flex items-center shadow-inner">
+                                <p class="text-[9px] text-slate-400 dark:text-gray-500 font-bold mb-1.5 uppercase tracking-wider">Target UI Element</p>
+                                <div class="p-3 bg-white/70 dark:bg-[#1a1b23]/80 border border-slate-200 dark:border-white/5 rounded-xl min-h-[60px] flex items-center justify-center shadow-inner">
                                     ${ch.elementHtml}
                                 </div>
                             </div>
-                            <!-- HTML Source -->
                             <div>
-                                <p class="text-xs text-gray-400 font-semibold mb-2 uppercase tracking-wider">DOM Source Code</p>
-                                <div class="code-block p-4 rounded-xl text-sm text-gray-700 overflow-x-auto min-h-[80px] flex items-center shadow-inner">
+                                <p class="text-[9px] text-slate-400 dark:text-gray-500 font-bold mb-1.5 uppercase tracking-wider">DOM Source Code</p>
+                                <div class="code-block p-3 rounded-xl text-[10px] md:text-xs overflow-x-auto min-h-[60px] flex items-center shadow-inner w-full">
                                     <code>${escapedSnippet}</code>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Input Area -->
-                        <div class="pl-11 mt-6 relative">
-                            <label class="block text-sm font-semibold text-gray-600 mb-2">Write your Selenium Locator (Java):</label>
-                            <div class="flex space-x-3">
-                                <input type="text" id="input-${ch.id}" class="glass-input w-full p-3 rounded-xl font-mono text-sm text-blue-800" placeholder='${ch.placeholder}' onkeydown="if(event.key === 'Enter') checkAnswer('${ch.id}', '${ch.expectedType}')">
-                                <button id="btn-${ch.id}" onclick="checkAnswer('${ch.id}', '${ch.expectedType}')" class="bg-amber-400 hover:bg-amber-500 text-black font-semibold px-6 py-3 rounded-xl transition duration-200 flex items-center whitespace-nowrap shadow-sm">
-                                    Verify <i class="fa-solid fa-check-circle ml-2"></i>
+                        <div class="md:pl-8 mt-4 relative">
+                            <label class="block text-[10px] font-bold text-slate-500 dark:text-gray-400 mb-1.5 uppercase tracking-wider">Write Locator Code (Java)</label>
+                            <div class="flex space-x-2">
+                                <input type="text" id="input-${ch.id}" class="glass-input w-full p-2.5 rounded-xl font-mono text-xs shadow-inner" placeholder='${ch.placeholder}' onkeydown="if(event.key === 'Enter') checkAnswer('${ch.id}', '${ch.expectedType}')">
+                                <button id="btn-${ch.id}" onclick="checkAnswer('${ch.id}', '${ch.expectedType}')" class="bg-amber-400 hover:bg-amber-500 text-black text-xs font-bold px-4 py-2 rounded-xl transition duration-200 flex items-center whitespace-nowrap shadow-sm">
+                                    Verify <i class="fa-solid fa-check-circle ml-1.5 text-[10px]"></i>
                                 </button>
                             </div>
-                            <p id="error-${ch.id}" class="text-red-500 text-sm mt-2 hidden font-medium"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Incorrect locator or syntax. Check quotes and spelling!</p>
+                            <p id="error-${ch.id}" class="text-red-500 dark:text-red-400 text-[10px] mt-1.5 hidden font-medium"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Incorrect locator or syntax. Check quotes and spelling!</p>
                         </div>
                     </div>
                 `;
@@ -587,7 +565,7 @@
             const cardEl = document.getElementById(`card-${challengeId}`);
             const errorEl = document.getElementById(`error-${challengeId}`);
 
-            if (inputEl.disabled) return; // Already solved
+            if (inputEl.disabled) return;
 
             const userInput = inputEl.value.trim();
             const challenge = gameData[currentLevelIndex].challenges.find(c => c.id === challengeId);
@@ -597,23 +575,21 @@
                 errorEl.classList.add('hidden');
                 inputEl.disabled = true;
 
-                // Add success animations
-                inputEl.classList.add('bg-green-50', 'text-green-800');
+                inputEl.classList.add('bg-green-50/50', 'dark:bg-green-900/30', 'text-green-800', 'dark:text-green-400');
                 inputEl.classList.remove('glass-input');
-                cardEl.classList.add('success-glow', 'border-green-300', 'bg-green-50/40');
+                cardEl.classList.add('success-glow', 'border-green-300', 'dark:border-green-700', 'bg-green-50/20', 'dark:bg-green-900/10');
 
                 btnEl.disabled = true;
-                btnEl.innerHTML = `Correct <i class="fa-solid fa-check ml-2"></i>`;
+                btnEl.innerHTML = `Correct <i class="fa-solid fa-check ml-1.5"></i>`;
                 btnEl.classList.remove('bg-amber-400', 'hover:bg-amber-500');
-                btnEl.classList.add('bg-green-500', 'text-white', 'scale-105');
+                btnEl.classList.add('bg-green-500', 'dark:bg-green-600', 'text-white', 'scale-[1.02]');
 
-                // Confetti mini-burst on the button
                 const rect = btnEl.getBoundingClientRect();
                 const x = (rect.left + rect.width / 2) / window.innerWidth;
                 const y = (rect.top + rect.height / 2) / window.innerHeight;
                 confetti({
-                    particleCount: 40,
-                    spread: 50,
+                    particleCount: 30,
+                    spread: 45,
                     origin: { x, y },
                     colors: ['#22c55e', '#fbbf24', '#ffffff'],
                     disableForReducedMotion: true
@@ -627,21 +603,18 @@
                 // Fail
                 errorEl.classList.remove('hidden');
 
-                // Reset and re-trigger shake + flash
                 cardEl.classList.remove('shake');
                 inputEl.classList.remove('error-flash');
-                void cardEl.offsetWidth; // trigger reflow
+                void cardEl.offsetWidth;
                 cardEl.classList.add('shake');
                 inputEl.classList.add('error-flash');
 
-                // Small haptic-like red border
                 inputEl.style.borderColor = '#ef4444';
-                setTimeout(() => { if (!inputEl.disabled) inputEl.style.borderColor = ''; }, 500);
+                setTimeout(() => { if (!inputEl.disabled) inputEl.style.borderColor = ''; }, 400);
             }
         }
 
         function validateLocator(userInput, expectedType, expectedValues) {
-            // Flexible Regex to parse `By.locatorName("value")` or `By.locatorName('value')`
             const match = userInput.match(/^By\.([a-zA-Z]+)\(\s*(['"])(.*?)\2\s*\)$/);
             if (!match) return false;
 
@@ -650,9 +623,7 @@
 
             if (type.toLowerCase() !== expectedType.toLowerCase()) return false;
 
-            // Check if extracted value matches expected values (ignoring minor quote differences inside xpath)
             for (let expected of expectedValues) {
-                // Normalize internal quotes for comparison
                 const normalizedValue = value.replace(/'/g, '"');
                 const normalizedExpected = expected.replace(/'/g, '"');
 
@@ -664,38 +635,34 @@
 
         function addPoints(points, triggerElement) {
             score += points;
-
-            // Animate score counter
             const scoreEl = document.getElementById('score-display');
             scoreEl.innerText = score;
             scoreEl.classList.remove('pop-in');
             void scoreEl.offsetWidth;
             scoreEl.classList.add('pop-in', 'text-amber-500');
-            setTimeout(() => scoreEl.classList.remove('text-amber-500'), 500);
+            setTimeout(() => scoreEl.classList.remove('text-amber-500'), 400);
 
-            // Floating +10 text
             const rect = triggerElement.getBoundingClientRect();
             const floatText = document.createElement('div');
             floatText.innerText = `+${points}`;
             floatText.className = 'point-float';
             floatText.style.left = `${rect.left + (rect.width / 2)}px`;
-            floatText.style.top = `${rect.top - 20}px`;
+            floatText.style.top = `${rect.top - 15}px`;
             document.body.appendChild(floatText);
 
-            setTimeout(() => floatText.remove(), 1000);
+            setTimeout(() => floatText.remove(), 800);
         }
 
         function showGameComplete() {
             document.getElementById('challenges-container').innerHTML = '';
-            document.getElementById('skip-btn').classList.add('hidden'); // Hide skip button
-            document.getElementById('back-btn').classList.add('hidden'); // Hide back button
-            document.getElementById('level-complete').classList.add('hidden'); // Hide level complete if visible
+            document.getElementById('skip-btn').classList.add('hidden');
+            document.getElementById('back-btn').classList.add('hidden');
+            document.getElementById('level-complete').classList.add('hidden');
 
             const gameCompleteEl = document.getElementById('game-complete');
             gameCompleteEl.classList.remove('hidden');
             document.getElementById('final-score').innerText = score;
 
-            // Dynamic Celebration based on Score
             const iconContainer = document.getElementById('final-icon-container');
             const titleEl = document.getElementById('final-title');
             const messageEl = document.getElementById('final-message');
@@ -704,38 +671,27 @@
             document.getElementById('level-desc').innerText = "Here is your final performance.";
 
             if (score === maxScore) {
-                // Perfect Score
-                iconContainer.innerHTML = '<i class="fa-solid fa-trophy text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.8)]"></i>';
+                iconContainer.innerHTML = '<i class="fa-solid fa-trophy text-amber-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]"></i>';
                 titleEl.innerText = "Flawless Master!";
-                titleEl.className = "text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-600 mb-4 animate-pulse";
+                titleEl.className = "text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500 mb-2 animate-pulse";
                 messageEl.innerText = "Absolutely perfect! You found every single locator without skipping. You are a Selenium God!";
-                gameCompleteEl.classList.add('celebration-bg');
 
-                // Continuous confetti
-                const duration = 3000;
+                const duration = 2500;
                 const end = Date.now() + duration;
                 (function frame() {
-                    confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#fbbf24', '#f59e0b', '#ef4444'] });
-                    confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#fbbf24', '#f59e0b', '#ef4444'] });
+                    confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#fbbf24', '#f59e0b', '#ef4444'] });
+                    confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#fbbf24', '#f59e0b', '#ef4444'] });
                     if (Date.now() < end) requestAnimationFrame(frame);
                 }());
-
             } else if (score === 0) {
-                // Zero Score
                 iconContainer.innerHTML = '<i class="fa-solid fa-seedling text-green-500"></i>';
                 titleEl.innerText = "Every Expert Was a Beginner";
-                titleEl.className = "text-4xl font-bold text-gray-800 mb-4";
                 messageEl.innerText = "You skipped the challenges, but that's okay! Locators take practice. Restart the game and try tackling them one by one. You've got this!";
-
             } else {
-                // Partial Score
-                iconContainer.innerHTML = '<i class="fa-solid fa-medal text-blue-500"></i>';
+                iconContainer.innerHTML = '<i class="fa-solid fa-medal text-blue-500 dark:text-blue-400"></i>';
                 titleEl.innerText = "Great Effort!";
-                titleEl.className = "text-4xl font-bold text-gray-800 mb-4";
                 messageEl.innerText = "You successfully solved several locators! Review the ones you skipped and aim for a perfect score next time.";
-
-                // Single nice confetti burst
-                confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
             }
         }
 
@@ -745,72 +701,64 @@
                 if (currentLevelIndex < gameData.length - 1) {
                     setTimeout(() => {
                         document.getElementById('level-complete').classList.remove('hidden');
-                        document.getElementById('skip-btn').classList.add('hidden'); // Hide skip button when Level Complete shows
-                        document.getElementById('back-btn').classList.add('hidden'); // Hide back button when Level Complete shows
+                        document.getElementById('skip-btn').classList.add('hidden');
+                        document.getElementById('back-btn').classList.add('hidden');
 
-                        // Level complete celebration confetti
                         confetti({
-                            particleCount: 100,
-                            spread: 70,
-                            origin: { y: 0.8 },
+                            particleCount: 80,
+                            spread: 60,
+                            origin: { y: 0.7 },
                             colors: ['#22c55e', '#ffffff']
                         });
-                    }, 500);
+                    }, 400);
                 } else {
-                    // Game Complete
                     setTimeout(() => {
                         showGameComplete();
-                    }, 800);
+                    }, 600);
                 }
             }
         }
 
         function skipLevel() {
             const container = document.getElementById('game-container');
-
-            // Add skip animation
             container.classList.add('skip-anim');
 
             setTimeout(() => {
                 if (currentLevelIndex < gameData.length - 1) {
-                    // Not the last level, skip to the next
                     currentLevelIndex++;
                     loadLevel(currentLevelIndex);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
-                    // It is the last level, skip finishes the game
                     showGameComplete();
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
-
-                // Remove animation class after transition
                 setTimeout(() => container.classList.remove('skip-anim'), 50);
-            }, 300); // Wait for half the skip animation duration
+            }, 250);
         }
 
         function previousLevel() {
             if (currentLevelIndex > 0) {
                 const container = document.getElementById('game-container');
-                container.classList.add('skip-anim'); // Reuse skip animation for going back
+                container.classList.add('skip-anim');
 
                 setTimeout(() => {
                     currentLevelIndex--;
                     loadLevel(currentLevelIndex);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                     setTimeout(() => container.classList.remove('skip-anim'), 50);
-                }, 300);
+                }, 250);
             }
         }
 
         function nextLevel() {
             const container = document.getElementById('game-container');
-            container.classList.add('level-up-anim'); // Play happy level up animation
+            container.classList.add('level-up-anim');
 
             currentLevelIndex++;
             loadLevel(currentLevelIndex);
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            setTimeout(() => container.classList.remove('level-up-anim'), 600);
+            setTimeout(() => container.classList.remove('level-up-anim'), 500);
         }
 
         // Start Game
