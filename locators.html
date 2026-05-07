@@ -1,86 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selenium Automation Practice</title>
     <style>
         /* Classic Web 1.0 Styling */
-        body { 
-            font-family: "Times New Roman", Times, serif; 
-            background-color: #e0e0e0; 
+        body {
+            font-family: "Times New Roman", Times, serif;
+            background-color: #e0e0e0;
             color: #000000;
-            padding: 20px; 
+            padding: 20px;
         }
-        .wrapper { 
-            max-width: 800px; 
-            margin: 0 auto; 
-            background-color: #ffffff; 
-            padding: 25px; 
-            border: 2px solid #000000; 
+
+        .wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 25px;
+            border: 2px solid #000000;
         }
-        h1, h2 { 
-            border-bottom: 2px solid #000000; 
+
+        h1,
+        h2 {
+            border-bottom: 2px solid #000000;
             padding-bottom: 5px;
         }
-        section { 
-            border: 1px dashed #666666; 
-            padding: 15px; 
-            margin-bottom: 20px; 
+
+        section {
+            border: 1px dashed #666666;
+            padding: 15px;
+            margin-bottom: 20px;
             background-color: #f8f8f8;
         }
-        .form-group { 
-            margin-bottom: 15px; 
+
+        .form-group {
+            margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 1px dotted #cccccc;
         }
-        label { 
-            display: block; 
-            font-weight: bold; 
-            margin-bottom: 5px; 
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
             color: #000080;
         }
-        input[type="text"], input[type="password"], input[type="email"] { 
-            width: 250px; 
-            padding: 4px; 
-            border: 2px inset #cccccc; 
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 250px;
+            padding: 4px;
+            border: 2px inset #cccccc;
         }
-        button { 
-            padding: 5px 15px; 
-            background-color: #dddddd; 
-            color: #000000; 
-            border: 2px outset #cccccc; 
-            cursor: pointer; 
+
+        button {
+            padding: 5px 15px;
+            background-color: #dddddd;
+            color: #000000;
+            border: 2px outset #cccccc;
+            cursor: pointer;
             font-family: "Times New Roman", Times, serif;
             font-weight: bold;
         }
+
         button:active {
             border-style: inset;
         }
+
         ul {
             list-style-type: square;
         }
+
         a {
             color: #0000EE;
             text-decoration: underline;
         }
+
         a:visited {
             color: #551A8B;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
             background-color: #ffffff;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #000000;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #cccccc;
         }
+
         .site-footer {
             text-align: center;
             font-size: 0.9em;
@@ -88,149 +108,179 @@
             border-top: 1px solid #000000;
             padding-top: 10px;
         }
+
         .parent-wrapper {
-            border: 1px solid #000000; 
-            padding: 10px; 
+            border: 1px solid #000000;
+            padding: 10px;
             background: #ffffff;
             margin-top: 5px;
         }
     </style>
 </head>
+
 <body>
 
-<div class="wrapper">
-    <h1>Selenium Locator Assessment</h1>
+    <div class="wrapper">
+        <h1>Selenium Locator Assessment</h1>
 
-    <section id="traditional-locators">
-        <h2>Part 1: Core Locators</h2>
-        
-        <div class="form-group">
-            <label>Task 1: Locate the Username field.</label>
-            <input type="text" id="user_login_field" placeholder="Username">
-        </div>
+        <section id="traditional-locators">
+            <h2>Part 1: Core Locators</h2>
 
-        <div class="form-group">
-            <label>Task 2: Locate the Password field.</label>
-            <input type="password" name="security_passphrase" placeholder="Password">
-        </div>
+            <div class="form-group">
+                <label>Task 1: Locate the Username field.</label>
+                <input type="text" id="user_login_field" placeholder="Username">
+            </div>
 
-        <div class="form-group">
-            <label>Task 3: Locate the Submit button.</label>
-            <button class="btn primary_action submit_btn">Submit</button>
-            <button class="btn secondary_action">Cancel</button>
-        </div>
-        
-        <div class="form-group">
-            <label>Task 4: Locate the "Reset Password" and "Logout User" links.</label>
-            <ul>
-                <li><a href="#reset">Reset Password</a></li>
-                <li><a href="#profile">Logout User: John Doe</a></li>
-                <li><a href="#help">Help Center</a></li>
-            </ul>
-        </div>
-    </section>
+            <div class="form-group">
+                <label>Task 2: Locate the Password field.</label>
+                <input type="password" name="security_passphrase" placeholder="Password">
+            </div>
 
-    <section id="css-locators">
-        <h2>Part 2: CSS Selectors</h2>
-        
-        <div class="form-group">
-            <label>Task 5: Locate the Employee ID field.</label>
-            <input type="text" id="employee-id-input" placeholder="Employee ID">
-        </div>
+            <div class="form-group">
+                <label>Task 3: Locate the Submit button.</label>
+                <button class="btn primary_action submit_btn">Submit</button>
+                <button class="btn secondary_action">Cancel</button>
+            </div>
 
-        <div class="form-group">
-            <label>Task 6: Locate the Verify Status button.</label>
-            <button class="verify-status-btn">Verify Status</button>
-        </div>
+            <div class="form-group">
+                <label>Task 4: Locate the "Reset Password" and "Logout User" links.</label>
+                <ul>
+                    <li><a href="#reset">Reset Password</a></li>
+                    <li><a href="#profile">Logout User: John Doe</a></li>
+                    <li><a href="#help">Help Center</a></li>
+                </ul>
+            </div>
+        </section>
 
-        <div class="form-group">
-            <label>Task 7: Locate the paragraph containing "Target A" (without matching "Target B").</label>
-            <div class="parent-wrapper">
-                <p class="target-child">Target A</p>
-                <div class="inner-wrapper">
-                    <p class="target-child">Target B</p>
+        <section id="css-locators">
+            <h2>Part 2: CSS Selectors</h2>
+
+            <div class="form-group">
+                <label>Task 5: Locate the Employee ID field.</label>
+                <input type="text" id="employee-id-input" placeholder="Employee ID">
+            </div>
+
+            <div class="form-group">
+                <label>Task 6: Locate the Verify Status button.</label>
+                <button class="verify-status-btn">Verify Status</button>
+            </div>
+
+            <div class="form-group">
+                <label>Task 7: Locate the paragraph containing "Target A" (without matching "Target B").</label>
+                <div class="parent-wrapper">
+                    <p class="target-child">Target A</p>
+                    <div class="inner-wrapper">
+                        <p class="target-child">Target B</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Task 8: Locate the Access Code field.</label>
-            <input type="text" data-role="admin-access" placeholder="Access Code">
-        </div>
-    </section>
-
-    <section id="xpath-locators">
-        <h2>Part 3: XPath Strategies</h2>
-
-        <div class="form-group">
-            <label>Task 9: Locate the paragraph containing the text "Navigation Point".</label>
-            <div>
-                <p>Navigation Point</p>
+            <div class="form-group">
+                <label>Task 8: Locate the Access Code field.</label>
+                <input type="text" data-role="admin-access" placeholder="Access Code">
             </div>
-        </div>
+        </section>
 
-        <div class="form-group">
-            <label>Task 10: Locate the Search Query field.</label>
-            <input type="text" aria-label="search-query" placeholder="Search Query...">
-        </div>
+        <section id="xpath-locators">
+            <h2>Part 3: XPath Strategies</h2>
 
-        <div class="form-group">
-            <label>Task 11: Locate the Generate Report button.</label>
-            <br>
-            <button>Generate Report</button>
-        </div>
+            <div class="form-group">
+                <label>Task 9: Locate the paragraph containing the text "Navigation Point".</label>
+                <div>
+                    <p>Navigation Point</p>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label>Task 12: Locate the Contact Email field.</label>
-            <input type="email" name="contact_email" class="form-input" required placeholder="Contact Email">
-        </div>
+            <div class="form-group">
+                <label>Task 10: Locate the Search Query field.</label>
+                <input type="text" aria-label="search-query" placeholder="Search Query...">
+            </div>
 
-        <div class="form-group">
-            <label>Task 13: Locate the Submit Order 2026 button.</label>
-            <br>
-            <button class="btn-submit-987654">Submit Order 2026</button>
-        </div>
-        
-        <div class="form-group" style="border-bottom: none;">
-            <label>Task 14: Grid Traversals</label>
-            <ul>
-                <li>Locate the checkbox specifically for "Bob_User".</li>
-                <li>Locate the Role text ("Administrator") specifically for "Alice_Admin".</li>
-                <li>Locate the "Edit" button specifically for "Bob_User".</li>
-            </ul>
-            
-            <table id="users-grid">
-                <thead>
-                    <tr>
-                        <th>Select</th>
-                        <th>Username</th>
-                        <th>Role</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="checkbox" name="user_check"></td>
-                        <td>Alice_Admin</td> 
-                        <td>Administrator</td>
-                        <td><button class="edit-btn">Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name="user_check"></td>
-                        <td>Bob_User</td> 
-                        <td>Standard User</td>
-                        <td><button class="edit-btn">Edit</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+            <div class="form-group">
+                <label>Task 11: Locate the Generate Report button.</label>
+                <br>
+                <button>Generate Report</button>
+            </div>
 
-    <footer class="site-footer">
-        <p>&copy; 2026 AutomationWithPiyush</p>
-    </footer>
+            <div class="form-group">
+                <label>Task 12: Locate the Contact Email field.</label>
+                <input type="email" name="contact_email" class="form-input" required placeholder="Contact Email">
+            </div>
 
-</div>
+            <div class="form-group">
+                <label>Task 13: Locate the Submit Order 2026 button.</label>
+                <br>
+                <button class="btn-submit-987654">Submit Order 2026</button>
+            </div>
+
+            <div class="form-group" style="border-bottom: none;">
+                <label>Task 14: Grid Traversals</label>
+                <ul>
+                    <li>Locate the checkbox specifically for "Bob_User".</li>
+                    <li>Locate the Role text ("Administrator") specifically for "Alice_Admin".</li>
+                    <li>Locate the "Edit" button specifically for "Bob_User".</li>
+                </ul>
+
+                <table id="users-grid">
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" name="user_check"></td>
+                            <td>Alice_Admin</td>
+                            <td>Administrator</td>
+                            <td><button class="edit-btn">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="user_check"></td>
+                            <td>Bob_User</td>
+                            <td>Standard User</td>
+                            <td><button class="edit-btn">Edit</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <script>
+            // 1. Select the buttons using their class names
+            const submitBtn = document.querySelector('.submit_btn');
+            const cancelBtn = document.querySelector('.secondary_action');
+
+            // 2. Add functionality to the Submit button
+            submitBtn.addEventListener('click', function () {
+
+                // Optional: Visually change the button to show it was clicked
+                this.textContent = 'Submitted!';
+                this.style.backgroundColor = '#a8e6cf'; // light green
+                this.style.borderColor = '#000000';
+            });
+
+            // 3. Add functionality to the Cancel button
+            cancelBtn.addEventListener('click', function () {
+
+                // Optional: Reset the Submit button back to its original state
+                submitBtn.textContent = 'Submit';
+                submitBtn.style.backgroundColor = '#dddddd';
+                submitBtn.style.borderColor = '#cccccc';
+
+                // Optional: Clear the username and password fields from Tasks 1 & 2
+                document.getElementById('user_login_field').value = '';
+                document.querySelector('input[name="security_passphrase"]').value = '';
+            });
+        </script>
+        <footer class="site-footer">
+            <p>&copy; 2026 AutomationWithPiyush</p>
+        </footer>
+
+    </div>
 
 </body>
+
 </html>

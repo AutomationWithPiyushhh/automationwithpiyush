@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate XPath Practice Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f5f7;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #aaa;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="main-container">
+        <h1 id="page-title" class="header title-main" data-testid="main-heading">XPath Practice Arena</h1>
+        <p class="intro-text">Welcome to the training ground. Use DevTools to locate these elements.</p>
+
+        <!-- Section 1: Forms and Attributes -->
+        <div class="section-box" id="login-section">
+            <h2>1. User Login Form</h2>
+            <form id="loginForm" action="/submit">
+                <div class="input-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="user_login" class="form-control input-text"
+                        placeholder="Enter username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="user_password" class="form-control input-text" required>
+                </div>
+                <div class="input-group">
+                    <input type="checkbox" id="rememberMe" name="remember" checked>
+                    <label for="rememberMe">Remember me</label>
+                </div>
+                <input type="hidden" name="csrf_token" value="abc123xyz">
+                <button type="submit" id="loginBtn" class="btn btn-primary" data-action="submit">Login to
+                    Account</button>
+                <button type="button" id="cancelBtn" class="btn btn-secondary disabled" disabled>Cancel</button>
+            </form>
+        </div>
+
+        <!-- Section 2: Tables and Data -->
+        <div class="section-box" id="table-section">
+            <h2>2. Employee Directory</h2>
+            <table id="employee-table" class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-even">
+                        <td>101</td>
+                        <td class="emp-name">Alice Smith</td>
+                        <td>Engineering</td>
+                        <td><a href="/edit/101" class="edit-link">Edit</a></td>
+                    </tr>
+                    <tr class="row-odd">
+                        <td>102</td>
+                        <td class="emp-name">Bob Jones</td>
+                        <td>HR</td>
+                        <td><a href="/edit/102" class="edit-link">Edit</a></td>
+                    </tr>
+                    <tr class="row-even">
+                        <td>103</td>
+                        <td class="emp-name">Charlie Brown</td>
+                        <td>Engineering</td>
+                        <td><a href="/edit/103" class="edit-link">Edit</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 3: Lists and Hierarchy -->
+        <div class="section-box" id="list-section">
+            <h2>3. Product Categories</h2>
+            <ul id="categories" class="list-group">
+                <li class="list-item" data-id="cat-1">Electronics
+                    <ul class="sub-list">
+                        <li>Smartphones</li>
+                        <li class="bestseller">Laptops</li>
+                        <li>Headphones</li>
+                    </ul>
+                </li>
+                <li class="list-item active" data-id="cat-2">Books
+                    <ul class="sub-list">
+                        <li>Fiction</li>
+                        <li>Non-Fiction</li>
+                    </ul>
+                </li>
+                <li class="list-item" data-id="cat-3">Clothing</li>
+            </ul>
+        </div>
+
+        <!-- Section 4: Text, Siblings, and Complex structures -->
+        <div class="section-box" id="content-section">
+            <h2>4. Article Comments</h2>
+            <div class="comment-thread">
+                <div class="comment" id="comment-1">
+                    <span class="author">User99:</span>
+                    <p class="comment-text">This is a great article! I learned a lot about automation.</p>
+                    <a href="#" class="reply-btn">Reply</a>
+                </div>
+                <div class="comment reply" id="comment-2">
+                    <span class="author">Admin:</span>
+                    <p class="comment-text">Thank you, User99! Glad it helped.</p>
+                    <a href="#" class="reply-btn">Reply</a>
+                </div>
+                <div class="comment" id="comment-3">
+                    <span class="author">TrollX:</span>
+                    <p class="comment-text">First!</p>
+                    <a href="#" class="reply-btn">Reply</a>
+                </div>
+            </div>
+            <p>Total Comments: <span id="comment-count">3</span></p>
+        </div>
+    </div>
+
+</body>
+
+</html>
