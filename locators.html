@@ -248,39 +248,122 @@
             </div>
         </section>
 
-        <script>
-            // 1. Select the buttons using their class names
-            const submitBtn = document.querySelector('.submit_btn');
-            const cancelBtn = document.querySelector('.secondary_action');
-
-            // 2. Add functionality to the Submit button
-            submitBtn.addEventListener('click', function () {
-
-                // Optional: Visually change the button to show it was clicked
-                this.textContent = 'Submitted!';
-                this.style.backgroundColor = '#a8e6cf'; // light green
-                this.style.borderColor = '#000000';
-            });
-
-            // 3. Add functionality to the Cancel button
-            cancelBtn.addEventListener('click', function () {
-
-                // Optional: Reset the Submit button back to its original state
-                submitBtn.textContent = 'Submit';
-                submitBtn.style.backgroundColor = '#dddddd';
-                submitBtn.style.borderColor = '#cccccc';
-
-                // Optional: Clear the username and password fields from Tasks 1 & 2
-                document.getElementById('user_login_field').value = '';
-                document.querySelector('input[name="security_passphrase"]').value = '';
-            });
-        </script>
         <footer class="site-footer">
             <p>&copy; 2026 AutomationWithPiyush</p>
         </footer>
 
     </div>
 
+    <script>
+        // --- PREVIOUS FUNCTIONALITY (Submit/Cancel) ---
+        const submitBtn = document.querySelector('.submit_btn');
+        const cancelBtn = document.querySelector('.secondary_action');
+
+        if (submitBtn) {
+            submitBtn.addEventListener('click', function () {
+                this.textContent = 'Submitted!';
+                this.style.backgroundColor = '#a8e6cf';
+                this.style.borderColor = '#000000';
+            });
+        }
+
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', function () {
+                submitBtn.textContent = 'Submit';
+                submitBtn.style.backgroundColor = '#dddddd';
+                submitBtn.style.borderColor = '#cccccc';
+                document.getElementById('user_login_field').value = '';
+                document.querySelector('input[name="security_passphrase"]').value = '';
+            });
+        }
+
+        // --- NEW FUNCTIONALITY FOR SELENIUM PRACTICE ---
+
+        // 1. All Text/Password/Email Inputs: Turn green border when text is entered (sendKeys)
+        const allInputs = document.querySelectorAll('input[type="text"], input[type="password"], input[type="email"]');
+        allInputs.forEach(input => {
+            input.addEventListener('input', function () {
+                this.style.borderColor = '#4CAF50'; // Green border on typing
+                this.style.backgroundColor = '#f0f8ff'; // Light blue background
+            });
+            input.addEventListener('blur', function () {
+                this.style.backgroundColor = ''; // Reset background when focus is lost
+            });
+        });
+
+        // 2. Links (Task 4): Show they were clicked without refreshing the page
+        const allLinks = document.querySelectorAll('a');
+        allLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault(); // Stop page from jumping to top/id
+                const originalText = this.textContent;
+                this.textContent = 'Link Clicked! \u2713';
+                this.style.color = '#228B22'; // Forest Green
+                setTimeout(() => {
+                    this.textContent = originalText; // Revert back after 1.5 seconds
+                    this.style.color = '';
+                }, 1500);
+            });
+        });
+
+        // 3. Verify Status Button (Task 6)
+        const verifyBtn = document.querySelector('.verify-status-btn');
+        if (verifyBtn) {
+            verifyBtn.addEventListener('click', function () {
+                this.textContent = 'Status: Verified!';
+                this.style.backgroundColor = '#add8e6'; // Light Blue
+            });
+        }
+
+        // 4. Generate Report Button (Task 11) - Finding by text since it has no class
+        const allButtons = document.querySelectorAll('button');
+        allButtons.forEach(btn => {
+            if (btn.textContent.trim() === 'Generate Report') {
+                btn.addEventListener('click', function () {
+                    this.textContent = 'Report Ready \u2193';
+                    this.style.backgroundColor = '#ffeb3b'; // Yellow
+                });
+            }
+        });
+
+        // 5. Submit Order 2026 Button (Task 13)
+        const submitOrderBtn = document.querySelector('.btn-submit-987654');
+        if (submitOrderBtn) {
+            submitOrderBtn.addEventListener('click', function () {
+                this.textContent = 'Order Accepted!';
+                this.style.backgroundColor = '#ffb6c1'; // Light pink
+            });
+        }
+
+        // 6. Grid Checkboxes (Task 14): Highlight the row when checked
+        const checkboxes = document.querySelectorAll('input[name="user_check"]');
+        checkboxes.forEach(chk => {
+            chk.addEventListener('change', function () {
+                const row = this.closest('tr');
+                if (this.checked) {
+                    row.style.backgroundColor = '#ffffcc'; // Highlight row yellow
+                } else {
+                    row.style.backgroundColor = ''; // Reset row color
+                }
+            });
+        });
+
+        // 7. Grid Edit Buttons (Task 14): Show which user was edited
+        const editBtns = document.querySelectorAll('.edit-btn');
+        editBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Find the username in the same row
+                const username = this.closest('tr').querySelectorAll('td')[1].textContent;
+                const originalText = this.textContent;
+                this.textContent = 'Editing ' + username + '...';
+
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 2000);
+            });
+        });
+
+    </script>
 </body>
 
 </html>
