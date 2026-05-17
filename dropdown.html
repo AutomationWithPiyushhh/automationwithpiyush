@@ -1,125 +1,75 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surgical Dropdown Unit | AutomationWithPiyush</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        glass: {
-                            light: 'rgba(255, 255, 255, 0.6)',
-                            dark: 'rgba(30, 30, 40, 0.6)'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
+    <title>Master QA Dropdown</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-
+        /* --- Global Styles --- */
         body {
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            transition-property: background-color, color;
-            transition-duration: 400ms;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #1c1e21;
+            padding: 20px;
+            margin: 0;
         }
 
-        /* --- Theme Backgrounds & Shared Glass Styles --- */
-        :root body {
-            background-color: #f0f2f6;
-            color: #1c1d21;
-            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.08), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.08), transparent 50%);
-            background-attachment: fixed;
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .dark body {
-            background-color: #12131a;
-            color: #ffffff;
-            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.04), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.04), transparent 50%);
+        h1 {
+            text-align: center;
+            color: #0056b3;
+            margin-bottom: 20px;
         }
 
-        .bg-card {
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        /* --- Toggle Switch / Tabs --- */
+        .toggle-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: #fff;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            width: max-content;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        :root .bg-card {
-            background-color: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
-        }
-
-        .dark .bg-card {
-            background-color: rgba(30, 31, 40, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
-        }
-
-        .bg-card:hover {
-            border-color: #facc15;
-            box-shadow: 0 8px 30px rgba(250, 204, 21, 0.15);
-        }
-
-        /* --- Scaled Form Elements --- */
-        .glass-input {
+        .toggle-btn {
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+            border-radius: 6px;
             transition: all 0.3s ease;
-            outline: none;
         }
 
-        :root .glass-input {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            color: #1e3a8a;
+        .toggle-btn.active {
+            background: #0056b3;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        .dark .glass-input {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #60a5fa;
-        }
-
-        .glass-input:focus {
-            border-color: #f59e0b;
-            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
-        }
-
-        :root select option {
-            background-color: #ffffff;
-            color: #1c1d21;
-        }
-
-        .dark select option {
-            background-color: #1a1b23;
-            color: #ffffff;
-        }
-
-        /* --- Custom Styles for this page --- */
-        .pulse-monitor {
-            background-color: #0f172a;
-            /* Dark terminal look for both themes */
-            font-family: 'Courier New', Courier, monospace;
-            border-left: 3px solid #ef4444;
-            color: #4ade80;
-        }
-
-        .hidden-ward {
+        /* --- View Containers --- */
+        .view-section {
             display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.4s ease-in-out;
         }
 
-        .ward-container {
-            animation: fadeIn 0.4s ease-out;
+        .view-section.active {
+            display: block;
         }
 
         @keyframes fadeIn {
@@ -134,532 +84,416 @@
             }
         }
 
-        .surgical-option {
-            padding: 8px 12px;
+        /* --- Shared Section Styles --- */
+        .card {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            background: #fafbfc;
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #e1e4e8;
+            padding-bottom: 5px;
+        }
+
+        .instructions {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        select,
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        /* --- Auto-suggestion specific styles --- */
+        .autocomplete-container {
+            position: relative;
+        }
+
+        .suggestions-list {
+            position: absolute;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-top: none;
+            background: #fff;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 150px;
+            overflow-y: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 10;
+        }
+
+        .suggestions-list li {
+            padding: 10px;
             cursor: pointer;
-            border-bottom: 1px solid rgba(156, 163, 175, 0.2);
-            transition: 0.2s;
-            font-size: 0.75rem;
-            /* text-xs */
         }
 
-        :root .surgical-option {
-            color: #374151;
+        .suggestions-list li:hover {
+            background-color: #f0f0f0;
         }
 
-        .dark .surgical-option {
-            color: #e5e7eb;
-            border-bottom-color: rgba(255, 255, 255, 0.05);
+        /* --- Custom Dropdown (Advanced) Styles --- */
+        .dropdown-box {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
         }
 
-        .surgical-option:hover {
-            background: #facc15;
-            color: black !important;
-            font-weight: 600;
+        .dropdown-header {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            box-sizing: border-box;
+            font-size: 16px;
         }
 
-        .surgical-option:last-child {
-            border-bottom: none;
+        .dropdown-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-top: none;
+            background: white;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            max-height: 150px;
+            overflow-y: auto;
+            display: none;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 4px 4px;
         }
 
-        /* --- Custom Scrollbar --- */
-        ::-webkit-scrollbar {
-            width: 6px;
+        .dropdown-list.show {
+            display: block;
         }
 
-        :root ::-webkit-scrollbar-track {
-            background: #f0f2f6;
+        .dropdown-list li {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
         }
 
-        :root ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 8px;
+        .dropdown-list li:hover,
+        .dropdown-list li.active {
+            background-color: #e6f7ff;
+            color: #0056b3;
         }
 
-        .dark ::-webkit-scrollbar-track {
-            background: #12131a;
-        }
-
-        .dark ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 8px;
+        .status-msg {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #28a745;
+            font-weight: bold;
         }
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col items-center pt-4 pb-10">
+<body>
 
-    <div class="w-full max-w-5xl px-4 flex justify-between items-center mb-6 z-50">
-        <a href="index.html"
-            class="flex items-center gap-2 text-slate-600 dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-400 transition-all text-xs font-semibold bg-white/40 dark:bg-black/30 px-3 py-1.5 rounded-full border border-white/50 dark:border-white/10 backdrop-blur-md shadow-sm">
-            <i class="fa-solid fa-arrow-left"></i> Back to Hub
-        </a>
-        <button id="theme-toggle"
-            class="w-7 h-7 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-white/50 dark:border-white/10 flex items-center justify-center transition-all hover:scale-110"
-            onclick="toggleTheme()">
-            <i class="fas fa-moon dark:hidden text-slate-800 text-[10px]"></i>
-            <i class="fas fa-sun hidden dark:block text-amber-400 text-[10px]"></i>
-        </button>
-    </div>
+    <div class="main-container">
+        <h1>DropDown/ListBox</h1>
 
-    <div class="max-w-5xl mx-auto w-11/12 flex-grow flex flex-col">
+        <!-- Toggle Buttons -->
+        <div class="toggle-container">
+            <button class="toggle-btn active" id="btn-basic" onclick="switchView('basic')">Standard Select &
+                Auto-Suggest</button>
+            <button class="toggle-btn" id="btn-advanced" onclick="switchView('advanced')">Custom DIVs & Robot
+                Class</button>
+        </div>
 
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4"
-            data-aos="fade-down">
-            <div>
-                <h1 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-1.5 tracking-tight">Dropdown
-                    <span class="text-amber-500 dark:text-amber-400">Surgery</span>
-                </h1>
-                <p id="ward-subtitle"
-                    class="text-slate-500 dark:text-gray-400 text-[9px] uppercase tracking-widest font-bold flex items-center gap-2">
-                    <span
-                        class="bg-blue-100 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded border border-blue-200 dark:border-transparent">
-                        <i class="fas fa-stethoscope mr-1"></i> OPD Clinic
-                    </span>
-                    <span>Select Class Procedure Ward</span>
+        <!-- ========================================== -->
+        <!-- VIEW 1: Standard Selects & Auto-Suggestion -->
+        <!-- ========================================== -->
+        <div id="view-basic" class="view-section active">
+
+            <!-- Single Select Dropdown -->
+            <div class="card">
+                <h2>1. Single Select Dropdown</h2>
+
+                <label for="single-select">Standard HTML Select</label>
+                <select id="single-select" name="country">
+                    <option value="" disabled selected>Select your country</option>
+                    <option value="us">United States</option>
+                    <option value="ca">Canada</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="in">India</option>
+                    <option value="au">Australia</option>
+                </select>
+            </div>
+
+            <!-- Multi-Select Dropdown -->
+            <div class="card">
+                <h2>2. Multi-Select Dropdown</h2>
                 </p>
-            </div>
-            <div class="flex gap-2.5">
-                <button onclick="toggleWard()" id="mode-btn"
-                    class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-red-900/30 transform hover:-translate-y-0.5">
-                    <i class="fas fa-heartbeat animate-pulse text-[10px]"></i> Start Critical Surgery
-                </button>
-                <a href="index.html"
-                    class="px-4 py-2 bg-white/60 dark:bg-gray-800 hover:bg-white dark:hover:bg-gray-700 text-slate-700 dark:text-gray-300 rounded-xl text-xs font-bold transition flex items-center gap-1.5 border border-slate-300 dark:border-gray-700 shadow-sm">
-                    <i class="fas fa-sign-out-alt text-[10px]"></i> Discharge
-                </a>
-            </div>
-        </div>
-
-        <div class="grid lg:grid-cols-3 gap-6">
-
-            <div class="lg:col-span-2 space-y-6">
-
-                <div id="standard-ward" class="ward-container space-y-6">
-
-                    <div class="bg-card p-5 md:p-6 rounded-2xl border border-white/60 dark:border-white/10 shadow-sm"
-                        data-aos="fade-right">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div
-                                class="w-10 h-10 bg-amber-100 dark:bg-amber-400/10 rounded-xl flex items-center justify-center border border-amber-200 dark:border-amber-400/20 shadow-sm">
-                                <i class="fas fa-plane-departure text-amber-500 dark:text-amber-400 text-base"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-base md:text-lg font-bold text-slate-800 dark:text-white leading-tight">
-                                    Primary Checkup</h3>
-                                <p class="text-[10px] text-slate-500 dark:text-gray-400 font-mono mt-0.5">Ref: Single
-                                    Select Dropdown</p>
-                            </div>
-                        </div>
-                        <p
-                            class="text-slate-600 dark:text-gray-400 text-xs mb-3 border-l-2 border-slate-300 dark:border-gray-600 pl-2.5 font-medium">
-                            Procedure: Select a destination to verify route vitals using <code
-                                class="bg-slate-100 dark:bg-gray-800 px-1 rounded text-[10px] text-amber-600 dark:text-amber-400">selectByVisibleText()</code>.
-                        </p>
-                        <div class="relative">
-                            <select id="single-select"
-                                class="glass-input cursor-pointer appearance-none w-full p-2.5 rounded-xl text-xs font-medium">
-                                <option value="default" disabled selected>-- Choose a Destination --</option>
-                                <option value="PAR">Paris, France</option>
-                                <option value="NYC">New York, USA</option>
-                                <option value="TOK">Tokyo, Japan</option>
-                                <option value="DXB">Dubai, UAE</option>
-                                <option value="LON">London, UK</option>
-                            </select>
-                            <div
-                                class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-500 dark:text-gray-500">
-                                <i class="fas fa-chevron-down text-[10px]"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-card p-5 md:p-6 rounded-2xl border border-white/60 dark:border-white/10 shadow-sm"
-                        data-aos="fade-right" data-aos-delay="100">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div
-                                class="w-10 h-10 bg-blue-100 dark:bg-blue-500/10 rounded-xl flex items-center justify-center border border-blue-200 dark:border-blue-500/20 shadow-sm">
-                                <i class="fas fa-layer-group text-blue-600 dark:text-blue-400 text-base"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-base md:text-lg font-bold text-slate-800 dark:text-white leading-tight">
-                                    Multi-Dose Selection</h3>
-                                <p class="text-[10px] text-slate-500 dark:text-gray-400 font-mono mt-0.5">Ref:
-                                    Multi-Select Listbox</p>
-                            </div>
-                        </div>
-                        <p
-                            class="text-slate-600 dark:text-gray-400 text-xs mb-3 border-l-2 border-slate-300 dark:border-gray-600 pl-2.5 font-medium">
-                            Procedure: Hold <kbd
-                                class="bg-slate-200 dark:bg-gray-700 px-1 rounded text-[10px] font-mono shadow-sm">Ctrl</kbd>
-                            to select multiple tools. Verify <code
-                                class="bg-slate-100 dark:bg-gray-800 px-1 rounded text-[10px] text-amber-600 dark:text-amber-400">getAllSelectedOptions()</code>.
-                        </p>
-                        <select id="multi-select" multiple
-                            class="glass-input h-32 cursor-pointer w-full p-2 rounded-xl text-xs font-medium">
-                            <option value="sel" class="p-1.5 rounded mb-0.5">Selenium WebDriver</option>
-                            <option value="pw" class="p-1.5 rounded mb-0.5">Playwright Automation</option>
-                            <option value="app" class="p-1.5 rounded mb-0.5">Appium Mobile</option>
-                            <option value="res" class="p-1.5 rounded mb-0.5">RestAssured API</option>
-                            <option value="jen" class="p-1.5 rounded mb-0.5">Jenkins CI/CD</option>
-                            <option value="doc" class="p-1.5 rounded mb-0.5">Docker Container</option>
-                            <option value="k8s" class="p-1.5 rounded">Kubernetes Orchestration</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div id="advanced-ward" class="hidden-ward ward-container space-y-6">
-
-                    <div
-                        class="bg-red-50/50 dark:bg-red-900/10 backdrop-blur-md p-5 md:p-6 rounded-2xl border border-red-200 dark:border-red-800/50 shadow-[0_4px_20px_rgba(239,68,68,0.08)] relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 p-3 opacity-5 pointer-events-none">
-                            <i class="fas fa-heartbeat text-7xl text-red-500"></i>
-                        </div>
-
-                        <div class="flex items-center gap-3 mb-4 relative z-10">
-                            <div
-                                class="w-10 h-10 bg-red-100 dark:bg-red-500/10 rounded-xl flex items-center justify-center border border-red-200 dark:border-red-500/30 shadow-sm">
-                                <i class="fas fa-bolt text-red-600 dark:text-red-400 text-base"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-base md:text-lg font-bold text-red-800 dark:text-red-100 leading-tight">
-                                    High-Speed Diagnosis</h3>
-                                <p class="text-[10px] text-red-600 dark:text-red-400 font-mono mt-0.5">Ref: Auto-Suggest
-                                    / Dynamic Dropdown</p>
-                            </div>
-                        </div>
-
-                        <p
-                            class="text-red-900/80 dark:text-red-200/70 text-xs mb-3 border-l-2 border-red-300 dark:border-red-500/50 pl-2.5 relative z-10 font-medium">
-                            Procedure: Type <b class="text-red-700 dark:text-red-300">"Ind"</b>. Wait for results. Use
-                            <code class="bg-red-100 dark:bg-red-950 px-1 rounded text-[10px]">findElements()</code>
-                            iteration to click 'India'.
-                        </p>
-
-                        <div class="relative z-20">
-                            <div class="relative">
-                                <input type="text" id="dynamic-input" placeholder="Scanning database..."
-                                    class="w-full bg-white/80 dark:bg-black/40 border border-red-200 dark:border-red-900/50 p-2.5 pl-8 rounded-xl text-xs outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 transition-all shadow-inner">
-                                <i
-                                    class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500 text-[10px]"></i>
-                            </div>
-                            <div id="results-container"
-                                class="hidden absolute w-full mt-1.5 bg-white/95 dark:bg-[#1a1b23]/95 backdrop-blur-xl border border-slate-200 dark:border-gray-700 rounded-xl max-h-40 overflow-y-auto shadow-xl z-50">
-                                <div class="surgical-option rounded-t-xl">India</div>
-                                <div class="surgical-option">Indonesia</div>
-                                <div class="surgical-option">Independent Island</div>
-                                <div class="surgical-option rounded-b-xl">Indiana, USA</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div
-                        class="bg-red-50/50 dark:bg-red-900/10 backdrop-blur-md p-5 md:p-6 rounded-2xl border border-red-200 dark:border-red-800/50 shadow-[0_4px_20px_rgba(239,68,68,0.08)]">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div
-                                class="w-10 h-10 bg-red-100 dark:bg-red-500/10 rounded-xl flex items-center justify-center border border-red-200 dark:border-red-500/30 shadow-sm">
-                                <i class="fas fa-robot text-red-600 dark:text-red-400 text-base"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-base md:text-lg font-bold text-red-800 dark:text-red-100 leading-tight">
-                                    Robotic Surgery Unit</h3>
-                                <p class="text-[10px] text-red-600 dark:text-red-400 font-mono mt-0.5">Ref: Non-Select
-                                    Dropdown (Div/Span)</p>
-                            </div>
-                        </div>
-
-                        <p
-                            class="text-red-900/80 dark:text-red-200/70 text-xs mb-3 border-l-2 border-red-300 dark:border-red-500/50 pl-2.5 font-medium">
-                            Challenge: This is NOT a select tag. Use <b class="text-red-700 dark:text-red-300">Robot
-                                Class</b> Keys (Down/Enter) to navigate.
-                        </p>
-
-                        <div class="relative">
-                            <div id="robot-dropdown" tabindex="0"
-                                class="w-full bg-white/80 dark:bg-black/40 border border-red-200 dark:border-red-900/50 p-2.5 rounded-xl flex justify-between items-center cursor-pointer focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-all outline-none group shadow-inner">
-                                <span id="robot-val"
-                                    class="text-slate-500 dark:text-gray-400 text-xs font-medium">Select Operation
-                                    Mode...</span>
-                                <i
-                                    class="fas fa-chevron-down text-slate-400 dark:text-gray-500 group-focus:text-red-500 text-[10px] transition-colors"></i>
-                            </div>
-
-                            <ul id="robot-list"
-                                class="hidden absolute w-full mt-1.5 bg-white/95 dark:bg-[#1a1b23]/95 backdrop-blur-xl border border-slate-200 dark:border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden">
-                                <li class="surgical-option border-l-2 border-transparent hover:border-red-500">Precision
-                                    Automation</li>
-                                <li class="surgical-option border-l-2 border-transparent hover:border-red-500">Zero
-                                    Touch Execution</li>
-                                <li class="surgical-option border-l-2 border-transparent hover:border-red-500">Headless
-                                    Surgery</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pulse-monitor p-4 md:p-5 rounded-2xl shadow-inner relative overflow-hidden">
-                    <div
-                        class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500/50 to-transparent opacity-50">
-                    </div>
-                    <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-700/50">
-                        <h4 class="text-red-400 text-[10px] font-bold uppercase tracking-widest flex items-center">
-                            <span
-                                class="w-1.5 h-1.5 bg-red-500 rounded-full mr-1.5 animate-pulse shadow-[0_0_8px_#ef4444]"></span>
-                            System Live Logs
-                        </h4>
-                        <span class="text-[9px] text-slate-500 font-mono">ID: SURG-99X</span>
-                    </div>
-                    <div id="console-output"
-                        class="text-[11px] font-mono space-y-1.5 h-24 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700">
-                        <div class="opacity-50 text-slate-400">> System Initialized...</div>
-                        <div class="opacity-50 text-slate-400">> Waiting for user input...</div>
-                    </div>
-                </div>
-
+                <label for="multi-select">Standard HTML Multi-Select</label>
+                <select id="multi-select" name="skills" multiple size="6">
+                    <option value="java">Java</option>
+                    <option value="python">Python</option>
+                    <option value="selenium">Selenium WebDriver</option>
+                    <option value="testng">TestNG</option>
+                    <option value="maven">Maven</option>
+                    <option value="git">Git</option>
+                </select>
+                <p style="font-size: 12px; color: #888; margin-top: 5px;">*Hold Ctrl/Cmd to manually select multiple
+                    options.</p>
             </div>
 
-            <div class="space-y-5">
-                <div class="bg-card p-5 rounded-2xl border border-white/60 dark:border-white/10 sticky top-6 shadow-sm">
-                    <h4
-                        class="text-sm md:text-base font-bold text-slate-800 dark:text-white mb-3 border-b border-slate-200 dark:border-gray-700 pb-2 flex items-center justify-between">
-                        <span>Surgical Tools</span>
-                        <i class="fas fa-tools text-slate-400 dark:text-gray-500 text-xs"></i>
-                    </h4>
-
-                    <ul id="std-methods"
-                        class="space-y-2 text-[10px] md:text-xs text-slate-600 dark:text-gray-400 font-mono">
-                        <li
-                            class="flex items-center gap-2 group hover:text-amber-600 dark:hover:text-amber-400 transition cursor-help font-medium">
-                            <i class="fas fa-check text-green-500 text-[9px] w-3"></i><code>selectByIndex()</code>
-                        </li>
-                        <li
-                            class="flex items-center gap-2 group hover:text-amber-600 dark:hover:text-amber-400 transition cursor-help font-medium">
-                            <i class="fas fa-check text-green-500 text-[9px] w-3"></i><code>selectByValue()</code>
-                        </li>
-                        <li
-                            class="flex items-center gap-2 group hover:text-amber-600 dark:hover:text-amber-400 transition cursor-help font-medium">
-                            <i class="fas fa-check text-green-500 text-[9px] w-3"></i><code>selectByVisibleText()</code>
-                        </li>
-                        <li class="h-px bg-slate-200 dark:bg-gray-700 my-2"></li>
-                        <li
-                            class="flex items-center gap-2 group hover:text-amber-600 dark:hover:text-amber-400 transition cursor-help font-medium">
-                            <i class="fas fa-list text-amber-500 text-[9px] w-3"></i><code>getOptions()</code>
-                        </li>
-                        <li
-                            class="flex items-center gap-2 group hover:text-amber-600 dark:hover:text-amber-400 transition cursor-help font-medium">
-                            <i class="fas fa-clone text-amber-500 text-[9px] w-3"></i><code>isMultiple()</code>
-                        </li>
-                        <li class="h-px bg-slate-200 dark:bg-gray-700 my-2"></li>
-                        <li
-                            class="flex items-center gap-2 text-blue-600 dark:text-blue-400 group hover:text-blue-800 dark:hover:text-blue-300 transition font-medium">
-                            <i class="fas fa-times text-[9px] w-3"></i><code>deselectAll()</code>
-                        </li>
-                    </ul>
-
-                    <ul id="adv-methods"
-                        class="hidden space-y-3 text-[10px] md:text-xs text-red-800 dark:text-red-300 font-mono">
-                        <li class="flex items-start gap-1.5 font-medium">
-                            <i class="fas fa-code text-red-500 mt-0.5 text-[9px] w-3"></i>
-                            <span class="leading-relaxed">Use <code
-                                    class="bg-red-100 dark:bg-red-900/30 px-1 rounded">findElements()</code> to collect
-                                all options from the dynamic list.</span>
-                        </li>
-                        <li class="flex items-start gap-1.5 font-medium">
-                            <i class="fas fa-keyboard text-red-500 mt-0.5 text-[9px] w-3"></i>
-                            <span class="leading-relaxed"><code
-                                    class="bg-red-100 dark:bg-red-900/30 px-1 rounded">Robot rb = new Robot();</code><br><code
-                                    class="bg-red-100 dark:bg-red-900/30 px-1 rounded mt-0.5 inline-block">rb.keyPress(VK_DOWN);</code></span>
-                        </li>
-                        <li class="flex items-start gap-1.5 font-medium">
-                            <i class="fas fa-mouse-pointer text-red-500 mt-0.5 text-[9px] w-3"></i>
-                            <span class="leading-relaxed">Use <b class="text-red-600 dark:text-red-400">Actions
-                                    Class</b> for hovering if standard clicks fail.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div id="emergency-alert"
-                    class="hidden bg-red-100 dark:bg-red-900/20 p-4 md:p-5 rounded-2xl border border-red-300 dark:border-red-500/50 shadow-sm animate-pulse">
-                    <h4 class="text-xs font-bold mb-1.5 text-red-700 dark:text-red-400 flex items-center gap-1.5">
-                        <i class="fas fa-exclamation-triangle"></i> ACTIVE EMERGENCY
-                    </h4>
-                    <p class="text-[10px] text-red-800/80 dark:text-red-200/80 leading-relaxed font-medium">
-                        <b class="text-red-900 dark:text-red-100">Mission:</b> Stabilize the Robotic Unit. The standard
-                        `Select` class will throw `UnexpectedTagNameException` here. Adapt immediately!
-                    </p>
+            <!-- Dynamic Auto-Suggestion -->
+            <div class="card">
+                <h2>3. Dynamic Auto-Suggestion (Google Style)</h2>
+                <label for="auto-search">Search Query</label>
+                <div class="autocomplete-container">
+                    <input type="text" id="auto-search" placeholder="Type 'test' or 'sel' to see suggestions..."
+                        autocomplete="off">
+                    <ul id="suggestion-box" class="suggestions-list"></ul>
                 </div>
             </div>
 
         </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW 2: Advanced Custom Dropdowns & Robot  -->
+        <!-- ========================================== -->
+        <div id="view-advanced" class="view-section">
+
+            <!-- findElement Practice -->
+            <div class="card">
+                <h2>1. Practice: findElement()</h2>
+                <p class="instructions">This is a custom DIV dropdown. Click the box, then use <code>findElement</code>
+                    with an explicit XPath/CSS Selector to click a specific option.</p>
+
+                <div class="dropdown-box" id="job-dropdown">
+                    <div class="dropdown-header" id="job-header">Select Job Title...</div>
+                    <ul class="dropdown-list" id="job-list">
+                        <li data-value="dev">Software Developer</li>
+                        <li data-value="qa">Automation Engineer</li>
+                        <li data-value="devops">DevOps Engineer</li>
+                        <li data-value="pm">Product Manager</li>
+                    </ul>
+                </div>
+                <div id="job-status" class="status-msg"></div>
+            </div>
+
+            <!-- findElements Practice -->
+            <div class="card">
+                <h2>2. Practice: findElements()</h2>
+                <p class="instructions">Click the search box to reveal all options. Use <code>findElements</code> to
+                    capture all <code>&lt;li&gt;</code> tags, iterate through them, and click the one that matches
+                    "Playwright".</p>
+
+                <div class="dropdown-box" id="tool-dropdown">
+                    <input type="text" id="tool-input" placeholder="Click to see tools..." readonly>
+                    <ul class="dropdown-list" id="tool-list">
+                        <li>Selenium</li>
+                        <li>Playwright</li>
+                        <li>Cypress</li>
+                        <li>Puppeteer</li>
+                        <li>Appium</li>
+                        <li>TestCafe</li>
+                    </ul>
+                </div>
+                <div id="tool-status" class="status-msg"></div>
+            </div>
+
+            <!-- Robot Class Practice -->
+            <div class="card">
+                <h2>3. Practice: Java Robot Class (Keyboard)</h2>
+                <p class="instructions">Focus the input box. Use the <code>Robot</code> class to press <b>Arrow Down</b>
+                    3 times, then press <b>Enter</b> to make a selection.</p>
+
+                <div class="dropdown-box" id="os-dropdown">
+                    <input type="text" id="os-input" placeholder="Focus here and use Arrow Keys...">
+                    <ul class="dropdown-list" id="os-list">
+                        <li>Windows</li>
+                        <li>macOS</li>
+                        <li>Ubuntu Linux</li>
+                        <li>Red Hat</li>
+                        <li>ChromeOS</li>
+                    </ul>
+                </div>
+                <div id="os-status" class="status-msg"></div>
+            </div>
+
+        </div>
+
     </div>
 
-    <footer
-        class="w-full mt-12 py-6 border-t border-slate-300 dark:border-gray-800/50 text-center text-slate-500 dark:text-gray-500 text-[9px] md:text-[10px] uppercase tracking-widest font-bold">
-        © 2026 AutomationWithPiyush | Surgical Dropdown Unit
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 600, once: true });
+        // ==========================================
+        // VIEW TOGGLE LOGIC
+        // ==========================================
+        function switchView(viewName) {
+            // Handle Buttons
+            document.getElementById('btn-basic').classList.remove('active');
+            document.getElementById('btn-advanced').classList.remove('active');
+            document.getElementById('btn-' + viewName).classList.add('active');
 
-        // --- THEME LOGIC ---
-        function toggleTheme() {
-            document.documentElement.classList.toggle('dark');
+            // Handle Views
+            document.getElementById('view-basic').classList.remove('active');
+            document.getElementById('view-advanced').classList.remove('active');
+            document.getElementById('view-' + viewName).classList.add('active');
         }
 
-        // --- TERMINAL LOGIC ---
-        const consoleOutput = document.getElementById('console-output');
+        // ==========================================
+        // VIEW 1 LOGIC: Auto-Suggestion
+        // ==========================================
+        const searchInput = document.getElementById('auto-search');
+        const suggestionBox = document.getElementById('suggestion-box');
+        const database = [
+            "selenium tutorial", "selenium interview questions", "selenium grid",
+            "selenium webdriver", "testing strategies", "test automation framework",
+            "software testing", "testcafe vs cypress", "testng annotations"
+        ];
 
-        function logToMonitor(message, type = 'info') {
-            const time = new Date().toLocaleTimeString().split(' ')[0];
-            const entry = document.createElement('div');
+        searchInput.addEventListener('keyup', function () {
+            const query = this.value.toLowerCase();
+            suggestionBox.innerHTML = '';
 
-            let colorClass = 'text-slate-400';
-            if (type === 'success') colorClass = 'text-green-400 font-bold';
-            if (type === 'alert') colorClass = 'text-red-400 font-bold';
-            if (type === 'cmd') colorClass = 'text-blue-400';
-
-            entry.innerHTML = `<span class="text-slate-600 select-none">[${time}]</span> <span class="${colorClass}">${message}</span>`;
-            consoleOutput.prepend(entry);
-        }
-
-        // --- DIAGNOSTIC LISTENERS ---
-        document.getElementById('single-select').addEventListener('change', (e) => {
-            const text = e.target.options[e.target.selectedIndex].text;
-            logToMonitor(`> Destination Set: ${text}`, 'success');
-        });
-
-        document.getElementById('multi-select').addEventListener('change', (e) => {
-            const selected = Array.from(e.target.selectedOptions).map(opt => opt.text);
-            logToMonitor(`> Multi-Dose: ${selected.length} items selected.`, 'cmd');
-        });
-
-        // --- TOGGLE WARD FUNCTION (UPDATED FOR NEW CLASSES) ---
-        function toggleWard() {
-            const std = document.getElementById('standard-ward');
-            const adv = document.getElementById('advanced-ward');
-            const btn = document.getElementById('mode-btn');
-            const sub = document.getElementById('ward-subtitle');
-            const stdM = document.getElementById('std-methods');
-            const advM = document.getElementById('adv-methods');
-            const alertBox = document.getElementById('emergency-alert');
-
-            if (adv.classList.contains('hidden-ward')) {
-                // To Emergency
-                adv.classList.remove('hidden-ward');
-                std.classList.add('hidden-ward');
-                stdM.classList.add('hidden');
-                advM.classList.remove('hidden');
-                alertBox.classList.remove('hidden');
-
-                // Update Button with new glassy scaled classes
-                btn.innerHTML = '<i class="fas fa-arrow-left text-[10px]"></i> Return to OPD';
-                btn.className = "px-4 py-2 bg-amber-400 hover:bg-amber-500 text-black rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md transform hover:-translate-y-0.5";
-
-                sub.innerHTML = `
-                    <span class="bg-red-100 dark:bg-red-500/10 text-red-600 dark:text-red-500 px-2 py-0.5 rounded border border-red-200 dark:border-red-500/20">
-                        <i class="fas fa-procedures mr-1"></i> CRITICAL WARD
-                    </span>
-                    <span>Robotic & Dynamic Procedures</span>
-                `;
-
-                logToMonitor("!!! ENTERING CRITICAL WARD !!!", 'alert');
-                logToMonitor("> Protocol: Switch to Robot Class & Dynamic XPaths.", 'alert');
+            if (query.length > 0) {
+                setTimeout(() => { // Simulated Network Delay
+                    const filtered = database.filter(item => item.includes(query));
+                    if (filtered.length > 0) {
+                        suggestionBox.style.display = 'block';
+                        filtered.forEach(item => {
+                            const li = document.createElement('li');
+                            li.textContent = item;
+                            li.onclick = function () {
+                                searchInput.value = this.textContent;
+                                suggestionBox.style.display = 'none';
+                            };
+                            suggestionBox.appendChild(li);
+                        });
+                    } else {
+                        suggestionBox.style.display = 'none';
+                    }
+                }, 300);
             } else {
-                // To OPD
-                adv.classList.add('hidden-ward');
-                std.classList.remove('hidden-ward');
-                stdM.classList.remove('hidden');
-                advM.classList.add('hidden');
-                alertBox.classList.add('hidden');
-
-                // Revert Button
-                btn.innerHTML = '<i class="fas fa-heartbeat animate-pulse text-[10px]"></i> Start Critical Surgery';
-                btn.className = "px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-red-900/30 transform hover:-translate-y-0.5";
-
-                sub.innerHTML = `
-                    <span class="bg-blue-100 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded border border-blue-200 dark:border-transparent">
-                        <i class="fas fa-stethoscope mr-1"></i> OPD Clinic
-                    </span>
-                    <span>Select Class Procedure Ward</span>
-                `;
-
-                logToMonitor("> Patient stabilized. Returning to standard OPD.", 'success');
-            }
-        }
-
-        // --- DYNAMIC INPUT LOGIC ---
-        const dynamicInput = document.getElementById('dynamic-input');
-        const resultsContainer = document.getElementById('results-container');
-
-        dynamicInput.addEventListener('input', function (e) {
-            if (e.target.value.length >= 2) {
-                resultsContainer.classList.remove('hidden');
-                logToMonitor(`> Scanning DB for: "${e.target.value}"...`);
-            } else {
-                resultsContainer.classList.add('hidden');
+                suggestionBox.style.display = 'none';
             }
         });
 
-        // --- CLICK HANDLING FOR DYNAMIC OPTIONS ---
-        document.querySelectorAll('.surgical-option').forEach(opt => {
-            opt.addEventListener('click', function (e) {
-                const parentId = this.parentElement.id;
+        // ==========================================
+        // VIEW 2 LOGIC: Custom Dropdowns & Robot
+        // ==========================================
 
-                if (parentId === "results-container") {
-                    dynamicInput.value = this.innerText;
-                    resultsContainer.classList.add('hidden');
-                    logToMonitor(`> Dynamic Selection: ${this.innerText}`, 'success');
-                } else if (parentId === "robot-list") {
-                    document.getElementById('robot-val').innerText = this.innerText;
-                    document.getElementById('robot-val').classList.add('text-slate-800', 'dark:text-white', 'font-bold');
-                    document.getElementById('robot-val').classList.remove('text-slate-500', 'dark:text-gray-400', 'font-medium');
-                    document.getElementById('robot-list').classList.add('hidden');
-                    logToMonitor(`> Robotic Selection: ${this.innerText}`, 'success');
-                }
-                e.stopPropagation();
+        // 1. findElement Custom Div
+        const jobHeader = document.getElementById('job-header');
+        const jobList = document.getElementById('job-list');
+        const jobStatus = document.getElementById('job-status');
+
+        jobHeader.addEventListener('click', () => { jobList.classList.toggle('show'); });
+        jobList.querySelectorAll('li').forEach(item => {
+            item.addEventListener('click', (e) => {
+                jobHeader.textContent = e.target.textContent;
+                jobList.classList.remove('show');
+                jobStatus.textContent = `Success: Selected ${e.target.textContent}`;
             });
         });
 
-        // --- ROBOT DROPDOWN LOGIC ---
-        const robotDropdown = document.getElementById('robot-dropdown');
-        const robotList = document.getElementById('robot-list');
+        // 2. findElements Custom Div
+        const toolInput = document.getElementById('tool-input');
+        const toolList = document.getElementById('tool-list');
+        const toolStatus = document.getElementById('tool-status');
 
-        robotDropdown.addEventListener('click', (e) => {
-            robotList.classList.toggle('hidden');
-            logToMonitor("> Robot Dropdown Clicked. Focus Acquired.", 'cmd');
-            e.stopPropagation();
+        toolInput.addEventListener('click', () => { toolList.classList.toggle('show'); });
+        toolList.querySelectorAll('li').forEach(item => {
+            item.addEventListener('click', (e) => {
+                toolInput.value = e.target.textContent;
+                toolList.classList.remove('show');
+                toolStatus.textContent = `Success: Selected ${e.target.textContent}`;
+            });
         });
 
-        robotDropdown.addEventListener('keydown', function (e) {
-            if (e.key === "ArrowDown") {
+        // 3. Robot Class / Keyboard Nav
+        const osInput = document.getElementById('os-input');
+        const osList = document.getElementById('os-list');
+        const osItems = osList.querySelectorAll('li');
+        const osStatus = document.getElementById('os-status');
+        let currentIndex = -1;
+
+        osInput.addEventListener('focus', () => {
+            osList.classList.add('show');
+            currentIndex = -1;
+            updateHighlight();
+        });
+
+        osInput.addEventListener('keydown', (e) => {
+            if (!osList.classList.contains('show')) return;
+
+            if (e.key === 'ArrowDown') {
                 e.preventDefault();
-                robotList.classList.remove('hidden');
-                logToMonitor("> KEY_DOWN detected. Expanding list...", 'cmd');
-            }
-            if (e.key === "Enter") {
+                currentIndex = (currentIndex + 1) % osItems.length;
+                updateHighlight();
+            } else if (e.key === 'ArrowUp') {
                 e.preventDefault();
-                if (!robotList.classList.contains('hidden')) {
-                    const firstOption = robotList.querySelector('li');
-                    document.getElementById('robot-val').innerText = firstOption.innerText;
-                    document.getElementById('robot-val').classList.add('text-slate-800', 'dark:text-white', 'font-bold');
-                    document.getElementById('robot-val').classList.remove('text-slate-500', 'dark:text-gray-400', 'font-medium');
-                    robotList.classList.add('hidden');
-                    logToMonitor("> KEY_ENTER detected. Selection Confirmed.", 'success');
+                currentIndex = (currentIndex - 1 + osItems.length) % osItems.length;
+                updateHighlight();
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (currentIndex >= 0 && currentIndex < osItems.length) {
+                    osInput.value = osItems[currentIndex].textContent;
+                    osList.classList.remove('show');
+                    osStatus.textContent = `Success: Keyboard selected ${osItems[currentIndex].textContent}`;
                 }
+            } else if (e.key === 'Escape') {
+                osList.classList.remove('show');
             }
         });
 
-        // --- CLOSE DROPDOWNS ON OUTSIDE CLICK ---
+        function updateHighlight() {
+            osItems.forEach((item, index) => {
+                if (index === currentIndex) {
+                    item.classList.add('active');
+                    item.scrollIntoView({ block: 'nearest' });
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // ==========================================
+        // GLOBAL LOGIC: Close dropdowns on outside click
+        // ==========================================
         document.addEventListener('click', (e) => {
-            if (!robotDropdown.contains(e.target) && !robotList.contains(e.target)) {
-                robotList.classList.add('hidden');
-            }
-            if (!dynamicInput.contains(e.target) && !resultsContainer.contains(e.target)) {
-                resultsContainer.classList.add('hidden');
-            }
-        });
+            // Auto Suggestion
+            if (e.target !== searchInput) suggestionBox.style.display = 'none';
 
+            // Advanced Dropdowns
+            if (!document.getElementById('job-dropdown').contains(e.target)) jobList.classList.remove('show');
+            if (!document.getElementById('tool-dropdown').contains(e.target)) toolList.classList.remove('show');
+            if (!document.getElementById('os-dropdown').contains(e.target)) osList.classList.remove('show');
+        });
     </script>
+
 </body>
 
 </html>
