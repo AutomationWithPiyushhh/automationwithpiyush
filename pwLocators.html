@@ -2,29 +2,30 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>AutomationWithPiyush Registration Portal</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
         body {
-            font-family: Arial;
-            background: #f3f4f6;
+            background: #f4f4f4;
             margin: 0;
-            padding: 30px;
+            padding: 40px;
         }
 
         .container {
-
             width: 750px;
             margin: auto;
-            background: white;
+            background: #fff;
             padding: 25px;
             border-radius: 10px;
-            box-shadow: 0 0 10px gray;
-
+            box-shadow: 0 0 12px rgba(0, 0, 0, .2);
         }
 
         h1 {
@@ -48,38 +49,60 @@
             margin-bottom: 6px;
         }
 
-        input,
+        input[type=text],
+        input[type=email],
+        input[type=password],
+        input[type=date],
+        input[type=file],
         select,
         textarea {
-
             width: 100%;
             padding: 10px;
-            box-sizing: border-box;
-
+            font-size: 15px;
         }
 
-        .gender {
+        fieldset {
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        legend {
+            font-weight: bold;
+        }
+
+        .option {
             display: flex;
-            gap: 20px;
+            align-items: center;
+            margin-bottom: 10px;
         }
 
-        .gender label {
+        .option input {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .option label {
+            margin: 0;
             font-weight: normal;
+            cursor: pointer;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
         }
 
         button {
-
             padding: 10px 25px;
-            margin-right: 15px;
             cursor: pointer;
-
+            font-size: 15px;
         }
 
         .success {
-
             color: green;
             font-weight: bold;
-
         }
     </style>
 
@@ -97,25 +120,23 @@
 
             <div class="row">
 
-                <label for="fullname">
-                    Full Name
-                </label>
+                <label for="fullname">Full Name</label>
 
-                <input id="fullname" type="text">
+                <input id="fullname" type="text" placeholder="Enter Full Name">
 
             </div>
 
             <div class="row">
 
-                <input type="email" placeholder="Enter your Email Address">
+                <label for="email">Email</label>
+
+                <input id="email" type="email" placeholder="Enter your Email Address">
 
             </div>
 
             <div class="row">
 
-                <label for="password">
-                    Password
-                </label>
+                <label for="password">Password</label>
 
                 <input id="password" type="password">
 
@@ -123,9 +144,9 @@
 
             <div class="row">
 
-                <label>Date of Birth</label>
+                <label for="dob">Date of Birth</label>
 
-                <input type="date">
+                <input id="dob" type="date">
 
             </div>
 
@@ -133,21 +154,29 @@
 
                 <legend>Gender</legend>
 
-                <input type="radio" id="male" name="gender" value="Male">
+                <div class="option">
 
-                <label for="male">Male</label>
+                    <input id="male" type="radio" name="gender" value="Male">
 
-                <input type="radio" id="female" name="gender" value="Female">
+                    <label for="male">Male</label>
 
-                <label for="female">Female</label>
+                </div>
+
+                <div class="option">
+
+                    <input id="female" type="radio" name="gender" value="Female">
+
+                    <label for="female">Female</label>
+
+                </div>
 
             </fieldset>
 
             <div class="row">
 
-                <label>Country</label>
+                <label for="country">Country</label>
 
-                <select data-testid="country-dropdown">
+                <select id="country" data-testid="country-dropdown">
 
                     <option>Select Country</option>
 
@@ -163,49 +192,49 @@
 
             </div>
 
+            <fieldset>
+
+                <legend>Skills</legend>
+
+                <div class="option">
+
+                    <input id="java" type="checkbox">
+
+                    <label for="java">Java</label>
+
+                </div>
+
+                <div class="option">
+
+                    <input id="selenium" type="checkbox">
+
+                    <label for="selenium">Selenium</label>
+
+                </div>
+
+                <div class="option">
+
+                    <input id="playwright" type="checkbox">
+
+                    <label for="playwright">Playwright</label>
+
+                </div>
+
+            </fieldset>
+
             <div class="row">
 
-                <label>Skills</label>
+                <label for="address">Address</label>
 
-                <label>
-
-                    <input type="checkbox">
-
-                    Java
-
-                </label>
-
-                <label>
-
-                    <input type="checkbox">
-
-                    Selenium
-
-                </label>
-
-                <label>
-
-                    <input type="checkbox">
-
-                    Playwright
-
-                </label>
+                <textarea id="address" rows="4" placeholder="Enter your Address"></textarea>
 
             </div>
 
             <div class="row">
 
-                <label>Address</label>
+                <label for="resume">Upload Resume</label>
 
-                <textarea rows="4" placeholder="Enter your Address"></textarea>
-
-            </div>
-
-            <div class="row">
-
-                <label>Upload Resume</label>
-
-                <input type="file">
+                <input id="resume" type="file">
 
             </div>
 
@@ -219,7 +248,7 @@
 
             <div class="row">
 
-                <p class="success">
+                <p class="success" role="alert">
 
                     Registration is free for all students.
 
@@ -230,25 +259,19 @@
             <div class="row">
 
                 <a href="#">
-
                     Already have an account? Login
-
                 </a>
 
             </div>
 
-            <div class="row">
+            <div class="buttons">
 
                 <button type="submit">
-
                     Register
-
                 </button>
 
                 <button type="reset">
-
                     Reset
-
                 </button>
 
             </div>
