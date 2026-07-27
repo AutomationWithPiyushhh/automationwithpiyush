@@ -2,51 +2,84 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Playwright Locator Practice</title>
+
+    <title>AutomationWithPiyush Registration Portal</title>
 
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
+            font-family: Arial;
+            background: #f3f4f6;
+            margin: 0;
+            padding: 30px;
         }
 
         .container {
-            width: 500px;
-            margin: 40px auto;
+
+            width: 750px;
+            margin: auto;
             background: white;
             padding: 25px;
             border-radius: 10px;
             box-shadow: 0 0 10px gray;
+
         }
 
-        h2 {
+        h1 {
             text-align: center;
+            color: #0b5ed7;
         }
 
-        .form-group {
+        img {
+            display: block;
+            margin: auto;
+            margin-bottom: 20px;
+        }
+
+        .row {
             margin-bottom: 18px;
         }
 
         label {
             display: block;
-            margin-bottom: 6px;
             font-weight: bold;
+            margin-bottom: 6px;
         }
 
         input,
         select,
         textarea {
+
             width: 100%;
             padding: 10px;
             box-sizing: border-box;
+
+        }
+
+        .gender {
+            display: flex;
+            gap: 20px;
+        }
+
+        .gender label {
+            font-weight: normal;
         }
 
         button {
-            margin-top: 15px;
+
             padding: 10px 25px;
+            margin-right: 15px;
             cursor: pointer;
+
+        }
+
+        .success {
+
+            color: green;
+            font-weight: bold;
+
         }
     </style>
 
@@ -56,55 +89,180 @@
 
     <div class="container">
 
-        <h2>User Registration</h2>
+        <h1>User Registration</h1>
+
+        <img src="https://picsum.photos/150" alt="AutomationWithPiyush Logo" width="120">
 
         <form>
 
-            <!-- getByLabel() -->
-            <div class="form-group">
-                <label for="fullname">Full Name</label>
-                <input type="text" id="fullname">
+            <div class="row">
+
+                <label for="fullname">
+                    Full Name
+                </label>
+
+                <input id="fullname" type="text">
+
             </div>
 
-            <!-- getByPlaceholder() -->
-            <div class="form-group">
+            <div class="row">
+
                 <input type="email" placeholder="Enter your Email Address">
+
             </div>
 
-            <!-- getByRole() -->
-            <div class="form-group">
-                <button type="submit">
-                    Register
-                </button>
+            <div class="row">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input id="password" type="password">
+
             </div>
 
-            <!-- getByText() -->
-            <div class="form-group">
-                <a href="#">
-                    Already have an account? Login
-                </a>
+            <div class="row">
+
+                <label>Date of Birth</label>
+
+                <input type="date">
+
             </div>
 
-            <!-- getByAltText() -->
-            <div class="form-group">
-                <img src="https://picsum.photos/120" alt="Company Logo">
+            <div class="row">
+
+                <label>Gender</label>
+
+                <div class="gender">
+
+                    <label>
+
+                        <input type="radio" name="gender">
+
+                        Male
+
+                    </label>
+
+                    <label>
+
+                        <input type="radio" name="gender">
+
+                        Female
+
+                    </label>
+
+                </div>
+
             </div>
 
-            <!-- getByTitle() -->
-            <div class="form-group">
+            <div class="row">
+
+                <label>Country</label>
+
+                <select data-testid="country-dropdown">
+
+                    <option>Select Country</option>
+
+                    <option>India</option>
+
+                    <option>USA</option>
+
+                    <option>Canada</option>
+
+                    <option>Australia</option>
+
+                </select>
+
+            </div>
+
+            <div class="row">
+
+                <label>Skills</label>
+
+                <label>
+
+                    <input type="checkbox">
+
+                    Java
+
+                </label>
+
+                <label>
+
+                    <input type="checkbox">
+
+                    Selenium
+
+                </label>
+
+                <label>
+
+                    <input type="checkbox">
+
+                    Playwright
+
+                </label>
+
+            </div>
+
+            <div class="row">
+
+                <label>Address</label>
+
+                <textarea rows="4" placeholder="Enter your Address"></textarea>
+
+            </div>
+
+            <div class="row">
+
+                <label>Upload Resume</label>
+
+                <input type="file">
+
+            </div>
+
+            <div class="row">
+
                 <span title="Password must contain at least 8 characters">
                     Hover here for Password Rules
                 </span>
+
             </div>
 
-            <!-- getByTestId() -->
-            <div class="form-group">
-                <select data-testid="country-dropdown">
-                    <option>Select Country</option>
-                    <option>India</option>
-                    <option>USA</option>
-                    <option>Canada</option>
-                </select>
+            <div class="row">
+
+                <p class="success">
+
+                    Registration is free for all students.
+
+                </p>
+
+            </div>
+
+            <div class="row">
+
+                <a href="#">
+
+                    Already have an account? Login
+
+                </a>
+
+            </div>
+
+            <div class="row">
+
+                <button type="submit">
+
+                    Register
+
+                </button>
+
+                <button type="reset">
+
+                    Reset
+
+                </button>
+
             </div>
 
         </form>
