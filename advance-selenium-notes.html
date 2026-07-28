@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Selenium Notes & Framework PDFs | AutomationWithPiyush</title>
+
+    <link rel="icon" type="image/png" href="icon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.6)',
+                            dark: 'rgba(30, 30, 40, 0.6)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+        body {
+            background-color: #12131a;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .text-accent {
+            color: #facc15;
+        }
+
+        .bg-card {
+            background-color: #252631;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1b23;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 8px;
+        }
+
+        .pdf-card {
+            transition: all 0.3s ease;
+        }
+
+        .pdf-card:hover {
+            transform: translateY(-6px);
+            border-color: #facc15 !important;
+            box-shadow: 0 12px 28px -10px rgba(250, 204, 21, 0.2);
+        }
+
+        /* Glassy Light Theme Adjustments */
+        :root body {
+            background-color: #f0f2f6 !important;
+            color: #1c1d21 !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.08), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.08), transparent 50%);
+            background-attachment: fixed;
+        }
+
+        :root .bg-card {
+            background-color: rgba(255, 255, 255, 0.6) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.8) !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        :root ::-webkit-scrollbar-track {
+            background: #f0f2f6 !important;
+        }
+
+        :root ::-webkit-scrollbar-thumb {
+            background: #cbd5e1 !important;
+        }
+
+        .dark body {
+            background-color: #12131a !important;
+            color: #ffffff !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.04), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.04), transparent 50%);
+        }
+
+        .dark .bg-card {
+            background-color: rgba(30, 31, 40, 0.6) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .dark ::-webkit-scrollbar-track {
+            background: #12131a !important;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #333 !important;
+        }
+
+        body,
+        .bg-card,
+        nav,
+        section,
+        div,
+        h1,
+        h2,
+        h3,
+        h4,
+        p,
+        a,
+        button {
+            transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 400ms;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden antialiased">
+
+    <!-- Navigation Header -->
+    <div class="fixed top-3 left-0 w-full z-50 px-4 flex justify-center pointer-events-none">
+        <nav
+            class="relative flex justify-between items-center px-5 py-2.5 max-w-5xl w-full bg-white/50 dark:bg-[#1a1b23]/50 backdrop-blur-2xl border border-white/60 dark:border-white/10 rounded-[1.5rem] shadow-lg pointer-events-auto">
+            <div class="flex items-center gap-2">
+                <a href="index.html" class="hover:opacity-80 transition-opacity flex items-center gap-2">
+                    <img src="awp.png" alt="AutomationWithPiyush Logo"
+                        class="h-8 md:h-10 w-auto rounded-lg drop-shadow-md bg-20 p-1">
+                </a>
+            </div>
+
+            <div
+                class="hidden md:flex items-center gap-6 text-slate-700 dark:text-gray-300 font-medium text-xs lg:text-sm">
+                <a href="index.html" class="hover:text-amber-500 dark:hover:text-amber-400 transition flex items-center gap-1.5"><i class="fas fa-home"></i> Home</a>
+                <a href="index.html#practice" class="hover:text-amber-500 dark:hover:text-amber-400 transition">Practice</a>
+                <a href="basic-selenium-notes.html" class="hover:text-amber-500 dark:hover:text-amber-400 transition">Basic Notes</a>
+                <a href="advance-selenium-notes.html" class="text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 pb-0.5">Advance Notes</a>
+                <a href="index.html#contact" class="hover:text-amber-500 dark:hover:text-amber-400 transition">Contact</a>
+
+                <button id="theme-toggle-desktop"
+                    class="w-8 h-8 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-white/50 dark:border-white/10 flex items-center justify-center transition-all hover:scale-110"
+                    onclick="toggleTheme()">
+                    <i class="fas fa-moon dark:hidden text-slate-800 text-xs"></i>
+                    <i class="fas fa-sun hidden dark:block text-amber-400 text-xs"></i>
+                </button>
+            </div>
+
+            <div class="flex items-center gap-3 md:hidden">
+                <button id="theme-toggle-mobile"
+                    class="w-8 h-8 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-white/50 dark:border-white/10 flex items-center justify-center transition-all"
+                    onclick="toggleTheme()">
+                    <i class="fas fa-moon dark:hidden text-slate-800 text-xs"></i>
+                    <i class="fas fa-sun hidden dark:block text-amber-400 text-xs"></i>
+                </button>
+                <button class="text-slate-800 dark:text-white text-xl focus:outline-none" onclick="toggleMenu()">
+                    <i id="menu-icon" class="fas fa-bars drop-shadow-sm"></i>
+                </button>
+            </div>
+
+            <div id="mobile-menu"
+                class="hidden fixed inset-0 bg-white/90 dark:bg-[#1a1b23]/95 backdrop-blur-3xl flex flex-col items-center justify-center gap-6 text-lg z-[60] md:hidden">
+                <a href="index.html" class="text-slate-800 dark:text-white hover:text-amber-500 transition" onclick="toggleMenu()">Home</a>
+                <a href="basic-selenium-notes.html" class="text-slate-800 dark:text-white hover:text-amber-500 transition" onclick="toggleMenu()">Basic Notes</a>
+                <a href="advance-selenium-notes.html" class="text-amber-500 dark:text-amber-400 font-bold border-2 border-amber-500 dark:border-amber-400 px-6 py-1.5 rounded-full" onclick="toggleMenu()">Advance Notes</a>
+                <a href="index.html#practice" class="text-slate-800 dark:text-white hover:text-amber-500 transition" onclick="toggleMenu()">Practice</a>
+                <a href="index.html#contact" class="text-slate-800 dark:text-white hover:text-amber-500 transition" onclick="toggleMenu()">Contact</a>
+                <button
+                    class="mt-4 text-amber-500 dark:text-amber-400 text-sm font-bold bg-white/50 dark:bg-black/30 px-5 py-1.5 rounded-full border border-white/50 dark:border-white/10"
+                    onclick="toggleMenu()"><i class="fas fa-times mr-2"></i>Close</button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="max-w-5xl mx-auto px-4 md:px-6 pt-28 pb-16">
+
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-gray-400 mb-6" data-aos="fade-down">
+            <a href="index.html" class="hover:text-amber-500 transition">Home</a>
+            <i class="fas fa-chevron-right text-[9px]"></i>
+            <span class="text-slate-700 dark:text-gray-300">Notes</span>
+            <i class="fas fa-chevron-right text-[9px]"></i>
+            <span class="text-amber-500 dark:text-amber-400">Advanced Selenium</span>
+        </nav>
+
+        <!-- Hero Card -->
+        <header class="bg-card p-6 md:p-8 rounded-3xl mb-8 border border-white/60 dark:border-white/10 relative overflow-hidden shadow-xl" data-aos="fade-up">
+            <div class="absolute -right-10 -bottom-10 w-56 h-56 bg-amber-400/10 dark:bg-amber-400/5 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+                <div>
+                    <span class="bg-amber-100 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-amber-200 dark:border-amber-400/20 inline-block mb-3">
+                        Goal 02 • Enterprise Architecture Notes
+                    </span>
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
+                        Advanced Selenium Notes
+                    </h1>
+                    <p class="text-slate-600 dark:text-gray-400 text-xs md:text-sm font-medium leading-relaxed max-w-2xl">
+                        Complete 6-module framework library by Piyush Baldaniya. Master Data Driven Testing, Generic Utilities, Page Object Model (POM), TestNG Execution Engine, and Hybrid Automation Framework design.
+                    </p>
+                </div>
+
+                <!-- Stats / Quick Info -->
+                <div class="flex flex-row md:flex-col gap-3 min-w-[190px]">
+                    <div class="bg-white/40 dark:bg-black/30 p-3 rounded-2xl border border-white/60 dark:border-white/10 text-center flex-1">
+                        <p class="text-slate-500 dark:text-gray-400 text-[10px] font-bold uppercase">Total Modules</p>
+                        <p class="text-amber-500 font-bold text-sm md:text-base"><i class="fas fa-layer-group mr-1"></i> 6 PDF Guides</p>
+                    </div>
+                    <div class="bg-white/40 dark:bg-black/30 p-3 rounded-2xl border border-white/60 dark:border-white/10 text-center flex-1">
+                        <p class="text-slate-500 dark:text-gray-400 text-[10px] font-bold uppercase">Total Size</p>
+                        <p class="text-slate-800 dark:text-white font-bold text-sm md:text-base">~7.8 MB</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- PDF Cards Grid (6 Modules) -->
+        <section class="mb-12" data-aos="fade-up">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
+                        <i class="fas fa-folder-open text-amber-500"></i> Download Notes by Module
+                    </h2>
+                    <p class="text-xs text-slate-500 dark:text-gray-400 mt-1 font-medium">Click "Preview" to read inline or "Download" to save the file.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Module 0 -->
+                <div class="pdf-card bg-card p-6 rounded-2xl border border-white/60 dark:border-white/10 flex flex-col justify-between" data-aos="zoom-in" data-aos-delay="50">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-500 border border-blue-500/20">Module 00</span>
+                            <span class="text-[10px] text-slate-500 dark:text-gray-400 font-mono">992 KB</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-tight">00. Introduction to Advanced Selenium</h3>
+                        <p class="text-slate-600 dark:text-gray-400 text-xs leading-relaxed mb-4">
+                            Overview of enterprise automation goals, core architecture standards, and transition from basic scripts to structured frameworks.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-200 dark:border-white/5 flex gap-2">
+                        <a href="pdfs/advance_selenium/0%20Introduction.pdf" download="0 Introduction.pdf"
+                            class="flex-1 px-3 py-2 bg-amber-400 hover:bg-amber-500 text-black font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-md transition-all">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                        <button onclick="loadPdf(0)"
+                            class="px-3 py-2 bg-white/60 dark:bg-black/30 hover:bg-white text-slate-800 dark:text-gray-200 font-bold rounded-xl text-xs flex items-center justify-center gap-1 border border-white/60 dark:border-white/10 transition-all">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 1 -->
+                <div class="pdf-card bg-card p-6 rounded-2xl border border-white/60 dark:border-white/10 flex flex-col justify-between" data-aos="zoom-in" data-aos-delay="100">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-green-500/10 text-green-500 border border-green-500/20">Module 01</span>
+                            <span class="text-[10px] text-slate-500 dark:text-gray-400 font-mono">1.5 MB</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-tight">01. Data Driven Testing (DDT)</h3>
+                        <p class="text-slate-600 dark:text-gray-400 text-xs leading-relaxed mb-4">
+                            Externalizing test data using Apache POI, reading properties files, Excel sheet interaction, and DataProviders.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-200 dark:border-white/5 flex gap-2">
+                        <a href="pdfs/advance_selenium/1%20DDT.pdf" download="1 DDT.pdf"
+                            class="flex-1 px-3 py-2 bg-amber-400 hover:bg-amber-500 text-black font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-md transition-all">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                        <button onclick="loadPdf(1)"
+                            class="px-3 py-2 bg-white/60 dark:bg-black/30 hover:bg-white text-slate-800 dark:text-gray-200 font-bold rounded-xl text-xs flex items-center justify-center gap-1 border border-white/60 dark:border-white/10 transition-all">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="pdf-card bg-card p-6 rounded-2xl border border-white/60 dark:border-white/10 flex flex-col justify-between" data-aos="zoom-in" data-aos-delay="150">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-500 border border-purple-500/20">Module 02</span>
+                            <span class="text-[10px] text-slate-500 dark:text-gray-400 font-mono">1.4 MB</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-tight">02. Generic Utilities Architecture</h3>
+                        <p class="text-slate-600 dark:text-gray-400 text-xs leading-relaxed mb-4">
+                            Building FileUtility, ExcelUtility, JavaUtility, and WebDriverUtility helper classes to eliminate code duplication.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-200 dark:border-white/5 flex gap-2">
+                        <a href="pdfs/advance_selenium/2%20Generic%20utility.pdf" download="2 Generic utility.pdf"
+                            class="flex-1 px-3 py-2 bg-amber-400 hover:bg-amber-500 text-black font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-md transition-all">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                        <button onclick="loadPdf(2)"
+                            class="px-3 py-2 bg-white/60 dark:bg-black/30 hover:bg-white text-slate-800 dark:text-gray-200 font-bold rounded-xl text-xs flex items-center justify-center gap-1 border border-white/60 dark:border-white/10 transition-all">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="pdf-card bg-card p-6 rounded-2xl border border-white/60 dark:border-white/10 flex flex-col justify-between" data-aos="zoom-in" data-aos-delay="200">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-yellow-500/10 text-yellow-500 border border-yellow-500/20">Module 03</span>
+                            <span class="text-[10px] text-slate-500 dark:text-gray-400 font-mono">582 KB</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-tight">03. Page Object Model (POM)</h3>
+                        <p class="text-slate-600 dark:text-gray-400 text-xs leading-relaxed mb-4">
+                            Designing POM classes, Page Factory initialization, encapsulation of elements, and clean getter/action methods.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-200 dark:border-white/5 flex gap-2">
+                        <a href="pdfs/advance_selenium/3%20POM.pdf" download="3 POM.pdf"
+                            class="flex-1 px-3 py-2 bg-amber-400 hover:bg-amber-500 text-black font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-md transition-all">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                        <button onclick="loadPdf(3)"
+                            class="px-3 py-2 bg-white/60 dark:bg-black/30 hover:bg-white text-slate-800 dark:text-gray-200 font-bold rounded-xl text-xs flex items-center justify-center gap-1 border border-white/60 dark:border-white/10 transition-all">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 4 -->
+                <div class="pdf-card bg-card p-6 rounded-2xl border border-white/60 dark:border-white/10 flex flex-col justify-between" data-aos="zoom-in" data-aos-delay="250">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-red-500/10 text-red-500 border border-red-500/20">Module 04</span>
+                            <span class="text-[10px] text-slate-500 dark:text-gray-400 font-mono">2.1 MB</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-tight">04. TestNG Framework Engine</h3>
+                        <p class="text-slate-600 dark:text-gray-400 text-xs leading-relaxed mb-4">
+                            TestNG annotations hierarchy, testng.xml suites, parallel test execution, assertions, and reporting hooks.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-200 dark:border-white/5 flex gap-2">
+                        <a href="pdfs/advance_selenium/4%20TestNG.pdf" download="4 TestNG.pdf"
+                            class="flex-1 px-3 py-2 bg-amber-400 hover:bg-amber-500 text-black font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-md transition-all">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                        <button onclick="loadPdf(4)"
+                            class="px-3 py-2 bg-white/60 dark:bg-black/30 hover:bg-white text-slate-800 dark:text-gray-200 font-bold rounded-xl text-xs flex items-center justify-center gap-1 border border-white/60 dark:border-white/10 transition-all">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 5 -->
+                <div class="pdf-card bg-card p-6 rounded-2xl border border-white/60 dark:border-white/10 flex flex-col justify-between" data-aos="zoom-in" data-aos-delay="300">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-teal-500/10 text-teal-500 border border-teal-500/20">Module 05</span>
+                            <span class="text-[10px] text-slate-500 dark:text-gray-400 font-mono">1.1 MB</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-tight">05. Hybrid Automation Framework</h3>
+                        <p class="text-slate-600 dark:text-gray-400 text-xs leading-relaxed mb-4">
+                            Integrating BaseClass, listeners, screenshot logging, ExtentReports, Maven surefire plugin, and execution workflow.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-200 dark:border-white/5 flex gap-2">
+                        <a href="pdfs/advance_selenium/5%20Framework.pdf" download="5 Framework.pdf"
+                            class="flex-1 px-3 py-2 bg-amber-400 hover:bg-amber-500 text-black font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-md transition-all">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                        <button onclick="loadPdf(5)"
+                            class="px-3 py-2 bg-white/60 dark:bg-black/30 hover:bg-white text-slate-800 dark:text-gray-200 font-bold rounded-xl text-xs flex items-center justify-center gap-1 border border-white/60 dark:border-white/10 transition-all">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Interactive Live PDF Viewer Section -->
+        <section id="viewer-section" class="bg-card p-4 md:p-6 rounded-3xl mb-12 border border-white/60 dark:border-white/10 shadow-2xl" data-aos="fade-up">
+            
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5 pb-4 border-b border-slate-200 dark:border-white/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-400/20 flex items-center justify-center text-amber-500">
+                        <i class="fas fa-book-open text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 id="active-pdf-title" class="text-base md:text-lg font-bold text-slate-900 dark:text-white">
+                            00. Introduction to Advanced Selenium
+                        </h3>
+                        <p class="text-xs text-slate-500 dark:text-gray-400">Interactive Inline Reader</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <a id="active-pdf-download" href="pdfs/advance_selenium/0%20Introduction.pdf" download="0 Introduction.pdf"
+                        class="px-4 py-2 bg-amber-400 hover:bg-amber-500 text-black font-bold rounded-xl text-xs flex items-center gap-2 shadow-md transition-all">
+                        <i class="fas fa-download"></i> Download Current PDF
+                    </a>
+                    <a id="active-pdf-fullscreen" href="pdfs/advance_selenium/0%20Introduction.pdf" target="_blank"
+                        class="px-3 py-2 bg-white/60 dark:bg-black/40 hover:bg-white text-slate-800 dark:text-gray-200 font-bold rounded-xl text-xs flex items-center gap-1.5 border border-white/60 dark:border-white/10 transition-all">
+                        <i class="fas fa-external-link-alt text-xs"></i> Fullscreen
+                    </a>
+                </div>
+            </div>
+
+            <!-- PDF Selector Tabs -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-4 scrollbar-none">
+                <button onclick="loadPdf(0)" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap bg-amber-400 text-black border border-amber-400 transition-all">
+                    Module 0: Intro
+                </button>
+                <button onclick="loadPdf(1)" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap bg-white/40 dark:bg-black/30 text-slate-700 dark:text-gray-300 border border-white/50 dark:border-white/10 hover:border-amber-400 transition-all">
+                    Module 1: DDT
+                </button>
+                <button onclick="loadPdf(2)" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap bg-white/40 dark:bg-black/30 text-slate-700 dark:text-gray-300 border border-white/50 dark:border-white/10 hover:border-amber-400 transition-all">
+                    Module 2: Utilities
+                </button>
+                <button onclick="loadPdf(3)" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap bg-white/40 dark:bg-black/30 text-slate-700 dark:text-gray-300 border border-white/50 dark:border-white/10 hover:border-amber-400 transition-all">
+                    Module 3: POM
+                </button>
+                <button onclick="loadPdf(4)" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap bg-white/40 dark:bg-black/30 text-slate-700 dark:text-gray-300 border border-white/50 dark:border-white/10 hover:border-amber-400 transition-all">
+                    Module 4: TestNG
+                </button>
+                <button onclick="loadPdf(5)" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap bg-white/40 dark:bg-black/30 text-slate-700 dark:text-gray-300 border border-white/50 dark:border-white/10 hover:border-amber-400 transition-all">
+                    Module 5: Framework
+                </button>
+            </div>
+
+            <!-- PDF iFrame Frame -->
+            <div class="relative w-full rounded-2xl overflow-hidden bg-slate-900 border border-slate-700/50 shadow-inner">
+                <iframe id="pdf-iframe" src="pdfs/advance_selenium/0%20Introduction.pdf#toolbar=1"
+                    title="Advanced Selenium Notes PDF"
+                    class="w-full h-[650px] md:h-[750px] rounded-2xl border-none">
+                    <p class="text-center p-8 text-white">Your browser does not support embedded PDFs.
+                        <a href="pdfs/advance_selenium/0%20Introduction.pdf" class="text-amber-400 underline font-bold">Click here to download the PDF</a>.
+                    </p>
+                </iframe>
+            </div>
+        </section>
+
+        <!-- Back & Next Navigation CTA -->
+        <section class="bg-gradient-to-r from-amber-400/20 via-amber-400/10 to-transparent p-6 md:p-8 rounded-3xl border border-amber-400/30 flex flex-col md:flex-row items-center justify-between gap-6" data-aos="zoom-in">
+            <div>
+                <span class="text-[10px] uppercase font-bold text-amber-600 dark:text-amber-400 tracking-widest">Need Basic Foundations?</span>
+                <h3 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mt-1">Review Basic Selenium Notes</h3>
+                <p class="text-slate-600 dark:text-gray-400 text-xs md:text-sm mt-1 font-medium">Switch back to Goal 01 notes covering WebDriver setup, browser commands, and basic locators.</p>
+            </div>
+            <a href="basic-selenium-notes.html"
+                class="px-6 py-3 bg-white/80 dark:bg-black/40 hover:bg-amber-400 hover:text-black text-slate-900 dark:text-white font-bold rounded-xl text-xs md:text-sm whitespace-nowrap shadow-lg border border-white/60 dark:border-white/10 hover:scale-105 transition-all">
+                <i class="fas fa-arrow-left mr-2"></i> View Basic Notes
+            </a>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-10 border-t border-slate-300 dark:border-gray-800/50 text-center px-4">
+        <p class="text-slate-500 dark:text-gray-500 text-xs">
+            &copy; 2026 AutomationWithPiyush. Built for QA Automation Engineers.
+        </p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        const pdfList = [
+            {
+                title: "00. Introduction to Advanced Selenium",
+                file: "0 Introduction.pdf",
+                path: "pdfs/advance_selenium/0%20Introduction.pdf"
+            },
+            {
+                title: "01. Data Driven Testing (DDT)",
+                file: "1 DDT.pdf",
+                path: "pdfs/advance_selenium/1%20DDT.pdf"
+            },
+            {
+                title: "02. Generic Utilities Architecture",
+                file: "2 Generic utility.pdf",
+                path: "pdfs/advance_selenium/2%20Generic%20utility.pdf"
+            },
+            {
+                title: "03. Page Object Model (POM)",
+                file: "3 POM.pdf",
+                path: "pdfs/advance_selenium/3%20POM.pdf"
+            },
+            {
+                title: "04. TestNG Framework Engine",
+                file: "4 TestNG.pdf",
+                path: "pdfs/advance_selenium/4%20TestNG.pdf"
+            },
+            {
+                title: "05. Hybrid Automation Framework Design",
+                file: "5 Framework.pdf",
+                path: "pdfs/advance_selenium/5%20Framework.pdf"
+            }
+        ];
+
+        function loadPdf(index) {
+            const pdf = pdfList[index];
+            if (!pdf) return;
+
+            // Update iframe src
+            const iframe = document.getElementById('pdf-iframe');
+            iframe.src = pdf.path + '#toolbar=1';
+
+            // Update Titles and Links
+            document.getElementById('active-pdf-title').textContent = pdf.title;
+            
+            const downloadBtn = document.getElementById('active-pdf-download');
+            downloadBtn.href = pdf.path;
+            downloadBtn.setAttribute('download', pdf.file);
+
+            const fullscreenBtn = document.getElementById('active-pdf-fullscreen');
+            fullscreenBtn.href = pdf.path;
+
+            // Update Tab styles
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach((tab, i) => {
+                if (i === index) {
+                    tab.className = "tab-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap bg-amber-400 text-black border border-amber-400 transition-all";
+                } else {
+                    tab.className = "tab-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap bg-white/40 dark:bg-black/30 text-slate-700 dark:text-gray-300 border border-white/50 dark:border-white/10 hover:border-amber-400 transition-all";
+                }
+            });
+
+            // Scroll smoothly to viewer
+            const viewerSection = document.getElementById('viewer-section');
+            viewerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+        }
+    </script>
+</body>
+
+</html>
