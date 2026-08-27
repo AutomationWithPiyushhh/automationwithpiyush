@@ -438,33 +438,6 @@
 
             <div class="carousel-track" id="track">
 
-                <div class="carousel-slide flex-col text-center">
-                    <div class="shloka-text px-4" data-aos="zoom-out" data-aos-duration="1500">
-                        <h1
-                            class="text-xl md:text-3xl font-bold text-amber-500 dark:text-amber-400 mb-4 leading-relaxed drop-shadow-[0_2px_8px_rgba(250,204,21,0.2)]">
-                            ॐ सह नाववतु। सह नौ भुनक्तु।
-                        </h1>
-                        <h1
-                            class="text-xl md:text-3xl font-bold text-amber-500 dark:text-amber-400 mb-4 leading-relaxed drop-shadow-[0_2px_8px_rgba(250,204,21,0.2)]">
-                            सह वीर्यं करवावहै। तेजस्वि नावधीतमस्तु मा विद्विषावहै।
-                        </h1>
-                        <h2
-                            class="text-lg md:text-2xl text-amber-600/80 dark:text-amber-400/80 mb-8 leading-relaxed font-semibold">
-                            ॐ शान्तिः शान्तिः शान्तिः॥
-                        </h2>
-                        <div class="max-w-xl mx-auto border-t border-slate-300 dark:border-gray-700 pt-5 opacity-80">
-                            <p
-                                class="text-slate-700 dark:text-gray-300 text-xs md:text-sm italic font-light font-sans leading-relaxed">
-                                "Om, May the Lord protect and move us both together (teacher and student)
-                                May he nourish us both. May we both learn and practice together by gaining strength and
-                                energy.
-                                Our learning may get filled with brilliance, and may it not lead to hatred towards each
-                                other"
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="carousel-slide">
                     <div class="grid lg:grid-cols-2 gap-6 items-center w-full px-4 text-center lg:text-left">
                         <div>
@@ -561,7 +534,6 @@
                 class="carousel-nav bg-white/20 dark:bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/30 dark:border-white/5">
                 <div class="nav-dot active" onclick="jumpToSlide(0)"></div>
                 <div class="nav-dot" onclick="jumpToSlide(1)"></div>
-                <div class="nav-dot" onclick="jumpToSlide(2)"></div>
             </div>
         </div>
     </section>
@@ -1016,7 +988,7 @@
 
         // --- CAROUSEL LOGIC ---
         let currentSlide = 0;
-        const totalSlides = 3;
+        const totalSlides = 2;
         const track = document.getElementById('track');
         const dots = document.querySelectorAll('.nav-dot');
         const carouselContainer = document.getElementById('hero-carousel');
