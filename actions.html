@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actions Class | AutomationWithPiyush</title>
 
+    <script src="js/theme.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -435,32 +436,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 600, once: true });
-
-        // --- THEME LOGIC ---
-        function toggleTheme() {
-            document.documentElement.classList.toggle('dark');
-        }
-
-        // --- Basic Utils ---
-        function showToast(msg, isError = false) {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            if (isError) toast.style.borderLeftColor = '#ef4444';
-            toast.innerHTML = `<i class="fas ${isError ? 'fa-times-circle text-red-500' : 'fa-check-circle text-amber-500 dark:text-amber-400'} text-sm"></i> <span>${msg}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
-        }
-
-        // --- Click Handlers (Updated for theme compatibility) ---
-        function handleClick() {
-            const box = document.getElementById('click-box');
-            box.classList.add('border-amber-400', 'bg-amber-400/10');
-            document.getElementById('click-text').innerText = "Click Activated!";
-            document.getElementById('click-text').classList.add('text-amber-600', 'dark:text-amber-400');
-            document.getElementById('click-icon').classList.add('text-amber-500');
-            showToast("Left Click Verified");
-        }
 
         function handleContext(e) {
             e.preventDefault();
