@@ -6,7 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Popups & Windows | AutomationWithPiyush</title>
 
+    <script src="js/theme.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.6)',
+                            dark: 'rgba(30, 30, 40, 0.6)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -14,14 +30,35 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
 
         body {
-            background-color: #1a1b23;
-            color: #ffffff;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
 
-        .bg-card {
-            background-color: #252631;
+        :root body {
+            background-color: #f0f2f6 !important;
+            color: #1c1d21 !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.08), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.08), transparent 50%);
+            background-attachment: fixed;
+        }
+
+        :root .bg-card {
+            background-color: rgba(255, 255, 255, 0.6) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.8) !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .dark body {
+            background-color: #12131a !important;
+            color: #ffffff !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.04), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.04), transparent 50%);
+        }
+
+        .dark .bg-card {
+            background-color: rgba(30, 31, 40, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2) !important;
         }
 
         .text-accent {
@@ -156,7 +193,7 @@
         <div class="relative max-w-[90vw] max-h-[95vh] p-2 flex flex-col items-center">
             <button onclick="closeHint()"
                 class="absolute -top-10 right-0 text-white text-4xl hover:text-accent transition font-bold">&times;</button>
-            <img src="popups.png" alt="Popup Hint"
+            <img src="assets/images/popups.png" alt="Popup Hint"
                 class="rounded-lg shadow-2xl object-contain max-h-[85vh] w-auto border-2 border-gray-700">
             <p class="text-center text-gray-300 mt-4 font-mono text-sm bg-black/50 px-4 py-1 rounded-full">Click
                 anywhere to close</p>
@@ -164,10 +201,15 @@
     </div>
 
     <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-7xl mx-auto z-50">
-        <div class="flex items-center gap-3"></div>
-        <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">
+        <a href="index.html" class="text-slate-600 dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors text-xs font-semibold bg-white/40 dark:bg-black/30 px-3 py-1.5 rounded-full border border-white/50 dark:border-white/10 backdrop-blur-md shadow-sm">
             <i class="fas fa-arrow-left mr-2"></i> Back to Ward
         </a>
+        <button id="theme-toggle"
+            class="w-7 h-7 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-white/50 dark:border-white/10 flex items-center justify-center transition-all hover:scale-110"
+            onclick="toggleTheme()">
+            <i class="fas fa-moon dark:hidden text-slate-800 text-[10px]"></i>
+            <i class="fas fa-sun hidden dark:block text-amber-400 text-[10px]"></i>
+        </button>
     </nav>
 
     <header class="max-w-7xl mx-auto px-6 py-10" data-aos="fade-down">
@@ -317,7 +359,7 @@
             <div onclick="openHint()" class="cursor-pointer inline-block group relative">
                 <div class="absolute inset-0 bg-accent blur opacity-20 group-hover:opacity-50 transition duration-500">
                 </div>
-                <img src="popups.png" alt="Click for Hint"
+                <img src="assets/images/popups.png" alt="Click for Hint"
                     class="w-32 h-auto rounded-lg border border-gray-700 group-hover:border-accent transition transform group-hover:scale-105">
                 <div
                     class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/50 rounded-lg">
@@ -475,7 +517,7 @@
                     if (permission === "granted") {
                         new Notification("AutomationOPD", {
                             body: "Notifications enabled successfully!",
-                            icon: "awp.png"
+                            icon: "assets/images/awp.png"
                         });
                     } else {
                         showToast("Permission Denied / Closed");

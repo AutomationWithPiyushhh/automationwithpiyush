@@ -6,7 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebElement Interface</title>
 
+    <script src="js/theme.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.6)',
+                            dark: 'rgba(30, 30, 40, 0.6)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -17,12 +33,30 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
         body {
-            /* Warm, creamy gradient background matching the image */
-            background: linear-gradient(135deg, #fffcf5 0%, #f3ede0 100%);
-            color: #1f2937;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             min-height: 100vh;
+        }
+
+        :root body {
+            background: linear-gradient(135deg, #fffcf5 0%, #f3ede0 100%) !important;
+            color: #1f2937 !important;
+        }
+
+        .dark body {
+            background-color: #12131a !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.04), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.04), transparent 50%) !important;
+            color: #ffffff !important;
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 31, 40, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            color: #ffffff !important;
+        }
+
+        .dark .text-gray-900, .dark .text-gray-800 {
+            color: #ffffff !important;
         }
 
         /* Glassmorphism Classes */
@@ -258,11 +292,16 @@
     </div>
 
     <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-7xl mx-auto z-50">
-        <a href="#"
-            class="text-gray-500 hover:text-black transition-colors text-sm font-semibold flex items-center bg-white/40 px-4 py-2 rounded-full backdrop-blur-md border border-white/50">
+        <a href="index.html"
+            class="text-slate-600 dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors text-xs font-semibold flex items-center bg-white/40 dark:bg-black/30 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/50 dark:border-white/10 shadow-sm">
             <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
         </a>
-
+        <button id="theme-toggle"
+            class="w-7 h-7 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-white/50 dark:border-white/10 flex items-center justify-center transition-all hover:scale-110"
+            onclick="toggleTheme()">
+            <i class="fas fa-moon dark:hidden text-slate-800 text-[10px]"></i>
+            <i class="fas fa-sun hidden dark:block text-amber-400 text-[10px]"></i>
+        </button>
     </nav>
 
     <header class="max-w-7xl mx-auto px-6 py-6 mb-4" data-aos="fade-down">

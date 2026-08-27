@@ -5,19 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Module Coming Soon | AutomationWithPiyush</title>
-    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="icon" type="image/png" href="assets/images/icon.png">
+    <script src="js/theme.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.6)',
+                            dark: 'rgba(30, 30, 40, 0.6)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap');
 
         body {
-            background-color: #1a1b23;
-            color: #ffffff;
             font-family: 'Inter', sans-serif;
             overflow: hidden;
-            /* Prevent scrolling */
+        }
+
+        :root body {
+            background-color: #f0f2f6 !important;
+            color: #1c1d21 !important;
+        }
+
+        .dark body {
+            background-color: #12131a !important;
+            color: #ffffff !important;
         }
 
         /* Animated Background Grid */
@@ -118,6 +141,15 @@
 </head>
 
 <body class="h-screen w-full flex items-center justify-center relative">
+
+    <div class="absolute top-6 right-6 z-50">
+        <button id="theme-toggle"
+            class="w-8 h-8 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-white/50 dark:border-white/10 flex items-center justify-center transition-all hover:scale-110"
+            onclick="toggleTheme()">
+            <i class="fas fa-moon dark:hidden text-slate-800 text-xs"></i>
+            <i class="fas fa-sun hidden dark:block text-amber-400 text-xs"></i>
+        </button>
+    </div>
 
     <div class="absolute inset-0 bg-grid opacity-30 pointer-events-none"></div>
 

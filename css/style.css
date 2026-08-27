@@ -1,3 +1,7 @@
+/* Integrated root styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
 /* --- Root Variables: Light Theme Only --- */
 :root {
     --glass-bg: rgba(255, 255, 255, 0.65);

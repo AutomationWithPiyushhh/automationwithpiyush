@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AutomationWithPiyush Registration Portal</title>
-
+    <script src="js/theme.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -17,6 +17,32 @@
             background: #f4f4f4;
             margin: 0;
             padding: 40px;
+        }
+
+        .dark body {
+            background-color: #12131a;
+            color: #ffffff;
+        }
+
+        .dark .container {
+            background-color: #1e1f29;
+            box-shadow: 0 0 12px rgba(0, 0, 0, .5);
+        }
+
+        .dark h1 {
+            color: #facc15;
+        }
+
+        .dark input[type=text],
+        .dark input[type=email],
+        .dark input[type=password],
+        .dark input[type=date],
+        .dark input[type=file],
+        .dark select,
+        .dark textarea {
+            background-color: #1a1b23;
+            color: #ffffff;
+            border-color: #4b5563;
         }
 
         .container {
@@ -111,6 +137,12 @@
 <body>
 
     <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <a href="index.html" style="color: #0b5ed7; text-decoration: none; font-weight: bold; font-size: 14px;">&larr; Back to Hub</a>
+            <button id="theme-toggle" onclick="toggleTheme()" style="padding: 6px 14px; cursor: pointer; border-radius: 20px; border: 1px solid #ccc; font-weight: bold;">
+                Theme Switcher
+            </button>
+        </div>
 
         <h1>User Registration</h1>
 

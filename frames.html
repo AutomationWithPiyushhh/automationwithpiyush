@@ -4,20 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <title>Surgical Suite | Nested Frames</title>
+    <script src="js/theme.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.6)',
+                            dark: 'rgba(30, 30, 40, 0.6)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #1a1b23;
-            color: #d1d5db;
             font-family: 'Inter', sans-serif;
             padding: 40px;
         }
 
+        :root body {
+            background-color: #f0f2f6 !important;
+            color: #1c1d21 !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.08), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.08), transparent 50%);
+            background-attachment: fixed;
+        }
+
+        :root .frame-container {
+            background: rgba(255, 255, 255, 0.6) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.8) !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .dark body {
+            background-color: #12131a !important;
+            color: #d1d5db !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.04), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.04), transparent 50%);
+        }
+
+        .dark .frame-container {
+            background: rgba(30, 31, 40, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2) !important;
+        }
+
         /* --- THEME STYLES --- */
         .frame-container {
-            border: 1px solid #374151;
             padding: 10px;
-            background: #252631;
             border-radius: 8px;
             margin-bottom: 20px;
         }
@@ -65,13 +104,24 @@
 
 <body>
 
-    <header class="mb-12 border-b border-gray-700 pb-8">
-        <h1 class="text-4xl font-bold text-amber-400 mb-4">Surgical Suite: Frame Hierarchy</h1>
-        <p class="text-gray-400 max-w-2xl">
-            <strong>Training Objective:</strong> Practice complex context switching.
-            <br>
-            This exercise features multiple nested iframes simulating a surgical suite's web application.
-        </p>
+    <header class="mb-12 border-b border-gray-700 pb-8 flex justify-between items-start">
+        <div>
+            <a href="index.html" class="inline-flex items-center gap-2 text-slate-600 dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors text-xs font-semibold bg-white/40 dark:bg-black/30 px-3 py-1.5 rounded-full border border-white/50 dark:border-white/10 backdrop-blur-md shadow-sm mb-4">
+                <i class="fas fa-arrow-left mr-1"></i> Back to Hub
+            </a>
+            <h1 class="text-4xl font-bold text-amber-500 dark:text-amber-400 mb-4">Surgical Suite: Frame Hierarchy</h1>
+            <p class="text-slate-600 dark:text-gray-400 max-w-2xl">
+                <strong>Training Objective:</strong> Practice complex context switching.
+                <br>
+                This exercise features multiple nested iframes simulating a surgical suite's web application.
+            </p>
+        </div>
+        <button id="theme-toggle"
+            class="w-7 h-7 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-white/50 dark:border-white/10 flex items-center justify-center transition-all hover:scale-110"
+            onclick="toggleTheme()">
+            <i class="fas fa-moon dark:hidden text-slate-800 text-[10px]"></i>
+            <i class="fas fa-sun hidden dark:block text-amber-400 text-[10px]"></i>
+        </button>
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

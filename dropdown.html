@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Master QA Dropdown</title>
+    <script src="js/theme.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         /* --- Global Styles --- */
         body {
@@ -13,6 +15,61 @@
             color: #1c1e21;
             padding: 20px;
             margin: 0;
+        }
+
+        .dark body {
+            background-color: #12131a;
+            color: #ffffff;
+        }
+
+        .dark .card {
+            background-color: #1e1f29;
+            border-color: #374151;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .dark h1, .dark h2 {
+            color: #facc15;
+        }
+
+        .dark select, .dark input[type="text"] {
+            background-color: #1a1b23;
+            color: #ffffff;
+            border-color: #4b5563;
+        }
+
+        .dark .custom-dropdown-header {
+            background-color: #1a1b23;
+            border-color: #4b5563;
+            color: #ffffff;
+        }
+
+        .dark .custom-dropdown-list {
+            background-color: #1e1f29;
+            border-color: #4b5563;
+        }
+
+        .dark .custom-dropdown-list li {
+            border-bottom-color: #374151;
+            color: #ffffff;
+        }
+
+        .dark .custom-dropdown-list li:hover {
+            background-color: #374151;
+        }
+
+        .dark .suggestions-list {
+            background-color: #1e1f29;
+            border-color: #4b5563;
+        }
+
+        .dark .suggestions-list li {
+            border-bottom-color: #374151;
+            color: #ffffff;
+        }
+
+        .dark .suggestions-list li:hover {
+            background-color: #374151;
         }
 
         .main-container {
@@ -220,6 +277,12 @@
 <body>
 
     <div class="main-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <a href="index.html" style="color: #0056b3; text-decoration: none; font-weight: bold; font-size: 14px;">&larr; Back to Hub</a>
+            <button id="theme-toggle" onclick="toggleTheme()" style="padding: 6px 14px; cursor: pointer; border-radius: 20px; border: 1px solid #ccc; font-weight: bold;">
+                Theme Switcher
+            </button>
+        </div>
         <h1>DropDown/ListBox</h1>
 
         <!-- Toggle Buttons -->
