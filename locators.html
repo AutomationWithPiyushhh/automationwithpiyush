@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selenium Automation Practice</title>
+    <script src="js/theme.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         /* Classic Web 1.0 Styling */
         body {
@@ -12,6 +14,11 @@
             background-color: #e0e0e0;
             color: #000000;
             padding: 20px;
+        }
+
+        .dark body {
+            background-color: #12131a;
+            color: #ffffff;
         }
 
         .wrapper {
@@ -22,10 +29,58 @@
             border: 2px solid #000000;
         }
 
+        .dark .wrapper {
+            background-color: #1e1f29;
+            border-color: #374151;
+        }
+
+        .dark section {
+            background-color: #252631;
+            border-color: #4b5563;
+        }
+
+        .dark input {
+            background-color: #1a1b23;
+            color: #ffffff;
+            border-color: #4b5563;
+        }
+
+        .dark button {
+            background-color: #374151;
+            color: #ffffff;
+            border-color: #4b5563;
+        }
+
+        .dark table {
+            background-color: #1e1f29;
+            color: #ffffff;
+        }
+
+        .dark th {
+            background-color: #374151;
+            color: #ffffff;
+        }
+
+        .dark td {
+            border-color: #4b5563;
+        }
+
+        .dark label {
+            color: #facc15;
+        }
+
+        .dark a {
+            color: #93c5fd;
+        }
+
         h1,
         h2 {
             border-bottom: 2px solid #000000;
             padding-bottom: 5px;
+        }
+
+        .dark h1, .dark h2 {
+            border-bottom-color: #4b5563;
         }
 
         section {
@@ -115,12 +170,23 @@
             background: #ffffff;
             margin-top: 5px;
         }
+        
+        .dark .parent-wrapper {
+            background: #1a1b23;
+            border-color: #4b5563;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="wrapper">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <a href="index.html" style="font-size: 14px;">&larr; Back to Hub</a>
+            <button id="theme-toggle" onclick="toggleTheme()" style="padding: 4px 10px; cursor: pointer;">
+                Theme Switcher
+            </button>
+        </div>
         <h1>Selenium Locator Assessment</h1>
 
         <section id="traditional-locators">

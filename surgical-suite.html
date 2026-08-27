@@ -5,26 +5,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surgical Suite | AutomationWithPiyush</title>
+    <script src="js/theme.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.6)',
+                            dark: 'rgba(30, 30, 40, 0.6)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
 
         body {
-            background-color: #1a1b23;
-            color: #ffffff;
             font-family: 'Inter', sans-serif;
         }
 
+        :root body {
+            background-color: #f0f2f6 !important;
+            color: #1c1d21 !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.08), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.08), transparent 50%);
+            background-attachment: fixed;
+        }
+
+        :root .bg-card {
+            background-color: rgba(255, 255, 255, 0.6) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.8) !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .dark body {
+            background-color: #12131a !important;
+            color: #ffffff !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.04), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.04), transparent 50%);
+        }
+
+        .dark .bg-card {
+            background-color: rgba(30, 31, 40, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2) !important;
+        }
+
         .bg-card {
-            background-color: #252631;
-            border: 1px solid #374151;
             transition: all 0.3s ease;
         }
 
         .bg-card:hover {
-            border-color: #facc15;
+            border-color: #facc15 !important;
             transform: translateY(-5px);
         }
 
@@ -41,13 +80,21 @@
     <div class="max-w-7xl mx-auto">
         <header class="flex justify-between items-center mb-16" data-aos="fade-down">
             <div>
-                <h1 class="text-4xl font-bold">The <span class="text-amber-400">Surgical Suite</span></h1>
-                <p class="text-gray-400 mt-2 uppercase tracking-widest text-sm">Professional Automation Fellowship</p>
+                <h1 class="text-4xl font-bold text-slate-900 dark:text-white">The <span class="text-amber-500 dark:text-amber-400">Surgical Suite</span></h1>
+                <p class="text-slate-500 dark:text-gray-400 mt-2 uppercase tracking-widest text-sm">Professional Automation Fellowship</p>
             </div>
-            <a href="index.html"
-                class="px-6 py-2 border border-gray-700 rounded-lg hover:bg-gray-800 transition flex items-center gap-2">
-                <i class="fas fa-door-open text-red-500"></i> Discharge to OPD
-            </a>
+            <div class="flex items-center gap-4">
+                <a href="index.html"
+                    class="px-5 py-2 text-xs md:text-sm font-semibold text-slate-700 dark:text-gray-300 border border-slate-300 dark:border-gray-700 rounded-xl hover:bg-slate-200 dark:hover:bg-gray-800 transition flex items-center gap-2">
+                    <i class="fas fa-door-open text-red-500"></i> Discharge to OPD
+                </a>
+                <button id="theme-toggle"
+                    class="w-8 h-8 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-white/50 dark:border-white/10 flex items-center justify-center transition-all hover:scale-110"
+                    onclick="toggleTheme()">
+                    <i class="fas fa-moon dark:hidden text-slate-800 text-xs"></i>
+                    <i class="fas fa-sun hidden dark:block text-amber-400 text-xs"></i>
+                </button>
+            </div>
         </header>
 
         <div class="mb-16">

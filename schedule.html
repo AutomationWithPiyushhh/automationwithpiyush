@@ -5,7 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>20-Day Selenium Bootcamp | AutomationWithPiyush</title>
+    <script src="js/theme.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.6)',
+                            dark: 'rgba(30, 30, 40, 0.6)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -13,10 +29,39 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
 
         body {
-            background-color: #1a1b23;
-            color: #ffffff;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+        }
+
+        :root body {
+            background-color: #f0f2f6 !important;
+            color: #1c1d21 !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.08), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.08), transparent 50%);
+            background-attachment: fixed;
+        }
+
+        :root .day-card {
+            background-color: rgba(255, 255, 255, 0.6) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.8) !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        :root .day-number {
+            color: rgba(0, 0, 0, 0.06) !important;
+        }
+
+        .dark body {
+            background-color: #12131a !important;
+            color: #ffffff !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.04), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.04), transparent 50%);
+        }
+
+        .dark .day-card {
+            background-color: rgba(30, 31, 40, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2) !important;
         }
 
         .text-accent {
@@ -33,8 +78,6 @@
 
         /* Card Styles */
         .day-card {
-            background-color: #252631;
-            border: 1px solid #2d3748;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -42,7 +85,7 @@
 
         .day-card:hover {
             transform: translateY(-5px);
-            border-color: #facc15;
+            border-color: #facc15 !important;
             box-shadow: 0 10px 20px rgba(250, 204, 21, 0.1);
         }
 
@@ -64,7 +107,6 @@
         .day-number {
             font-size: 4rem;
             font-weight: 900;
-            color: rgba(255, 255, 255, 0.03);
             position: absolute;
             right: 10px;
             bottom: -10px;
@@ -74,7 +116,7 @@
         }
 
         .day-card:hover .day-number {
-            color: rgba(250, 204, 21, 0.1);
+            color: rgba(250, 204, 21, 0.2) !important;
         }
 
         /* Status Badge */
@@ -103,12 +145,15 @@
 <body class="pb-20">
 
     <nav class="flex justify-between items-center px-6 py-6 max-w-7xl mx-auto">
-        <div class="flex items-center gap-2">
-
-        </div>
-        <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">
-            <i class="fas fa-home mr-2"></i> Home
+        <a href="index.html" class="flex items-center gap-2 text-slate-600 dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors text-xs font-semibold bg-white/40 dark:bg-black/30 px-3 py-1.5 rounded-full border border-white/50 dark:border-white/10 backdrop-blur-md shadow-sm">
+            <i class="fa-solid fa-arrow-left"></i> Back to Hub
         </a>
+        <button id="theme-toggle"
+            class="w-7 h-7 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-white/50 dark:border-white/10 flex items-center justify-center transition-all hover:scale-110"
+            onclick="toggleTheme()">
+            <i class="fas fa-moon dark:hidden text-slate-800 text-[10px]"></i>
+            <i class="fas fa-sun hidden dark:block text-amber-400 text-[10px]"></i>
+        </button>
     </nav>
 
     <header class="max-w-7xl mx-auto px-6 py-12 text-center" data-aos="fade-down">

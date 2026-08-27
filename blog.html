@@ -7,7 +7,23 @@
     <title>Blog | AutomationWithPiyush</title>
 
     <link rel="icon" type="image/png" href="icon.png">
+    <script src="js/theme.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.6)',
+                            dark: 'rgba(30, 30, 40, 0.6)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -16,11 +32,38 @@
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
 
         body {
-            background-color: #1a1b23;
-            color: #ffffff;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
+        }
+
+        :root body {
+            background-color: #f0f2f6 !important;
+            color: #1c1d21 !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.08), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.08), transparent 50%);
+            background-attachment: fixed;
+        }
+
+        :root .bg-card {
+            background-color: rgba(255, 255, 255, 0.6) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.8) !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .dark body {
+            background-color: #12131a !important;
+            color: #ffffff !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.04), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.04), transparent 50%);
+        }
+
+        .dark .bg-card {
+            background-color: rgba(30, 31, 40, 0.6) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2) !important;
         }
 
         /* --- GLOBAL & UTILS --- */
@@ -126,23 +169,38 @@
             </a>
         </div>
 
-        <div class="hidden md:flex items-center gap-10 text-gray-400 font-medium text-sm lg:text-base">
-            <a href="index.html#practice" class="hover:text-amber-400 transition">Practice</a>
-            <a href="index.html#services" class="hover:text-amber-400 transition">Services</a>
-            <a href="index.html#works" class="hover:text-amber-400 transition">Works</a>
-            <a href="blog.html" class="text-amber-400 font-bold">Blog</a>
-            <a href="index.html#contact" class="hover:text-amber-400 transition">Contact</a>
+        <div class="hidden md:flex items-center gap-10 text-slate-700 dark:text-gray-300 font-medium text-sm lg:text-base">
+            <a href="index.html#practice" class="hover:text-amber-500 dark:hover:text-amber-400 transition">Practice</a>
+            <a href="index.html#services" class="hover:text-amber-500 dark:hover:text-amber-400 transition">Services</a>
+            <a href="index.html#works" class="hover:text-amber-500 dark:hover:text-amber-400 transition">Works</a>
+            <a href="blog.html" class="text-amber-500 dark:text-amber-400 font-bold">Blog</a>
+            <a href="index.html#contact" class="hover:text-amber-500 dark:hover:text-amber-400 transition">Contact</a>
+
+            <button id="theme-toggle-desktop"
+                class="w-8 h-8 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-white/50 dark:border-white/10 flex items-center justify-center transition-all hover:scale-110"
+                onclick="toggleTheme()">
+                <i class="fas fa-moon dark:hidden text-slate-800 text-xs"></i>
+                <i class="fas fa-sun hidden dark:block text-amber-400 text-xs"></i>
+            </button>
         </div>
 
-        <button class="md:hidden text-white text-3xl focus:outline-none" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </button>
+        <div class="flex items-center gap-3 md:hidden">
+            <button id="theme-toggle-mobile"
+                class="w-8 h-8 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-white/50 dark:border-white/10 flex items-center justify-center transition-all"
+                onclick="toggleTheme()">
+                <i class="fas fa-moon dark:hidden text-slate-800 text-xs"></i>
+                <i class="fas fa-sun hidden dark:block text-amber-400 text-xs"></i>
+            </button>
+            <button class="text-slate-800 dark:text-white text-xl focus:outline-none" onclick="toggleMenu()">
+                <i id="menu-icon" class="fas fa-bars drop-shadow-sm"></i>
+            </button>
+        </div>
 
         <div id="mobile-menu"
-            class="hidden fixed inset-0 bg-[#1a1b23] flex flex-col items-center justify-center gap-8 text-2xl z-[60] md:hidden">
-            <a href="index.html" class="hover:text-amber-400 transition" onclick="toggleMenu()">Home</a>
-            <a href="blog.html" class="text-amber-400 font-bold" onclick="toggleMenu()">Blog</a>
-            <button class="mt-4 text-amber-400 text-lg font-bold" onclick="toggleMenu()"><i
+            class="hidden fixed inset-0 bg-white/90 dark:bg-[#1a1b23]/95 backdrop-blur-3xl flex flex-col items-center justify-center gap-8 text-2xl z-[60] md:hidden">
+            <a href="index.html" class="hover:text-amber-500 dark:hover:text-amber-400 transition" onclick="toggleMenu()">Home</a>
+            <a href="blog.html" class="text-amber-500 dark:text-amber-400 font-bold" onclick="toggleMenu()">Blog</a>
+            <button class="mt-4 text-amber-500 dark:text-amber-400 text-lg font-bold" onclick="toggleMenu()"><i
                     class="fas fa-times mr-2"></i>Close</button>
         </div>
     </nav>

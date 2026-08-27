@@ -7,7 +7,23 @@
     <title>Mastering POM | AutomationWithPiyush</title>
 
     <link rel="icon" type="image/png" href="icon.png">
+    <script src="js/theme.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.6)',
+                            dark: 'rgba(30, 30, 40, 0.6)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -16,11 +32,30 @@
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
 
         body {
-            background-color: #1a1b23;
-            color: #d1d5db;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
+        }
+
+        :root body {
+            background-color: #f0f2f6 !important;
+            color: #1c1d21 !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.08), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.08), transparent 50%);
+            background-attachment: fixed;
+        }
+
+        :root h1, :root h2, :root h3, :root h4 {
+            color: #0f172a !important;
+        }
+
+        .dark body {
+            background-color: #12131a !important;
+            color: #d1d5db !important;
+            background-image: radial-gradient(circle at top right, rgba(250, 204, 21, 0.04), transparent 50%), radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.04), transparent 50%);
+        }
+
+        .dark h1, .dark h2, .dark h3, .dark h4 {
+            color: #ffffff !important;
         }
 
         /* --- TYPOGRAPHY & ACCENTS --- */
@@ -140,11 +175,19 @@
     <div id="progress-bar"></div>
 
     <nav class="relative flex justify-between items-center px-6 md:px-8 py-6 max-w-5xl mx-auto z-50">
-        <a href="blog.html" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+        <a href="blog.html" class="flex items-center gap-2 text-slate-600 dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors font-semibold text-xs">
             <i class="fas fa-arrow-left"></i> <span class="font-bold uppercase tracking-widest text-xs">Back to
                 Blog</span>
         </a>
-        <a href="index.html" class="text-amber-400 font-bold hover:opacity-80">AutomationWithPiyush</a>
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="text-amber-500 dark:text-amber-400 font-bold hover:opacity-80">AutomationWithPiyush</a>
+            <button id="theme-toggle"
+                class="w-8 h-8 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-white/50 dark:border-white/10 flex items-center justify-center transition-all hover:scale-110"
+                onclick="toggleTheme()">
+                <i class="fas fa-moon dark:hidden text-slate-800 text-xs"></i>
+                <i class="fas fa-sun hidden dark:block text-amber-400 text-xs"></i>
+            </button>
+        </div>
     </nav>
 
     <header class="max-w-4xl mx-auto px-6 pt-10 pb-16 text-center">
